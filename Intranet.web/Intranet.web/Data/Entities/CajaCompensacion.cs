@@ -14,5 +14,6 @@ namespace Intranet.web.Data.Entities
         [Display(Name = "Nombre de Entidad")]
         [MaxLength(50)]
         public String Nombre { get; set; }
+        public ICollection <Employee> Employees { get; set; }
     }
 }

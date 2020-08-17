@@ -14,5 +14,6 @@ namespace Intranet.web.Data.Entities
         [Display (Name ="Cargos de Empleados")]
         [MaxLength (40)]
         public String Position { get; set; }
+        public ICollection<Employee> Employees { get; set; }
     }
 }

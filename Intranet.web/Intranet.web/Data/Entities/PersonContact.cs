@@ -25,6 +25,7 @@ namespace Intranet.web.Data.Entities
         [Display(Name = "Parentesco")]
         [MaxLength(50)]
         public String relationship { get; set; }
+        public Employee Employee { get; set; }
 
     }
 }

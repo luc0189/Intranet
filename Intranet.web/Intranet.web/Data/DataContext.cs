@@ -32,7 +32,7 @@ namespace Intranet.web.Data
         public DbSet<SiteHeadquarters> SiteHeadquarters { get; set; }
         public DbSet<Sons> Sons { get; set; }
         public DbSet<StoreLeader> StoreLeaders { get; set; }
-        public DbSet<UserImage> UserImages { get; set; }
+        public DbSet<UserImages> UserImages { get; set; }
 
 
     }

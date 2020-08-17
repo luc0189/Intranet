@@ -14,5 +14,7 @@ namespace Intranet.web.Data.Entities
         [Display(Name ="Nombre del Area")]
         [MaxLength(40)]
         public String Nombre { get; set; }
+        public ICollection<Employee> Employees { get; set; }
+        public SiteHeadquarters SiteHeadquarters { get; set; }
     }
 }

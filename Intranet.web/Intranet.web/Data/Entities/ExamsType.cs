@@ -14,5 +14,7 @@ namespace Intranet.web.Data.Entities
         [MaxLength (120)]
         [Display(Name = "Nombre del Examen")]
         public String Name { get; set; }
+
+        public ICollection<Exams> Exams { get; set; }
     }
 }

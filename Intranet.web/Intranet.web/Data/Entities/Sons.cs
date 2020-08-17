@@ -23,5 +23,6 @@ namespace Intranet.web.Data.Entities
         [Display(Name = "Genero")]
         [MaxLength(50)]
         public int Genero { get; set; }
+        public Employee Employee { get; set; }
     }
 }

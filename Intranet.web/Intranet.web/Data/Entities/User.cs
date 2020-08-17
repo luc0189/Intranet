@@ -38,8 +38,10 @@ namespace Intranet.web.Data.Entities
         [Display(Name = "Lugar de Nacimiento")]
         [MaxLength(50)]
         public String SiteBirth { get; set; }
+
         [MaxLength(100, ErrorMessage = "The {0} field can not have more than {1} characters.")]
         public string Address { get; set; }
+
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Tipo RH")]
         [MaxLength(50)]

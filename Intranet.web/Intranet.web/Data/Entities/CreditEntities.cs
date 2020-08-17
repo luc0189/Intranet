@@ -13,5 +13,7 @@ namespace Intranet.web.Data.Entities
         [Display(Name = "Nombre de Entidad")]
         [MaxLength(100)]
         public String Name { get; set; }
+
+        public ICollection<Credit> Credits { get; set; }
     }
 }

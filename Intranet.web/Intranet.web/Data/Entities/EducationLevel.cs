@@ -14,5 +14,6 @@ namespace Intranet.web.Data.Entities
         [Display(Name = "Nivel Educativo")]
         [MaxLength(50)]
         public String Level { get; set; }
+        public Employee Employee { get; set; }
     }
 }
