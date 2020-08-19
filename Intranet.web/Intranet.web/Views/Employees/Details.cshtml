@@ -1,0 +1,225 @@
+﻿@model Intranet.web.Data.Entities.Employee
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Empleados</h2>
+
+<div>
+    <h4>Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Document)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Document)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Rh)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Rh)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Movil)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Movil)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="AddSons" class="btn btn-primary" asp-route-id="@Model.Id">Add Sons</a> |
+    <a asp-action="AddCredits" class="btn btn-primary" asp-route-id="@Model.Id">Add Creditos</a> |
+    <a asp-action="AddPersonContact" class="btn btn-primary" asp-route-id="@Model.Id">Add Person Contact</a> |
+    <a asp-action="AddExam" class="btn btn-primary" asp-route-id="@Model.Id">Add Exams</a> |
+
+    <a asp-action="Index" class="btn btn-success">Back to List</a>
+</div>
+@if (Model.Sons.Count == 0)
+{
+    <h5> No Sons added.</h5>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sons.FirstOrDefault().Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sons.FirstOrDefault().Datebirth)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sons.FirstOrDefault().Genero)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Sons)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Datebirth)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Genero)
+                    </td>
+                    <td>
+                        <a asp-action="EditSons" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="DetailsSons" class="btn btn-info" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="DeleteSons" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+------------------------------------------------------------------------------
+@if (Model.Credits.Count == 0)
+{
+    <h5> No Credits added.</h5>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().NumberL)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().Quotmonthly)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().TotalPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().DeadlinePay)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().StartDateLocal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().EndDateLocal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().IsActive)
+                </th>
+                <th>
+                    Entidad
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Credits)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberL)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quotmonthly)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeadlinePay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDateLocal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDateLocal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+               
+                <td>
+                    <a asp-action="EditCredits" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="DetailsCredits" class="btn btn-info" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="DeleteCredits" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+------------------------------------------------------------------------------
+@if (Model.PersonContacts.Count == 0)
+{
+    <h5> No Person Contacts added.</h5>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PersonContacts.FirstOrDefault().Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PersonContacts.FirstOrDefault().Telephone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PersonContacts.FirstOrDefault().relationship)
+                </th>
+               
+                
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.PersonContacts)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telephone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.relationship)
+                    </td>
+                  
+                    <td>
+                        <a asp-action="EditPersonContact" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="DetailsPersonContac" class="btn btn-info" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="DeletePersonContact" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

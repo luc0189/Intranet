@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Intranet.web.Data.Entities.Employee>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Empleados</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Document)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.FullName)
+            </th>
+          
+            <th>
+                @Html.DisplayNameFor(model => model.User.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Rh)
+            </th>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.User.Movil)
+            </th>
+            <th>
+                Hijos
+            </th>
+            <th>
+                Creditos
+            </th>
+            <th>
+               Persons Contact
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Document)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.FullName)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Rh)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Movil)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sons.Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Credits.Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonContacts.Count)
+            </td>
+            <td>
+                <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

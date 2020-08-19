@@ -23,16 +23,28 @@ namespace Intranet.web.Data
         {
             await _context.Database.EnsureCreatedAsync();
             await CheckRoles();
-            var manager = await CheckUserAsync("1010", "Juan", "Zuluaga", "jzuluaga55@gmail.com", "350 634 2747", "Calle Luna Calle Sol", "Manager");
-            var owner = await CheckUserAsync("2020", "Juan", "Zuluaga", "jzuluaga55@hotmail.com", "350 634 2747", "Calle Luna Calle Sol", "Owner");
-            var lessee = await CheckUserAsync("2020", "Juan", "Zuluaga", "carlos.zuluaga@globant.com", "350 634 2747", "Calle Luna Calle Sol", "Lessee");
+            var manager = await CheckUserAsync("1117498993", "Florencia", "Luis Carlos", "Sanchez Cabrera","luc0189@gmail.com",
+                                                "Jefe Sistemas", "Milan Caqueta", "Calle Luna Calle Sol",
+                                                "O+", true,"3107957939",true,  "Manager");
+            var employee = await CheckUserAsync("1117498993", "Florencia", "Luis ", "Sanchez ", "luc0187@gmail.com",
+                                                "Jefe Sistemas", "Milan Caqueta", "Calle Luna Calle Sol",
+                                                "O+", true, "3107957939", true, "Employe");
+            //var lessee = await CheckUserAsync("2020", "Juan", "Zuluaga", "carlos.zuluaga@globant.com", "350 634 2747", "Calle Luna Calle Sol", "Lessee");
           
             await CheckManagerAsync(manager);
+            await CheckEmployeAsync(employee);
          
            
         }
 
-    
+        private async Task CheckEmployeAsync(User user)
+        {
+            if (!_context.Employees.Any())
+            {
+                _context.Employees.Add(new Employee { User = user });
+                await _context.SaveChangesAsync();
+            }
+        }
 
         private async Task CheckManagerAsync(User user)
         {
@@ -43,7 +55,20 @@ namespace Intranet.web.Data
             }
         }
 
-        private async Task<User> CheckUserAsync(string document, string firstName, string lastName, string email, string phone, string address, string role)
+        private async Task<User> CheckUserAsync(
+            string document,
+            string siteExpidition,
+            string firstName,
+            string lastName,
+            string email,
+            string jodtitle,
+            string siteBirh,
+            string address,
+            string rh,
+            bool license,
+            string phone,
+            bool arl,
+            string role)
         {
             var user = await _userHelper.GetUserByEmailAsync(email);
             if (user == null)
@@ -55,8 +80,16 @@ namespace Intranet.web.Data
                     Email = email,
                     UserName = email,
                     PhoneNumber = phone,
+                    Movil= phone,
                     Address = address,
-                    Document = document
+                    Document = document,
+                    SiteExpedition=siteExpidition,
+                    JobTitle=jodtitle,
+                    SiteBirth=siteBirh,
+                    Rh=rh,
+                    License=license,
+                    Arl=arl
+                    
                 };
 
                 await _userHelper.AddUserAsync(user, "123456");
@@ -70,8 +103,11 @@ namespace Intranet.web.Data
         private async Task CheckRoles()
         {
             await _userHelper.CheckRoleAsync("Manager");
-            await _userHelper.CheckRoleAsync("Owner");
-            await _userHelper.CheckRoleAsync("Lessee");
+            await _userHelper.CheckRoleAsync("Recursoshumanos");
+            await _userHelper.CheckRoleAsync("purchasing");
+            await _userHelper.CheckRoleAsync("StoreLeader");
+            await _userHelper.CheckRoleAsync("UserApp");
+            await _userHelper.CheckRoleAsync("Employe");
         }
 
       

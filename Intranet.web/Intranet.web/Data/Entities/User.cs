@@ -10,7 +10,7 @@ namespace Intranet.web.Data.Entities
     public class User : IdentityUser
     {
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
-        [Display(Name = "Documento de Identidad")]
+        [Display(Name = "Document")]
         [MaxLength(10)]
         public String Document { get; set; }
 
@@ -30,9 +30,10 @@ namespace Intranet.web.Data.Entities
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
-        [Display(Name = "Cargo...  confirmar con Hoja de vida")]
+        [Display(Name = "Cargo")]
         [MaxLength(50)]
         public String JobTitle { get; set; }
+
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Lugar de Nacimiento")]
@@ -50,15 +51,16 @@ namespace Intranet.web.Data.Entities
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Carnet ")]
         public bool License { get; set; }
-        [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
-        [Display(Name = "numero Celular")]
+        
+        [Display(Name = "Movil")]
         [MaxLength(10)]
         public string Movil { get; set; }
+
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "ARL")]
         [MaxLength(50)]
         public bool Arl { get; set; }
 
-
+        public string FullName => $"{FirstName} {LastName}";
     }
 }
