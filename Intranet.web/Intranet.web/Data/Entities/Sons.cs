@@ -22,7 +22,7 @@ namespace Intranet.web.Data.Entities
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
         [Display(Name = "Genero")]
         [MaxLength(50)]
-        public int Genero { get; set; }
+        public String Genero { get; set; }
         public Employee Employee { get; set; }
     }
 }

@@ -7,16 +7,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Intranet.web.Data;
 using Intranet.web.Data.Entities;
+using Intranet.web.Models;
+using Intranet.Web.Helpers;
+using Intranet.web.Helpers;
 
 namespace Intranet.web.Controllers
 {
     public class EmployeesController : Controller
     {
         private readonly DataContext _dataContext;
+        private readonly IUserHelper _userHelper;
+        private readonly ICombosHelpers _combosHelpers;
+        private readonly IConverterHelper _converterHelper;
 
-        public EmployeesController(DataContext context)
+        public EmployeesController(DataContext context,
+            IUserHelper userHelper,ICombosHelpers combosHelpers,IConverterHelper converterHelper)
         {
             _dataContext = context;
+            _userHelper = userHelper;
+           _combosHelpers = combosHelpers;
+            _converterHelper = converterHelper;
         }
 
         // GET: Employees
@@ -57,26 +67,65 @@ namespace Intranet.web.Controllers
             return View(employee);
         }
 
-        // GET: Employees/Create
+       
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Employees/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id")] Employee employee)
+        public async Task<IActionResult> Create(AddUserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _dataContext.Add(employee);
-                await _dataContext.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var user =  await CreateUserAsync(model);
+                if (user!=null)
+                {
+                    var employe = new Employee
+                    {
+                        Credits = new List<Credit>(),
+                        Sons = new List<Sons>(),
+                        Endowments = new List<Endowment>(),
+                        Exams = new List<Exams>(),
+                        PersonContacts = new List<PersonContact>(),
+                        User= user
+                    };
+                    _dataContext.Employees.Add(employe);
+                    await _dataContext.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                ModelState.AddModelError(string.Empty, "The user Exist");
             }
-            return View(employee);
+            return View(model);
+        }
+
+        private async Task<User> CreateUserAsync(AddUserViewModel model)
+        {
+            var user = new User
+            {
+                Document = model.Document,
+                SiteExpedition = model.SiteExpedition,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Email = model.Username,
+                JobTitle = model.JobTitle,
+                SiteBirth = model.SiteBirth,
+                Address = model.Address,
+                Rh = model.Rh,
+                License = model.License,
+                Movil = model.Movil,
+                Arl = model.Arl
+            };
+            var result = await _userHelper.AddUserAsync(user, model.Password);
+            if (result.Succeeded)
+            {
+                user = await _userHelper.GetUserByEmailAsync(model.Username);
+                await _userHelper.AddUserToRoleAsync(user, "Employe");
+                return user;
+            }
+            return null;
         }
 
         // GET: Employees/Edit/5
@@ -162,6 +211,69 @@ namespace Intranet.web.Controllers
         private bool EmployeeExists(int id)
         {
             return _dataContext.Employees.Any(e => e.Id == id);
+        }
+        public async Task<IActionResult> AddExam(int? id)
+        {
+            if (id== null)
+            {
+                return NotFound();
+            }
+            var employe = await _dataContext.Employees.FindAsync(id);
+            if (employe==null)
+            {
+                return NotFound();
+            }
+            var model = new ExamViewModel
+            {
+                EmployeeId= employe.Id,
+                ExamTypes= _combosHelpers.GetComboExamTypes()
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddExam(ExamViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var examen = await _converterHelper.ToExamAsync(model, true);
+                _dataContext.Exams.Add(examen);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"Details/{model.EmployeeId}");
+            }
+            return View(model);
+        }
+
+        public async Task<IActionResult> AddSons(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var employe = await _dataContext.Employees.FindAsync(id);
+            if (employe == null)
+            {
+                return NotFound();
+            }
+            var model = new SonsViewModel
+            {
+                EmployeeId = employe.Id,
+               
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddSons(SonsViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var sons = await _converterHelper.ToSonsAsync(model, true);
+                _dataContext.Sons.Add(sons);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"Details/{model.EmployeeId}");
+            }
+            return View(model);
         }
     }
 }

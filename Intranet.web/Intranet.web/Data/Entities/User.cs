@@ -34,6 +34,10 @@ namespace Intranet.web.Data.Entities
         [MaxLength(50)]
         public String JobTitle { get; set; }
 
+        
+        [Display(Name = "Nivel Educativo")]
+        [MaxLength(50)]
+        public String NivelEducation { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Lugar de Nacimiento")]

@@ -26,9 +26,9 @@ namespace Intranet.web.Data
             var manager = await CheckUserAsync("1117498993", "Florencia", "Luis Carlos", "Sanchez Cabrera","luc0189@gmail.com",
                                                 "Jefe Sistemas", "Milan Caqueta", "Calle Luna Calle Sol",
                                                 "O+", true,"3107957939",true,  "Manager");
-            var employee = await CheckUserAsync("1117498993", "Florencia", "Luis ", "Sanchez ", "luc0187@gmail.com",
+           var employee = await CheckUserAsync("1117498993", "Florencia", "Luis ", "Sanchez ", "luc0187@gmail.com",
                                                 "Jefe Sistemas", "Milan Caqueta", "Calle Luna Calle Sol",
-                                                "O+", true, "3107957939", true, "Employe");
+                                              "O+", true, "3107957939", true, "Employe");
             //var lessee = await CheckUserAsync("2020", "Juan", "Zuluaga", "carlos.zuluaga@globant.com", "350 634 2747", "Calle Luna Calle Sol", "Lessee");
           
             await CheckManagerAsync(manager);

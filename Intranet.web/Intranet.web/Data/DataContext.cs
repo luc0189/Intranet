@@ -13,7 +13,7 @@ namespace Intranet.web.Data
         public DbSet<CajaCompensacion> CajaCompensacions { get; set; }
         public DbSet<Credit> Credits { get; set; }
         public DbSet<CreditEntities> CreditEntities { get; set; }
-        public DbSet<EducationLevel> EducationLevels { get; set; }
+  
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Endowment> Endowments { get; set; }
         public DbSet<Eps> Eps { get; set; }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Intranet.web.Data;
 using Intranet.web.Data.Entities;
+using Intranet.web.Helpers;
 using Intranet.Web.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -51,8 +52,8 @@ namespace Intranet.web
             });
             services.AddTransient<SeedDb>();
             services.AddScoped<IUserHelper, UserHelper>();
-           // services.AddScoped<ICombosHelper, CombosHelper>();
-            //services.AddScoped<IConverterHelper, ConverterHelper>();
+            services.AddScoped<ICombosHelpers, CombosHelpers>();
+            services.AddScoped<IConverterHelper, ConverterHelper>();
             //services.AddScoped<IImageHelper, ImageHelper>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
