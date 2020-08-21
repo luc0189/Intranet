@@ -9,22 +9,21 @@ namespace Intranet.web.Data.Entities
         
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Numero de libranza")]
-        [MaxLength(90)]
-        public int NumberL { get; set; }
+      
+        public String NumberL { get; set; }
         
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Cuota por Mes")]
-        [MaxLength(50)]
-        public int Quotmonthly { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
+        public long  Quotmonthly { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Valor Total")]
-        [MaxLength(30)]
-        public int TotalPrice { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
+        public long  TotalPrice { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Plazo")]
-        [MaxLength(50)]
         public int DeadlinePay { get; set; }
 
         [Display(Name = "Start Date")]

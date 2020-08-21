@@ -15,5 +15,6 @@ namespace Intranet.web.Data.Entities
         [MaxLength(50)]
         public String Nombre { get; set; }
         public ICollection<Area> Areas { get; set; }
+
     }
 }

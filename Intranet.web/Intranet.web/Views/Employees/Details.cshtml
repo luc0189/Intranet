@@ -35,6 +35,12 @@
             @Html.DisplayFor(model => model.User.Address)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.Area.Nombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Area.Nombre)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.User.Rh)
         </dt>
         <dd>
@@ -51,10 +57,11 @@
 <div>
     <a asp-action="Edit" class="btn btn-warning" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="AddSons" class="btn btn-primary" asp-route-id="@Model.Id">Add Sons</a> |
-    <a asp-action="AddCredits" class="btn btn-primary" asp-route-id="@Model.Id">Add Creditos</a> |
-    <a asp-action="AddPersonContact" class="btn btn-primary" asp-route-id="@Model.Id">Add Person Contact</a> |
+    <a asp-action="AddCredit" class="btn btn-primary" asp-route-id="@Model.Id">Add Creditos</a> |
+    <a asp-action="AddPerson" class="btn btn-primary" asp-route-id="@Model.Id">Add Person Contact</a> |
+    <a asp-action="AddEndowment" class="btn btn-primary" asp-route-id="@Model.Id">Add Endowment</a> |
     <a asp-action="AddExam" class="btn btn-primary" asp-route-id="@Model.Id">Add Exams</a> |
-
+  
     <a asp-action="Index" class="btn btn-success">Back to List</a>
 </div>
 @if (Model.Sons.Count == 0)
@@ -142,35 +149,35 @@ else
         <tbody>
             @foreach (var item in Model.Credits)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumberL)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quotmonthly)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalPrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DeadlinePay)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDateLocal)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDateLocal)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsActive)
-                </td>
-               
-                <td>
-                    <a asp-action="EditCredits" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="DetailsCredits" class="btn btn-info" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="DeleteCredits" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumberL)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quotmonthly)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeadlinePay)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDateLocal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDateLocal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsActive)
+                    </td>
+
+                    <td>
+                        <a asp-action="EditCredits" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="DetailsCredits" class="btn btn-info" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="DeleteCredits" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
@@ -194,8 +201,8 @@ else
                 <th>
                     @Html.DisplayNameFor(model => model.PersonContacts.FirstOrDefault().relationship)
                 </th>
-               
-                
+
+
                 <th></th>
             </tr>
         </thead>
@@ -212,7 +219,7 @@ else
                     <td>
                         @Html.DisplayFor(modelItem => item.relationship)
                     </td>
-                  
+
                     <td>
                         <a asp-action="EditPersonContact" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
                         <a asp-action="DetailsPersonContac" class="btn btn-info" asp-route-id="@item.Id">Details</a> |
@@ -223,3 +230,104 @@ else
         </tbody>
     </table>
 }
+------------------------------------------------------------------------------
+@if (Model.Exams.Count == 0)
+{
+    <h5> No Exams added.</h5>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Exams.FirstOrDefault().ExamsType.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Exams.FirstOrDefault().StartDateLocal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Exams.FirstOrDefault().EndDateLocal)
+                </th>
+
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Exams)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExamsType.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDateLocal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDateLocal)
+                    </td>
+
+                    <td>
+                        <a asp-action="EditPersonContact" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="DetailsPersonContac" class="btn btn-info" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="DeletePersonContact" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+------------------------------------------------------------------------------
+@if (Model.Endowments.Count == 0)
+{
+    <h5> No Endowments added.</h5>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().Detail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().Count)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().Size)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().DateDeliveryLocal)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Endowments)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Detail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Count)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Size)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateDeliveryLocal)
+                </td>
+                <td>
+                    <a asp-action="EditEndowment" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="DetailsEndowment" class="btn btn-info" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="DeleteEndowment" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+

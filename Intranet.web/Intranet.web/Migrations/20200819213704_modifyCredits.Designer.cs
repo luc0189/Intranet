@@ -4,14 +4,16 @@ using Intranet.web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Intranet.web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200819213704_modifyCredits")]
+    partial class modifyCredits
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,7 +63,8 @@ namespace Intranet.web.Migrations
 
                     b.Property<int?>("CreditEntitiesId");
 
-                    b.Property<int>("DeadlinePay");
+                    b.Property<int>("DeadlinePay")
+                        .HasMaxLength(50);
 
                     b.Property<int?>("EmployeeId");
 
@@ -69,14 +72,16 @@ namespace Intranet.web.Migrations
 
                     b.Property<bool>("IsActive");
 
-                    b.Property<string>("NumberL")
-                        .IsRequired();
+                    b.Property<int>("NumberL")
+                        .HasMaxLength(100);
 
-                    b.Property<long>("Quotmonthly");
+                    b.Property<int>("Quotmonthly")
+                        .HasMaxLength(50);
 
                     b.Property<DateTime>("StartDate");
 
-                    b.Property<long>("TotalPrice");
+                    b.Property<int>("TotalPrice")
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
@@ -143,7 +148,8 @@ namespace Intranet.web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Count");
+                    b.Property<int>("Count")
+                        .HasMaxLength(10);
 
                     b.Property<DateTime>("DateDelivery");
 
@@ -383,18 +389,14 @@ namespace Intranet.web.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<bool>("Activo");
-
                     b.Property<string>("Address")
                         .HasMaxLength(100);
 
-                    b.Property<bool>("Arl");
+                    b.Property<bool>("Arl")
+                        .HasMaxLength(50);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
-
-                    b.Property<string>("DateRetiro")
-                        .HasMaxLength(50);
 
                     b.Property<string>("Document")
                         .IsRequired()

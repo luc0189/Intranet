@@ -16,7 +16,7 @@ namespace Intranet.web.Data.Entities
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Cantidad")]
-        [MaxLength(10)]
+      
         public int Count { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
