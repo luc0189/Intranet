@@ -12,6 +12,9 @@ namespace Intranet.web.Helpers
         Task<PersonContact> ToPersonAsync(AddPersonContactViewModel model, bool isNew);
         Task<Endowment> ToAddEndowmentAsync(AddEndowmentViewModel model, bool isNew);
         Task<Area> ToAreaAsync(AddAreaViewModel model, bool isNew);
-
+        AddAreaViewModel ToAreaViewModel(Area area);
+        SonsViewModel ToSonViewModel(Sons son);
+        CreditViewModel ToCreditViewModel(Credit credit);
+        AddPersonContactViewModel ToPersonContactViewModel(PersonContact person);
     }
 }

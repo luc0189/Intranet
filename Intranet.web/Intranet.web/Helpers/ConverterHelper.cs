@@ -1,10 +1,13 @@
 ﻿using Intranet.web.Data;
 using Intranet.web.Data.Entities;
 using Intranet.web.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Security.Cryptography.Xml;
 using System.Threading.Tasks;
 
 namespace Intranet.web.Helpers
@@ -12,10 +15,13 @@ namespace Intranet.web.Helpers
     public class ConverterHelper : IConverterHelper
     {
         private readonly DataContext _dataContext;
+        private readonly ICombosHelpers _combosHelpers;
 
-        public ConverterHelper(DataContext dataContext)
+        public ConverterHelper(DataContext dataContext,
+            ICombosHelpers combosHelpers)
         {
             _dataContext = dataContext;
+           _combosHelpers = combosHelpers;
         }
 
         public async Task<Exams> ToExamAsync(ExamViewModel model, bool isNew)
@@ -33,18 +39,7 @@ namespace Intranet.web.Helpers
 
             };
         }
-        public async Task<Sons> ToSonsAsyncf(SonsViewModel model, bool isNew)
-        {
-            return new Sons
-            {
-                Id = isNew ? 0 : model.Id,
-                Name = model.Name,
-                Datebirth = model.Datebirth,
-                Genero= model.Genero,
-                Employee = await _dataContext.Employees.FindAsync(model.EmployeeId)
-
-            };
-        }
+       
 
         public async Task<Sons> ToSonsAsync(SonsViewModel model, bool isNew)
         {
@@ -108,11 +103,67 @@ namespace Intranet.web.Helpers
         {
             return new Area
             {
-                Id = isNew ? 0 : model.Id,
-               
+              Id = isNew ? 0 : model.Id,
               Nombre=model.Nombre,
-               SiteHeadquarters = await _dataContext.SiteHeadquarters.FindAsync(model.SiteId),
+              SiteHeadquarters= await _dataContext.SiteHeadquarters.FindAsync(model.SiteId)
+                
+            };
+        }
 
+        public AddAreaViewModel ToAreaViewModel(Area area)
+        {
+         return new AddAreaViewModel 
+         {
+             Id =  area.Id,
+             Nombre = area.Nombre,
+             SiteId=area.SiteHeadquarters.Id
+          
+         };
+        }
+
+        public SonsViewModel ToSonViewModel(Sons son)
+        {
+            return new SonsViewModel
+            {
+                Id = son.Id,
+                Name = son.Name,
+                Datebirth = son.Datebirth,
+                Genero = son.Genero,
+                EmployeeId = son.Employee.Id
+            };
+        }
+
+        public CreditViewModel ToCreditViewModel(Credit credit)
+        {
+            return new CreditViewModel
+            {
+                Id = credit.Id,
+                NumberL = credit.NumberL,
+                DeadlinePay = credit.DeadlinePay,
+                IsActive = credit.IsActive,
+                Quotmonthly = credit.Quotmonthly,
+                TotalPrice = credit.TotalPrice,
+                StartDate = credit.StartDate,
+                EndDate = credit.EndDate,
+                EmployeeIds = credit.Employee.Id,
+                EntityId = credit.CreditEntities.Id,
+                
+                Entityes = _combosHelpers.GetComboCreditEntities()
+
+
+            };
+        }
+
+        public AddPersonContactViewModel ToPersonContactViewModel(PersonContact person)
+        {
+            return new AddPersonContactViewModel
+            {
+                Id = person.Id,
+                Name = person.Name,
+                relationship = person.relationship,
+                Telephone = person.Telephone,
+                EmployeeId= person.Employee.Id
+                
             };
         }
     }

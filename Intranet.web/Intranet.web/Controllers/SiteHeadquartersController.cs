@@ -10,6 +10,7 @@ using Intranet.web.Data.Entities;
 using Intranet.Web.Helpers;
 using Intranet.web.Helpers;
 using Intranet.web.Models;
+using System.Security.Policy;
 
 namespace Intranet.web.Controllers
 {
@@ -186,6 +187,37 @@ namespace Intranet.web.Controllers
                 _datacontext.Areas.Add(sons);
                 await _datacontext.SaveChangesAsync();
                 return RedirectToAction($"Details/{model.SiteId}");
+            }
+            return View(model);
+        }
+
+        public async Task<IActionResult> EditArea(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var site = await _datacontext.Areas
+                .Include(s => s.SiteHeadquarters)
+                .FirstOrDefaultAsync(s => s.Id == id);
+            if (site == null)
+            {
+                return NotFound();
+            }
+           
+            return View(_converterHelper.ToAreaViewModel(site));
+        }
+       
+        [HttpPost]
+        public async Task<IActionResult> EditArea(AddAreaViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var area = await _converterHelper.ToAreaAsync(model, false);
+                _datacontext.Areas.Update(area);
+                await _datacontext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{model.SiteId}");
+               // return RedirectToAction($"Details/{model.SiteId}");
             }
             return View(model);
         }

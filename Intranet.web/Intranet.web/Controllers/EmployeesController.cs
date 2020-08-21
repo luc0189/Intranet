@@ -372,7 +372,97 @@ namespace Intranet.web.Controllers
             return View(model);
         }
 
-       
-       
+        public async Task<IActionResult> EditSon(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var son = await _dataContext.Sons
+                .Include(s => s.Employee)
+                .FirstOrDefaultAsync(s => s.Id == id);
+            if (son == null)
+            {
+                return NotFound();
+            }
+
+            return View(_converterHelper.ToSonViewModel(son));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditSon(SonsViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var sons = await _converterHelper.ToSonsAsync(model, false);
+                _dataContext.Sons.Update(sons);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");
+                // return RedirectToAction($"Details/{model.SiteId}");
+            }
+            return View(model);
+        }
+        public async Task<IActionResult> EditCredit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var credit = await _dataContext.Credits
+                .Include(s => s.Employee)
+                .Include(e=> e.CreditEntities)
+                .FirstOrDefaultAsync(s => s.Id == id);
+            if (credit == null)
+            {
+                return NotFound();
+            }
+
+            return View(_converterHelper.ToCreditViewModel(credit));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditCredit(CreditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var credit = await _converterHelper.ToEntitiesCreditAsync(model, false);
+                _dataContext.Credits.Update(credit);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{model.EmployeeIds}");
+                // return RedirectToAction($"Details/{model.SiteId}");
+            }
+            return View(model);
+        }
+
+        public async Task<IActionResult> EditPersonContact(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var person = await _dataContext.PersonContacts
+                .Include(s => s.Employee)
+                .FirstOrDefaultAsync(s => s.Id == id);
+            if (person == null)
+            {
+                return NotFound();
+            }
+
+            return View(_converterHelper.ToPersonContactViewModel(person));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditPersonContact(AddPersonContactViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var person = await _converterHelper.ToPersonAsync(model, false);
+                _dataContext.PersonContacts.Update(person);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");
+                // return RedirectToAction($"Details/{model.SiteId}");
+            }
+            return View(model);
+        }
     }
 }
