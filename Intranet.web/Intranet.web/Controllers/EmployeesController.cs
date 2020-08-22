@@ -19,17 +19,67 @@ namespace Intranet.web.Controllers
         private readonly IUserHelper _userHelper;
         private readonly ICombosHelpers _combosHelpers;
         private readonly IConverterHelper _converterHelper;
+        private readonly IImageHelper _imageHelper;
 
         public EmployeesController(DataContext context,
-            IUserHelper userHelper,ICombosHelpers combosHelpers,IConverterHelper converterHelper)
+            IUserHelper userHelper,
+            ICombosHelpers combosHelpers,
+            IConverterHelper converterHelper,
+            IImageHelper imageHelper)
         {
             _dataContext = context;
             _userHelper = userHelper;
            _combosHelpers = combosHelpers;
             _converterHelper = converterHelper;
+            _imageHelper = imageHelper;
+        }
+        public async Task<IActionResult> AddImage(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var employee = await _dataContext.Employees.FindAsync(id.Value);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            var model = new UserImageViewModel
+            {
+                Id = employee.Id
+            };
+
+            return View(model);
         }
 
-        // GET: Employees
+        [HttpPost]
+        public async Task<IActionResult> AddImage(UserImageViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var path = string.Empty;
+
+                if (model.ImageFile != null)
+                {
+                    path = await _imageHelper.UploadImageAsync(model.ImageFile);
+                }
+
+                var userImage = new UserImages
+                {
+                    ImageUrl = path,
+                    Employee = await _dataContext.Employees.FindAsync(model.Id)
+                };
+
+                _dataContext.UserImages.Add(userImage);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{model.Id}");
+            }
+
+            return View(model);
+        }
+
         public IActionResult Index()
         {
             return View( _dataContext.Employees
@@ -55,6 +105,7 @@ namespace Intranet.web.Controllers
                 .Include (e=> e.User)
                 .Include(e => e.Sons)
                 .Include(e => e.PersonContacts)
+                .Include(i => i.UserImages)
                 .Include(e => e.Credits)
                 .ThenInclude(c=> c.CreditEntities)
                 .Include(e => e.Exams)
@@ -140,6 +191,7 @@ namespace Intranet.web.Controllers
 
             var employee = await _dataContext.Employees
                 .Include(e=> e.User)
+                .Include(e=> e.UserImages)
                 .FirstOrDefaultAsync(e=> e.Id==id.Value);
             if (employee == null)
             {
@@ -158,7 +210,12 @@ namespace Intranet.web.Controllers
                 Movil=employee.User.Movil,
                 Rh= employee.User.Rh,
                 SiteBirth=employee.User.SiteBirth,
-                SiteExpedition=employee.User.SiteExpedition
+                SiteExpedition=employee.User.SiteExpedition,
+                Activo=employee.User.Activo,
+                DateRetiro=employee.User.DateRetiro,
+                NivelEducation=employee.User.NivelEducation,
+               
+                
             };
             return View(view);
         }
@@ -181,7 +238,10 @@ namespace Intranet.web.Controllers
                 employe.User.Movil = vista.Movil;
                 employe.User.Rh = vista.Rh;
                 employe.User.SiteBirth = vista.SiteBirth;
-                employe.User.SiteExpedition = vista.SiteExpedition;
+                employe.User.NivelEducation = vista.NivelEducation;
+                employe.User.Activo = vista.Activo;
+                employe.User.DateRetiro = vista.DateRetiro;
+                
 
                 await _userHelper.UpdateUserAsync(employe.User);
                 return RedirectToAction(nameof(Index));
@@ -613,7 +673,7 @@ namespace Intranet.web.Controllers
             return RedirectToAction($"{nameof(Details)}/{credit.Employee.Id}");
         }
         
-            public async Task<IActionResult> DeleteSon(int? id)
+        public async Task<IActionResult> DeleteSon(int? id)
         {
             if (id == null)
             {
@@ -631,6 +691,25 @@ namespace Intranet.web.Controllers
             _dataContext.Sons.Remove(sons);
             await _dataContext.SaveChangesAsync();
             return RedirectToAction($"{nameof(Details)}/{sons.Employee.Id}");
+        }
+        public async Task<IActionResult> DeleteImage(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var image = await _dataContext.UserImages
+                .Include(pi => pi.Employee)
+                .FirstOrDefaultAsync(pi => pi.Id == id.Value);
+            if (image == null)
+            {
+                return NotFound();
+            }
+
+            _dataContext.UserImages.Remove(image);
+            await _dataContext.SaveChangesAsync();
+            return RedirectToAction($"{nameof(Details)}/{image.Employee.Id}");
         }
     }
 }

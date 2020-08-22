@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Intranet.web.Data.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Intranet.web.Models
 {
-    public class EditUserViewModel
+    public class EditUserViewModel :UserImages
     {
         public int Id { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Document")]
-        [MaxLength(10)]
+        [MaxLength(30)]
         public String Document { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
@@ -35,6 +36,10 @@ namespace Intranet.web.Models
         [MaxLength(50)]
         public String JobTitle { get; set; }
 
+
+        [Display(Name = "Nivel Educativo")]
+        [MaxLength(50)]
+        public String NivelEducation { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Lugar de Nacimiento")]
@@ -59,7 +64,18 @@ namespace Intranet.web.Models
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "ARL")]
-        [MaxLength(50)]
+
         public bool Arl { get; set; }
+
+
+        [Display(Name = "Activo")]
+        public bool Activo { get; set; }
+
+
+        [Display(Name = "Fecha retiro")]
+        [MaxLength(50)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        public String DateRetiro { get; set; }
+
     }
 }

@@ -30,6 +30,9 @@
                 @Html.DisplayNameFor(model => model.User.Movil)
             </th>
             <th>
+                Exams
+            </th>
+            <th>
                 Hijos
             </th>
             <th>
@@ -44,40 +47,43 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.Document)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.FullName)
-                </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Document)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.FullName)
+            </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.Rh)
-                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Rh)
+            </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.Movil)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Sons.Count)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Credits.Count)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PersonContacts.Count)
-                </td>
-                <td>
-                    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Details</a> |
-                    <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog">Delete</button>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Movil)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Exams.Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sons.Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Credits.Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonContacts.Count)
+            </td>
+            <td>
+                <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Details</a> |
+                <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog">Delete</button>
 
-                </td>
-            </tr>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
