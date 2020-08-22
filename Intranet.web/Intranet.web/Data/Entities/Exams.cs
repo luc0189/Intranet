@@ -16,7 +16,7 @@ namespace Intranet.web.Data.Entities
         public DateTime StartDate { get; set; }
 
         [Display(Name = "End Date")]
-        [Required(ErrorMessage = "The field {0} is mandatory.")]
+       
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime EndDate { get; set; }
 

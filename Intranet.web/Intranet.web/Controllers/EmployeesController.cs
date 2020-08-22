@@ -13,7 +13,7 @@ using Intranet.web.Helpers;
 
 namespace Intranet.web.Controllers
 {
-    public class EmployeesController : Controller
+      public class EmployeesController : Controller
     {
         private readonly DataContext _dataContext;
         private readonly IUserHelper _userHelper;
@@ -227,6 +227,7 @@ namespace Intranet.web.Controllers
             }
             var model = new ExamViewModel
             {
+
                 EmployeeId= employe.Id,
                 ExamTypes= _combosHelpers.GetComboExamTypes()
             };
@@ -290,7 +291,9 @@ namespace Intranet.web.Controllers
             }
             var model = new CreditViewModel
             {
+
                 EmployeeIds = employe.Id,
+               
                 Entityes = _combosHelpers.GetComboCreditEntities()
             };
             return View(model);
@@ -463,6 +466,165 @@ namespace Intranet.web.Controllers
                 // return RedirectToAction($"Details/{model.SiteId}");
             }
             return View(model);
+        }
+
+        public async Task<IActionResult> EditExam(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var exams = await _dataContext.Exams
+                .Include(s => s.Employee)
+                .Include(e => e.ExamsType)
+                .FirstOrDefaultAsync(s => s.Id == id);
+            if (exams == null)
+            {
+                return NotFound();
+            }
+
+            return View(_converterHelper.ToExamViewModel(exams));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditExam(ExamViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var exam = await _converterHelper.ToExamAsync(model, false);
+                _dataContext.Exams.Update(exam);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");
+                // return RedirectToAction($"Details/{model.SiteId}");
+            }
+            return View(model);
+        }
+        public async Task<IActionResult> EditEndowment(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var endowment = await _dataContext.Endowments
+                .Include(s => s.Employee)
+                .FirstOrDefaultAsync(s => s.Id == id);
+            if (endowment == null)
+            {
+                return NotFound();
+            }
+
+            return View(_converterHelper.ToEndowmentViewModel(endowment));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditEndowment(AddEndowmentViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var endowment = await _converterHelper.ToAddEndowmentAsync(model, false);
+                _dataContext.Endowments.Update(endowment);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");
+                // return RedirectToAction($"Details/{model.SiteId}");
+            }
+            return View(model);
+        }
+        public async Task<IActionResult> DeleteExam(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var exams = await _dataContext.Exams
+                .Include(pi => pi.Employee)
+                .FirstOrDefaultAsync(pi => pi.Id == id.Value);
+            if (exams == null)
+            {
+                return NotFound();
+            }
+
+            _dataContext.Exams.Remove(exams);
+            await _dataContext.SaveChangesAsync();
+            return RedirectToAction($"{nameof(Details)}/{exams.Employee.Id}");
+        }
+        public async Task<IActionResult> DeleteEndowment(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var endowment = await _dataContext.Endowments
+                .Include(pi => pi.Employee)
+                .FirstOrDefaultAsync(pi => pi.Id == id.Value);
+            if (endowment == null)
+            {
+                return NotFound();
+            }
+
+            _dataContext.Endowments.Remove(endowment);
+            await _dataContext.SaveChangesAsync();
+            return RedirectToAction($"{nameof(Details)}/{endowment.Employee.Id}");
+        }
+        public async Task<IActionResult> DeletePersonContac(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var personContact = await _dataContext.PersonContacts
+                .Include(pi => pi.Employee)
+                .FirstOrDefaultAsync(pi => pi.Id == id.Value);
+            if (personContact == null)
+            {
+                return NotFound();
+            }
+
+            _dataContext.PersonContacts.Remove(personContact);
+            await _dataContext.SaveChangesAsync();
+            return RedirectToAction($"{nameof(Details)}/{personContact.Employee.Id}");
+        }
+
+        public async Task<IActionResult> DeleteCredit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var credit = await _dataContext.Credits
+                .Include(pi => pi.Employee)
+                .FirstOrDefaultAsync(pi => pi.Id == id.Value);
+            if (credit == null)
+            {
+                return NotFound();
+            }
+
+            _dataContext.Credits.Remove(credit);
+            await _dataContext.SaveChangesAsync();
+            return RedirectToAction($"{nameof(Details)}/{credit.Employee.Id}");
+        }
+        
+            public async Task<IActionResult> DeleteSon(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var sons = await _dataContext.Sons
+                .Include(pi => pi.Employee)
+                .FirstOrDefaultAsync(pi => pi.Id == id.Value);
+            if (sons == null)
+            {
+                return NotFound();
+            }
+
+            _dataContext.Sons.Remove(sons);
+            await _dataContext.SaveChangesAsync();
+            return RedirectToAction($"{nameof(Details)}/{sons.Employee.Id}");
         }
     }
 }

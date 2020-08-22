@@ -61,7 +61,7 @@
     <a asp-action="AddPerson" class="btn btn-primary" asp-route-id="@Model.Id">Add Person Contact</a> |
     <a asp-action="AddEndowment" class="btn btn-primary" asp-route-id="@Model.Id">Add Endowment</a> |
     <a asp-action="AddExam" class="btn btn-primary" asp-route-id="@Model.Id">Add Exams</a> |
-  
+
     <a asp-action="Index" class="btn btn-success">Back to List</a>
 </div>
 @if (Model.Sons.Count == 0)
@@ -100,8 +100,8 @@ else
                     </td>
                     <td>
                         <a asp-action="EditSon" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
-                       
-                        <a asp-action="DeleteSons" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
+
+                        <button data-id="@item.Id" class="btn btn-danger deleteSon" data-toggle="modal" data-target="#deleteDialog">Delete</button>
                     </td>
                 </tr>
             }
@@ -174,8 +174,8 @@ else
 
                     <td>
                         <a asp-action="EditCredit" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
-                      
-                        <a asp-action="DeleteCredit" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
+
+                        <button data-id="@item.Id" class="btn btn-danger deleteCredit" data-toggle="modal" data-target="#deleteDialog">Delete</button>
                     </td>
                 </tr>
             }
@@ -222,8 +222,8 @@ else
 
                     <td>
                         <a asp-action="EditPersonContact" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
-                      
-                        <a asp-action="DeletePersonContact" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
+
+                        <button data-id="@item.Id" class="btn btn-danger deletePerson" data-toggle="modal" data-target="#deleteDialog">Delete</button>
                     </td>
                 </tr>
             }
@@ -269,9 +269,9 @@ else
                     </td>
 
                     <td>
-                        <a asp-action="EditPersonContact" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
-                      
-                        <a asp-action="DeletePersonContact" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
+                        <a asp-action="EditExam" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
+
+                        <button data-id="@item.Id" class="btn btn-danger deleteExam" data-toggle="modal" data-target="#deleteDialog">Delete</button>
                     </td>
                 </tr>
             }
@@ -307,27 +307,96 @@ else
         <tbody>
             @foreach (var item in Model.Endowments)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Detail)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Count)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Size)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateDeliveryLocal)
-                </td>
-                <td>
-                    <a asp-action="EditEndowment" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
-                    
-                    <a asp-action="DeleteEndowment" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Detail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Count)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Size)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateDeliveryLocal)
+                    </td>
+                    <td>
+                        <a asp-action="EditEndowment" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
+
+                        <button data-id="@item.Id" class="btn btn-danger deleteEndowment" data-toggle="modal" data-target="#deleteDialog">Delete</button>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
 }
+
+<div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to delete the record?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="btnYesDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+    	$(document).ready(function () {
+        	// Delete item
+        	var item_to_delete;
+        	var action_to_delete;
+
+            $('.deleteEndowment').click((e) => {
+            	item_to_delete = e.currentTarget.dataset.id;
+            	action_to_delete = 1;
+        	});
+
+            $('.deleteExam').click((e) => {
+            	item_to_delete = e.currentTarget.dataset.id;
+            	action_to_delete = 2;
+            });
+            $('.deletePerson').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+                action_to_delete = 3;
+            });
+            $('.deleteCredit').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+                action_to_delete = 4;
+            });
+            $('.deleteSon').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+                action_to_delete = 5;
+            });
+
+        	$("#btnYesDelete").click(function () {
+            	if (action_to_delete == 1) {
+                    window.location.href = '/Employees/DeleteEndowment/' + item_to_delete;
+                } if (action_to_delete == 2) {
+                    window.location.href = '/Employees/DeleteExam/' + item_to_delete;
+                } if (action_to_delete == 3) {
+                    window.location.href = '/Employees/DeletePersonContac/' + item_to_delete;
+                } if (action_to_delete == 4) {
+                    window.location.href = '/Employees/DeleteCredit/' + item_to_delete;
+                } if (action_to_delete == 5) {
+                    window.location.href = '/Employees/DeleteSon/' + item_to_delete;
+                } 
+
+        	});
+    	});
+    </script>
+}
+
 

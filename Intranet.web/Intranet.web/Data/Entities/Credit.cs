@@ -28,24 +28,24 @@ namespace Intranet.web.Data.Entities
 
         [Display(Name = "Start Date")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public DateTime StartDate { get; set; }
 
         [Display(Name = "End Date")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public DateTime EndDate { get; set; }
 
         [Display(Name = "Is Active?")]
         public bool IsActive { get; set; }
 
         [Display(Name = "Start Date")]
-        [Required(ErrorMessage = "The field {0} is mandatory.")]
+       
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime StartDateLocal => StartDate.ToLocalTime();
 
         [Display(Name = "End Date")]
-        [Required(ErrorMessage = "The field {0} is mandatory.")]
+       
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime EndDateLocal => EndDate.ToLocalTime();
         public Employee Employee { get; set; }

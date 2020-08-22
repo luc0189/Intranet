@@ -16,5 +16,7 @@ namespace Intranet.web.Helpers
         SonsViewModel ToSonViewModel(Sons son);
         CreditViewModel ToCreditViewModel(Credit credit);
         AddPersonContactViewModel ToPersonContactViewModel(PersonContact person);
+        ExamViewModel ToExamViewModel(Exams exams);
+        AddEndowmentViewModel ToEndowmentViewModel(Endowment endowment);
     }
 }

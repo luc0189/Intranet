@@ -166,6 +166,35 @@ namespace Intranet.web.Helpers
                 
             };
         }
+
+        public ExamViewModel ToExamViewModel(Exams exams)
+        {
+           return new ExamViewModel
+           {
+               Id =  exams.Id,
+               StartDate = exams.StartDate.ToUniversalTime(),
+               EndDate = exams.StartDate.AddYears(1),
+               Employee = exams.Employee,
+               EmployeeId=exams.Employee.Id,
+               ExamTypeId= exams.ExamsType.Id,
+               ExamTypes = _combosHelpers.GetComboExamTypes()
+
+           };
+        }
+
+        public AddEndowmentViewModel ToEndowmentViewModel(Endowment endowment)
+        {
+            return new AddEndowmentViewModel
+            {
+                Id =  endowment.Id,
+                Detail = endowment.Detail,
+                Count = endowment.Count,
+                DateDelivery = endowment.DateDelivery.ToUniversalTime(),
+                Size = endowment.Size,
+                EmployeeId=endowment.Employee.Id,
+                Employee = endowment.Employee
+            };
+        }
     }
 }
 
