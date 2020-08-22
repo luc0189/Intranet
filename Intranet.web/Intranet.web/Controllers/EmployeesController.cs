@@ -1,19 +1,19 @@
-﻿using System;
+﻿using Intranet.web.Data;
+using Intranet.web.Data.Entities;
+using Intranet.web.Helpers;
+using Intranet.web.Models;
+using Intranet.Web.Helpers;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Intranet.web.Data;
-using Intranet.web.Data.Entities;
-using Intranet.web.Models;
-using Intranet.Web.Helpers;
-using Intranet.web.Helpers;
 
 namespace Intranet.web.Controllers
 {
-      public class EmployeesController : Controller
+    [Authorize(Roles = "Manager")]
+    public class EmployeesController : Controller
     {
         private readonly DataContext _dataContext;
         private readonly IUserHelper _userHelper;
@@ -29,7 +29,7 @@ namespace Intranet.web.Controllers
         {
             _dataContext = context;
             _userHelper = userHelper;
-           _combosHelpers = combosHelpers;
+            _combosHelpers = combosHelpers;
             _converterHelper = converterHelper;
             _imageHelper = imageHelper;
         }
@@ -82,18 +82,18 @@ namespace Intranet.web.Controllers
 
         public IActionResult Index()
         {
-            return View( _dataContext.Employees
+            return View(_dataContext.Employees
                 .Include(e => e.User)
-                .Include(e=> e.Sons)
-                .Include(e=> e.Area)
-                .ThenInclude(s=> s.SiteHeadquarters)
+                .Include(e => e.Sons)
+                .Include(e => e.Area)
+                .ThenInclude(s => s.SiteHeadquarters)
                 .Include(e => e.PersonContacts)
-                .Include(e=> e.Credits)
-                .Include(e=> e.Exams)
+                .Include(e => e.Credits)
+                .Include(e => e.Exams)
                 .Include(e => e.Endowments));
         }
 
-       
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -102,12 +102,12 @@ namespace Intranet.web.Controllers
             }
 
             var employee = await _dataContext.Employees
-                .Include (e=> e.User)
+                .Include(e => e.User)
                 .Include(e => e.Sons)
                 .Include(e => e.PersonContacts)
                 .Include(i => i.UserImages)
                 .Include(e => e.Credits)
-                .ThenInclude(c=> c.CreditEntities)
+                .ThenInclude(c => c.CreditEntities)
                 .Include(e => e.Exams)
                 .ThenInclude(t => t.ExamsType)
                 .Include(e => e.Endowments)
@@ -120,21 +120,21 @@ namespace Intranet.web.Controllers
             return View(employee);
         }
 
-       
+
         public IActionResult Create()
         {
             return View();
         }
 
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AddUserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user =  await CreateUserAsync(model);
-                if (user!=null)
+                var user = await CreateUserAsync(model);
+                if (user != null)
                 {
                     var employe = new Employee
                     {
@@ -143,7 +143,8 @@ namespace Intranet.web.Controllers
                         Endowments = new List<Endowment>(),
                         Exams = new List<Exams>(),
                         PersonContacts = new List<PersonContact>(),
-                        User= user
+                        UserImages = new List<UserImages>(),
+                        User = user
                     };
                     _dataContext.Employees.Add(employe);
                     await _dataContext.SaveChangesAsync();
@@ -169,7 +170,12 @@ namespace Intranet.web.Controllers
                 Rh = model.Rh,
                 License = model.License,
                 Movil = model.Movil,
-                Arl = model.Arl
+                Arl = model.Arl,
+                Activo=model.Activo,
+                DateRetiro=model.DateRetiro,
+                NivelEducation=model.NivelEducation,
+                UserName=model.Username
+                
             };
             var result = await _userHelper.AddUserAsync(user, model.Password);
             if (result.Succeeded)
@@ -181,7 +187,7 @@ namespace Intranet.web.Controllers
             return null;
         }
 
-       
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -190,9 +196,9 @@ namespace Intranet.web.Controllers
             }
 
             var employee = await _dataContext.Employees
-                .Include(e=> e.User)
-                .Include(e=> e.UserImages)
-                .FirstOrDefaultAsync(e=> e.Id==id.Value);
+                .Include(e => e.User)
+                .Include(e => e.UserImages)
+                .FirstOrDefaultAsync(e => e.Id == id.Value);
             if (employee == null)
             {
                 return NotFound();
@@ -202,26 +208,26 @@ namespace Intranet.web.Controllers
                 Address = employee.User.Address,
                 Document = employee.User.Document,
                 FirstName = employee.User.FirstName,
-                Id=employee.Id,
-                LastName=employee.User.LastName,
-                License= employee.User.License,
-                Arl=employee.User.Arl,
-                JobTitle=employee.User.JobTitle,
-                Movil=employee.User.Movil,
-                Rh= employee.User.Rh,
-                SiteBirth=employee.User.SiteBirth,
-                SiteExpedition=employee.User.SiteExpedition,
-                Activo=employee.User.Activo,
-                DateRetiro=employee.User.DateRetiro,
-                NivelEducation=employee.User.NivelEducation,
-               
-                
+                Id = employee.Id,
+                LastName = employee.User.LastName,
+                License = employee.User.License,
+                Arl = employee.User.Arl,
+                JobTitle = employee.User.JobTitle,
+                Movil = employee.User.Movil,
+                Rh = employee.User.Rh,
+                SiteBirth = employee.User.SiteBirth,
+                SiteExpedition = employee.User.SiteExpedition,
+                Activo = employee.User.Activo,
+                DateRetiro = employee.User.DateRetiro,
+                NivelEducation = employee.User.NivelEducation,
+
+
             };
             return View(view);
         }
 
         [HttpPost]
-       public async Task<IActionResult> Edit(EditUserViewModel vista)
+        public async Task<IActionResult> Edit(EditUserViewModel vista)
         {
             if (ModelState.IsValid)
             {
@@ -241,7 +247,7 @@ namespace Intranet.web.Controllers
                 employe.User.NivelEducation = vista.NivelEducation;
                 employe.User.Activo = vista.Activo;
                 employe.User.DateRetiro = vista.DateRetiro;
-                
+
 
                 await _userHelper.UpdateUserAsync(employe.User);
                 return RedirectToAction(nameof(Index));
@@ -256,25 +262,37 @@ namespace Intranet.web.Controllers
             }
 
             var employee = await _dataContext.Employees
+                .Include(e=> e.User)
+                .Include(e=>e.PersonContacts)
+                .Include(e=>e.Sons)
+                .Include(e=>e.UserImages)
+                .Include(e=>e.Endowments)
+                .Include(e=>e.Credits)
+                
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (employee == null)
             {
                 return NotFound();
             }
+            if (employee.PersonContacts.Count!=0 ||
+                employee.Sons.Count != 0 ||
+                employee.UserImages.Count != 0||
+                employee.Endowments.Count != 0||
+                employee.Credits.Count != 0)
+            {
+                ModelState.AddModelError(string.Empty, "Valide los detalles antes de Borrar");
+                return RedirectToAction(nameof(Index));
+            }
 
-            return View(employee);
-        }
-
-        // POST: Employees/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var employee = await _dataContext.Employees.FindAsync(id);
             _dataContext.Employees.Remove(employee);
             await _dataContext.SaveChangesAsync();
+            await _userHelper.DeleteUserAsync(employee.User.Email);
             return RedirectToAction(nameof(Index));
+
+            
         }
+
+      
 
         private bool EmployeeExists(int id)
         {
@@ -282,20 +300,20 @@ namespace Intranet.web.Controllers
         }
         public async Task<IActionResult> AddExam(int? id)
         {
-            if (id== null)
+            if (id == null)
             {
                 return NotFound();
             }
             var employe = await _dataContext.Employees.FindAsync(id);
-            if (employe==null)
+            if (employe == null)
             {
                 return NotFound();
             }
             var model = new ExamViewModel
             {
 
-                EmployeeId= employe.Id,
-                ExamTypes= _combosHelpers.GetComboExamTypes()
+                EmployeeId = employe.Id,
+                ExamTypes = _combosHelpers.GetComboExamTypes()
             };
             return View(model);
         }
@@ -327,7 +345,7 @@ namespace Intranet.web.Controllers
             var model = new SonsViewModel
             {
                 EmployeeId = employe.Id,
-               
+
             };
             return View(model);
         }
@@ -359,7 +377,7 @@ namespace Intranet.web.Controllers
             {
 
                 EmployeeIds = employe.Id,
-               
+
                 Entityes = _combosHelpers.GetComboCreditEntities()
             };
             return View(model);
@@ -479,7 +497,7 @@ namespace Intranet.web.Controllers
             }
             var credit = await _dataContext.Credits
                 .Include(s => s.Employee)
-                .Include(e=> e.CreditEntities)
+                .Include(e => e.CreditEntities)
                 .FirstOrDefaultAsync(s => s.Id == id);
             if (credit == null)
             {
@@ -672,7 +690,7 @@ namespace Intranet.web.Controllers
             await _dataContext.SaveChangesAsync();
             return RedirectToAction($"{nameof(Details)}/{credit.Employee.Id}");
         }
-        
+
         public async Task<IActionResult> DeleteSon(int? id)
         {
             if (id == null)

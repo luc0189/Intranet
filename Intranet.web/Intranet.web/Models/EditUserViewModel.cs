@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Intranet.web.Models
 {
-    public class EditUserViewModel :UserImages
+    public class EditUserViewModel 
     {
         public int Id { get; set; }
 
