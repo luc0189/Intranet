@@ -1,13 +1,6 @@
 ﻿using Intranet.web.Data;
 using Intranet.web.Data.Entities;
 using Intranet.web.Models;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Security.Cryptography.Xml;
 using System.Threading.Tasks;
 
 namespace Intranet.web.Helpers
@@ -21,25 +14,25 @@ namespace Intranet.web.Helpers
             ICombosHelpers combosHelpers)
         {
             _dataContext = dataContext;
-           _combosHelpers = combosHelpers;
+            _combosHelpers = combosHelpers;
         }
 
         public async Task<Exams> ToExamAsync(ExamViewModel model, bool isNew)
         {
             return new Exams
             {
-                Id= isNew ? 0 : model.Id,
+                Id = isNew ? 0 : model.Id,
                 StartDate = model.StartDate,
                 EndDate = model.EndDate,
-                Employee= await _dataContext.Employees.FindAsync(model.EmployeeId),
-               
+                Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
+
                 ExamsType = await _dataContext.ExamsTypes.FindAsync(model.ExamTypeId)
-                
+
 
 
             };
         }
-       
+
 
         public async Task<Sons> ToSonsAsync(SonsViewModel model, bool isNew)
         {
@@ -58,11 +51,11 @@ namespace Intranet.web.Helpers
             return new Credit
             {
                 Id = isNew ? 0 : model.Id,
-                NumberL=model.NumberL,
-                DeadlinePay=model.DeadlinePay,
-                IsActive=model.IsActive,
-                Quotmonthly=model.Quotmonthly,
-                TotalPrice=model.TotalPrice,
+                NumberL = model.NumberL,
+                DeadlinePay = model.DeadlinePay,
+                IsActive = model.IsActive,
+                Quotmonthly = model.Quotmonthly,
+                TotalPrice = model.TotalPrice,
                 StartDate = model.StartDate,
                 EndDate = model.EndDate,
                 Employee = await _dataContext.Employees.FindAsync(model.EmployeeIds),
@@ -78,22 +71,22 @@ namespace Intranet.web.Helpers
             return new PersonContact
             {
                 Id = isNew ? 0 : model.Id,
-               Name=model.Name,
-               relationship=model.relationship,
-               Telephone=model.Telephone,
+                Name = model.Name,
+                relationship = model.relationship,
+                Telephone = model.Telephone,
                 Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
 
             };
-        } 
+        }
         public async Task<Endowment> ToAddEndowmentAsync(AddEndowmentViewModel model, bool isNew)
         {
             return new Endowment
             {
                 Id = isNew ? 0 : model.Id,
-                Detail=model.Detail,
-                Count=model.Count,
-                 DateDelivery=model.DateDelivery,
-                 Size=model.Size,
+                Detail = model.Detail,
+                Count = model.Count,
+                DateDelivery = model.DateDelivery,
+                Size = model.Size,
                 Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
 
             };
@@ -103,22 +96,22 @@ namespace Intranet.web.Helpers
         {
             return new Area
             {
-              Id = isNew ? 0 : model.Id,
-              Nombre=model.Nombre,
-              SiteHeadquarters= await _dataContext.SiteHeadquarters.FindAsync(model.SiteId)
-                
+                Id = isNew ? 0 : model.Id,
+                Nombre = model.Nombre,
+                SiteHeadquarters = await _dataContext.SiteHeadquarters.FindAsync(model.SiteId)
+
             };
         }
 
         public AddAreaViewModel ToAreaViewModel(Area area)
         {
-         return new AddAreaViewModel 
-         {
-             Id =  area.Id,
-             Nombre = area.Nombre,
-             SiteId=area.SiteHeadquarters.Id
-          
-         };
+            return new AddAreaViewModel
+            {
+                Id = area.Id,
+                Nombre = area.Nombre,
+                SiteId = area.SiteHeadquarters.Id
+
+            };
         }
 
         public SonsViewModel ToSonViewModel(Sons son)
@@ -147,7 +140,7 @@ namespace Intranet.web.Helpers
                 EndDate = credit.EndDate,
                 EmployeeIds = credit.Employee.Id,
                 EntityId = credit.CreditEntities.Id,
-                
+
                 Entityes = _combosHelpers.GetComboCreditEntities()
 
 
@@ -162,36 +155,36 @@ namespace Intranet.web.Helpers
                 Name = person.Name,
                 relationship = person.relationship,
                 Telephone = person.Telephone,
-                EmployeeId= person.Employee.Id
-                
+                EmployeeId = person.Employee.Id
+
             };
         }
 
         public ExamViewModel ToExamViewModel(Exams exams)
         {
-           return new ExamViewModel
-           {
-               Id =  exams.Id,
-               StartDate = exams.StartDate.ToUniversalTime(),
-               EndDate = exams.StartDate.AddYears(1),
-               Employee = exams.Employee,
-               EmployeeId=exams.Employee.Id,
-               ExamTypeId= exams.ExamsType.Id,
-               ExamTypes = _combosHelpers.GetComboExamTypes()
+            return new ExamViewModel
+            {
+                Id = exams.Id,
+                StartDate = exams.StartDate.ToUniversalTime(),
+                EndDate = exams.StartDate.AddYears(1),
+                Employee = exams.Employee,
+                EmployeeId = exams.Employee.Id,
+                ExamTypeId = exams.ExamsType.Id,
+                ExamTypes = _combosHelpers.GetComboExamTypes()
 
-           };
+            };
         }
 
         public AddEndowmentViewModel ToEndowmentViewModel(Endowment endowment)
         {
             return new AddEndowmentViewModel
             {
-                Id =  endowment.Id,
+                Id = endowment.Id,
                 Detail = endowment.Detail,
                 Count = endowment.Count,
                 DateDelivery = endowment.DateDelivery.ToUniversalTime(),
                 Size = endowment.Size,
-                EmployeeId=endowment.Employee.Id,
+                EmployeeId = endowment.Employee.Id,
                 Employee = endowment.Employee
             };
         }

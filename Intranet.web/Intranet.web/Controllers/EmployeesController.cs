@@ -130,7 +130,7 @@ namespace Intranet.web.Controllers
             return null;
         }
 
-        // GET: Employees/Edit/5
+       
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -138,50 +138,56 @@ namespace Intranet.web.Controllers
                 return NotFound();
             }
 
-            var employee = await _dataContext.Employees.FindAsync(id);
+            var employee = await _dataContext.Employees
+                .Include(e=> e.User)
+                .FirstOrDefaultAsync(e=> e.Id==id.Value);
             if (employee == null)
             {
                 return NotFound();
             }
-            return View(employee);
+            var view = new EditUserViewModel
+            {
+                Address = employee.User.Address,
+                Document = employee.User.Document,
+                FirstName = employee.User.FirstName,
+                Id=employee.Id,
+                LastName=employee.User.LastName,
+                License= employee.User.License,
+                Arl=employee.User.Arl,
+                JobTitle=employee.User.JobTitle,
+                Movil=employee.User.Movil,
+                Rh= employee.User.Rh,
+                SiteBirth=employee.User.SiteBirth,
+                SiteExpedition=employee.User.SiteExpedition
+            };
+            return View(view);
         }
 
-        // POST: Employees/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id")] Employee employee)
+       public async Task<IActionResult> Edit(EditUserViewModel vista)
         {
-            if (id != employee.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _dataContext.Update(employee);
-                    await _dataContext.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!EmployeeExists(employee.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                var employe = await _dataContext.Employees
+                    .Include(e => e.User)
+                    .FirstOrDefaultAsync(e => e.Id == vista.Id);
+                employe.User.Document = vista.Document;
+                employe.User.Address = vista.Address;
+                employe.User.FirstName = vista.FirstName;
+                employe.User.LastName = vista.LastName;
+                employe.User.License = vista.License;
+                employe.User.Arl = vista.Arl;
+                employe.User.JobTitle = vista.JobTitle;
+                employe.User.Movil = vista.Movil;
+                employe.User.Rh = vista.Rh;
+                employe.User.SiteBirth = vista.SiteBirth;
+                employe.User.SiteExpedition = vista.SiteExpedition;
+
+                await _userHelper.UpdateUserAsync(employe.User);
                 return RedirectToAction(nameof(Index));
             }
-            return View(employee);
+            return View(vista);
         }
-
-        // GET: Employees/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
