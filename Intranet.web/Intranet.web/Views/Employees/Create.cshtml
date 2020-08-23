@@ -10,116 +10,34 @@
 <hr />
 <div class="row">
     
-        <form asp-action="Create">
-            <div class="col-md-4">
-
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-               
-
-                <div class="form-group">
-                    <label asp-for="Document" class="control-label"></label>
-                    <input asp-for="Document" class="form-control" />
-                    <span asp-validation-for="Document" class="text-danger"></span>
-                </div>
-                
-                <div class="form-group">
-                    <label asp-for="FirstName" class="control-label"></label>
-                    <input asp-for="FirstName" class="form-control" />
-                    <span asp-validation-for="FirstName" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="LastName" class="control-label"></label>
-                    <input asp-for="LastName" class="form-control" />
-                    <span asp-validation-for="LastName" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Address" class="control-label"></label>
-                    <input asp-for="Address" class="form-control" />
-                    <span asp-validation-for="Address" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Movil" class="control-label"></label>
-                    <input asp-for="Movil" class="form-control" />
-                    <span asp-validation-for="Movil" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="SiteBirth" class="control-label"></label>
-                    <input asp-for="SiteBirth" class="form-control" />
-                    <span asp-validation-for="SiteBirth" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="SiteExpedition" class="control-label"></label>
-                    <input asp-for="SiteExpedition" class="form-control" />
-                    <span asp-validation-for="SiteExpedition" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                    <a asp-action="Index" class="btn btn-success">Back to List</a>
-                </div>
-
+    <form asp-action="Create">
+        <partial name="_User" />
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
             </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label asp-for="Activo" class="control-label"></label>
-                    <input asp-for="Activo" class="form-control" />
-                    <span asp-validation-for="Activo" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="DateRetiro" class="control-label"></label>
-                    <input asp-for="DateRetiro" class="form-control" />
-                    <span asp-validation-for="DateRetiro" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="NivelEducation" class="control-label"></label>
-                    <input asp-for="NivelEducation" class="form-control" />
-                    <span asp-validation-for="NivelEducation" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="JobTitle" class="control-label"></label>
-                    <input asp-for="JobTitle" class="form-control" />
-                    <span asp-validation-for="JobTitle" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="License" class="control-label"></label>
-                    <input asp-for="License" class="form-control" />
-                    <span asp-validation-for="License" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Arl" class="control-label"></label>
-                    <input asp-for="Arl" class="form-control" />
-                    <span asp-validation-for="Arl" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Rh" class="control-label"></label>
-                    <input asp-for="Rh" class="form-control" />
-                    <span asp-validation-for="Rh" class="text-danger"></span>
-                </div>
-                
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label asp-for="Username" class="control-label"></label>
-                    <input asp-for="Username" class="form-control" />
-                    <span asp-validation-for="Username" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Password" class="control-label"></label>
-                    <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="PasswordConfirm" class="control-label"></label>
-                    <input asp-for="PasswordConfirm" class="form-control" />
-                    <span asp-validation-for="PasswordConfirm" class="text-danger"></span>
-                </div>
+            <div class="form-group">
+                <label asp-for="PasswordConfirm" class="control-label"></label>
+                <input asp-for="PasswordConfirm" class="form-control" />
+                <span asp-validation-for="PasswordConfirm" class="text-danger"></span>
             </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-success">Back to List</a>
+            </div>
+        </div>
+       
 
-            
-        </form>
+    </form>
   
 </div>
 

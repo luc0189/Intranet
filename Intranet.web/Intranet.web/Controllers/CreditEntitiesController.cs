@@ -130,21 +130,14 @@ namespace Intranet.web.Controllers
             {
                 return NotFound();
             }
-
-            return View(creditEntities);
-        }
-
-        // POST: CreditEntities/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var creditEntities = await _context.CreditEntities.FindAsync(id);
             _context.CreditEntities.Remove(creditEntities);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+
+           
         }
 
+       
         private bool CreditEntitiesExists(int id)
         {
             return _context.CreditEntities.Any(e => e.Id == id);

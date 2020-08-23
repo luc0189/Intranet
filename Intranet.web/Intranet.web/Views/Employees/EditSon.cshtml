@@ -12,22 +12,7 @@
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="EmployeeId" />
 
-
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Datebirth" class="control-label"></label>
-                <input asp-for="Datebirth" class="form-control" />
-                <span asp-validation-for="Datebirth" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Genero" class="control-label"></label>
-                <input asp-for="Genero" class="form-control" />
-                <span asp-validation-for="Genero" class="text-danger"></span>
-            </div>
+            <partial name="_Son" />
 
 
             <div class="form-group">

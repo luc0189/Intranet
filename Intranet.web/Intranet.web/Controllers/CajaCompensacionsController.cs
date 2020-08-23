@@ -116,7 +116,7 @@ namespace Intranet.web.Controllers
             return View(cajaCompensacion);
         }
 
-        // GET: CajaCompensacions/Delete/5
+        
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,20 +130,12 @@ namespace Intranet.web.Controllers
             {
                 return NotFound();
             }
-
-            return View(cajaCompensacion);
-        }
-
-        // POST: CajaCompensacions/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var cajaCompensacion = await _context.CajaCompensacions.FindAsync(id);
             _context.CajaCompensacions.Remove(cajaCompensacion);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+       
 
         private bool CajaCompensacionExists(int id)
         {

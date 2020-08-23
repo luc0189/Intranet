@@ -12,49 +12,7 @@
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="EmployeeIds" />
 
-
-            <div class="form-group">
-                <label asp-for="EntityId" class="control-label"></label>
-                <select asp-for="EntityId" asp-items="Model.Entityes" class="form-control">
-                </select>
-                <span asp-validation-for="EntityId" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="NumberL" class="control-label"></label>
-                <input asp-for="NumberL" class="form-control" />
-                <span asp-validation-for="NumberL" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quotmonthly" class="control-label"></label>
-                <input asp-for="Quotmonthly" class="form-control" />
-                <span asp-validation-for="Quotmonthly" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TotalPrice" class="control-label"></label>
-                <input asp-for="TotalPrice" class="form-control" />
-                <span asp-validation-for="TotalPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DeadlinePay" class="control-label"></label>
-                <input asp-for="DeadlinePay" class="form-control" />
-                <span asp-validation-for="DeadlinePay" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EndDate" class="control-label"></label>
-                <input asp-for="EndDate" class="form-control" />
-                <span asp-validation-for="EndDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IsActive" class="control-label"></label>
-                <input asp-for="IsActive" class="form-control" />
-                <span asp-validation-for="IsActive" class="text-danger"></span>
-            </div>
+            <partial name="_Credit" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
                 <a asp-action="Details" asp-route-id="@Model.EmployeeIds" class="btn btn-success">Back to Site</a>

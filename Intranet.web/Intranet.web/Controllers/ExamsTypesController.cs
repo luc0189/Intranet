@@ -116,7 +116,7 @@ namespace Intranet.web.Controllers
             return View(examsType);
         }
 
-        // GET: ExamsTypes/Delete/5
+      
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,20 +130,13 @@ namespace Intranet.web.Controllers
             {
                 return NotFound();
             }
-
-            return View(examsType);
-        }
-
-        // POST: ExamsTypes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var examsType = await _context.ExamsTypes.FindAsync(id);
             _context.ExamsTypes.Remove(examsType);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+
         }
+
+       
 
         private bool ExamsTypeExists(int id)
         {

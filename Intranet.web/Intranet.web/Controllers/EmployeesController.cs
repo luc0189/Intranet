@@ -254,6 +254,7 @@ namespace Intranet.web.Controllers
             }
             return View(vista);
         }
+        //TODO: para borrar todo puedo utilizar la opcion 59-par19 delete... 21:10
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -292,7 +293,6 @@ namespace Intranet.web.Controllers
             
         }
 
-      
 
         private bool EmployeeExists(int id)
         {
@@ -328,6 +328,7 @@ namespace Intranet.web.Controllers
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction($"Details/{model.EmployeeId}");
             }
+            model.ExamTypes = _combosHelpers.GetComboExamTypes();
             return View(model);
         }
 
@@ -393,6 +394,7 @@ namespace Intranet.web.Controllers
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction($"Details/{model.EmployeeIds}");
             }
+            model.Entityes = _combosHelpers.GetComboCreditEntities();
             return View(model);
         }
         public async Task<IActionResult> AddPerson(int? id)
@@ -518,6 +520,7 @@ namespace Intranet.web.Controllers
                 return RedirectToAction($"{nameof(Details)}/{model.EmployeeIds}");
                 // return RedirectToAction($"Details/{model.SiteId}");
             }
+            model.Entityes = _combosHelpers.GetComboCreditEntities();
             return View(model);
         }
 
@@ -581,6 +584,7 @@ namespace Intranet.web.Controllers
                 return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");
                 // return RedirectToAction($"Details/{model.SiteId}");
             }
+            model.ExamTypes = _combosHelpers.GetComboExamTypes();
             return View(model);
         }
         public async Task<IActionResult> EditEndowment(int? id)

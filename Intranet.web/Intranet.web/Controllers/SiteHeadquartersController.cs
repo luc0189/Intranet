@@ -126,7 +126,7 @@ namespace Intranet.web.Controllers
             return View(siteHeadquarters);
         }
 
-        // GET: SiteHeadquarters/Delete/5
+     
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,25 +135,24 @@ namespace Intranet.web.Controllers
             }
 
             var siteHeadquarters = await _datacontext.SiteHeadquarters
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(s => s.Areas)
+                .FirstOrDefaultAsync(s => s.Id == id);
             if (siteHeadquarters == null)
             {
                 return NotFound();
             }
+            if (siteHeadquarters.Areas.Count != 0  )
+            {
+                ModelState.AddModelError(string.Empty, "Valide los detalles antes de Borrar");
+                return RedirectToAction(nameof(Index));
+            }
 
-            return View(siteHeadquarters);
-        }
-
-        // POST: SiteHeadquarters/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var siteHeadquarters = await _datacontext.SiteHeadquarters.FindAsync(id);
             _datacontext.SiteHeadquarters.Remove(siteHeadquarters);
             await _datacontext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+       
 
         private bool SiteHeadquartersExists(int id)
         {

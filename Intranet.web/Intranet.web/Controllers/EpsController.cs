@@ -118,7 +118,7 @@ namespace Intranet.web.Controllers
             return View(eps);
         }
 
-        // GET: Eps/Delete/5
+       
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,20 +132,14 @@ namespace Intranet.web.Controllers
             {
                 return NotFound();
             }
-
-            return View(eps);
-        }
-
-        // POST: Eps/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var eps = await _context.Eps.FindAsync(id);
             _context.Eps.Remove(eps);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+
+            
         }
+
+      
 
         private bool EpsExists(int id)
         {
