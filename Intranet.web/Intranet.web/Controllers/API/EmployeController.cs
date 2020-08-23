@@ -95,7 +95,7 @@ namespace Intranet.web.Controllers.API
                 UserImageResponses=employe.UserImages?.Select(i=>new UserImageResponse
                 { 
                  Id=i.Id,
-                 ImageUrl=i.ImageUrl
+                 ImageUrl=i.ImageFullPath
                 }).ToList(),
                 ExamsResponses=employe.Exams?.Select(ex=>new ExamsResponse
                 {
