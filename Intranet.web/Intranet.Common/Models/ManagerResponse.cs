@@ -20,5 +20,6 @@ namespace Intranet.Common.Models
         public ICollection<PersonCResponse> PersonCResponses { get; set; }
         public ICollection<SonsResponse> SonsResponses { get; set; }
         public ICollection<CreditResponse> CreditResponses { get; set; }
-    }
+        public string FullName => $"{FirstName} {LastName}";
+     }
 }

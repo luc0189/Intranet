@@ -12,7 +12,7 @@ namespace Intranet.Common.Services
 {
     public class ApiService : IApiService
     {
-        public async Task<Response> GetTokenAsync(
+        public async Task<Response<TokenResponse>> GetTokenAsync(
             string urlBase,
             string servicePrefix,
             string controller,
@@ -33,7 +33,7 @@ namespace Intranet.Common.Services
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    return new Response
+                    return new Response<TokenResponse>
                     {
                         IsSuccess = false,
                         Message = result,
@@ -41,7 +41,7 @@ namespace Intranet.Common.Services
                 }
 
                 var token = JsonConvert.DeserializeObject<TokenResponse>(result);
-                return new Response
+                return new Response<TokenResponse>
                 {
                     IsSuccess = true,
                     Result = token
@@ -49,7 +49,7 @@ namespace Intranet.Common.Services
             }
             catch (Exception ex)
             {
-                return new Response
+                return new Response<TokenResponse>
                 {
                     IsSuccess = false,
                     Message = ex.Message
@@ -57,13 +57,13 @@ namespace Intranet.Common.Services
             }
         }
 
-        public async Task<Response> GetEmployeByEmailAsync(
-            string urlBase,
-            string servicePrefix,
-            string controller,
-            string tokenType,
-            string accessToken,
-            string email)
+        public async Task<Response<ManagerResponse>> GetEmployeByEmailAsync(
+          string urlBase,
+          string servicePrefix,
+          string controller,
+          string tokenType,
+          string accessToken,
+          string email)
         {
             try
             {
@@ -82,15 +82,15 @@ namespace Intranet.Common.Services
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    return new Response
+                    return new Response<ManagerResponse>
                     {
                         IsSuccess = false,
                         Message = result,
                     };
                 }
 
-                var owner = JsonConvert.DeserializeObject<TokenResponse>(result);
-                return new Response
+                var owner = JsonConvert.DeserializeObject < ManagerResponse> (result);
+                return new Response<ManagerResponse>
                 {
                     IsSuccess = true,
                     Result = owner
@@ -98,13 +98,14 @@ namespace Intranet.Common.Services
             }
             catch (Exception ex)
             {
-                return new Response
+                return new Response<ManagerResponse>
                 {
                     IsSuccess = false,
                     Message = ex.Message
                 };
             }
         }
+       
         public async Task<bool> CheckConnectionAsync(string url)
         {
             if (!CrossConnectivity.Current.IsConnected)

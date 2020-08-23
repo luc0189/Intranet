@@ -1,6 +1,7 @@
 ﻿using DryIoc;
 using Intranet.Common.Models;
 using Intranet.Common.Services;
+using Intranet.Prism.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -14,6 +15,7 @@ namespace Intranet.Prism.ViewModels
 {
     public class LoginPageViewModel : ViewModelBase
     {
+        private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
         private string _password;
         private bool _isRunning;
@@ -26,7 +28,10 @@ namespace Intranet.Prism.ViewModels
         {
             Title = "Login";
             IsEnable = true;
+            _navigationService = navigationService;
             _apiService = apiService;
+            Email = "luc0189@gmail.com";
+            Password = "123456";
         }
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(Login));
 
@@ -60,25 +65,54 @@ namespace Intranet.Prism.ViewModels
                 await App.Current.MainPage.DisplayAlert("Error", "No Digito Password", "Aceptar");
                 return;
             };
+
             IsRunning = true;
             IsEnable = false;
             var request = new TokenRequest
             {
                 Password = Password,
-                Username = Email
+               Username = Email
             };
-            var url = App.Current.Resources["UrlApi"].ToString();
+
+            var url = App.Current.Resources["UrlAPI"].ToString();
             var response = await _apiService.GetTokenAsync(url, "/Account", "/CreateToken", request);
 
-            IsRunning = false;
-            IsEnable = true;
+          
             if (!response.IsSuccess)
             {
+                IsRunning = false;
+                IsEnable = true;
                 await App.Current.MainPage.DisplayAlert("Error", "Usuario o Contraseña Incorrecto", "Aceptar");
                 Password = string.Empty;
                 return;
             }
-            await App.Current.MainPage.DisplayAlert("Ok", "Full", "Aceptar");
+            var token = response.Result;
+            //TODO: aqui traigo la info que quiero mostrar
+            var response2 = await _apiService.GetEmployeByEmailAsync(
+                url,
+                "api",
+                "/Manager/GetManagerByEmail",
+                "bearer",
+                token.Token,
+                Email
+                );
+            if (!response2.IsSuccess)
+            {
+                IsRunning = false;
+                IsEnable = true;
+                await App.Current.MainPage.DisplayAlert("Error", "Falta Permisos \nSolicite Roles", "Aceptar");
+                return;
+            }
+            var manager = response2.Result;
+            //TODO:aqui puedo adicionar mas parametros a pasar o consulta de la BD
+            var parameters = new NavigationParameters
+            {
+                { "manager", manager }
+            };
+
+            await _navigationService.NavigateAsync("EmployesPage",parameters);
+            IsRunning = false;
+            IsEnable = true;
         }
 
     }
