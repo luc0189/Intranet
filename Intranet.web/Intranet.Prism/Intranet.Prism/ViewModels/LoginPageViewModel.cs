@@ -75,6 +75,17 @@ namespace Intranet.Prism.ViewModels
             };
 
             var url = App.Current.Resources["UrlAPI"].ToString();
+            var connection = await _apiService.CheckConnectionAsync(url);
+            if (!connection)
+            {
+               
+                await App.Current.MainPage.DisplayAlert("Error", "No hay Conexion", "Aceptar");
+                IsRunning = true;
+                IsEnable = false;
+                return;
+
+            }
+
             var response = await _apiService.GetTokenAsync(url, "/Account", "/CreateToken", request);
 
           
