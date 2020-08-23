@@ -14,4 +14,8 @@
     <Folder Include="wwwroot\images\Employe\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Intranet.Common\Intranet.Common.csproj" />
+  </ItemGroup>
+
 </Project>
