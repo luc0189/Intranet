@@ -82,5 +82,21 @@ namespace Intranet.web.Helpers
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<SelectListItem> GetComboEps()
+        {
+            var list = _dataContext.Eps.Select(a => new SelectListItem
+            {
+                Text = a.Nombre,
+                Value = $"{a.Id}"
+            }).OrderBy(a => a.Text)
+             .ToList();
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione un Eps...)",
+                Value = "0"
+            });
+            return list;
+        }
     }
 }

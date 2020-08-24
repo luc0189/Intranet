@@ -105,6 +105,9 @@ namespace Intranet.web.Controllers
                 .Include(e => e.User)
                 .Include(e => e.Sons)
                 .Include(e => e.Area)
+                .Include(e => e.Eps)
+                .Include(e => e.Pension)
+                .Include(e => e.cajaCompensacion)
                 .Include(e => e.PersonContacts)
                 .Include(i => i.UserImages)
                 .Include(e => e.Credits)
@@ -232,7 +235,8 @@ namespace Intranet.web.Controllers
                 Activo = employee.User.Activo,
                 DateRetiro = employee.User.DateRetiro,
                 NivelEducation = employee.User.NivelEducation,
-                Areas = _combosHelpers.GetComboAreas()
+                Areas = _combosHelpers.GetComboAreas(),
+                Eps = _combosHelpers.GetComboEps()
              
 
             };
@@ -246,6 +250,8 @@ namespace Intranet.web.Controllers
             {
                 var employe = await _dataContext.Employees
                     .Include(e => e.User)
+                    .Include(e => e.Area)
+                    .Include(e => e.Eps)
                     .FirstOrDefaultAsync(e => e.Id == vista.Id);
                 employe.User.Document = vista.Document;
                 employe.User.Address = vista.Address;
@@ -261,6 +267,8 @@ namespace Intranet.web.Controllers
                 employe.User.Activo = vista.Activo;
                 employe.User.DateRetiro = vista.DateRetiro;
                 employe.Area = await _dataContext.Areas.FindAsync(vista.AreaId);
+                employe.Eps = await _dataContext.Eps.FindAsync(vista.EpsId);
+
 
                 await _userHelper.UpdateUserAsync(employe.User);
                 return RedirectToAction(nameof(Index));

@@ -83,7 +83,13 @@ namespace Intranet.web.Models
         [Range(1, int.MaxValue, ErrorMessage = "You must select a Area.")]
         public int AreaId { get; set; }
 
+        [Required(ErrorMessage = "The Field {0} is mandatory.")]
+        [Display(Name = "Eps")]
+        [Range(1, int.MaxValue, ErrorMessage = "You must select a EPS.")]
+        public int EpsId { get; set; }
+
         public IEnumerable<SelectListItem> Areas { get; set; }
+        public IEnumerable<SelectListItem> Eps { get; set; }
 
     }
 }
