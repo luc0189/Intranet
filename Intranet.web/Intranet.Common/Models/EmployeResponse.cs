@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Intranet.Common.Models
@@ -14,11 +15,15 @@ namespace Intranet.Common.Models
         public string Email { get; set; }
         public string Movil { get; set; }
         public bool Activo{ get; set; }
-        public  ICollection<ExamsResponse> ExamsResponses { get; set; }
-        public  ICollection<EndowmentResponse> EndowmentResponses { get; set; }
-        public  ICollection<UserImageResponse> UserImageResponses { get; set; }
-        public  ICollection<PersonCResponse> PersonCResponses { get; set; }
-        public  ICollection<SonsResponse> SonsResponses { get; set; }
-        public  ICollection<CreditResponse> CreditResponses { get; set; }
+        public  ICollection<ExamsResponse> Exams { get; set; }
+        public  ICollection<EndowmentResponse> Endowment { get; set; }
+        public  ICollection<UserImageResponse> UserImage { get; set; }
+        public  ICollection<PersonCResponse> PersonC { get; set; }
+        public  ICollection<SonsResponse> Sons { get; set; }
+        public  ICollection<CreditResponse> Credits { get; set; }
+        public string FirstImage => UserImage == null || UserImage.Count == 0
+                ?  "https://cdn3.iconfinder.com/data/icons/wpzoom-developer-icon-set/500/88-512.png"
+                : UserImage.FirstOrDefault().ImageUrl;
+       
     }
 }

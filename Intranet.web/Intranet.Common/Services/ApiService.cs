@@ -57,7 +57,7 @@ namespace Intranet.Common.Services
             }
         }
 
-        public async Task<Response<ManagerResponse>> GetEmployeByEmailAsync(
+        public async Task<Response<EmployeResponse>> GetEmployeByEmailAsync(
           string urlBase,
           string servicePrefix,
           string controller,
@@ -82,15 +82,15 @@ namespace Intranet.Common.Services
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    return new Response<ManagerResponse>
+                    return new Response<EmployeResponse>
                     {
                         IsSuccess = false,
                         Message = result,
                     };
                 }
 
-                var owner = JsonConvert.DeserializeObject < ManagerResponse> (result);
-                return new Response<ManagerResponse>
+                var owner = JsonConvert.DeserializeObject < EmployeResponse> (result);
+                return new Response<EmployeResponse>
                 {
                     IsSuccess = true,
                     Result = owner
@@ -98,7 +98,7 @@ namespace Intranet.Common.Services
             }
             catch (Exception ex)
             {
-                return new Response<ManagerResponse>
+                return new Response<EmployeResponse>
                 {
                     IsSuccess = false,
                     Message = ex.Message

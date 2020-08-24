@@ -5,5 +5,94 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Intranet.Prism.Views.EmployesPage"
              Title="{Binding Title}">
+    <StackLayout
+        Padding="10">
+        <ListView
+            HasUnevenRows="True"
+            ItemsSource="{Binding Imagenes}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+
+                            </Grid.ColumnDefinitions>
+                            <Image
+                                Grid.Column="0"
+                                Source="{Binding ImageUrl}"
+                                WidthRequest="150"/>
+                            <Grid
+                                Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    FontAttributes="Bold"
+                                    Text="Full Name"/>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    FontAttributes="Bold"
+                                    Text="{Binding NumberL}"/>
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    FontAttributes="Bold"
+                                    Text="Documento"/>
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    FontAttributes="Bold"
+                                    Text="{Binding Quotmonthly}"/>
+                                <Label
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    FontAttributes="Bold"
+                                    Text="Movil"/>
+                                <Label
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    FontAttributes="Bold"
+                                    Text="{Binding NumberL}"/>
+                                <Label
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    FontAttributes="Bold"
+                                    Text="Direccion"/>
+                                <Label
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    FontAttributes="Bold"
+                                    Text="{Binding NumberL}"/>
+                                <Label
+                                    Grid.Row="4"
+                                    Grid.Column="0"
+                                    FontAttributes="Bold"
+                                    Text="Activo"/>
+                                <Switch
+                                    Grid.Row="4"
+                                    Grid.Column="1"
+                                    IsEnabled="False"
+                                    IsToggled="{Binding NumberL}"/>
+
+                            </Grid>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
   
 </ContentPage>

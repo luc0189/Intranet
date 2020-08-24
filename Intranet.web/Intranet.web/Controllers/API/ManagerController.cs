@@ -52,7 +52,7 @@ namespace Intranet.web.Controllers.API
                 Activo = manager.User.Activo,
                 Email = manager.User.Email,
                 Movil = manager.User.Movil,
-                CreditResponses = manager.Credits?.Select(c => new CreditResponse
+                Credits = manager.Credits?.Select(c => new CreditResponse
                 {
                     Id = c.Id,
                     NumberL = c.NumberL,
@@ -65,7 +65,7 @@ namespace Intranet.web.Controllers.API
                     EntitiesCreditResponse = ToEntitiesResponse(c.CreditEntities)
 
                 }).ToList(),
-                EndowmentResponses = manager.Endowments?.Select(e => new EndowmentResponse
+                Endowment = manager.Endowments?.Select(e => new EndowmentResponse
                 {
                     Id = e.Id,
                     Detail = e.Detail,
@@ -73,26 +73,26 @@ namespace Intranet.web.Controllers.API
                     Size = e.Size,
                     DateDelivery = e.DateDelivery
                 }).ToList(),
-                PersonCResponses = manager.PersonContacts?.Select(p => new PersonCResponse
+                PersonC = manager.PersonContacts?.Select(p => new PersonCResponse
                 {
                     Id = p.Id,
                     Name = p.Name,
                     Telephone = p.Telephone,
                     relationship = p.relationship
                 }).ToList(),
-                SonsResponses = manager.Sons?.Select(so => new SonsResponse
+                Sons = manager.Sons?.Select(so => new SonsResponse
                 {
                     Id = so.Id,
                     Name = so.Name,
                     Datebirth = so.Datebirth,
                     Genero = so.Genero
                 }).ToList(),
-                UserImageResponses = manager.UserImages?.Select(i => new UserImageResponse
+                UserImage = manager.UserImages?.Select(i => new UserImageResponse
                 {
                     Id = i.Id,
                     ImageUrl = i.ImageFullPath
                 }).ToList(),
-                ExamsResponses = manager.Exams?.Select(ex => new ExamsResponse
+                Exams = manager.Exams?.Select(ex => new ExamsResponse
                 {
                     Id = ex.Id,
                     ExamTypeResponse = ToExamResponse(ex.ExamsType),

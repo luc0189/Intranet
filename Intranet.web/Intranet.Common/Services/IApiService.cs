@@ -6,7 +6,7 @@ namespace Intranet.Common.Services
     public interface IApiService
     {
         Task<bool> CheckConnectionAsync(string url);
-        Task<Response<ManagerResponse>> GetEmployeByEmailAsync(
+        Task<Response<EmployeResponse>> GetEmployeByEmailAsync(
             string urlBase,
             string servicePrefix,
             string controller,

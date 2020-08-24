@@ -30,7 +30,7 @@ namespace Intranet.Prism.ViewModels
             IsEnable = true;
             _navigationService = navigationService;
             _apiService = apiService;
-            Email = "luc0189@gmail.com";
+            Email = "yency0187@gmail.com";
             Password = "123456";
         }
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(Login));
@@ -102,7 +102,7 @@ namespace Intranet.Prism.ViewModels
             var response2 = await _apiService.GetEmployeByEmailAsync(
                 url,
                 "api",
-                "/Manager/GetManagerByEmail",
+                "/Employe/GetEmployeByEmail",
                 "bearer",
                 token.Token,
                 Email

@@ -57,7 +57,7 @@ namespace Intranet.web.Controllers.API
                 Activo=employe.User.Activo,
                 Email=employe.User.Email,
                 Movil=employe.User.Movil,
-                CreditResponses=employe.Credits?.Select(c => new CreditResponse
+                Credits=employe.Credits?.Select(c => new CreditResponse
                 {
                     Id=c.Id,
                     NumberL=c.NumberL,
@@ -70,7 +70,7 @@ namespace Intranet.web.Controllers.API
                     EntitiesCreditResponse= ToEntitiesResponse(c.CreditEntities)
                     
                 }).ToList(),
-                EndowmentResponses=employe.Endowments?.Select(e=> new EndowmentResponse
+                Endowment=employe.Endowments?.Select(e=> new EndowmentResponse
                 {
                     Id=e.Id,
                     Detail=e.Detail,
@@ -78,26 +78,26 @@ namespace Intranet.web.Controllers.API
                     Size=e.Size,
                     DateDelivery=e.DateDelivery
                 }).ToList(),
-                PersonCResponses=employe.PersonContacts?.Select(p=> new PersonCResponse
+                PersonC=employe.PersonContacts?.Select(p=> new PersonCResponse
                 {
                     Id=p.Id,
                     Name=p.Name,
                     Telephone=p.Telephone,
                     relationship=p.relationship
                 }).ToList(),
-                SonsResponses=employe.Sons?.Select(so=> new SonsResponse
+                Sons=employe.Sons?.Select(so=> new SonsResponse
                 {
                     Id=so.Id,
                     Name=so.Name,
                     Datebirth=so.Datebirth,
                     Genero=so.Genero
                 }).ToList(),
-                UserImageResponses=employe.UserImages?.Select(i=>new UserImageResponse
+                UserImage=employe.UserImages?.Select(i=>new UserImageResponse
                 { 
                  Id=i.Id,
                  ImageUrl=i.ImageFullPath
                 }).ToList(),
-                ExamsResponses=employe.Exams?.Select(ex=>new ExamsResponse
+                Exams=employe.Exams?.Select(ex=>new ExamsResponse
                 {
                     Id=ex.Id,
                     ExamTypeResponse=ToExamResponse(ex.ExamsType),
