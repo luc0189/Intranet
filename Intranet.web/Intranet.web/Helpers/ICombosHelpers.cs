@@ -9,6 +9,6 @@ namespace Intranet.web.Helpers
         IEnumerable<SelectListItem> GetComboCreditEntities();
         IEnumerable<SelectListItem> GetComboSedes();
         IEnumerable<SelectListItem> GetComboAreas();
-       
+        IEnumerable<SelectListItem> GetComboAreaEntities();
     }
 }

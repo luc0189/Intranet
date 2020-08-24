@@ -77,5 +77,10 @@ namespace Intranet.web.Helpers
             });
             return list;
         }
+
+        public IEnumerable<SelectListItem> GetComboAreaEntities()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

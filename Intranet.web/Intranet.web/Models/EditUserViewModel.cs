@@ -1,4 +1,5 @@
 ﻿using Intranet.web.Data.Entities;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -76,6 +77,13 @@ namespace Intranet.web.Models
         [MaxLength(50)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public String DateRetiro { get; set; }
+
+        [Required(ErrorMessage = "The Field {0} is mandatory.")]
+        [Display(Name = "Area")]
+        [Range(1, int.MaxValue, ErrorMessage = "You must select a Area.")]
+        public int AreaId { get; set; }
+
+        public IEnumerable<SelectListItem> Areas { get; set; }
 
     }
 }

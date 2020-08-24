@@ -104,6 +104,7 @@ namespace Intranet.web.Controllers
             var employee = await _dataContext.Employees
                 .Include(e => e.User)
                 .Include(e => e.Sons)
+                .Include(e => e.Area)
                 .Include(e => e.PersonContacts)
                 .Include(i => i.UserImages)
                 .Include(e => e.Credits)
@@ -123,7 +124,13 @@ namespace Intranet.web.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var model = new AddUserViewModel
+            {
+
+
+                Areas = _combosHelpers.GetComboAreas()
+            };
+            return View(model);
         }
 
 
@@ -144,7 +151,10 @@ namespace Intranet.web.Controllers
                         Exams = new List<Exams>(),
                         PersonContacts = new List<PersonContact>(),
                         UserImages = new List<UserImages>(),
+                        Area= await _dataContext.Areas.FindAsync(model.AreaId),
                         User = user
+                       
+                        
                     };
                     _dataContext.Employees.Add(employe);
                     await _dataContext.SaveChangesAsync();
@@ -198,11 +208,13 @@ namespace Intranet.web.Controllers
             var employee = await _dataContext.Employees
                 .Include(e => e.User)
                 .Include(e => e.UserImages)
+                .Include(e => e.Area)
                 .FirstOrDefaultAsync(e => e.Id == id.Value);
             if (employee == null)
             {
                 return NotFound();
             }
+          
             var view = new EditUserViewModel
             {
                 Address = employee.User.Address,
@@ -220,7 +232,8 @@ namespace Intranet.web.Controllers
                 Activo = employee.User.Activo,
                 DateRetiro = employee.User.DateRetiro,
                 NivelEducation = employee.User.NivelEducation,
-
+                Areas = _combosHelpers.GetComboAreas()
+             
 
             };
             return View(view);
@@ -247,7 +260,7 @@ namespace Intranet.web.Controllers
                 employe.User.NivelEducation = vista.NivelEducation;
                 employe.User.Activo = vista.Activo;
                 employe.User.DateRetiro = vista.DateRetiro;
-
+                employe.Area = await _dataContext.Areas.FindAsync(vista.AreaId);
 
                 await _userHelper.UpdateUserAsync(employe.User);
                 return RedirectToAction(nameof(Index));
