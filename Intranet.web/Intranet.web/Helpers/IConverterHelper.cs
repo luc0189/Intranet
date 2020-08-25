@@ -18,5 +18,6 @@ namespace Intranet.web.Helpers
         AddPersonContactViewModel ToPersonContactViewModel(PersonContact person);
         ExamViewModel ToExamViewModel(Exams exams);
         AddEndowmentViewModel ToEndowmentViewModel(Endowment endowment);
+       
     }
 }

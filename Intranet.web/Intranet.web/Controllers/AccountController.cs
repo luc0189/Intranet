@@ -1,4 +1,6 @@
-﻿using Intranet.web.Models;
+﻿using Intranet.web.Data;
+using Intranet.web.Helpers;
+using Intranet.web.Models;
 using Intranet.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -16,13 +18,19 @@ namespace Intranet.web.Controllers
     {
         private readonly IUserHelper _userHelper;
         private readonly IConfiguration _configuration;
+        private readonly ICombosHelpers _combosHelpers;
+        private readonly DataContext _dataContext;
 
         public AccountController(
             IUserHelper userHelper,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            ICombosHelpers combosHelpers,
+            DataContext dataContext)
         {
             _userHelper = userHelper;
             _configuration = configuration;
+            _combosHelpers = combosHelpers;
+            _dataContext = dataContext;
         }
         [HttpGet]
         public IActionResult Login()
@@ -97,5 +105,76 @@ namespace Intranet.web.Controllers
         {
             return View();
         }
+        public IActionResult Register()
+        {
+            var vista = new AddUserViewModel
+            {
+                
+                 Areas = _combosHelpers.GetComboAreas(),
+                Eps = _combosHelpers.GetComboEps(),
+                Pension = _combosHelpers.GetComboPension(),
+                CajaCompensacion = _combosHelpers.GetComboCajaCompensacion(),
+                PositionEmplooyed = _combosHelpers.GetComboPositionEmploye(),
+                Roles = _combosHelpers.GetComboRoles(),
+            };
+            return View(vista);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(AddUserViewModel view)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userHelper.AddUser(view, view.RolId.ToString());
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "This email is already used.");
+                    return View(view);
+                }
+
+                //if (view.RoleId == 1)
+                //{
+                //    var lessee = new Lessee
+                //    {
+                //        Contracts = new List<Contract>(),
+                //        User = user
+                //    };
+
+                //    _dataContext.Lessees.Add(lessee);
+                //    await _dataContext.SaveChangesAsync();
+                //}
+                //else
+                //{
+                //    var owner = new Owner
+                //    {
+                //        Contracts = new List<Contract>(),
+                //        Properties = new List<Property>(),
+                //        User = user
+                //    };
+
+                //    _dataContext.Owners.Add(owner);
+                //    await _dataContext.SaveChangesAsync();
+                //}
+
+                var loginViewModel = new LoginViewModel
+                {
+                    Password = view.Password,
+                    RememberMe = false,
+                    Username = view.Username
+                };
+
+                var result2 = await _userHelper.LoginAsync(loginViewModel);
+
+                if (result2.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            return View(view);
+        }
+
+
     }
 }

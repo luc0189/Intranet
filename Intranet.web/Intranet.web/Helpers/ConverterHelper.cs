@@ -1,6 +1,7 @@
 ﻿using Intranet.web.Data;
 using Intranet.web.Data.Entities;
 using Intranet.web.Models;
+using Remotion.Linq.Parsing.Structure.IntermediateModel;
 using System.Threading.Tasks;
 
 namespace Intranet.web.Helpers
@@ -33,7 +34,7 @@ namespace Intranet.web.Helpers
             };
         }
 
-
+        
         public async Task<Sons> ToSonsAsync(SonsViewModel model, bool isNew)
         {
             return new Sons
@@ -143,9 +144,9 @@ namespace Intranet.web.Helpers
 
                 Entityes = _combosHelpers.GetComboCreditEntities()
 
-
             };
         }
+       
 
         public AddPersonContactViewModel ToPersonContactViewModel(PersonContact person)
         {
@@ -188,6 +189,11 @@ namespace Intranet.web.Helpers
                 Employee = endowment.Employee
             };
         }
+
+       
+
+      
+
     }
 }
 

@@ -21,6 +21,37 @@ namespace Intranet.Web.Helpers
             _signInManager = signInManager;
         }
 
+        public async Task<User> AddUser(AddUserViewModel view, string role)
+        {
+            var user =new User
+            {
+                Address = view.Address,
+                Document = view.Document,
+                FirstName = view.FirstName,
+                LastName = view.LastName,
+                License = view.License,
+                Arl = view.Arl,
+                JobTitle = view.JobTitle,
+                Movil = view.Movil,
+                Rh = view.Rh,
+                SiteBirth = view.SiteBirth,
+                SiteExpedition = view.SiteExpedition,
+                Activo = view.Activo,
+                DateRetiro = view.DateRetiro,
+                NivelEducation = view.NivelEducation
+                
+            };
+            var result = await AddUserAsync(user, view.Password);
+            if (result!= IdentityResult.Success)
+            {
+                return null;
+
+            }
+            var newUser = await GetUserByEmailAsync(view.Username);
+            await AddUserToRoleAsync(newUser, role);
+            return newUser;
+        }
+
         public async Task<IdentityResult> AddUserAsync(User user, string password)
         {
             return await _userManager.CreateAsync(user, password);

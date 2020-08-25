@@ -98,5 +98,70 @@ namespace Intranet.web.Helpers
             });
             return list;
         }
+       
+
+        public IEnumerable<SelectListItem> GetComboRoles()
+        {
+            var list = _dataContext.Roles.Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = $"{a.Name}"
+            }).OrderBy(a => a.Text)
+            .ToList();
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione un Rol...)",
+                Value = "0"
+            });
+            return list;
+        }
+
+        public IEnumerable<SelectListItem> GetComboPension()
+        {
+            var list = _dataContext.Pensions.Select(a => new SelectListItem
+            {
+                Text = a.Nombre,
+                Value = $"{a.Id}"
+            }).OrderBy(a => a.Text)
+            .ToList();
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione Una Entidad...)",
+                Value = "0"
+            });
+            return list;
+        }
+
+        public IEnumerable<SelectListItem> GetComboCajaCompensacion()
+        {
+            var list = _dataContext.CajaCompensacions.Select(a => new SelectListItem
+            {
+                Text = a.Nombre,
+                Value = $"{a.Id}"
+            }).OrderBy(a => a.Text)
+            .ToList();
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione Una Entidad...)",
+                Value = "0"
+            });
+            return list;
+        }
+
+        public IEnumerable<SelectListItem> GetComboPositionEmploye()
+        {
+            var list = _dataContext.PositionEmployees.Select(a => new SelectListItem
+            {
+                Text = a.Position,
+                Value = $"{a.Id}"
+            }).OrderBy(a => a.Text)
+            .ToList();
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione un Cargo...)",
+                Value = "0"
+            });
+            return list;
+        }
     }
 }

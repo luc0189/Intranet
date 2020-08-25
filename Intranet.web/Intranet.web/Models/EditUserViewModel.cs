@@ -1,14 +1,11 @@
-﻿using Intranet.web.Data.Entities;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Models
 {
-    public class EditUserViewModel 
+    public class EditUserViewModel
     {
         public int Id { get; set; }
 
@@ -33,7 +30,7 @@ namespace Intranet.web.Models
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
-        [Display(Name = "Cargo")]
+        [Display(Name = "Ocupacion")]
         [MaxLength(50)]
         public String JobTitle { get; set; }
 
@@ -65,7 +62,6 @@ namespace Intranet.web.Models
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "ARL")]
-
         public bool Arl { get; set; }
 
 
@@ -80,16 +76,35 @@ namespace Intranet.web.Models
 
         [Required(ErrorMessage = "The Field {0} is mandatory.")]
         [Display(Name = "Area")]
-        [Range(1, int.MaxValue, ErrorMessage = "You must select a Area.")]
+
         public int AreaId { get; set; }
 
         [Required(ErrorMessage = "The Field {0} is mandatory.")]
         [Display(Name = "Eps")]
-        [Range(1, int.MaxValue, ErrorMessage = "You must select a EPS.")]
+
         public int EpsId { get; set; }
+
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        [Display(Name = "Pension")]
+        public int PensionId { get; set; }
+
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        [Display(Name = "Caja Compensacion")]
+        public int CajaCompenId { get; set; }
+
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        [Display(Name = "Cargo")]
+        public int PositionEmpId { get; set; }
+
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        [Display(Name = "Registrar Como")]
+        public String RolId { get; set; }
 
         public IEnumerable<SelectListItem> Areas { get; set; }
         public IEnumerable<SelectListItem> Eps { get; set; }
-
+        public IEnumerable<SelectListItem> Pension { get; set; }
+        public IEnumerable<SelectListItem> CajaCompensacion { get; set; }
+        public IEnumerable<SelectListItem> PositionEmplooyed { get; set; }
+        public IEnumerable<SelectListItem> Roles { get; set; }
     }
 }

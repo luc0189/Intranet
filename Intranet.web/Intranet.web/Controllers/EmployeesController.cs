@@ -90,6 +90,7 @@ namespace Intranet.web.Controllers
                 .Include(e => e.PersonContacts)
                 .Include(e => e.Credits)
                 .Include(e => e.Exams)
+                .Include(e=>e.cajaCompensacion)
                 .Include(e => e.Endowments));
         }
 
@@ -129,10 +130,19 @@ namespace Intranet.web.Controllers
         {
             var model = new AddUserViewModel
             {
-
-
-                Areas = _combosHelpers.GetComboAreas()
+                 Areas = _combosHelpers.GetComboAreas(),
+                 Eps = _combosHelpers.GetComboEps(),
+                 Pension = _combosHelpers.GetComboPension(),
+                 CajaCompensacion = _combosHelpers.GetComboCajaCompensacion(),
+                 PositionEmplooyed = _combosHelpers.GetComboPositionEmploye(),
+                 Roles = _combosHelpers.GetComboRoles()
             };
+            model.Areas = _combosHelpers.GetComboAreas();
+            model.Eps = _combosHelpers.GetComboEps();
+            model.Pension = _combosHelpers.GetComboPension();
+            model.CajaCompensacion = _combosHelpers.GetComboCajaCompensacion();
+            model.PositionEmplooyed = _combosHelpers.GetComboPositionEmploye();
+            model.Roles = _combosHelpers.GetComboRoles();
             return View(model);
         }
 
@@ -141,33 +151,140 @@ namespace Intranet.web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AddUserViewModel model)
         {
+            
+
             if (ModelState.IsValid)
             {
                 var user = await CreateUserAsync(model);
+
+                var employe = new Employee
+                {
+                    Credits = new List<Credit>(),
+                    Sons = new List<Sons>(),
+                    Endowments = new List<Endowment>(),
+                    Exams = new List<Exams>(),
+                    PersonContacts = new List<PersonContact>(),
+                    UserImages = new List<UserImages>(),
+                    Area = await _dataContext.Areas.FindAsync(model.AreaId),
+                    Eps = await _dataContext.Eps.FindAsync(model.EpsId),
+                    Pension = await _dataContext.Pensions.FindAsync(model.PensionId),
+                    cajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(model.CajaCompenId),
+                    PositionEmployee = await _dataContext.PositionEmployees.FindAsync(model.PositionEmpId),
+
+                    User = user
+
+
+                };
+                var manager = new Manager
+                {
+                    Credits = new List<Credit>(),
+                    Sons = new List<Sons>(),
+                    Endowments = new List<Endowment>(),
+                    Exams = new List<Exams>(),
+                    PersonContacts = new List<PersonContact>(),
+                    UserImages = new List<UserImages>(),
+                    Area = await _dataContext.Areas.FindAsync(model.AreaId),
+                    Eps = await _dataContext.Eps.FindAsync(model.EpsId),
+                    Pension = await _dataContext.Pensions.FindAsync(model.PensionId),
+                    cajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(model.CajaCompenId),
+                    PositionEmployee = await _dataContext.PositionEmployees.FindAsync(model.PositionEmpId),
+
+                    User = user
+
+
+                };
+                var purchasing = new purchasing
+                {
+                    Credits = new List<Credit>(),
+                    Sons = new List<Sons>(),
+                    Endowments = new List<Endowment>(),
+                    Exams = new List<Exams>(),
+                    PersonContacts = new List<PersonContact>(),
+                    UserImages = new List<UserImages>(),
+                    Area = await _dataContext.Areas.FindAsync(model.AreaId),
+                    Eps = await _dataContext.Eps.FindAsync(model.EpsId),
+                    Pension = await _dataContext.Pensions.FindAsync(model.PensionId),
+                    cajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(model.CajaCompenId),
+                    PositionEmployee = await _dataContext.PositionEmployees.FindAsync(model.PositionEmpId),
+
+                    User = user
+
+
+                };
+                var recursosh = new Recursoshumanos
+                {
+                    Credits = new List<Credit>(),
+                    Sons = new List<Sons>(),
+                    Endowments = new List<Endowment>(),
+                    Exams = new List<Exams>(),
+                    PersonContacts = new List<PersonContact>(),
+                    UserImages = new List<UserImages>(),
+                    Area = await _dataContext.Areas.FindAsync(model.AreaId),
+                    Eps = await _dataContext.Eps.FindAsync(model.EpsId),
+                    Pension = await _dataContext.Pensions.FindAsync(model.PensionId),
+                    cajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(model.CajaCompenId),
+                    PositionEmployee = await _dataContext.PositionEmployees.FindAsync(model.PositionEmpId),
+
+                    User = user
+
+
+                };
+                var storeLeader = new StoreLeader
+                {
+                    Credits = new List<Credit>(),
+                    Sons = new List<Sons>(),
+                    Endowments = new List<Endowment>(),
+                    Exams = new List<Exams>(),
+                    PersonContacts = new List<PersonContact>(),
+                    UserImages = new List<UserImages>(),
+                    Area = await _dataContext.Areas.FindAsync(model.AreaId),
+                    Eps = await _dataContext.Eps.FindAsync(model.EpsId),
+                    Pension = await _dataContext.Pensions.FindAsync(model.PensionId),
+                    cajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(model.CajaCompenId),
+                    PositionEmployee = await _dataContext.PositionEmployees.FindAsync(model.PositionEmpId),
+
+                    User = user
+
+
+                };
+
                 if (user != null)
                 {
-                    var employe = new Employee
+                    if (model.RolId=="Employe")
                     {
-                        Credits = new List<Credit>(),
-                        Sons = new List<Sons>(),
-                        Endowments = new List<Endowment>(),
-                        Exams = new List<Exams>(),
-                        PersonContacts = new List<PersonContact>(),
-                        UserImages = new List<UserImages>(),
-                        Area= await _dataContext.Areas.FindAsync(model.AreaId),
-                        User = user
-                       
-                        
-                    };
-                    _dataContext.Employees.Add(employe);
+                        _dataContext.Employees.Add(employe);
+                    }
+                    if (model.RolId == "Manager")
+                    {
+                        _dataContext.Managers.Add(manager);
+                    }
+                    if (model.RolId == "Recursoshumanos") 
+                    {
+                        _dataContext.Recursoshumanos.Add(recursosh);
+                    }
+                    if (model.RolId == "StoreLeader")
+                    {
+                        _dataContext.StoreLeaders.Add(storeLeader);
+                    }
+                    if (model.RolId == "purchasing")
+                    {
+                        _dataContext.Purchasings.Add(purchasing);
+                    }
+
                     await _dataContext.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
                 ModelState.AddModelError(string.Empty, "The user Exist");
             }
+            model.Areas = _combosHelpers.GetComboAreas();
+            model.Eps = _combosHelpers.GetComboEps();
+            model.Pension = _combosHelpers.GetComboPension();
+            model.CajaCompensacion = _combosHelpers.GetComboCajaCompensacion();
+            model.PositionEmplooyed = _combosHelpers.GetComboPositionEmploye();
+            model.Roles = _combosHelpers.GetComboRoles();
             return View(model);
         }
-
+   
         private async Task<User> CreateUserAsync(AddUserViewModel model)
         {
             var user = new User
@@ -193,6 +310,8 @@ namespace Intranet.web.Controllers
             var result = await _userHelper.AddUserAsync(user, model.Password);
             if (result.Succeeded)
             {
+                
+                
                 user = await _userHelper.GetUserByEmailAsync(model.Username);
                 await _userHelper.AddUserToRoleAsync(user, "Employe");
                 return user;
@@ -208,71 +327,56 @@ namespace Intranet.web.Controllers
                 return NotFound();
             }
 
-            var employee = await _dataContext.Employees
+            var employe = await _dataContext.Employees
                 .Include(e => e.User)
                 .Include(e => e.UserImages)
                 .Include(e => e.Area)
+                .ThenInclude(s=>s.SiteHeadquarters)
+                .Include(e => e.Eps)
+                .Include(e => e.Pension)
+                .Include(e => e.cajaCompensacion)
+                .Include(e => e.PositionEmployee)
+                .Include(e=> e.Credits)
                 .FirstOrDefaultAsync(e => e.Id == id.Value);
-            if (employee == null)
+            if (employe == null)
             {
                 return NotFound();
             }
-          
             var view = new EditUserViewModel
             {
-                Address = employee.User.Address,
-                Document = employee.User.Document,
-                FirstName = employee.User.FirstName,
-                Id = employee.Id,
-                LastName = employee.User.LastName,
-                License = employee.User.License,
-                Arl = employee.User.Arl,
-                JobTitle = employee.User.JobTitle,
-                Movil = employee.User.Movil,
-                Rh = employee.User.Rh,
-                SiteBirth = employee.User.SiteBirth,
-                SiteExpedition = employee.User.SiteExpedition,
-                Activo = employee.User.Activo,
-                DateRetiro = employee.User.DateRetiro,
-                NivelEducation = employee.User.NivelEducation,
-                Areas = _combosHelpers.GetComboAreas(),
-                Eps = _combosHelpers.GetComboEps()
-             
 
+                Address = owner.User.Address,
+                Document = owner.User.Document,
+                FirstName = owner.User.FirstName,
+                Id = owner.Id,
+                LastName = owner.User.LastName,
+                PhoneNumber = owner.User.PhoneNumber
             };
-            return View(view);
+
+
+
+            return View(employe);
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(EditUserViewModel vista)
         {
+            
             if (ModelState.IsValid)
             {
-                var employe = await _dataContext.Employees
-                    .Include(e => e.User)
-                    .Include(e => e.Area)
-                    .Include(e => e.Eps)
-                    .FirstOrDefaultAsync(e => e.Id == vista.Id);
-                employe.User.Document = vista.Document;
-                employe.User.Address = vista.Address;
-                employe.User.FirstName = vista.FirstName;
-                employe.User.LastName = vista.LastName;
-                employe.User.License = vista.License;
-                employe.User.Arl = vista.Arl;
-                employe.User.JobTitle = vista.JobTitle;
-                employe.User.Movil = vista.Movil;
-                employe.User.Rh = vista.Rh;
-                employe.User.SiteBirth = vista.SiteBirth;
-                employe.User.NivelEducation = vista.NivelEducation;
-                employe.User.Activo = vista.Activo;
-                employe.User.DateRetiro = vista.DateRetiro;
-                employe.Area = await _dataContext.Areas.FindAsync(vista.AreaId);
-                employe.Eps = await _dataContext.Eps.FindAsync(vista.EpsId);
-
-
-                await _userHelper.UpdateUserAsync(employe.User);
+                var employee = new User { 
+                };
+                await _userHelper.UpdateUserAsync(employee);
                 return RedirectToAction(nameof(Index));
             }
+
+            vista.Areas = _combosHelpers.GetComboAreas();
+                vista.Eps = _combosHelpers.GetComboEps();
+            vista.Pension = _combosHelpers.GetComboPension();
+            vista.CajaCompensacion = _combosHelpers.GetComboCajaCompensacion();
+            vista.PositionEmplooyed = _combosHelpers.GetComboPositionEmploye();
+            vista.Roles = _combosHelpers.GetComboRoles();
+          
             return View(vista);
         }
         //TODO: para borrar todo puedo utilizar la opcion 59-par19 delete... 21:10

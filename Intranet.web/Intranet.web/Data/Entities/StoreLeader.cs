@@ -11,6 +11,7 @@ namespace Intranet.web.Data.Entities
 
         public PositionEmployee PositionEmployee { get; set; }
         public Pension Pension { get; set; }
+        
         public CajaCompensacion cajaCompensacion { get; set; }
         public ICollection<UserImages> UserImages { get; set; }
         public ICollection<Credit> Credits { get; set; }

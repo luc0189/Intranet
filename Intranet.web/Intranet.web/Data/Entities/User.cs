@@ -75,5 +75,6 @@ namespace Intranet.web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public String DateRetiro { get; set; }
         public string FullName => $"{FirstName} {LastName}";
+
     }
 }
