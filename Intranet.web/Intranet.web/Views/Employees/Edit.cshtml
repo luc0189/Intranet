@@ -10,22 +10,18 @@
 <div class="row">
     <form asp-action="Edit">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input asp-for="Id" />
+        <input type="hidden" asp-for="Id" />
 
 
 
         <partial name="_User" />
-
-        <div class="form-group">
-            <label asp-for="RolId" class="control-label"></label>
-            <select asp-for="RolId" asp-items="Model.Roles" class="form-control">
-            </select>
-            <span asp-validation-for="RolId" class="text-danger"></span>
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-success">Back to List</a>
+            </div>
         </div>
-        <div class="form-group">
-            <input type="submit" value="Save" class="btn btn-primary" />
-            <a asp-action="Index" class="btn btn-success">Back to List</a>
-        </div>
+       
     </form>
     
 </div>

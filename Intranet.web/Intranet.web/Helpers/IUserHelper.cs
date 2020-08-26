@@ -23,6 +23,7 @@ namespace Intranet.Web.Helpers
         Task LogoutAsync();
         Task<bool> DeleteUserAsync(string email);
         Task<IdentityResult> UpdateUserAsync(User user);
+        Task<IdentityResult> UpdateEmployeAsync(Employee Employe);
         Task<SignInResult> ValidatePasswordAsync(User user, string password);
         Task<User> AddUser(AddUserViewModel view, string role);
     }

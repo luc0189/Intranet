@@ -318,8 +318,7 @@ namespace Intranet.web.Controllers
             }
             return null;
         }
-
-
+        //
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -328,35 +327,67 @@ namespace Intranet.web.Controllers
             }
 
             var employe = await _dataContext.Employees
+                
                 .Include(e => e.User)
-                .Include(e => e.UserImages)
+                .Include(e => e.Sons)
                 .Include(e => e.Area)
-                .ThenInclude(s=>s.SiteHeadquarters)
-                .Include(e => e.Eps)
-                .Include(e => e.Pension)
-                .Include(e => e.cajaCompensacion)
+                .ThenInclude(s => s.SiteHeadquarters)
+                .Include(e => e.PersonContacts)
+                .Include(e => e.Credits)
                 .Include(e => e.PositionEmployee)
-                .Include(e=> e.Credits)
-                .FirstOrDefaultAsync(e => e.Id == id.Value);
+                .Include(e => e.Pension)
+                .Include(e => e.Eps)
+                
+                .Include(e => e.Exams)
+                .Include(e => e.cajaCompensacion)
+                .Include(e => e.Endowments)
+                .FirstOrDefaultAsync(o => o.Id == id.Value);
             if (employe == null)
             {
                 return NotFound();
             }
+
             var view = new EditUserViewModel
             {
+                
+                Address = employe.User.Address,
+                Document = employe.User.Document,
+                FirstName = employe.User.FirstName,
+                Id = employe.Id,
+                LastName = employe.User.LastName,
+                 Activo= employe.User.Activo,
+                Arl=employe.User.Arl,
+                DateRetiro=employe.User.DateRetiro,
+                JobTitle=employe.User.JobTitle,
+                License=employe.User.License,
+                Movil=employe.User.Movil,
+                NivelEducation=employe.User.NivelEducation,
+                Rh=employe.User.Rh,
+                SiteBirth=employe.User.SiteBirth,
+                SiteExpedition=employe.User.SiteExpedition,
 
-                Address = owner.User.Address,
-                Document = owner.User.Document,
-                FirstName = owner.User.FirstName,
-                Id = owner.Id,
-                LastName = owner.User.LastName,
-                PhoneNumber = owner.User.PhoneNumber
+                PositionEmpId = employe.PositionEmployee.Id,
+                PositionEmplooyed =_combosHelpers.GetComboPositionEmploye(),
+
+                PensionId = employe.Pension.Id,
+                Pension =_combosHelpers.GetComboPension(),
+
+                EpsId = employe.Eps.Id,
+                Eps =_combosHelpers.GetComboEps(),
+
+                CajaCompenId = employe.cajaCompensacion.Id,
+                CajaCompensacion =_combosHelpers.GetComboCajaCompensacion(),
+
+               
+                Roles =_combosHelpers.GetComboRoles(),
+
+                AreaId = employe.Area.Id,
+                Areas = _combosHelpers.GetComboAreas()
             };
 
-
-
-            return View(employe);
+            return View(view);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Edit(EditUserViewModel vista)
@@ -364,9 +395,43 @@ namespace Intranet.web.Controllers
             
             if (ModelState.IsValid)
             {
-                var employee = new User { 
-                };
-                await _userHelper.UpdateUserAsync(employee);
+                var employe = await _dataContext.Employees
+                    .Include(o => o.User)
+                    .Include(e => e.User)
+                    .Include(e => e.Sons)
+                    .Include(e => e.Area)
+                    .ThenInclude(s => s.SiteHeadquarters)
+                    .Include(e => e.PersonContacts)
+                    .Include(e => e.Credits)
+                    .Include(e => e.Exams)
+                    .Include(e => e.cajaCompensacion)
+                    .Include(e => e.Endowments)
+                    .FirstOrDefaultAsync(o => o.Id == vista.Id);
+
+
+                employe.User.Address = vista.Address;
+                employe.User.Document = vista.Document;
+                employe.User.FirstName = vista.FirstName;
+                employe.User.LastName = vista.LastName;
+                employe.User.Activo = vista.Activo;
+                employe.User.Arl = vista.Arl;
+                employe.User.DateRetiro = vista.DateRetiro;
+                employe.User.JobTitle = vista.JobTitle;
+                employe.User.License = vista.License;
+                employe.User.Movil = vista.Movil;
+                employe.User.NivelEducation = vista.NivelEducation;
+                employe.User.Rh = vista.Rh;
+                employe.User.SiteBirth = vista.SiteBirth;
+                employe.User.SiteExpedition = vista.SiteExpedition;
+
+
+                employe.Area = await _dataContext.Areas.FindAsync(vista.AreaId);
+                employe.Eps = await _dataContext.Eps.FindAsync(vista.EpsId);
+                employe.Pension = await _dataContext.Pensions.FindAsync(vista.PensionId);
+                employe.cajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(vista.CajaCompenId);
+                employe.PositionEmployee = await _dataContext.PositionEmployees.FindAsync(vista.PositionEmpId);
+                
+                await _userHelper.UpdateUserAsync(employe.User);
                 return RedirectToAction(nameof(Index));
             }
 

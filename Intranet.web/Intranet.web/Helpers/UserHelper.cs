@@ -112,6 +112,10 @@ namespace Intranet.Web.Helpers
             await _signInManager.SignOutAsync();
         }
 
+        public Task<IdentityResult> UpdateEmployeAsync(Employee Employe)
+        {
+            throw new System.NotImplementedException();
+        }
 
         public async Task<IdentityResult> UpdateUserAsync(User user)
         {
