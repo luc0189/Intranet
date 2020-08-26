@@ -96,15 +96,13 @@ namespace Intranet.web.Models
         [Display(Name = "Cargo")]
         public int PositionEmpId { get; set; }
 
-        [Required(ErrorMessage = "The field {0} is mandatory.")]
-        [Display(Name = "Registrar Como")]
-        public String RolId { get; set; }
+       
 
         public IEnumerable<SelectListItem> Areas { get; set; }
         public IEnumerable<SelectListItem> Eps { get; set; }
         public IEnumerable<SelectListItem> Pension { get; set; }
         public IEnumerable<SelectListItem> CajaCompensacion { get; set; }
         public IEnumerable<SelectListItem> PositionEmplooyed { get; set; }
-        public IEnumerable<SelectListItem> Roles { get; set; }
+     
     }
 }

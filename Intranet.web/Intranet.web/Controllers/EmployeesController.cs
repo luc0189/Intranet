@@ -135,14 +135,14 @@ namespace Intranet.web.Controllers
                  Pension = _combosHelpers.GetComboPension(),
                  CajaCompensacion = _combosHelpers.GetComboCajaCompensacion(),
                  PositionEmplooyed = _combosHelpers.GetComboPositionEmploye(),
-                 Roles = _combosHelpers.GetComboRoles()
+                 //Roles = _combosHelpers.GetComboRoles()
             };
             model.Areas = _combosHelpers.GetComboAreas();
             model.Eps = _combosHelpers.GetComboEps();
             model.Pension = _combosHelpers.GetComboPension();
             model.CajaCompensacion = _combosHelpers.GetComboCajaCompensacion();
             model.PositionEmplooyed = _combosHelpers.GetComboPositionEmploye();
-            model.Roles = _combosHelpers.GetComboRoles();
+            //model.Roles = _combosHelpers.GetComboRoles();
             return View(model);
         }
 
@@ -250,27 +250,27 @@ namespace Intranet.web.Controllers
 
                 if (user != null)
                 {
-                    if (model.RolId=="Employe")
-                    {
-                        _dataContext.Employees.Add(employe);
-                    }
-                    if (model.RolId == "Manager")
-                    {
-                        _dataContext.Managers.Add(manager);
-                    }
-                    if (model.RolId == "Recursoshumanos") 
-                    {
-                        _dataContext.Recursoshumanos.Add(recursosh);
-                    }
-                    if (model.RolId == "StoreLeader")
-                    {
-                        _dataContext.StoreLeaders.Add(storeLeader);
-                    }
-                    if (model.RolId == "purchasing")
-                    {
-                        _dataContext.Purchasings.Add(purchasing);
-                    }
-
+                    //if (model.RolId=="Employe")
+                    //{
+                    //    _dataContext.Employees.Add(employe);
+                    //}
+                    //if (model.RolId == "Manager")
+                    //{
+                    //    _dataContext.Managers.Add(manager);
+                    //}
+                    //if (model.RolId == "Recursoshumanos") 
+                    //{
+                    //    _dataContext.Recursoshumanos.Add(recursosh);
+                    //}
+                    //if (model.RolId == "StoreLeader")
+                    //{
+                    //    _dataContext.StoreLeaders.Add(storeLeader);
+                    //}
+                    //if (model.RolId == "purchasing")
+                    //{
+                    //    _dataContext.Purchasings.Add(purchasing);
+                    //}
+                    _dataContext.Employees.Add(employe);
                     await _dataContext.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
@@ -281,7 +281,7 @@ namespace Intranet.web.Controllers
             model.Pension = _combosHelpers.GetComboPension();
             model.CajaCompensacion = _combosHelpers.GetComboCajaCompensacion();
             model.PositionEmplooyed = _combosHelpers.GetComboPositionEmploye();
-            model.Roles = _combosHelpers.GetComboRoles();
+            //model.Roles = _combosHelpers.GetComboRoles();
             return View(model);
         }
    
@@ -375,11 +375,11 @@ namespace Intranet.web.Controllers
                 EpsId = employe.Eps.Id,
                 Eps =_combosHelpers.GetComboEps(),
 
-                CajaCompenId = employe.cajaCompensacion.Id,
+               CajaCompenId = employe.cajaCompensacion.Id,
                 CajaCompensacion =_combosHelpers.GetComboCajaCompensacion(),
 
-               
-                Roles =_combosHelpers.GetComboRoles(),
+            
+                ////Roles =_combosHelpers.GetComboRoles(),
 
                 AreaId = employe.Area.Id,
                 Areas = _combosHelpers.GetComboAreas()
@@ -440,7 +440,7 @@ namespace Intranet.web.Controllers
             vista.Pension = _combosHelpers.GetComboPension();
             vista.CajaCompensacion = _combosHelpers.GetComboCajaCompensacion();
             vista.PositionEmplooyed = _combosHelpers.GetComboPositionEmploye();
-            vista.Roles = _combosHelpers.GetComboRoles();
+            //vista.Roles = _combosHelpers.GetComboRoles();
           
             return View(vista);
         }

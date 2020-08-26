@@ -8,85 +8,88 @@
 
 <p>
     <a asp-action="Create" class="btn btn-primary">Create New</a>
-</p>
-<table class="table table-responsive">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.User.Document)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User.FullName)
-            </th>
+</p><div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.Document)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.FullName)
+                    </th>
 
-            <th>
-                @Html.DisplayNameFor(model => model.User.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User.Rh)
-            </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.Address)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.Rh)
+                    </th>
 
-            <th>
-                @Html.DisplayNameFor(model => model.User.Movil)
-            </th>
-            <th>
-                Exams
-            </th>
-            <th>
-                Hijos
-            </th>
-            <th>
-                Creditos
-            </th>
-            <th>
-                Persons Contact
-            </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.Movil)
+                    </th>
+                    <th>
+                        Exams
+                    </th>
+                    <th>
+                        Hijos
+                    </th>
+                    <th>
+                        Creditos
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.Activo)
+                    </th>
 
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Document)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.FullName)
-            </td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.Document)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.FullName)
+                        </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Rh)
-            </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.Address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.Rh)
+                        </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Movil)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Exams.Count)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sons.Count)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Credits.Count)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PersonContacts.Count)
-            </td>
-            <td>
-                <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Details</a> |
-                <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog">Delete</button>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.Movil)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Exams.Count)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sons.Count)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Credits.Count)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.Activo)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Details</a> |
+                            <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog">Delete</button>
 
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
 <partial name="_DeleteDialogModal"/>
 
 

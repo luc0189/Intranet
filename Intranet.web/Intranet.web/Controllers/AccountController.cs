@@ -3,6 +3,7 @@ using Intranet.web.Helpers;
 using Intranet.web.Models;
 using Intranet.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -109,13 +110,13 @@ namespace Intranet.web.Controllers
         {
             var vista = new AddUserViewModel
             {
-                
-                 Areas = _combosHelpers.GetComboAreas(),
+
+                Areas = _combosHelpers.GetComboAreas(),
                 Eps = _combosHelpers.GetComboEps(),
                 Pension = _combosHelpers.GetComboPension(),
                 CajaCompensacion = _combosHelpers.GetComboCajaCompensacion(),
                 PositionEmplooyed = _combosHelpers.GetComboPositionEmploye(),
-                Roles = _combosHelpers.GetComboRoles(),
+                //Roles = _combosHelpers.GetComboRoles(),
             };
             return View(vista);
         }
@@ -126,7 +127,7 @@ namespace Intranet.web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userHelper.AddUser(view, view.RolId.ToString());
+                var user = await _userHelper.AddUser(view, "Employe");
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "This email is already used.");
@@ -174,7 +175,146 @@ namespace Intranet.web.Controllers
 
             return View(view);
         }
+        public async Task<IActionResult> ChangeUser()
+        {
+            var user = await _userHelper.GetUserByEmailAsync(User.Identity.Name);
+            
+            if (user == null)
+            {
+               var man = await _dataContext.Managers
+              .Include(e => e.User)
+              .Include(e => e.Sons)
+              .Include(e => e.Area)
+              .ThenInclude(s => s.SiteHeadquarters)
+              .Include(e => e.PersonContacts)
+              .Include(e => e.Credits)
+              .Include(e => e.PositionEmployee)
+              .Include(e => e.Pension)
+              .Include(e => e.Eps)
 
+              .Include(e => e.Exams)
+              .Include(e => e.cajaCompensacion)
+              .Include(e => e.Endowments)
+              .FirstOrDefaultAsync(e => e.User.UserName == user.Email);
+                var viewm = new EditUserViewModel
+                {
+                    Id = man.Id,
+                    Document = man.User.Document,
+                    FirstName = man.User.FirstName,
+                    LastName = man.User.LastName,
+                    Address = man.User.Address,
+                    Movil = man.User.Movil,
+                    SiteExpedition = man.User.SiteExpedition,
+                    JobTitle = man.User.JobTitle,
+                    SiteBirth = man.User.SiteBirth,
+                    NivelEducation = man.User.NivelEducation,
+                    Rh = man.User.Rh,
+                    License = man.User.License,
+                    Arl = man.User.Arl,
+                    Activo = man.User.Activo,
+                    //PositionEmpId = employe.PositionEmployee.Id,
+                    //PositionEmplooyed = _combosHelpers.GetComboPositionEmploye(),
+
+                    //PensionId = employe.Pension.Id,
+                    //Pension = _combosHelpers.GetComboPension(),
+
+                    //EpsId = employe.Eps.Id,
+                    //Eps = _combosHelpers.GetComboEps(),
+
+                    //CajaCompenId = employe.cajaCompensacion.Id,
+                    //CajaCompensacion = _combosHelpers.GetComboCajaCompensacion(),
+
+                    //RolId= "Employe",
+                    // Roles = _combosHelpers.GetComboRoles(),
+
+                    //AreaId = employe.Area.Id,
+                    //Areas = _combosHelpers.GetComboAreas()
+                };
+
+            }
+
+            var view = new EditUserViewModel
+            {
+               
+                Document = user.Document,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Address = user.Address,
+                Movil = user.Movil,
+                SiteExpedition = user.SiteExpedition,
+                JobTitle = user.JobTitle,
+                SiteBirth = user.SiteBirth,
+                NivelEducation = user.NivelEducation,
+                Rh = user.Rh,
+                License = user.License,
+                Arl = user.Arl,
+                Activo = user.Activo
+               
+            };
+
+            return View(view);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangeUser(EditUserViewModel view)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userHelper.GetUserByEmailAsync(User.Identity.Name);
+
+
+                user.Document = view.Document;
+                user.FirstName = view.FirstName;
+                user.LastName = view.LastName;
+                user.Address = view.Address;
+                user.Movil = view.Movil;
+                user.SiteExpedition = view.SiteExpedition;
+                user.JobTitle = view.JobTitle;
+                user.NivelEducation = view.NivelEducation;
+                user.SiteBirth = view.SiteBirth;
+                user.Rh = view.Rh;
+                user.License = view.License;
+                user.Arl = view.Arl;
+                user.Activo = view.Activo;
+
+                await _userHelper.UpdateUserAsync(user);
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(view);
+        }
+
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChagePaswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userHelper.GetUserByEmailAsync(User.Identity.Name);
+                if (user != null)
+                {
+                    var result = await _userHelper.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("ChangeUser");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, result.Errors.FirstOrDefault().Description);
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "User no found.");
+                }
+            }
+
+            return View(model);
+        }
 
     }
 }
