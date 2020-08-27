@@ -177,75 +177,75 @@ namespace Intranet.web.Controllers
                     token = myToken
                 }, protocol: HttpContext.Request.Scheme);
 
-                _mailHelper.SendMail(view.Username, "Intranet Lcs - Email confirmation",
-                    $"<table border='1' cellpadding='0' cellspacing='0' width='100%'>" +
-                    $"<h1>Intranet Lcs -Email Confirmation</h1>" +
-                    $"<tr>"+
-                    $"<td style='padding: 40px 0 30px 0; align=center; bgcolor=#70bbd9'>" +
-                    
-                    $"</td>"+
-                    $"</tr>" +
-                    $"<tr>" +
-                    $"<td>" +
-                   $"<table align='center' border='1' cellpadding='0' cellspacing='0' width='600' style='-webkit-box-shadow: 10px 10px 81px -10px rgba(0,0,0,0.75); -moz-box-shadow: 10px 10px 81px -10px rgba(0,0,0,0.75); box-shadow: 10px 10px 81px -10px rgba(0,0,0,0.75);'>" +
-                           $"<tr>"+
-                                $"<td align='center' bgcolor='#70bbd9' style='padding: 40px 0 30px 0;'>" +
-                                           $"<img src='https://cdn1.iconfinder.com/data/icons/hawcons/32/698922-icon-9-mail-checked-256.png'/>" +
-                                $"</td>" +
-                           $"</tr>" +
-                           $"<tr>" +
-                                 $"<td bgcolor='##0c3645' style='padding: 40px 30px 40px 30px;'>" +
-                                          $"<table border='1' cellpadding='0' cellspacing='0' width='100%'>" +
-                                                  $"<tr>" +
-                                                          $"<td  style='color:#153643; font-family:Arial; sans-serif; font-size:24px;'>" +
-                                                                $"Activa tu email!" +
-                                                         $"</td>" +
-                                                 $"</tr>" +
-                                                 $"<tr>" +
-                                                        $"<td style = 'padding: 20px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;'>" +
-                                                               $"siguiendo el link a continuacion <a href=\"{tokenLink}\">Confirm Email</a>" +
-                                                        $"</td>" +
-                                                $"</tr>" +
-                                          $"</table>" +
-                                 $"</td>" +
-                           $"</tr>" +
-                           $"<tr>" +
-                               $"<td bgcolor='#0c3645' style='color:#ffffff; font-family:Arial, sans-serif; font-size:14px;' bgcolor:'#0c3644'>" +
-                                            $"<table  border='1' cellpadding='0' cellspacing='0' width='100%'>" +
-                                                $"<tr>" +
-                                                    $"<td width='75%' >" +
-                                                    $"&reg; LCsystem, Luis Carlos Sanchez Cabrera 2020 <br/>" +
-                                                    $"</td>" +
-                                                    $"<td align='right'>" +
-                                                        $"<table border='0' cellpadding='0' cellspacing='0'>" +
-                                                            $"<tr>" +
-                                                                $"<td>" +
-                                                                    $"LCssystem<a href='https://www.facebook.com/profile.php?id=631602625'>" +
-                                                                    $"<img src='https://cdn1.iconfinder.com/data/icons/smallicons-logotypes/32/facebook-48.png' alt='Facebook' width='38' height='38' style='display:block;' border='0'/>" +
-                                                                    $"</a>" +
-                                                                $"</td>" +
-                                                            $"</tr>" +
-                                                            $"<tr>" +
-                                                                $"<td style='font-size:0; line-height:0;' width ='20'> &nbsp;</td>" +
-                                                                    $"Supermio SAS<a href='https://supermio.co' >" +
-                                                                    $"<img src='https://supermio.co/wp-content/uploads/2020/04/LOGO_SUPERMIO_boton.png' alt='Supermio sas' width= '38' height='38' style='display:block;' border='0'/>" +
-                                                                    $"</a>" +
-                                                               $"</td>" +
-                                                            $"</tr>" +
-                                                        $"</table>" +
-                                                    $"</td>" +
+                _mailHelper.SendMail(model.Username, "Intranet Lcs - Email confirmation",
+                 $"<table border='1' cellpadding='0' cellspacing='0' width='100%'>" +
+                 $"<h1>Intranet Lcs -Email Confirmation</h1>" +
+                 $"<tr>" +
+                 $"<td style='padding: 40px 0 30px 0; align=center; bgcolor=#70bbd9'>" +
+
+                 $"</td>" +
+                 $"</tr>" +
+                 $"<tr>" +
+                 $"<td>" +
+                $"<table align='center' border='1' cellpadding='0' cellspacing='0' width='600' style='-webkit-box-shadow: 10px 10px 81px -10px rgba(0,0,0,0.75); -moz-box-shadow: 10px 10px 81px -10px rgba(0,0,0,0.75); box-shadow: 10px 10px 81px -10px rgba(0,0,0,0.75);'>" +
+                        $"<tr>" +
+                             $"<td align='center' bgcolor='#70bbd9' style='padding: 40px 0 30px 0;'>" +
+                                        $"<img src='https://cdn1.iconfinder.com/data/icons/hawcons/32/698922-icon-9-mail-checked-256.png'/>" +
+                             $"</td>" +
+                        $"</tr>" +
+                        $"<tr>" +
+                              $"<td bgcolor='##0c3645' border='0' style='padding: 40px 30px 40px 30px;'>" +
+                                       $"<table border='0' cellpadding='0' cellspacing='0' width='100%'>" +
+                                               $"<tr>" +
+                                                       $"<td  style='color:#153643; font-family:Arial; sans-serif; font-size:24px;'>" +
+                                                             $"Activa tu email!" +
+                                                      $"</td>" +
                                               $"</tr>" +
-                                        $"</table>" +
+                                              $"<tr>" +
+                                                     $"<td style = 'padding: 20px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;'>" +
+                                                            $"siguiendo el link a continuacion <a href=\"{tokenLink}\">Confirm Email</a>" +
+                                                     $"</td>" +
+                                             $"</tr>" +
+                                       $"</table>" +
                               $"</td>" +
-                         $"</tr>" +
-                    $"</table>" +
-               $"</table>" +
-                   
-                    $"<h1>Intranet Lcs -Email Confirmation</h1>" + 
-                    $"To allow the user, " + 
-                    $"plase click in this link:</br></br>" +
-                    $"<a href = \"{tokenLink}\">Confirm Email</a>");
-                ViewBag.Message = $"Se ha Enviado un Email a {view.Username} con Instrucciones para Activar el Usuario.";
+                        $"</tr>" +
+                        $"<tr>" +
+                            $"<td bgcolor='#0c3645' style='color:#ffffff; font-family:Arial, sans-serif; font-size:14px;' bgcolor:'#0c3644'>" +
+                                         $"<table  border='1' cellpadding='0' cellspacing='0' width='100%'>" +
+                                             $"<tr>" +
+                                                 $"<td width='75%' >" +
+                                                 $"&reg; LCsystem, Luis Carlos Sanchez Cabrera 2020 <br/>" +
+                                                 $"</td>" +
+                                                 $"<td align='right'>" +
+                                                     $"<table border='0' cellpadding='0' cellspacing='0'>" +
+                                                         $"<tr>" +
+                                                             $"<td>" +
+                                                                 $"LCssystem<a href='https://www.facebook.com/profile.php?id=631602625'>" +
+                                                                 $"<img src='https://cdn1.iconfinder.com/data/icons/smallicons-logotypes/32/facebook-48.png' alt='Facebook' width='38' height='38' style='display:block;' border='0'/>" +
+                                                                 $"</a>" +
+                                                             $"</td>" +
+                                                         $"</tr>" +
+                                                         $"<tr>" +
+                                                             $"<td style='font-size:0; line-height:0;' width ='20'> &nbsp;</td>" +
+                                                                 $"Supermio<a href='https://supermio.co'>" +
+                                                                 $"<img src='https://supermio.co/wp-content/uploads/2020/04/LOGO_SUPERMIO_boton.png' alt='Supermio sas' width= '38' height='38' style='display:block;' border='0'/>" +
+                                                                 $"</a>" +
+                                                            $"</td>" +
+                                                         $"</tr>" +
+                                                     $"</table>" +
+                                                 $"</td>" +
+                                           $"</tr>" +
+                                     $"</table>" +
+                           $"</td>" +
+                      $"</tr>" +
+                 $"</table>" +
+            $"</table>" +
+
+                 $"<h1>Intranet Lcs -Email Confirmation</h1>" +
+                 $"To allow the user, " +
+                 $"plase click in this link:</br></br>" +
+                 $"<a href = \"{tokenLink}\">Confirm Email</a>");
+                ViewBag.Message = $"Se ha Enviado un Email a {model.Username} con Instrucciones para Activar el Usuario.";
                 return View(view);
             }
             return View(view);
