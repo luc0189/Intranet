@@ -1,4 +1,5 @@
 ﻿using Intranet.web.Data;
+using Intranet.web.Data.Entities;
 using Intranet.web.Helpers;
 using Intranet.web.Models;
 using Intranet.Web.Helpers;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -21,17 +23,20 @@ namespace Intranet.web.Controllers
         private readonly IConfiguration _configuration;
         private readonly ICombosHelpers _combosHelpers;
         private readonly DataContext _dataContext;
+        private readonly IMailHelper _mailHelper;
 
         public AccountController(
             IUserHelper userHelper,
             IConfiguration configuration,
             ICombosHelpers combosHelpers,
-            DataContext dataContext)
+            DataContext dataContext,
+            IMailHelper mailHelper)
         {
             _userHelper = userHelper;
             _configuration = configuration;
             _combosHelpers = combosHelpers;
             _dataContext = dataContext;
+            _mailHelper = mailHelper;
         }
         [HttpGet]
         public IActionResult Login()
@@ -112,12 +117,17 @@ namespace Intranet.web.Controllers
             {
 
                 Areas = _combosHelpers.GetComboAreas(),
-                Eps = _combosHelpers.GetComboEps(),
                 Pension = _combosHelpers.GetComboPension(),
+                Eps = _combosHelpers.GetComboEps(),
                 CajaCompensacion = _combosHelpers.GetComboCajaCompensacion(),
                 PositionEmplooyed = _combosHelpers.GetComboPositionEmploye(),
-                //Roles = _combosHelpers.GetComboRoles(),
+               
             };
+            vista.Areas = _combosHelpers.GetComboAreas();
+            vista.Eps = _combosHelpers.GetComboEps();
+            vista.Pension = _combosHelpers.GetComboPension();
+            vista.CajaCompensacion = _combosHelpers.GetComboCajaCompensacion();
+            vista.PositionEmplooyed = _combosHelpers.GetComboPositionEmploye();
             return View(vista);
         }
 
@@ -131,48 +141,113 @@ namespace Intranet.web.Controllers
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "This email is already used.");
+                    view.Areas = _combosHelpers.GetComboAreas();
+                    view.Eps = _combosHelpers.GetComboEps();
+                    view.Pension = _combosHelpers.GetComboPension();
+                    view.CajaCompensacion = _combosHelpers.GetComboCajaCompensacion();
+                    view.PositionEmplooyed = _combosHelpers.GetComboPositionEmploye();
                     return View(view);
                 }
 
-                //if (view.RoleId == 1)
-                //{
-                //    var lessee = new Lessee
-                //    {
-                //        Contracts = new List<Contract>(),
-                //        User = user
-                //    };
+               
+                    var employe = new Employee
+                    {
+                        Credits = new List<Credit>(),
+                        Sons = new List<Sons>(),
+                        Endowments = new List<Endowment>(),
+                        Exams = new List<Exams>(),
+                        PersonContacts = new List<PersonContact>(),
+                        UserImages = new List<UserImages>(),
+                        Area = await _dataContext.Areas.FindAsync(view.AreaId),
+                        Eps = await _dataContext.Eps.FindAsync(view.EpsId),
+                        Pension = await _dataContext.Pensions.FindAsync(view.PensionId),
+                        cajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(view.CajaCompenId),
+                        PositionEmployee = await _dataContext.PositionEmployees.FindAsync(view.PositionEmpId),
 
-                //    _dataContext.Lessees.Add(lessee);
-                //    await _dataContext.SaveChangesAsync();
-                //}
-                //else
-                //{
-                //    var owner = new Owner
-                //    {
-                //        Contracts = new List<Contract>(),
-                //        Properties = new List<Property>(),
-                //        User = user
-                //    };
+                        User = user
+                    };
 
-                //    _dataContext.Owners.Add(owner);
-                //    await _dataContext.SaveChangesAsync();
-                //}
-
-                var loginViewModel = new LoginViewModel
+                    _dataContext.Employees.Add(employe);
+                    await _dataContext.SaveChangesAsync();
+                
+                var myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+                var tokenLink = Url.Action("ConfirmEmail", "Account", new
                 {
-                    Password = view.Password,
-                    RememberMe = false,
-                    Username = view.Username
-                };
+                    userid = user.Id,
+                    token = myToken
+                }, protocol: HttpContext.Request.Scheme);
 
-                var result2 = await _userHelper.LoginAsync(loginViewModel);
-
-                if (result2.Succeeded)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
+                _mailHelper.SendMail(view.Username, "Intranet Lcs - Email confirmation",
+                    $"<table border='1' cellpadding='0' cellspacing='0' width='100%'>" +
+                    $"<h1>Intranet Lcs -Email Confirmation</h1>" +
+                    $"<tr>"+
+                    $"<td style='padding: 40px 0 30px 0; align=center; bgcolor=#70bbd9'>" +
+                    
+                    $"</td>"+
+                    $"</tr>" +
+                    $"<tr>" +
+                    $"<td>" +
+                   $"<table align='center' border='1' cellpadding='0' cellspacing='0' width='600' style='-webkit-box-shadow: 10px 10px 81px -10px rgba(0,0,0,0.75); -moz-box-shadow: 10px 10px 81px -10px rgba(0,0,0,0.75); box-shadow: 10px 10px 81px -10px rgba(0,0,0,0.75);'>" +
+                           $"<tr>"+
+                                $"<td align='center' bgcolor='#70bbd9' style='padding: 40px 0 30px 0;'>" +
+                                           $"<img src='https://cdn1.iconfinder.com/data/icons/hawcons/32/698922-icon-9-mail-checked-256.png'/>" +
+                                $"</td>" +
+                           $"</tr>" +
+                           $"<tr>" +
+                                 $"<td bgcolor='##0c3645' style='padding: 40px 30px 40px 30px;'>" +
+                                          $"<table border='1' cellpadding='0' cellspacing='0' width='100%'>" +
+                                                  $"<tr>" +
+                                                          $"<td  style='color:#153643; font-family:Arial; sans-serif; font-size:24px;'>" +
+                                                                $"Activa tu email!" +
+                                                         $"</td>" +
+                                                 $"</tr>" +
+                                                 $"<tr>" +
+                                                        $"<td style = 'padding: 20px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;'>" +
+                                                               $"siguiendo el link a continuacion <a href=\"{tokenLink}\">Confirm Email</a>" +
+                                                        $"</td>" +
+                                                $"</tr>" +
+                                          $"</table>" +
+                                 $"</td>" +
+                           $"</tr>" +
+                           $"<tr>" +
+                               $"<td bgcolor='#0c3645' style='color:#ffffff; font-family:Arial, sans-serif; font-size:14px;' bgcolor:'#0c3644'>" +
+                                            $"<table  border='1' cellpadding='0' cellspacing='0' width='100%'>" +
+                                                $"<tr>" +
+                                                    $"<td width='75%' >" +
+                                                    $"&reg; LCsystem, Luis Carlos Sanchez Cabrera 2020 <br/>" +
+                                                    $"</td>" +
+                                                    $"<td align='right'>" +
+                                                        $"<table border='0' cellpadding='0' cellspacing='0'>" +
+                                                            $"<tr>" +
+                                                                $"<td>" +
+                                                                    $"LCssystem<a href='https://www.facebook.com/profile.php?id=631602625'>" +
+                                                                    $"<img src='https://cdn1.iconfinder.com/data/icons/smallicons-logotypes/32/facebook-48.png' alt='Facebook' width='38' height='38' style='display:block;' border='0'/>" +
+                                                                    $"</a>" +
+                                                                $"</td>" +
+                                                            $"</tr>" +
+                                                            $"<tr>" +
+                                                                $"<td style='font-size:0; line-height:0;' width ='20'> &nbsp;</td>" +
+                                                                    $"Supermio SAS<a href='https://supermio.co' >" +
+                                                                    $"<img src='https://supermio.co/wp-content/uploads/2020/04/LOGO_SUPERMIO_boton.png' alt='Supermio sas' width= '38' height='38' style='display:block;' border='0'/>" +
+                                                                    $"</a>" +
+                                                               $"</td>" +
+                                                            $"</tr>" +
+                                                        $"</table>" +
+                                                    $"</td>" +
+                                              $"</tr>" +
+                                        $"</table>" +
+                              $"</td>" +
+                         $"</tr>" +
+                    $"</table>" +
+               $"</table>" +
+                   
+                    $"<h1>Intranet Lcs -Email Confirmation</h1>" + 
+                    $"To allow the user, " + 
+                    $"plase click in this link:</br></br>" +
+                    $"<a href = \"{tokenLink}\">Confirm Email</a>");
+                ViewBag.Message = $"Se ha Enviado un Email a {view.Username} con Instrucciones para Activar el Usuario.";
+                return View(view);
             }
-
             return View(view);
         }
         public async Task<IActionResult> ChangeUser()
@@ -314,6 +389,27 @@ namespace Intranet.web.Controllers
             }
 
             return View(model);
+        }
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
+            {
+                return NotFound();
+            }
+
+            var user = await _userHelper.GetUserByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var result = await _userHelper.ConfirmEmailAsync(user, token);
+            if (!result.Succeeded)
+            {
+                return NotFound();
+            }
+
+            return View();
         }
 
     }

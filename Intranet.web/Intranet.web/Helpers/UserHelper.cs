@@ -38,7 +38,9 @@ namespace Intranet.Web.Helpers
                 SiteExpedition = view.SiteExpedition,
                 Activo = view.Activo,
                 DateRetiro = view.DateRetiro,
-                NivelEducation = view.NivelEducation
+                NivelEducation = view.NivelEducation,
+                Email=view.Username,
+                UserName=view.Username
                 
             };
             var result = await AddUserAsync(user, view.Password);
@@ -132,6 +134,20 @@ namespace Intranet.Web.Helpers
         public async Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword)
         {
             return await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+        }
+        public async Task<IdentityResult> ConfirmEmailAsync(User user, string token)
+        {
+            return await _userManager.ConfirmEmailAsync(user, token);
+        }
+
+        public async Task<string> GenerateEmailConfirmationTokenAsync(User user)
+        {
+            return await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        }
+
+        public async Task<User> GetUserByIdAsync(string userId)
+        {
+            return await _userManager.FindByIdAsync(userId);
         }
 
     }
