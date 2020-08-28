@@ -181,20 +181,13 @@ namespace Intranet.web.Data
 
         private async Task<User> CheckUserAsync(
             string document,
-            string siteExpidition,
             string firstName,
             string lastName,
             string email,
-            string jodtitle,
-            string siteBirh,
             string address,
-            string rh,
-            bool license,
-            string phone,
-            bool arl,
+            string movil,
             string role,
-            string nivelEducation,
-            bool activo
+             bool activo
             
             )
         {
@@ -207,17 +200,11 @@ namespace Intranet.web.Data
                     LastName = lastName,
                     Email = email,
                     UserName = email,
-                    PhoneNumber = phone,
-                    Movil= phone,
+                    PhoneNumber = movil,
+                    Movil= movil,
                     Address = address,
                     Document = document,
-                    SiteExpedition=siteExpidition,
-                    JobTitle=jodtitle,
-                    SiteBirth=siteBirh,
-                    Rh=rh,
-                    License=license,
-                    Arl=arl,
-                    NivelEducation=nivelEducation,
+                   DateRegistro=DateTime.Now,
                     Activo=activo,
                     
                     

@@ -28,7 +28,6 @@ namespace Intranet.web.Data.Entities
         public string Address { get; set; }
 
        
-
         [Display(Name = "Movil")]
         [MaxLength(10)]
         public string Movil { get; set; }
@@ -36,7 +35,7 @@ namespace Intranet.web.Data.Entities
         [Display(Name = "Activo")]      
         public bool Activo { get; set; }
                
-        [Display(Name = "Fecha retiro")]
+        [Display(Name = "Fecha Registro")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime  DateRegistro { get; set; }
 
