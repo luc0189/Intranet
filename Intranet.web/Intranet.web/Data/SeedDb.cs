@@ -30,16 +30,11 @@ namespace Intranet.web.Data
             await ChekEpsAsyn();
             await ChekPensionAsyn();
             await ChekCajaCompAsyn();
-            var manager = await CheckUserAsync("1117498993", "Florencia", "Luis Carlos", "Sanchez Cabrera","luc0189@gmail.com",
-                                                "Jefe Sistemas", "Milan Caqueta", "Calle Luna Calle Sol",
-                                                "O+", true,"3107957939",true,  "Manager","Ingeniero",true);
-           var employee = await CheckUserAsync("1121860519", "Florencia", "Yency", "Gonzalez", "yency0187@gmail.com","Aux Registro"
-                                              , "Villavicencio", "Calle Luna Calle Sol",
-                                              "O+", true, "3107957939", true, "Employe","Tecnologo",false);
-            //var lessee = await CheckUserAsync("2020", "Juan", "Zuluaga", "carlos.zuluaga@globant.com", "350 634 2747", "Calle Luna Calle Sol", "Lessee");
-           
+            var manager = await CheckUserAsync("1117498993", "Luis Carlos", "Sanchez Cabrera","luc0189@gmail.com",
+                                                "Calle Luna Calle Sol","3107957939", "Manager",true);
+                  
             await CheckManagerAsync(manager);
-            await CheckEmployeAsync(employee);
+          
          
            
         }
@@ -136,44 +131,13 @@ namespace Intranet.web.Data
                 await _context.SaveChangesAsync();
             }
         }
-        private async Task CheckEmployeAsync(User user)
-        {
-            if (!_context.Employees.Any())
-            {
-                _context.Employees.Add(new Employee {
-                    Credits = new List<Credit>(),
-                    Sons = new List<Sons>(),
-                    Endowments = new List<Endowment>(),
-                    Exams = new List<Exams>(),
-                    PersonContacts = new List<PersonContact>(),
-                    UserImages = new List<UserImages>(),
-                    Area = await _context.Areas.FirstAsync(o => o.Id == 1),
-                    Eps = await _context.Eps.FirstAsync(o => o.Id == 1),
-                    Pension = await _context.Pensions.FirstAsync(o => o.Id == 1),
-                    cajaCompensacion = await _context.CajaCompensacions.FirstAsync(o => o.Id == 1),
-                    PositionEmployee = await _context.PositionEmployees.FirstAsync(o => o.Id == 1),
-                    User = user });
-                await _context.SaveChangesAsync();
-            }
-        }
-
+      
         private async Task CheckManagerAsync(User user)
         {
             if (!_context.Managers.Any())
             {
                 _context.Managers.Add(new Manager {
-                    Credits = new List<Credit>(),
-                    Sons = new List<Sons>(),
-                    Endowments = new List<Endowment>(),
-                    Exams = new List<Exams>(),
-                    PersonContacts = new List<PersonContact>(),
-                    UserImages = new List<UserImages>(),
-                    Area = await _context.Areas.FirstAsync(o => o.Id == 1),
-                    Eps = await _context.Eps.FirstAsync(o => o.Id == 1),
-                    Pension = await _context.Pensions.FirstAsync(o => o.Id == 1),
-                    cajaCompensacion = await _context.CajaCompensacions.FirstAsync(o => o.Id == 1),
-                    PositionEmployee = await _context.PositionEmployees.FirstAsync(o => o.Id == 1),
-
+                   
                     User = user});
                 await _context.SaveChangesAsync();
             }
@@ -227,7 +191,7 @@ namespace Intranet.web.Data
             await _userHelper.CheckRoleAsync("purchasing");
             await _userHelper.CheckRoleAsync("StoreLeader");
             await _userHelper.CheckRoleAsync("UserApp");
-            await _userHelper.CheckRoleAsync("Employe");
+         
         }
 
       
