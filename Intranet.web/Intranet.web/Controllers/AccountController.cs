@@ -177,7 +177,7 @@ namespace Intranet.web.Controllers
                     token = myToken
                 }, protocol: HttpContext.Request.Scheme);
 
-                _mailHelper.SendMail(model.Username, "Intranet Lcs - Email confirmation",
+                _mailHelper.SendMail(view.Username, "Intranet Lcs - Email confirmation",
                  $"<table border='1' cellpadding='0' cellspacing='0' width='100%'>" +
                  $"<h1>Intranet Lcs -Email Confirmation</h1>" +
                  $"<tr>" +
@@ -245,7 +245,7 @@ namespace Intranet.web.Controllers
                  $"To allow the user, " +
                  $"plase click in this link:</br></br>" +
                  $"<a href = \"{tokenLink}\">Confirm Email</a>");
-                ViewBag.Message = $"Se ha Enviado un Email a {model.Username} con Instrucciones para Activar el Usuario.";
+                ViewBag.Message = $"Se ha Enviado un Email a {view.Username} con Instrucciones para Activar el Usuario.";
                 return View(view);
             }
             return View(view);
