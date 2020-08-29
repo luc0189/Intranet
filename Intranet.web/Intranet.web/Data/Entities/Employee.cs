@@ -87,10 +87,8 @@ namespace Intranet.web.Data.Entities
         
         //aqui los campos que para tigger
         
-       
         public DateTime DateRegistro { get; set; }
-               
-
+        
         [MaxLength(30)]
         [Required]
         public string UserRegistra { get; set; }
@@ -98,8 +96,6 @@ namespace Intranet.web.Data.Entities
         [MaxLength(30)]
         public string UserModify { get; set; }
 
-        [Display(Name = "Fecha Modifica")]
-       
         public DateTime DateModify { get; set; }
 
         public string FullName => $"{FirstName} {LastName}";

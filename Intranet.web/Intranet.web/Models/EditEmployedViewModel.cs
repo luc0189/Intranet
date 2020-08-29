@@ -12,8 +12,6 @@ namespace Intranet.web.Models
         [Display(Name = "UserModif")]
         [MaxLength(30)]
         public string UserModify { get; set; }
-        
-        [Display(Name = "Datemodifi")]
         public DateTime DateModify { get; set; }
     }
 }

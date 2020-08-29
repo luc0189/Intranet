@@ -1,6 +1,7 @@
 ﻿using Intranet.web.Data;
 using Intranet.web.Data.Entities;
 using Intranet.web.Models;
+using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http2.HPack;
 using Remotion.Linq.Parsing.Structure.IntermediateModel;
 using System.Threading.Tasks;
 
@@ -24,9 +25,9 @@ namespace Intranet.web.Helpers
             {
                 Id = isNew ? 0 : model.Id,
                 StartDate = model.StartDate,
-                EndDate = model.EndDate,
+                EndDate = model.StartDate.AddYears(1).AddDays(1),
                 Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
-
+                
                 ExamsType = await _dataContext.ExamsTypes.FindAsync(model.ExamTypeId)
 
 
@@ -49,6 +50,7 @@ namespace Intranet.web.Helpers
         }
         public async Task<Credit> ToEntitiesCreditAsync(CreditViewModel model, bool isNew)
         {
+            int mes = int.Parse(model.DeadlinePay.ToString());
             return new Credit
             {
                 Id = isNew ? 0 : model.Id,
@@ -58,7 +60,7 @@ namespace Intranet.web.Helpers
                 Quotmonthly = model.Quotmonthly,
                 TotalPrice = model.TotalPrice,
                 StartDate = model.StartDate,
-                EndDate = model.EndDate,
+                EndDate = model.StartDate.AddMonths(mes).AddDays(1),
                 Employee = await _dataContext.Employees.FindAsync(model.EmployeeIds),
 
                 CreditEntities = await _dataContext.CreditEntities.FindAsync(model.EntityId)
@@ -167,7 +169,7 @@ namespace Intranet.web.Helpers
             {
                 Id = exams.Id,
                 StartDate = exams.StartDate.ToUniversalTime(),
-                EndDate = exams.StartDate.AddYears(1),
+                
                 Employee = exams.Employee,
                 EmployeeId = exams.Employee.Id,
                 ExamTypeId = exams.ExamsType.Id,

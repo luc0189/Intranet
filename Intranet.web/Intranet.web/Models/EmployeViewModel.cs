@@ -86,10 +86,9 @@ namespace Intranet.web.Models
         public string DateIngreso { get; set; }
 
         //aqui los campos que para tigger
-        [Display(Name = "Usercrea")]
+        
         [MaxLength(30)]
         public string UserCrea { get; set; }
-
 
         public DateTime DateRegistro { get; set; }
 

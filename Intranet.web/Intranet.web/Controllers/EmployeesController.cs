@@ -355,7 +355,7 @@ namespace Intranet.web.Controllers
                     employe.SiteBirth = vista.SiteBirth;
                     employe.SiteExpedition = vista.SiteExpedition;
                     employe.DateIngreso = vista.DateIngreso;
-                    employe.DateModify = vista.DateModify;
+                    employe.UserRegistra = vista.UserCrea;
                     employe.DateRegistro = vista.DateRegistro;
                     employe.Email = vista.Email;
                     employe.DateModify = DateTime.Today;
@@ -441,7 +441,7 @@ namespace Intranet.web.Controllers
             }
             var model = new ExamViewModel
             {
-
+                
                 EmployeeId = employe.Id,
                 ExamTypes = _combosHelpers.GetComboExamTypes()
             };
@@ -508,7 +508,7 @@ namespace Intranet.web.Controllers
             {
 
                 EmployeeIds = employe.Id,
-
+                StartDate=DateTime.Today,
                 Entityes = _combosHelpers.GetComboCreditEntities()
             };
             return View(model);
