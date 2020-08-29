@@ -33,8 +33,7 @@ namespace Intranet.web.Controllers.API
                 return BadRequest();
             }
             var employe = await _dataContext.Employees
-                .Include(e => e.User)
-                .Include(e => e.Credits)
+                 .Include(e => e.Credits)
                 .ThenInclude(c=>c.CreditEntities)
                 .Include(e => e.Endowments)
                 .Include(e => e.Exams)
@@ -42,7 +41,7 @@ namespace Intranet.web.Controllers.API
                 .Include(e => e.PersonContacts)
                 .Include(e => e.UserImages)
                 .Include(e => e.Sons)
-                .FirstOrDefaultAsync(e => e.User.Email.ToLower() == request.Email.ToLower());
+                .FirstOrDefaultAsync(e => e.Email.ToLower() == request.Email.ToLower());
             if (employe==null)
             {
                 return NotFound();
@@ -50,13 +49,13 @@ namespace Intranet.web.Controllers.API
             var response = new EmployeResponse
             {
                 Id=employe.Id,
-                Document=employe.User.Document,
-                FirstName=employe.User.FirstName,
-                LastName=employe.User.LastName,
-                Address=employe.User.Address,
-                Activo=employe.User.Activo,
-                Email=employe.User.Email,
-                Movil=employe.User.Movil,
+                Document=employe.Document,
+                FirstName=employe.FirstName,
+                LastName=employe.LastName,
+                Address=employe.Address,
+                Activo=employe.Activo,
+                Email=employe.Email,
+                Movil=employe.Movil,
                 Credits=employe.Credits?.Select(c => new CreditResponse
                 {
                     Id=c.Id,
