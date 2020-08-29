@@ -29,14 +29,7 @@ namespace Intranet.web.Controllers.API
             }
             var manager = await _dataContext.Managers
                 .Include(e => e.User)
-                .Include(e => e.Credits)
-                .ThenInclude(c => c.CreditEntities)
-                .Include(e => e.Endowments)
-                .Include(e => e.Exams)
-                .ThenInclude(ex => ex.ExamsType)
-                .Include(e => e.PersonContacts)
-                .Include(e => e.UserImages)
-                .Include(e => e.Sons)
+                
                 .FirstOrDefaultAsync(e => e.User.Email.ToLower() == request.Email.ToLower());
             if (manager == null)
             {
@@ -52,53 +45,7 @@ namespace Intranet.web.Controllers.API
                 Activo = manager.User.Activo,
                 Email = manager.User.Email,
                 Movil = manager.User.Movil,
-                Credits = manager.Credits?.Select(c => new CreditResponse
-                {
-                    Id = c.Id,
-                    NumberL = c.NumberL,
-                    Quotmonthly = c.Quotmonthly,
-                    TotalPrice = c.TotalPrice,
-                    DeadlinePay = c.DeadlinePay,
-                    StartDate = c.StartDate,
-                    EndDate = c.EndDate,
-                    IsActive = c.IsActive,
-                    EntitiesCreditResponse = ToEntitiesResponse(c.CreditEntities)
-
-                }).ToList(),
-                Endowment = manager.Endowments?.Select(e => new EndowmentResponse
-                {
-                    Id = e.Id,
-                    Detail = e.Detail,
-                    Count = e.Count,
-                    Size = e.Size,
-                    DateDelivery = e.DateDelivery
-                }).ToList(),
-                PersonC = manager.PersonContacts?.Select(p => new PersonCResponse
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Telephone = p.Telephone,
-                    relationship = p.relationship
-                }).ToList(),
-                Sons = manager.Sons?.Select(so => new SonsResponse
-                {
-                    Id = so.Id,
-                    Name = so.Name,
-                    Datebirth = so.Datebirth,
-                    Genero = so.Genero
-                }).ToList(),
-                UserImage = manager.UserImages?.Select(i => new UserImageResponse
-                {
-                    Id = i.Id,
-                    ImageUrl = i.ImageFullPath
-                }).ToList(),
-                Exams = manager.Exams?.Select(ex => new ExamsResponse
-                {
-                    Id = ex.Id,
-                    ExamTypeResponse = ToExamResponse(ex.ExamsType),
-                    StartDate = ex.StartDate,
-                    EndDate = ex.EndDate
-                }).ToList()
+                
 
             };
             return Ok(response);
