@@ -72,7 +72,7 @@ namespace Intranet.web.Models
         [Display(Name = "Fecha retiro")]
         [MaxLength(50)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-        public String DateRetiro { get; set; }
+        public DateTime DateRetiro { get; set; }
 
         [Required(ErrorMessage = "The Field {0} is mandatory.")]
         [Display(Name = "Area")]

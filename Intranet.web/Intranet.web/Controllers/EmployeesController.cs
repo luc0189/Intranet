@@ -86,14 +86,14 @@ namespace Intranet.web.Controllers
         public IActionResult Index()
         {
             return View(_dataContext.Employees
-                .Include(e => e.User)
                 .Include(e => e.Sons)
                 .Include(e => e.Area)
                 .ThenInclude(s => s.SiteHeadquarters)
                 .Include(e => e.PersonContacts)
                 .Include(e => e.Credits)
                 .Include(e => e.Exams)
-                .Include(e=>e.cajaCompensacion)
+                .Include(e=>e.CajaCompensacion)
+                .Include(e=>e.Incapacities)
                 .Include(e => e.Endowments));
         }
 
@@ -106,14 +106,14 @@ namespace Intranet.web.Controllers
             }
 
             var employee = await _dataContext.Employees
-                .Include(e => e.User)
                 .Include(e => e.Sons)
                 .Include(e => e.Area)
                 .Include(e => e.Eps)
                 .Include(e => e.Pension)
-                .Include(e => e.cajaCompensacion)
+                .Include(e => e.CajaCompensacion)
                 .Include(e => e.PersonContacts)
                 .Include(i => i.UserImages)
+                .Include(e => e.Incapacities)
                 .Include(e => e.Credits)
                 .ThenInclude(c => c.CreditEntities)
                 .Include(e => e.Exams)
@@ -131,7 +131,7 @@ namespace Intranet.web.Controllers
 
         public IActionResult Create()
         {
-            var model = new AddUserViewModel
+            var model = new EmployeViewModel
             {
                  Areas = _combosHelpers.GetComboAreas(),
                  Eps = _combosHelpers.GetComboEps(),
@@ -152,208 +152,39 @@ namespace Intranet.web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(AddUserViewModel model)
+        public async Task<IActionResult> Create(EmployeViewModel model)
         {
             
 
             if (ModelState.IsValid)
             {
-                var user = await CreateUserAsync(model);
-
-                var employe = new Employee
+                var exist = _dataContext.Employees.FirstOrDefaultAsync(e=> e.Document== model.Document);
+                if (exist==null)
                 {
-                    Credits = new List<Credit>(),
-                    Sons = new List<Sons>(),
-                    Endowments = new List<Endowment>(),
-                    Exams = new List<Exams>(),
-                    PersonContacts = new List<PersonContact>(),
-                    UserImages = new List<UserImages>(),
-                    Area = await _dataContext.Areas.FindAsync(model.AreaId),
-                    Eps = await _dataContext.Eps.FindAsync(model.EpsId),
-                    Pension = await _dataContext.Pensions.FindAsync(model.PensionId),
-                    cajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(model.CajaCompenId),
-                    PositionEmployee = await _dataContext.PositionEmployees.FindAsync(model.PositionEmpId),
-
-                    User = user
-
-
-                };
-                var manager = new Manager
-                {
-                    Credits = new List<Credit>(),
-                    Sons = new List<Sons>(),
-                    Endowments = new List<Endowment>(),
-                    Exams = new List<Exams>(),
-                    PersonContacts = new List<PersonContact>(),
-                    UserImages = new List<UserImages>(),
-                    Area = await _dataContext.Areas.FindAsync(model.AreaId),
-                    Eps = await _dataContext.Eps.FindAsync(model.EpsId),
-                    Pension = await _dataContext.Pensions.FindAsync(model.PensionId),
-                    cajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(model.CajaCompenId),
-                    PositionEmployee = await _dataContext.PositionEmployees.FindAsync(model.PositionEmpId),
-
-                    User = user
+                    var employe = new Employee
+                    {
+                        Credits = new List<Credit>(),
+                        Sons = new List<Sons>(),
+                        Endowments = new List<Endowment>(),
+                        Exams = new List<Exams>(),
+                        PersonContacts = new List<PersonContact>(),
+                        Incapacities = new List<Incapacity>(),
+                        UserImages = new List<UserImages>(),
+                        Area = await _dataContext.Areas.FindAsync(model.AreaId),
+                        Eps = await _dataContext.Eps.FindAsync(model.EpsId),
+                        Pension = await _dataContext.Pensions.FindAsync(model.PensionId),
+                        CajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(model.CajaCompenId),
+                        PositionEmployee = await _dataContext.PositionEmployees.FindAsync(model.PositionEmpId)
 
 
-                };
-                var purchasing = new purchasing
-                {
-                    Credits = new List<Credit>(),
-                    Sons = new List<Sons>(),
-                    Endowments = new List<Endowment>(),
-                    Exams = new List<Exams>(),
-                    PersonContacts = new List<PersonContact>(),
-                    UserImages = new List<UserImages>(),
-                    Area = await _dataContext.Areas.FindAsync(model.AreaId),
-                    Eps = await _dataContext.Eps.FindAsync(model.EpsId),
-                    Pension = await _dataContext.Pensions.FindAsync(model.PensionId),
-                    cajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(model.CajaCompenId),
-                    PositionEmployee = await _dataContext.PositionEmployees.FindAsync(model.PositionEmpId),
-
-                    User = user
-
-
-                };
-                var recursosh = new Recursoshumanos
-                {
-                    Credits = new List<Credit>(),
-                    Sons = new List<Sons>(),
-                    Endowments = new List<Endowment>(),
-                    Exams = new List<Exams>(),
-                    PersonContacts = new List<PersonContact>(),
-                    UserImages = new List<UserImages>(),
-                    Area = await _dataContext.Areas.FindAsync(model.AreaId),
-                    Eps = await _dataContext.Eps.FindAsync(model.EpsId),
-                    Pension = await _dataContext.Pensions.FindAsync(model.PensionId),
-                    cajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(model.CajaCompenId),
-                    PositionEmployee = await _dataContext.PositionEmployees.FindAsync(model.PositionEmpId),
-
-                    User = user
-
-
-                };
-                var storeLeader = new StoreLeader
-                {
-                    Credits = new List<Credit>(),
-                    Sons = new List<Sons>(),
-                    Endowments = new List<Endowment>(),
-                    Exams = new List<Exams>(),
-                    PersonContacts = new List<PersonContact>(),
-                    UserImages = new List<UserImages>(),
-                    Area = await _dataContext.Areas.FindAsync(model.AreaId),
-                    Eps = await _dataContext.Eps.FindAsync(model.EpsId),
-                    Pension = await _dataContext.Pensions.FindAsync(model.PensionId),
-                    cajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(model.CajaCompenId),
-                    PositionEmployee = await _dataContext.PositionEmployees.FindAsync(model.PositionEmpId),
-
-                    User = user
-
-
-                };
-
-                if (user != null)
-                {
-                    //if (model.RolId=="Employe")
-                    //{
-                    //    _dataContext.Employees.Add(employe);
-                    //}
-                    //if (model.RolId == "Manager")
-                    //{
-                    //    _dataContext.Managers.Add(manager);
-                    //}
-                    //if (model.RolId == "Recursoshumanos") 
-                    //{
-                    //    _dataContext.Recursoshumanos.Add(recursosh);
-                    //}
-                    //if (model.RolId == "StoreLeader")
-                    //{
-                    //    _dataContext.StoreLeaders.Add(storeLeader);
-                    //}
-                    //if (model.RolId == "purchasing")
-                    //{
-                    //    _dataContext.Purchasings.Add(purchasing);
-                    //}
+                    };
                     _dataContext.Employees.Add(employe);
                     await _dataContext.SaveChangesAsync();
-                    var myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
-                    var tokenLink = Url.Action("ConfirmEmail", "Account", new
-                    {
-                        userid = user.Id,
-                        token = myToken
-                    }, protocol: HttpContext.Request.Scheme);
-
-                    _mailHelper.SendMail(model.Username, "Intranet Lcs - Email confirmation",
-                  $"<table border='1' cellpadding='0' cellspacing='0' width='100%'>" +
-                  $"<h1>Intranet Lcs -Email Confirmation</h1>" +
-                  $"<tr>" +
-                  $"<td style='padding: 40px 0 30px 0; align=center; bgcolor=#70bbd9'>" +
-
-                  $"</td>" +
-                  $"</tr>" +
-                  $"<tr>" +
-                  $"<td>" +
-                 $"<table align='center' border='1' cellpadding='0' cellspacing='0' width='600' style='-webkit-box-shadow: 10px 10px 81px -10px rgba(0,0,0,0.75); -moz-box-shadow: 10px 10px 81px -10px rgba(0,0,0,0.75); box-shadow: 10px 10px 81px -10px rgba(0,0,0,0.75);'>" +
-                         $"<tr>" +
-                              $"<td align='center' bgcolor='#70bbd9' style='padding: 40px 0 30px 0;'>" +
-                                         $"<img src='https://cdn1.iconfinder.com/data/icons/hawcons/32/698922-icon-9-mail-checked-256.png'/>" +
-                              $"</td>" +
-                         $"</tr>" +
-                         $"<tr>" +
-                               $"<td bgcolor='##0c3645' border='0' style='padding: 40px 30px 40px 30px;'>" +
-                                        $"<table border='0' cellpadding='0' cellspacing='0' width='100%'>" +
-                                                $"<tr>" +
-                                                        $"<td  style='color:#153643; font-family:Arial; sans-serif; font-size:24px;'>" +
-                                                              $"Activa tu email!" +
-                                                       $"</td>" +
-                                               $"</tr>" +
-                                               $"<tr>" +
-                                                      $"<td style = 'padding: 20px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;'>" +
-                                                             $"siguiendo el link a continuacion <a href=\"{tokenLink}\">Confirm Email</a>" +
-                                                      $"</td>" +
-                                              $"</tr>" +
-                                        $"</table>" +
-                               $"</td>" +
-                         $"</tr>" +
-                         $"<tr>" +
-                             $"<td bgcolor='#0c3645' style='color:#ffffff; font-family:Arial, sans-serif; font-size:14px;' bgcolor:'#0c3644'>" +
-                                          $"<table  border='1' cellpadding='0' cellspacing='0' width='100%'>" +
-                                              $"<tr>" +
-                                                  $"<td width='75%' >" +
-                                                  $"&reg; LCsystem, Luis Carlos Sanchez Cabrera 2020 <br/>" +
-                                                  $"</td>" +
-                                                  $"<td align='right'>" +
-                                                      $"<table border='0' cellpadding='0' cellspacing='0'>" +
-                                                          $"<tr>" +
-                                                              $"<td>" +
-                                                                  $"LCssystem<a href='https://www.facebook.com/profile.php?id=631602625'>" +
-                                                                  $"<img src='https://cdn1.iconfinder.com/data/icons/smallicons-logotypes/32/facebook-48.png' alt='Facebook' width='38' height='38' style='display:block;' border='0'/>" +
-                                                                  $"</a>" +
-                                                              $"</td>" +
-                                                          $"</tr>" +
-                                                          $"<tr>" +
-                                                              $"<td style='font-size:0; line-height:0;' width ='20'> &nbsp;</td>" +
-                                                                  $"Supermio<a href='https://supermio.co'>" +
-                                                                  $"<img src='https://supermio.co/wp-content/uploads/2020/04/LOGO_SUPERMIO_boton.png' alt='Supermio sas' width= '38' height='38' style='display:block;' border='0'/>" +
-                                                                  $"</a>" +
-                                                             $"</td>" +
-                                                          $"</tr>" +
-                                                      $"</table>" +
-                                                  $"</td>" +
-                                            $"</tr>" +
-                                      $"</table>" +
-                            $"</td>" +
-                       $"</tr>" +
-                  $"</table>" +
-             $"</table>" +
-
-                  $"<h1>Intranet Lcs -Email Confirmation</h1>" +
-                  $"To allow the user, " +
-                  $"plase click in this link:</br></br>" +
-                  $"<a href = \"{tokenLink}\">Confirm Email</a>");
-                    ViewBag.Message = $"Se ha Enviado un Email a {model.Username} con Instrucciones para Activar el Usuario.";
-
-                    return RedirectToAction("Index");
+                    return RedirectToAction(nameof(Index));
                 }
+               
+             
+
                 ModelState.AddModelError(string.Empty, "The user Exist");
             }
             model.Areas = _combosHelpers.GetComboAreas();
@@ -365,39 +196,39 @@ namespace Intranet.web.Controllers
             return View(model);
         }
    
-        private async Task<User> CreateUserAsync(AddUserViewModel model)
-        {
-            var user = new User
-            {
-                Document = model.Document,
-                SiteExpedition = model.SiteExpedition,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Email = model.Username,
-                JobTitle = model.JobTitle,
-                SiteBirth = model.SiteBirth,
-                Address = model.Address,
-                Rh = model.Rh,
-                License = model.License,
-                Movil = model.Movil,
-                Arl = model.Arl,
-                Activo=model.Activo,
-                DateRetiro=model.DateRetiro,
-                NivelEducation=model.NivelEducation,
-                UserName=model.Username
+        //private async Task<User> CreateUserAsync(AddUserViewModel model)
+        //{
+        //    var user = new User
+        //    {
+        //        Document = model.Document,
+        //        SiteExpedition = model.SiteExpedition,
+        //        FirstName = model.FirstName,
+        //        LastName = model.LastName,
+        //        Email = model.Username,
+        //        JobTitle = model.JobTitle,
+        //        SiteBirth = model.SiteBirth,
+        //        Address = model.Address,
+        //        Rh = model.Rh,
+        //        License = model.License,
+        //        Movil = model.Movil,
+        //        Arl = model.Arl,
+        //        Activo=model.Activo,
+        //        DateRetiro=model.DateRetiro,
+        //        NivelEducation=model.NivelEducation,
+        //        UserName=model.Username
                 
-            };
-            var result = await _userHelper.AddUserAsync(user, model.Password);
-            if (result.Succeeded)
-            {
+        //    };
+        //    var result = await _userHelper.AddUserAsync(user, model.Password);
+        //    if (result.Succeeded)
+        //    {
                 
                 
-                user = await _userHelper.GetUserByEmailAsync(model.Username);
-                await _userHelper.AddUserToRoleAsync(user, "Employe");
-                return user;
-            }
-            return null;
-        }
+        //        user = await _userHelper.GetUserByEmailAsync(model.Username);
+        //        await _userHelper.AddUserToRoleAsync(user, "Employe");
+        //        return user;
+        //    }
+        //    return null;
+        //}
         //
         public async Task<IActionResult> Edit(int? id)
         {
@@ -407,8 +238,6 @@ namespace Intranet.web.Controllers
             }
 
             var employe = await _dataContext.Employees
-                
-                .Include(e => e.User)
                 .Include(e => e.Sons)
                 .Include(e => e.Area)
                 .ThenInclude(s => s.SiteHeadquarters)
@@ -419,7 +248,7 @@ namespace Intranet.web.Controllers
                 .Include(e => e.Eps)
                 
                 .Include(e => e.Exams)
-                .Include(e => e.cajaCompensacion)
+                .Include(e => e.CajaCompensacion)
                 .Include(e => e.Endowments)
                 .FirstOrDefaultAsync(o => o.Id == id.Value);
             if (employe == null)
@@ -427,24 +256,27 @@ namespace Intranet.web.Controllers
                 return NotFound();
             }
 
-            var view = new EditUserViewModel
+            var view = new EmployeViewModel
             {
                 
-                Address = employe.User.Address,
-                Document = employe.User.Document,
-                FirstName = employe.User.FirstName,
+                Address = employe.Address,
+                Document = employe.Document,
+                FirstName = employe.FirstName,
                 Id = employe.Id,
-                LastName = employe.User.LastName,
-                 Activo= employe.User.Activo,
-                Arl=employe.User.Arl,
-                DateRetiro=employe.User.DateRetiro,
-                JobTitle=employe.User.JobTitle,
-                License=employe.User.License,
-                Movil=employe.User.Movil,
-                NivelEducation=employe.User.NivelEducation,
-                Rh=employe.User.Rh,
-                SiteBirth=employe.User.SiteBirth,
-                SiteExpedition=employe.User.SiteExpedition,
+                LastName = employe.LastName,
+                 Activo= employe.Activo,
+                Arl=employe.Arl,
+                DateRetiro=employe.DateRetiro,
+                JobTitle=employe.JobTitle,
+                License=employe.License,
+                Movil=employe.Movil,
+                NivelEducation=employe.NivelEducation,
+                Rh=employe.Rh,
+                SiteBirth=employe.SiteBirth,
+                SiteExpedition=employe.SiteExpedition,
+                DateIngreso=employe.DateIngreso,
+                DateRegistro=employe.DateRegistro,
+                Email=employe.Email,
 
                 PositionEmpId = employe.PositionEmployee.Id,
                 PositionEmplooyed =_combosHelpers.GetComboPositionEmploye(),
@@ -455,11 +287,8 @@ namespace Intranet.web.Controllers
                 EpsId = employe.Eps.Id,
                 Eps =_combosHelpers.GetComboEps(),
 
-               CajaCompenId = employe.cajaCompensacion.Id,
+               CajaCompenId = employe.CajaCompensacion.Id,
                 CajaCompensacion =_combosHelpers.GetComboCajaCompensacion(),
-
-            
-                ////Roles =_combosHelpers.GetComboRoles(),
 
                 AreaId = employe.Area.Id,
                 Areas = _combosHelpers.GetComboAreas()
@@ -470,49 +299,55 @@ namespace Intranet.web.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Edit(EditUserViewModel vista)
+        public async Task<IActionResult> Edit(EditEmployedViewModel vista)
         {
             
             if (ModelState.IsValid)
             {
                 var employe = await _dataContext.Employees
-                    .Include(o => o.User)
-                    .Include(e => e.User)
+                    .Include(e => e.Incapacities)
                     .Include(e => e.Sons)
                     .Include(e => e.Area)
                     .ThenInclude(s => s.SiteHeadquarters)
                     .Include(e => e.PersonContacts)
                     .Include(e => e.Credits)
                     .Include(e => e.Exams)
-                    .Include(e => e.cajaCompensacion)
+                    .Include(e => e.CajaCompensacion)
                     .Include(e => e.Endowments)
                     .FirstOrDefaultAsync(o => o.Id == vista.Id);
+                if (employe!=null)
+                {
+                    employe.Address = vista.Address;
+                    employe.Document = vista.Document;
+                    employe.FirstName = vista.FirstName;
+                    employe.LastName = vista.LastName;
+                    employe.Activo = vista.Activo;
+                    employe.Arl = vista.Arl;
+                    employe.DateRetiro = vista.DateRetiro;
+                    employe.JobTitle = vista.JobTitle;
+                    employe.License = vista.License;
+                    employe.Movil = vista.Movil;
+                    employe.NivelEducation = vista.NivelEducation;
+                    employe.Rh = vista.Rh;
+                    employe.SiteBirth = vista.SiteBirth;
+                    employe.SiteExpedition = vista.SiteExpedition;
+                    employe.DateIngreso = vista.DateIngreso;
+                    employe.DateModify = vista.DateModify;
+                    employe.DateRegistro = vista.DateRegistro;
+                    employe.Email = vista.Email;
+                    employe.UserModify = vista.UserModify;
+                    employe.Area = await _dataContext.Areas.FindAsync(vista.AreaId);
+                    employe.Eps = await _dataContext.Eps.FindAsync(vista.EpsId);
+                    employe.Pension = await _dataContext.Pensions.FindAsync(vista.PensionId);
+                    employe.CajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(vista.CajaCompenId);
+                    employe.PositionEmployee = await _dataContext.PositionEmployees.FindAsync(vista.PositionEmpId);
 
+                     _dataContext.Employees.Update(employe);
+                    await _dataContext.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
 
-                employe.User.Address = vista.Address;
-                employe.User.Document = vista.Document;
-                employe.User.FirstName = vista.FirstName;
-                employe.User.LastName = vista.LastName;
-                employe.User.Activo = vista.Activo;
-                employe.User.Arl = vista.Arl;
-                employe.User.DateRetiro = vista.DateRetiro;
-                employe.User.JobTitle = vista.JobTitle;
-                employe.User.License = vista.License;
-                employe.User.Movil = vista.Movil;
-                employe.User.NivelEducation = vista.NivelEducation;
-                employe.User.Rh = vista.Rh;
-                employe.User.SiteBirth = vista.SiteBirth;
-                employe.User.SiteExpedition = vista.SiteExpedition;
-
-
-                employe.Area = await _dataContext.Areas.FindAsync(vista.AreaId);
-                employe.Eps = await _dataContext.Eps.FindAsync(vista.EpsId);
-                employe.Pension = await _dataContext.Pensions.FindAsync(vista.PensionId);
-                employe.cajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(vista.CajaCompenId);
-                employe.PositionEmployee = await _dataContext.PositionEmployees.FindAsync(vista.PositionEmpId);
                 
-                await _userHelper.UpdateUserAsync(employe.User);
-                return RedirectToAction(nameof(Index));
             }
 
             vista.Areas = _combosHelpers.GetComboAreas();
@@ -533,12 +368,12 @@ namespace Intranet.web.Controllers
             }
 
             var employee = await _dataContext.Employees
-                .Include(e=> e.User)
                 .Include(e=>e.PersonContacts)
                 .Include(e=>e.Sons)
                 .Include(e=>e.UserImages)
                 .Include(e=>e.Endowments)
                 .Include(e=>e.Credits)
+                .Include(e=>e.Incapacities)
                 
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (employee == null)
@@ -549,7 +384,8 @@ namespace Intranet.web.Controllers
                 employee.Sons.Count != 0 ||
                 employee.UserImages.Count != 0||
                 employee.Endowments.Count != 0||
-                employee.Credits.Count != 0)
+                employee.Credits.Count != 0 ||
+                employee.Incapacities.Count != 0)
             {
                 ModelState.AddModelError(string.Empty, "Valide los detalles antes de Borrar");
                 return RedirectToAction(nameof(Index));
@@ -557,7 +393,7 @@ namespace Intranet.web.Controllers
 
             _dataContext.Employees.Remove(employee);
             await _dataContext.SaveChangesAsync();
-            await _userHelper.DeleteUserAsync(employee.User.Email);
+            
             return RedirectToAction(nameof(Index));
 
             
