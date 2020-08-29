@@ -135,7 +135,7 @@ namespace Intranet.web.Controllers
         {
             var model = new EmployeViewModel
             {
-                DateRegistro = DateTime.Now,
+                DateRegistro = DateTime.Today,
              
                 Areas = _combosHelpers.GetComboAreas(),
                  Eps = _combosHelpers.GetComboEps(),
@@ -172,7 +172,7 @@ namespace Intranet.web.Controllers
                         Activo=model.Activo,
                         Address=model.Address,
                         DateIngreso=model.DateIngreso,
-                        DateRegistro=model.DateRegistro,
+                        DateRegistro=DateTime.Today,
                         DateRetiro=model.DateRetiro,
                         Email=model.Email,
                         JobTitle=model.JobTitle,
@@ -358,7 +358,7 @@ namespace Intranet.web.Controllers
                     employe.DateModify = vista.DateModify;
                     employe.DateRegistro = vista.DateRegistro;
                     employe.Email = vista.Email;
-                    employe.DateModify = DateTime.Now;
+                    employe.DateModify = DateTime.Today;
                     employe.UserModify = User.Identity.Name;
                     employe.Area = await _dataContext.Areas.FindAsync(vista.AreaId);
                     employe.Eps = await _dataContext.Eps.FindAsync(vista.EpsId);

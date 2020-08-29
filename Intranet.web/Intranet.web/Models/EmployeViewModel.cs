@@ -62,6 +62,8 @@ namespace Intranet.web.Models
 
         [Display(Name = "Movil")]
         [MaxLength(10)]
+
+        [DisplayFormat(DataFormatString = "{0:(###) ###-####}",ApplyFormatInEditMode = true)]
         public string Movil { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
@@ -81,7 +83,7 @@ namespace Intranet.web.Models
         [Display(Name = "Fecha Ingreso")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
-        public DateTime DateIngreso { get; set; }
+        public string DateIngreso { get; set; }
 
         //aqui los campos que para tigger
         [Display(Name = "Usercrea")]
@@ -89,8 +91,6 @@ namespace Intranet.web.Models
         public string UserCrea { get; set; }
 
 
-     
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime DateRegistro { get; set; }
 
         [Required(ErrorMessage = "The Field {0} is mandatory.")]

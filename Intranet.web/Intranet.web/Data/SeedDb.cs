@@ -168,7 +168,7 @@ namespace Intranet.web.Data
                     Movil= movil,
                     Address = address,
                     Document = document,
-                   DateRegistro=DateTime.Now,
+                    DateRegistro=DateTime.Today,
                     Activo=activo,
                     
                     

@@ -65,6 +65,7 @@ namespace Intranet.web.Data.Entities
 
         [Display(Name = "Movil")]
         [MaxLength(10)]
+        [DisplayFormat(DataFormatString = "{0:(###) ###-####}", ApplyFormatInEditMode = true)]
         public string Movil { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
@@ -81,13 +82,12 @@ namespace Intranet.web.Data.Entities
         public string DateRetiro { get; set; }
 
         [Display(Name = "Fecha Ingreso")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-        public DateTime DateIngreso { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
+        public string DateIngreso { get; set; }
         
         //aqui los campos que para tigger
-        [Display(Name = "Fecha registro")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        
+       
         public DateTime DateRegistro { get; set; }
                
 
@@ -99,7 +99,7 @@ namespace Intranet.web.Data.Entities
         public string UserModify { get; set; }
 
         [Display(Name = "Fecha Modifica")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+       
         public DateTime DateModify { get; set; }
 
         public string FullName => $"{FirstName} {LastName}";
