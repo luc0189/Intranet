@@ -84,6 +84,11 @@ namespace Intranet.web.Models
         public DateTime DateIngreso { get; set; }
 
         //aqui los campos que para tigger
+        [Display(Name = "Usercrea")]
+        [MaxLength(30)]
+        public string UserCrea { get; set; }
+
+
         [Display(Name = "Fecha registro")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime DateRegistro { get; set; }

@@ -1,4 +1,4 @@
-﻿@model Intranet.web.Models.AddUserViewModel
+﻿@model Intranet.web.Models.EmployeViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -15,7 +15,11 @@
         <input type="hidden" asp-for="Id" />
         <partial name="_Employe" />
         
-        
+        <div class="form-group">
+            <label asp-for="UserCrea" class="control-label"></label>
+            <input asp-for="UserCrea" />
+            <span asp-validation-for="UserCrea" class="text-danger"></span>
+        </div>
         <div class="row">
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
