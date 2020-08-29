@@ -1,19 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Intranet.web.Data.Entities
+namespace Intranet.web.Models
 {
-    public class Employee
+    public class EmployeViewModel
     {
         public int Id { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Document")]
-        [MaxLength(10)]
+        [MaxLength(30)]
         public string Document { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
@@ -32,7 +30,7 @@ namespace Intranet.web.Data.Entities
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
-        [Display(Name = "Cargo")]
+        [Display(Name = "Ocupacion")]
         [MaxLength(50)]
         public string JobTitle { get; set; }
 
@@ -69,55 +67,55 @@ namespace Intranet.web.Data.Entities
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "ARL")]
-
         public bool Arl { get; set; }
 
 
         [Display(Name = "Activo")]
         public bool Activo { get; set; }
 
+
         [Display(Name = "Fecha retiro")]
+        [MaxLength(50)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime DateRetiro { get; set; }
-
         [Display(Name = "Fecha Ingreso")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime DateIngreso { get; set; }
-        
+
         //aqui los campos que para tigger
         [Display(Name = "Fecha registro")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime DateRegistro { get; set; }
-               
 
-        [MaxLength(30)]
-        [Required]
-        public string UserRegistra { get; set; }
+        [Required(ErrorMessage = "The Field {0} is mandatory.")]
+        [Display(Name = "Area")]
 
-        [MaxLength(30)]
-        public string UserModify { get; set; }
+        public int AreaId { get; set; }
 
-        [Display(Name = "Fecha Modifica")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-        public DateTime DateModify { get; set; }
+        [Required(ErrorMessage = "The Field {0} is mandatory.")]
+        [Display(Name = "Eps")]
 
-        public string FullName => $"{FirstName} {LastName}";
-        public Area Area { get; set; }
-        public Eps Eps { get; set; }
-        public PositionEmployee PositionEmployee { get; set; }
-        public Pension Pension { get; set; }
-        public CajaCompensacion CajaCompensacion { get; set; }
-        
+        public int EpsId { get; set; }
 
-        public ICollection<UserImages> UserImages { get; set; }
-        public ICollection<Credit> Credits { get; set; }
-        public ICollection<Sons> Sons { get; set; }
-        public ICollection<Endowment> Endowments { get; set; }
-        public ICollection<Exams> Exams { get; set; }
-        public ICollection<PersonContact> PersonContacts { get; set; }
-        public ICollection<Incapacity> Incapacities { get; set; }
-        
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        [Display(Name = "Pension")]
+        public int PensionId { get; set; }
 
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        [Display(Name = "Caja Compensacion")]
+        public int CajaCompenId { get; set; }
+
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        [Display(Name = "Cargo")]
+        public int PositionEmpId { get; set; }
+
+
+
+        public IEnumerable<SelectListItem> Areas { get; set; }
+        public IEnumerable<SelectListItem> Eps { get; set; }
+        public IEnumerable<SelectListItem> Pension { get; set; }
+        public IEnumerable<SelectListItem> CajaCompensacion { get; set; }
+        public IEnumerable<SelectListItem> PositionEmplooyed { get; set; }
 
     }
 }
