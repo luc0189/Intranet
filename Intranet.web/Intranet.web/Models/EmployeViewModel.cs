@@ -78,6 +78,7 @@ namespace Intranet.web.Models
         [MaxLength(50)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime DateRetiro { get; set; }
+
         [Display(Name = "Fecha Ingreso")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime DateIngreso { get; set; }
@@ -116,6 +117,7 @@ namespace Intranet.web.Models
         public IEnumerable<SelectListItem> Pension { get; set; }
         public IEnumerable<SelectListItem> CajaCompensacion { get; set; }
         public IEnumerable<SelectListItem> PositionEmplooyed { get; set; }
+        public IEnumerable<SelectListItem> Incapacitys { get; set; }
 
     }
 }
