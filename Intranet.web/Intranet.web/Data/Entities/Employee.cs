@@ -14,7 +14,7 @@ namespace Intranet.web.Data.Entities
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Document")]
         [MaxLength(10)]
-        public string Document { get; set; }
+        public int Document { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Lugar de expedicion")]

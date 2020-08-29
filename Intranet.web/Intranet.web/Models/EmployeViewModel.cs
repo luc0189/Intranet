@@ -11,8 +11,7 @@ namespace Intranet.web.Models
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Document")]
-        [MaxLength(30)]
-        public string Document { get; set; }
+        public int Document { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Lugar de expedicion")]
@@ -75,7 +74,7 @@ namespace Intranet.web.Models
 
 
         [Display(Name = "Fecha retiro")]
-        [MaxLength(50)]
+        
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime DateRetiro { get; set; }
 

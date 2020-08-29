@@ -13,7 +13,7 @@ namespace Intranet.web.Models
         [MaxLength(30)]
         public string UserModify { get; set; }
         
-        [Display(Name = "UserModif")]
+        [Display(Name = "Datemodifi")]
         [MaxLength(30)]
         public DateTime DateModify { get; set; }
     }

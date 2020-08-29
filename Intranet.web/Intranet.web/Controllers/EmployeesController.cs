@@ -6,6 +6,7 @@ using Intranet.Web.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.IsisMtt.X509;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -158,11 +159,26 @@ namespace Intranet.web.Controllers
 
             if (ModelState.IsValid)
             {
-                var exist = _dataContext.Employees.FirstOrDefaultAsync(e=> e.Document== model.Document);
-                if (exist==null)
-                {
+                
                     var employe = new Employee
                     {
+                        Document=model.Document,
+                        SiteExpedition=model.SiteExpedition,
+                        FirstName= model.FirstName,
+                        LastName=model.LastName,
+                        Activo=model.Activo,
+                        Address=model.Address,
+                        DateIngreso=model.DateIngreso,
+                        DateRegistro=model.DateRegistro,
+                        DateRetiro=model.DateRetiro,
+                        Email=model.Email,
+                        JobTitle=model.JobTitle,
+                        License=model.License,
+                        Movil=model.Movil,
+                        NivelEducation=model.NivelEducation,
+                        Rh=model.Rh,
+                        SiteBirth=model.SiteBirth,
+                        UserRegistra=model.UserCrea,
                         Credits = new List<Credit>(),
                         Sons = new List<Sons>(),
                         Endowments = new List<Endowment>(),
@@ -181,12 +197,12 @@ namespace Intranet.web.Controllers
                     _dataContext.Employees.Add(employe);
                     await _dataContext.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
-                }
                
-             
+               
 
-                ModelState.AddModelError(string.Empty, "The user Exist");
+                
             }
+            ModelState.AddModelError(string.Empty, "The user Exist");
             model.Areas = _combosHelpers.GetComboAreas();
             model.Eps = _combosHelpers.GetComboEps();
             model.Pension = _combosHelpers.GetComboPension();
