@@ -14,21 +14,21 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.User.Document)
+                        @Html.DisplayNameFor(model => model.Document)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.User.FullName)
-                    </th>
-
-                    <th>
-                        @Html.DisplayNameFor(model => model.User.Address)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.User.Rh)
+                        @Html.DisplayNameFor(model => model.FullName)
                     </th>
 
                     <th>
-                        @Html.DisplayNameFor(model => model.User.Movil)
+                        @Html.DisplayNameFor(model => model.Address)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Rh)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Movil)
                     </th>
                     <th>
                         Exams
@@ -40,7 +40,7 @@
                         Creditos
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.User.Activo)
+                        @Html.DisplayNameFor(model => model.Activo)
                     </th>
 
                 </tr>
@@ -50,21 +50,21 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.User.Document)
+                            @Html.DisplayFor(modelItem => item.Document)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.User.FullName)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.User.Address)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.User.Rh)
+                            @Html.DisplayFor(modelItem => item.FullName)
                         </td>
 
                         <td>
-                            @Html.DisplayFor(modelItem => item.User.Movil)
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Rh)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Movil)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Exams.Count)
@@ -76,7 +76,7 @@
                             @Html.DisplayFor(modelItem => item.Credits.Count)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.User.Activo)
+                            @Html.DisplayFor(modelItem => item.Activo)
                         </td>
                         <td>
                             <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
