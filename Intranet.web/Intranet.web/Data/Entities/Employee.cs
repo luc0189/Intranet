@@ -77,10 +77,11 @@ namespace Intranet.web.Data.Entities
         public bool Activo { get; set; }
 
         [Display(Name = "Fecha retiro")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-        public DateTime DateRetiro { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
+        public string DateRetiro { get; set; }
 
         [Display(Name = "Fecha Ingreso")]
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime DateIngreso { get; set; }
         

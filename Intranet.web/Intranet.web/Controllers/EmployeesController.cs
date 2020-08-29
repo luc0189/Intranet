@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.IsisMtt.X509;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -134,7 +135,9 @@ namespace Intranet.web.Controllers
         {
             var model = new EmployeViewModel
             {
-                 Areas = _combosHelpers.GetComboAreas(),
+                DateRegistro = DateTime.Now,
+             
+                Areas = _combosHelpers.GetComboAreas(),
                  Eps = _combosHelpers.GetComboEps(),
                  Pension = _combosHelpers.GetComboPension(),
                  CajaCompensacion = _combosHelpers.GetComboCajaCompensacion(),
@@ -178,7 +181,9 @@ namespace Intranet.web.Controllers
                         NivelEducation=model.NivelEducation,
                         Rh=model.Rh,
                         SiteBirth=model.SiteBirth,
-                        UserRegistra=model.UserCrea,
+                        Arl=model.Arl,
+                        UserRegistra=User.Identity.Name,
+                        
                         Credits = new List<Credit>(),
                         Sons = new List<Sons>(),
                         Endowments = new List<Endowment>(),
@@ -272,7 +277,7 @@ namespace Intranet.web.Controllers
                 return NotFound();
             }
 
-            var view = new EmployeViewModel
+            var view = new EditEmployedViewModel
             {
                 
                 Address = employe.Address,
@@ -291,9 +296,11 @@ namespace Intranet.web.Controllers
                 SiteBirth=employe.SiteBirth,
                 SiteExpedition=employe.SiteExpedition,
                 DateIngreso=employe.DateIngreso,
-                DateRegistro=employe.DateRegistro,
                 Email=employe.Email,
-
+                
+                UserModify=employe.UserModify,
+                DateRegistro=employe.DateRegistro,
+                
                 PositionEmpId = employe.PositionEmployee.Id,
                 PositionEmplooyed =_combosHelpers.GetComboPositionEmploye(),
 
@@ -351,7 +358,8 @@ namespace Intranet.web.Controllers
                     employe.DateModify = vista.DateModify;
                     employe.DateRegistro = vista.DateRegistro;
                     employe.Email = vista.Email;
-                    employe.UserModify = vista.UserModify;
+                    employe.DateModify = DateTime.Now;
+                    employe.UserModify = User.Identity.Name;
                     employe.Area = await _dataContext.Areas.FindAsync(vista.AreaId);
                     employe.Eps = await _dataContext.Eps.FindAsync(vista.EpsId);
                     employe.Pension = await _dataContext.Pensions.FindAsync(vista.PensionId);

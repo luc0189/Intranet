@@ -74,12 +74,13 @@ namespace Intranet.web.Models
 
 
         [Display(Name = "Fecha retiro")]
-        
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-        public DateTime DateRetiro { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
+        public string DateRetiro { get; set; }
 
         [Display(Name = "Fecha Ingreso")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public DateTime DateIngreso { get; set; }
 
         //aqui los campos que para tigger
@@ -88,7 +89,7 @@ namespace Intranet.web.Models
         public string UserCrea { get; set; }
 
 
-        [Display(Name = "Fecha registro")]
+     
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime DateRegistro { get; set; }
 
