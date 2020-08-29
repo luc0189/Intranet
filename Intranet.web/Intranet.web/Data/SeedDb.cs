@@ -30,7 +30,7 @@ namespace Intranet.web.Data
             await ChekEpsAsyn();
             await ChekPensionAsyn();
             await ChekCajaCompAsyn();
-            var manager = await CheckUserAsync("1117498993", "Luis Carlos", "Sanchez Cabrera","luc0189@gmail.com",
+            var manager = await CheckUserAsync(1117498993, "Luis Carlos", "Sanchez Cabrera","luc0189@gmail.com",
                                                 "Calle Luna Calle Sol","3107957939", "Manager",true);
                   
             await CheckManagerAsync(manager);
@@ -144,7 +144,7 @@ namespace Intranet.web.Data
         }
 
         private async Task<User> CheckUserAsync(
-            string document,
+            int document,
             string firstName,
             string lastName,
             string email,
