@@ -113,22 +113,8 @@ namespace Intranet.web.Controllers
         }
         public IActionResult Register()
         {
-            var vista = new AddUserViewModel
-            {
-
-                Areas = _combosHelpers.GetComboAreas(),
-                Pension = _combosHelpers.GetComboPension(),
-                Eps = _combosHelpers.GetComboEps(),
-                CajaCompensacion = _combosHelpers.GetComboCajaCompensacion(),
-                PositionEmplooyed = _combosHelpers.GetComboPositionEmploye(),
-               
-            };
-            vista.Areas = _combosHelpers.GetComboAreas();
-            vista.Eps = _combosHelpers.GetComboEps();
-            vista.Pension = _combosHelpers.GetComboPension();
-            vista.CajaCompensacion = _combosHelpers.GetComboCajaCompensacion();
-            vista.PositionEmplooyed = _combosHelpers.GetComboPositionEmploye();
-            return View(vista);
+            
+            return View();
         }
 
         [HttpPost]
@@ -141,35 +127,10 @@ namespace Intranet.web.Controllers
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "This email is already used.");
-                    view.Areas = _combosHelpers.GetComboAreas();
-                    view.Eps = _combosHelpers.GetComboEps();
-                    view.Pension = _combosHelpers.GetComboPension();
-                    view.CajaCompensacion = _combosHelpers.GetComboCajaCompensacion();
-                    view.PositionEmplooyed = _combosHelpers.GetComboPositionEmploye();
+                    
                     return View(view);
                 }
-
-               
-                    var employe = new Employee
-                    {
-                        Credits = new List<Credit>(),
-                        Sons = new List<Sons>(),
-                        Endowments = new List<Endowment>(),
-                        Exams = new List<Exams>(),
-                        PersonContacts = new List<PersonContact>(),
-                        UserImages = new List<UserImages>(),
-                        Area = await _dataContext.Areas.FindAsync(view.AreaId),
-                        Eps = await _dataContext.Eps.FindAsync(view.EpsId),
-                        Pension = await _dataContext.Pensions.FindAsync(view.PensionId),
-                        cajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(view.CajaCompenId),
-                        PositionEmployee = await _dataContext.PositionEmployees.FindAsync(view.PositionEmpId),
-
-                        User = user
-                    };
-
-                    _dataContext.Employees.Add(employe);
-                    await _dataContext.SaveChangesAsync();
-                
+                                
                 var myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
                 var tokenLink = Url.Action("ConfirmEmail", "Account", new
                 {
@@ -258,18 +219,7 @@ namespace Intranet.web.Controllers
             {
                var man = await _dataContext.Managers
               .Include(e => e.User)
-              .Include(e => e.Sons)
-              .Include(e => e.Area)
-              .ThenInclude(s => s.SiteHeadquarters)
-              .Include(e => e.PersonContacts)
-              .Include(e => e.Credits)
-              .Include(e => e.PositionEmployee)
-              .Include(e => e.Pension)
-              .Include(e => e.Eps)
-
-              .Include(e => e.Exams)
-              .Include(e => e.cajaCompensacion)
-              .Include(e => e.Endowments)
+             
               .FirstOrDefaultAsync(e => e.User.UserName == user.Email);
                 var viewm = new EditUserViewModel
                 {
@@ -279,31 +229,9 @@ namespace Intranet.web.Controllers
                     LastName = man.User.LastName,
                     Address = man.User.Address,
                     Movil = man.User.Movil,
-                    SiteExpedition = man.User.SiteExpedition,
-                    JobTitle = man.User.JobTitle,
-                    SiteBirth = man.User.SiteBirth,
-                    NivelEducation = man.User.NivelEducation,
-                    Rh = man.User.Rh,
-                    License = man.User.License,
-                    Arl = man.User.Arl,
+                    
                     Activo = man.User.Activo,
-                    //PositionEmpId = employe.PositionEmployee.Id,
-                    //PositionEmplooyed = _combosHelpers.GetComboPositionEmploye(),
-
-                    //PensionId = employe.Pension.Id,
-                    //Pension = _combosHelpers.GetComboPension(),
-
-                    //EpsId = employe.Eps.Id,
-                    //Eps = _combosHelpers.GetComboEps(),
-
-                    //CajaCompenId = employe.cajaCompensacion.Id,
-                    //CajaCompensacion = _combosHelpers.GetComboCajaCompensacion(),
-
-                    //RolId= "Employe",
-                    // Roles = _combosHelpers.GetComboRoles(),
-
-                    //AreaId = employe.Area.Id,
-                    //Areas = _combosHelpers.GetComboAreas()
+                    
                 };
 
             }
@@ -316,13 +244,7 @@ namespace Intranet.web.Controllers
                 LastName = user.LastName,
                 Address = user.Address,
                 Movil = user.Movil,
-                SiteExpedition = user.SiteExpedition,
-                JobTitle = user.JobTitle,
-                SiteBirth = user.SiteBirth,
-                NivelEducation = user.NivelEducation,
-                Rh = user.Rh,
-                License = user.License,
-                Arl = user.Arl,
+                
                 Activo = user.Activo
                
             };
@@ -344,13 +266,7 @@ namespace Intranet.web.Controllers
                 user.LastName = view.LastName;
                 user.Address = view.Address;
                 user.Movil = view.Movil;
-                user.SiteExpedition = view.SiteExpedition;
-                user.JobTitle = view.JobTitle;
-                user.NivelEducation = view.NivelEducation;
-                user.SiteBirth = view.SiteBirth;
-                user.Rh = view.Rh;
-                user.License = view.License;
-                user.Arl = view.Arl;
+               
                 user.Activo = view.Activo;
 
                 await _userHelper.UpdateUserAsync(user);

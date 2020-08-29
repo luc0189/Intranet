@@ -12,7 +12,7 @@ namespace Intranet.web.Data.Entities
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Document")]
         [MaxLength(10)]
-        public string Document { get; set; }
+        public int Document { get; set; }
 
         [Display(Name = "First Name")]
         [MaxLength(50, ErrorMessage = "The {0} field can not have more than {1} characters.")]
