@@ -29,16 +29,9 @@ namespace Intranet.Web.Helpers
                 Document = view.Document,
                 FirstName = view.FirstName,
                 LastName = view.LastName,
-                License = view.License,
-                Arl = view.Arl,
-                JobTitle = view.JobTitle,
-                Movil = view.Movil,
-                Rh = view.Rh,
-                SiteBirth = view.SiteBirth,
-                SiteExpedition = view.SiteExpedition,
-                Activo = view.Activo,
-                DateRetiro = view.DateRetiro,
-                NivelEducation = view.NivelEducation,
+               Movil=view.Movil,
+               Activo=view.Activo,
+               
                 Email=view.Username,
                 UserName=view.Username
                 
