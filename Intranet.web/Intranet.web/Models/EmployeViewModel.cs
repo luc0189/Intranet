@@ -74,6 +74,10 @@ namespace Intranet.web.Models
         [Display(Name = "Activo")]
         public bool Activo { get; set; }
 
+        [Display(Name = "Fecha Cumpleaños")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
+        public string DateCumple { get; set; }
 
         [Display(Name = "Fecha retiro")]
         [DataType(DataType.Date)]

@@ -3,7 +3,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="col-xs-6 col-sm-3">
+        <div class="col-xs-12 col-sm-6">
 
             <div class="form-group">
                 <label asp-for="DateIngreso" class="control-label"></label>
@@ -36,14 +36,7 @@
                 <span asp-validation-for="Arl" class="text-danger"></span>
             </div>
         </div>
-        <div class="col-xs-6 col-sm-3">
-
-            <div class="form-group">
-                <label asp-for="DateRetiro" class="control-label"></label>
-                <input asp-for="DateRetiro" />
-                <span asp-validation-for="DateRetiro" class="text-danger"></span>
-            </div>
-        </div>
+       
     </div>
 
 </div>
@@ -73,7 +66,11 @@
         <input asp-for="Address" class="form-control" />
         <span asp-validation-for="Address" class="text-danger"></span>
     </div>
-
+    <div class="form-group">
+        <label asp-for="DateCumple" class="control-label"></label>
+        <input asp-for="DateCumple" class="form-control" />
+        <span asp-validation-for="DateCumple" class="text-danger"></span>
+    </div>
 
 </div>
 <div class="col-md-4">
@@ -144,5 +141,10 @@
         <select asp-for="PositionEmpId" asp-items="Model.PositionEmplooyed" class="form-control">
         </select>
         <span asp-validation-for="PositionEmpId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DateRetiro" class="control-label"></label>
+        <input asp-for="DateRetiro" class="form-control" />
+        <span asp-validation-for="DateRetiro" class="text-danger"></span>
     </div>
 </div>

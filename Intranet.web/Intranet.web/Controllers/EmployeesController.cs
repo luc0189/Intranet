@@ -184,7 +184,7 @@ namespace Intranet.web.Controllers
                         SiteBirth=model.SiteBirth,
                         Arl=model.Arl,
                         UserRegistra=User.Identity.Name,
-                        
+                        DateCumple=model.DateCumple,
                         Credits = new List<Credit>(),
                         Sons = new List<Sons>(),
                         Endowments = new List<Endowment>(),
@@ -298,7 +298,9 @@ namespace Intranet.web.Controllers
                 SiteExpedition=employe.SiteExpedition,
                 DateIngreso=employe.DateIngreso,
                 Email=employe.Email,
-                
+                DateCumple=employe.DateCumple,
+                UserCrea=employe.UserRegistra,
+                DateModify=employe.DateModify,
                 UserModify=employe.UserModify,
                 DateRegistro=employe.DateRegistro,
                 
@@ -985,10 +987,38 @@ namespace Intranet.web.Controllers
 
 
 
+        public async Task<IActionResult> DeleteIncap(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var exams = await _dataContext.Incapacities
+                .Include(pi => pi.Employee)
+                .FirstOrDefaultAsync(pi => pi.Id == id.Value);
+            if (exams == null)
+            {
+                return NotFound();
+            }
+
+           
+            try
+            {
+                _dataContext.Incapacities.Remove(exams);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{exams.Employee.Id}");
+            }
+            catch (Exception e)
+            {
+
+                ViewBag.Message = $"Se a Generado una excepcion no Controlada: {e.Message}."; ;
+            }
+            return View();
+        }
 
 
-       
-      
+
         public async Task<IActionResult> DeleteExam(int? id)
         {
             if (id == null)

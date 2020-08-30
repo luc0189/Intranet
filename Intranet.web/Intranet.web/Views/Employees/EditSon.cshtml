@@ -2,41 +2,57 @@
 @{
     ViewData["Title"] = "Edit";
 }
-<h2>Editar</h2>
-<h4>Sons</h4>
+
 <hr />
-<div class="row">
-    <div class="col-md-12">
-        <form asp-action="EditSon">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-action="EditSon">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2>Editar</h2>
+                    <h4>Sons</h4>
+                </div>
+                <div class="panel-body">
 
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="EmployeeId" />
-            
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="EmployeeId" />
 
 
-            <partial name="_Son" />
 
+                    <partial name="_Son" />
 
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-                <a asp-action="Details" asp-route-id="@Model.EmployeeId" class="btn btn-success">Back to Site</a>
-            </div>
-            <div class="panel-footer">
-                <div>
-                    
-                    <input style="border: none;" type="hidden" asp-for="UserRegistra" />
-                   
-                    <input style="border: none;" type="hidden"asp-for="DateRegistro" />
-                    <label asp-for="UserModify"></label>
-                    <input style="border: none;" asp-for="UserModify" disabled />
-                    <label asp-for="DateModify"></label>
-                    <input style="border: none;" asp-for="DateModify" disabled />
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                                <a asp-action="Details" asp-route-id="@Model.EmployeeId" class="btn btn-success">Back to Site</a>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <input style="border: none;" type="hidden" asp-for="UserRegistra" />
+
+                            <input style="border: none;" type="hidden" asp-for="DateRegistro" />
+                            <label asp-for="UserModify"></label>
+                            <input style="border: none;" asp-for="UserModify" disabled />
+                            <label asp-for="DateModify"></label>
+                            <input style="border: none;" asp-for="DateModify" disabled />
+
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
-        </form>
+          
+
+
+
+        </div>
     </div>
-</div>
+</form>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

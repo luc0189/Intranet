@@ -84,9 +84,12 @@ namespace Intranet.web.Data.Entities
         [Display(Name = "Fecha Ingreso")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public string DateIngreso { get; set; }
-        
+
+        [Display(Name = "Fecha Cumpleaños")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
+        public string DateCumple { get; set; }
         //aqui los campos que para tigger
-        
+
         public DateTime DateRegistro { get; set; }
         
         [MaxLength(30)]

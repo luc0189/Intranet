@@ -1,0 +1,22 @@
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+
+namespace Intranet.web.Migrations
+{
+    public partial class fieldCumpleañosEmployed : Migration
+    {
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.AddColumn<string>(
+                name: "DateCumple",
+                table: "Employees",
+                nullable: true);
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropColumn(
+                name: "DateCumple",
+                table: "Employees");
+        }
+    }
+}

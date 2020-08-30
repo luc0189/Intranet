@@ -4,33 +4,44 @@
     ViewData["Title"] = "Create";
 }
    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
-<h2>Create</h2>
 
-<h4>Employe</h4>
 <hr />
-<div class="row">
+
     
     <form asp-action="Create">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="Id" />
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2>Create</h2>
 
-        <partial name="_Employe" />
+                    <h4>Employe</h4>
+
+                </div>
+                <div class="panel-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+
+                    <partial name="_Employe" />
 
 
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                    <a asp-action="Index" class="btn btn-success">Back to List</a>
+                    
+                 </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                                <a asp-action="Index" class="btn btn-success">Back to List</a>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-
-        </div>
-
+         </div>
     </form>
-  
-</div>
+
 
 
 @section Scripts {

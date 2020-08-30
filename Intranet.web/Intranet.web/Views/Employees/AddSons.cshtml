@@ -2,20 +2,32 @@
 @{
     ViewData["Title"] = "Create";
 }
-<h2>Create</h2>
-<h4>Sons</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="AddSons">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="EmployeeId" />
-            <partial name="_Son"/>
 
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-                <a asp-action="Details" asp-route-id="@Model.EmployeeId" class="btn btn-success">Back to Employed</a>
+<hr />
+<form asp-action="AddSons">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2>Create</h2>
+                <h4>Sons</h4>
             </div>
-        </form>
+            <div class="panel-body">
+                <div class="col-md-4">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="EmployeeId" />
+                    <partial name="_Son" />
+                </div>
+            </div>
+        
+
+
+            <div class="panel-footer">
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <a asp-action="Details" asp-route-id="@Model.EmployeeId" class="btn btn-success">Back to Employed</a>
+                </div>
+            </div>
+
+        </div>
     </div>
-</div>
+</form>
