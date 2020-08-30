@@ -4,14 +4,16 @@ using Intranet.web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Intranet.web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200830184532_modifidbExams")]
+    partial class modifidbExams
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -310,12 +312,6 @@ namespace Intranet.web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CantDay");
-
-                    b.Property<DateTime>("DateModify");
-
-                    b.Property<DateTime>("DateRegistro");
-
                     b.Property<int?>("EmployeeId");
 
                     b.Property<DateTime>("EndDate");
@@ -326,17 +322,11 @@ namespace Intranet.web.Migrations
 
                     b.Property<DateTime>("StartDate");
 
-                    b.Property<string>("UserModify")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("UserRegistra")
-                        .HasMaxLength(30);
-
                     b.HasKey("Id");
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("Incapacities");
+                    b.ToTable("Incapacity");
                 });
 
             modelBuilder.Entity("Intranet.web.Data.Entities.Manager", b =>

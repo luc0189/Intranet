@@ -2,6 +2,7 @@
 using Intranet.web.Data.Entities;
 using Intranet.web.Models;
 using Microsoft.CodeAnalysis.Options;
+using System;
 using System.Threading.Tasks;
 
 namespace Intranet.web.Helpers
@@ -18,6 +19,25 @@ namespace Intranet.web.Helpers
             _combosHelpers = combosHelpers;
         }
 
+        public async Task<Incapacity> ToIncapAsync(AddIncapacityViewModel model, bool isNew)
+        {
+            return new Incapacity
+            {
+                Id = isNew ? 0 : model.Id,
+                StartDate = model.StartDate,
+                EndDate = model.StartDate.AddDays(model.CantDay),
+                Employee = await _dataContext.Employees.FindAsync(model.EmployeeIds),
+                DateRegistro = DateTime.Now,
+                UserRegistra = model.UserRegistra,
+                Novedad=model.Novedad,
+                CantDay=model.CantDay,
+                
+
+
+            };
+        }
+
+
         public async Task<Exams> ToExamAsync(ExamViewModel model, bool isNew)
         {
             return new Exams
@@ -26,16 +46,17 @@ namespace Intranet.web.Helpers
                 StartDate = model.StartDate,
                 EndDate = model.StartDate.AddYears(1).AddDays(1),
                 Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
-
+                DateRegistro=DateTime.Now,
+                UserRegistra=model.UserRegistra,
                 ExamsType = await _dataContext.ExamsTypes.FindAsync(model.ExamTypeId)
 
 
 
             };
         }
-        public ExamViewModel ToExamViewModel(Exams exams)
+        public EditExamViewModel ToExamViewModel(Exams exams)
         {
-            return new ExamViewModel
+            return new EditExamViewModel
             {
                 Id = exams.Id,
                 StartDate = exams.StartDate.ToUniversalTime(),
@@ -48,6 +69,26 @@ namespace Intranet.web.Helpers
             };
         }
 
+        public EditIncapacityViewModel ToIncapViewModel(Incapacity incap)
+        {
+            return new EditIncapacityViewModel
+            {
+                Id = incap.Id,
+                EmployeeIds=incap.Employee.Id,
+                StartDate = incap.StartDate,
+                Employee = incap.Employee,
+                CantDay=incap.CantDay,
+                DateModify=incap.DateModify,
+                DateRegistro=incap.DateRegistro,
+                EndDate=incap.StartDate,
+                Novedad=incap.Novedad,
+                UserModify=incap.UserModify,
+                
+                UserRegistra=incap.UserRegistra
+                
+
+            };
+        }
         public async Task<Sons> ToSonsAsync(SonsViewModel model, bool isNew)
         {
             return new Sons
@@ -208,7 +249,8 @@ namespace Intranet.web.Helpers
                 DateDelivery = model.DateDelivery,
                 Size = model.Size,
                 Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
-
+                DateRegistro=DateTime.Now,
+                UserRegistra=model.UserRegistra
             };
         }
         public EditEndowmentVieModel ToEndowmentViewModel(Endowment endowment)

@@ -1,0 +1,22 @@
+﻿@model Intranet.web.Models.AddIncapacityViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="form-group">
+    <label asp-for="Novedad" class="control-label"></label>
+    <textarea asp-for="Novedad" class="form-control">
+    </textarea>
+    <span asp-validation-for="Novedad" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="StartDate" class="control-label"></label>
+    <input asp-for="StartDate" class="form-control" />
+    <span asp-validation-for="StartDate" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="CantDay" class="control-label"></label>
+    <input asp-for="CantDay" class="form-control" />
+    <span asp-validation-for="CantDay" class="text-danger"></span>
+</div>

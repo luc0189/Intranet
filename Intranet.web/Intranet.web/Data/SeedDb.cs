@@ -27,6 +27,7 @@ namespace Intranet.web.Data
             await ChekPositionAsyn();
             await ChekSiteAsyn();
             await ChekAreaAsyn();
+            await ChekExamTypeAsyn();
             await ChekEpsAsyn();
             await ChekPensionAsyn();
             await ChekCajaCompAsyn();
@@ -38,6 +39,23 @@ namespace Intranet.web.Data
          
            
         }
+
+        private async Task  ChekExamTypeAsyn()
+        {
+            if (!_context.ExamsTypes.Any())
+            {
+
+                _context.ExamsTypes.Add(new ExamsType
+                {
+
+                    Name = "Manipulacion De Alimentos",
+                    
+                });
+
+                await _context.SaveChangesAsync();
+            }
+        }
+
         private async Task ChekPositionAsyn()
         {
             if (!_context.PositionEmployees.Any())

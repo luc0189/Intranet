@@ -6,6 +6,7 @@ using Intranet.Web.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Org.BouncyCastle.Asn1.IsisMtt.X509;
 using System;
 using System.Collections.Generic;
@@ -453,7 +454,19 @@ namespace Intranet.web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var examen = await _converterHelper.ToExamAsync(model, true);
+                var modelfull = new ExamViewModel
+                {
+                    DateRegistro=DateTime.Now,
+                    EmployeeId=model.EmployeeId,
+                    EndDate= model.StartDate.AddYears(1),
+                    ExamsType=await _dataContext.ExamsTypes.FindAsync(model.ExamTypeId),
+                    Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
+                    StartDate =model.StartDate,
+                    UserRegistra=User.Identity.Name,
+                    ExamTypeId=model.ExamTypeId,
+                  
+                };
+                var examen = await _converterHelper.ToExamAsync(modelfull, true);
                 _dataContext.Exams.Add(examen);
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction($"Details/{model.EmployeeId}");
@@ -461,6 +474,146 @@ namespace Intranet.web.Controllers
             model.ExamTypes = _combosHelpers.GetComboExamTypes();
             return View(model);
         }
+        public async Task<IActionResult> EditExam(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var exams = await _dataContext.Exams
+                .Include(s => s.Employee)
+                .Include(e => e.ExamsType)
+                .FirstOrDefaultAsync(s => s.Id == id);
+            if (exams == null)
+            {
+                return NotFound();
+            }
+
+            return View(_converterHelper.ToExamViewModel(exams));
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditExam(ExamViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var modelfull = new Exams
+                {
+                    Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
+                    EndDate= model.StartDate.AddYears(1).AddDays(1),
+                    DateModify= DateTime.Now,
+                    ExamsType= await _dataContext.ExamsTypes.FindAsync(model.ExamTypeId),
+                    Id=model.Id,
+                    StartDate=model.StartDate,
+                    DateRegistro = model.DateRegistro,
+                    UserRegistra = User.Identity.Name,
+                    UserModify=User.Identity.Name
+
+                };
+                
+                _dataContext.Exams.Update(modelfull);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");
+                // return RedirectToAction($"Details/{model.SiteId}");
+            }
+            model.ExamTypes = _combosHelpers.GetComboExamTypes();
+            return View(model);
+        }
+
+
+        public async Task<IActionResult> AddIncapacity(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var employe = await _dataContext.Employees.FindAsync(id);
+            if (employe == null)
+            {
+                return NotFound();
+            }
+            var model = new AddIncapacityViewModel
+            {
+                StartDate=DateTime.Today,
+                EmployeeIds = employe.Id
+                
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddIncapacity(AddIncapacityViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var modelfull = new AddIncapacityViewModel
+                {
+                    DateRegistro = DateTime.Now,
+                    Novedad=model.Novedad,
+                    EndDate = model.EndDate,
+                    Employee = await _dataContext.Employees.FindAsync(model.EmployeeIds),
+                    StartDate = model.StartDate,
+                    UserRegistra = User.Identity.Name,
+                   CantDay=model.CantDay,
+                   EmployeeIds=model.EmployeeIds
+
+                };
+                var incap = await _converterHelper.ToIncapAsync(modelfull, true);
+                _dataContext.Incapacities.Add(incap);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"Details/{model.EmployeeIds}");
+            }
+           
+            return View(model);
+        }
+        public async Task<IActionResult> EditIncap(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var incap = await _dataContext.Incapacities
+                .Include(s => s.Employee)
+                .FirstOrDefaultAsync(s => s.Id == id);
+            if (incap == null)
+            {
+                return NotFound();
+            }
+
+            return View(_converterHelper.ToIncapViewModel(incap));
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditIncap(EditIncapacityViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var modelfull = new Incapacity
+                {
+                    Employee = await _dataContext.Employees.FindAsync(model.EmployeeIds),
+                    EndDate = model.StartDate.AddDays(model.CantDay),
+                    DateModify = DateTime.Now,
+                    CantDay=model.CantDay,
+                    Novedad=model.Novedad,
+                    Id = model.Id,
+                    StartDate = model.StartDate,
+                    DateRegistro = model.DateRegistro,
+                    UserRegistra = model.UserRegistra,
+                    UserModify = User.Identity.Name
+
+                };
+
+                _dataContext.Incapacities.Update(modelfull);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{model.EmployeeIds}");
+                // return RedirectToAction($"Details/{model.SiteId}");
+            }
+            
+            return View();
+        }
+
+
+
+
+
 
         public async Task<IActionResult> AddSons(int? id)
         {
@@ -768,7 +921,18 @@ namespace Intranet.web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var endowments = await _converterHelper.ToAddEndowmentAsync(model, true);
+                var modelfull = new AddEndowmentViewModel
+                {
+                    Count=model.Count,
+                    DateDelivery=model.DateDelivery,
+                    DateRegistro=model.DateRegistro,
+                    Detail=model.Detail,
+                    Employee=model.Employee,
+                    EmployeeId=model.EmployeeId,
+                    Size=model.Size,
+                    UserRegistra=User.Identity.Name
+                };
+                var endowments = await _converterHelper.ToAddEndowmentAsync(modelfull, true);
                 _dataContext.Endowments.Add(endowments);
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction($"Details/{model.EmployeeId}");
@@ -823,38 +987,7 @@ namespace Intranet.web.Controllers
 
 
 
-        public async Task<IActionResult> EditExam(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var exams = await _dataContext.Exams
-                .Include(s => s.Employee)
-                .Include(e => e.ExamsType)
-                .FirstOrDefaultAsync(s => s.Id == id);
-            if (exams == null)
-            {
-                return NotFound();
-            }
-
-            return View(_converterHelper.ToExamViewModel(exams));
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> EditExam(ExamViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var exam = await _converterHelper.ToExamAsync(model, false);
-                _dataContext.Exams.Update(exam);
-                await _dataContext.SaveChangesAsync();
-                return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");
-                // return RedirectToAction($"Details/{model.SiteId}");
-            }
-            model.ExamTypes = _combosHelpers.GetComboExamTypes();
-            return View(model);
-        }
+       
       
         public async Task<IActionResult> DeleteExam(int? id)
         {

@@ -30,5 +30,15 @@ namespace Intranet.web.Data.Entities
         public DateTime EndDateLocal => EndDate.ToLocalTime();
         public ExamsType ExamsType { get; set; }
         public Employee Employee { get; set; }
+
+        public DateTime DateRegistro { get; set; }
+
+        [MaxLength(30)]
+        public string UserRegistra { get; set; }
+
+        [MaxLength(30)]
+        public string UserModify { get; set; }
+
+        public DateTime DateModify { get; set; }
     }
 }

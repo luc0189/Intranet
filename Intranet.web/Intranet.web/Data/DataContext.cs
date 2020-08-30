@@ -27,6 +27,7 @@ namespace Intranet.web.Data
         public DbSet<Recursoshumanos> Recursoshumanos { get; set; }
         public DbSet<SiteHeadquarters> SiteHeadquarters { get; set; }
         public DbSet<Sons> Sons { get; set; }
+        public DbSet<Incapacity> Incapacities { get; set; }
         public DbSet<StoreLeader> StoreLeaders { get; set; }
         public DbSet<UserImages> UserImages { get; set; }
 
