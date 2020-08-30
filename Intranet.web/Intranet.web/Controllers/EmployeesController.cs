@@ -553,6 +553,8 @@ namespace Intranet.web.Controllers
             }
             return View(model);
         }
+
+
         public async Task<IActionResult> AddCredit(int? id)
         {
             if (id == null)
@@ -569,12 +571,11 @@ namespace Intranet.web.Controllers
 
                 EmployeeIds = employe.Id,
                 StartDate=DateTime.Today,
-                Entityes = _combosHelpers.GetComboCreditEntities()
-                
+                Entityes = _combosHelpers.GetComboCreditEntities(),
+                UserRegistra = User.Identity.Name
             };
             return View(model);
         }
-
         [HttpPost]
         public async Task<IActionResult> AddCredit(CreditViewModel model)
         {
@@ -582,10 +583,21 @@ namespace Intranet.web.Controllers
             {
                 var modelfull = new CreditViewModel
                 {
-                    
+                    EmployeeIds = model.EmployeeIds,
+                    UserRegistra=User.Identity.Name,
+                    DateRegistro=DateTime.Now,
+                    DeadlinePay=model.DeadlinePay,
+                    EndDate=model.EndDate,
+                    EntityId=model.EntityId,
+                    IsActive=model.IsActive,
+                    NumberL=model.NumberL,
+                    Quotmonthly=model.Quotmonthly,
+                    StartDate=model.StartDate,
+                    TotalPrice=model.TotalPrice
+
 
                 };
-                var examen = await _converterHelper.ToEntitiesCreditAsync(model, true);
+                var examen = await _converterHelper.ToCreditAsync(modelfull, true);
                 _dataContext.Credits.Add(examen);
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction($"Details/{model.EmployeeIds}");
@@ -608,15 +620,35 @@ namespace Intranet.web.Controllers
                 return NotFound();
             }
 
-            return View(_converterHelper.ToCreditViewModel(credit));
+            return View(_converterHelper.ToEditCreditViewModel(credit));
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditCredit(CreditViewModel model)
+        public async Task<IActionResult> EditCredit(EditCreditViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var credit = await _converterHelper.ToEntitiesCreditAsync(model, false);
+                var modelfull = new EditCreditViewModel
+                {
+                    Id = model.Id,
+                    EmployeeIds = model.EmployeeIds,
+                    DeadlinePay = model.DeadlinePay,
+                    DateRegistro = model.DateRegistro,
+                    EndDate=model.EndDate,
+                    EntityId=model.EntityId,
+                    IsActive=model.IsActive,
+                    NumberL=model.NumberL,
+                    Quotmonthly=model.Quotmonthly,
+                    StartDate=model.StartDate,
+                    TotalPrice=model.TotalPrice,
+                    UserModify = User.Identity.Name,
+                    DateModify = DateTime.Now,
+                   
+                    UserRegistra = model.UserRegistra
+
+
+                };
+                var credit = await _converterHelper.ToEditCreditAsync(modelfull);
                 _dataContext.Credits.Update(credit);
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction($"{nameof(Details)}/{model.EmployeeIds}");

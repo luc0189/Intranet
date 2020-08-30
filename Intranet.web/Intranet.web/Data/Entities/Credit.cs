@@ -48,6 +48,15 @@ namespace Intranet.web.Data.Entities
        
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime EndDateLocal => EndDate.ToLocalTime();
+        public DateTime DateRegistro { get; set; }
+
+        [MaxLength(30)]
+        public string UserRegistra { get; set; }
+
+        [MaxLength(30)]
+        public string UserModify { get; set; }
+
+        public DateTime DateModify { get; set; }
         public Employee Employee { get; set; }
         public CreditEntities CreditEntities { get; set; }
     }

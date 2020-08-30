@@ -313,6 +313,9 @@
                                                                     @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().IsActive)
                                                                 </th>
                                                                 <th>
+                                                                    @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().UserRegistra)
+                                                                </th>
+                                                                <th>
                                                                     Acciones
                                                                 </th>
                                                             </tr>
@@ -320,38 +323,40 @@
                                                         <tbody>
                                                             @foreach (var item in Model.Credits)
                                                             {
-                                                                <tr>
-                                                                    <td>
-                                                                        @Html.DisplayFor(modelItem => item.CreditEntities.Name)
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DisplayFor(modelItem => item.NumberL)
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DisplayFor(modelItem => item.Quotmonthly)
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DisplayFor(modelItem => item.TotalPrice)
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DisplayFor(modelItem => item.DeadlinePay)
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DisplayFor(modelItem => item.StartDateLocal)
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DisplayFor(modelItem => item.EndDateLocal)
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DisplayFor(modelItem => item.IsActive)
-                                                                    </td>
+                                                            <tr>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.CreditEntities.Name)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.NumberL)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.Quotmonthly)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.DeadlinePay)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.StartDateLocal)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.EndDateLocal)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.IsActive)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.UserRegistra)
+                                                                </td>
+                                                                <td>
+                                                                    <a asp-action="EditCredit" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
 
-                                                                    <td>
-                                                                        <a asp-action="EditCredit" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
-
-                                                                        <button data-id="@item.Id" class="btn btn-danger deleteCredit" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                    </td>
-                                                                </tr>
+                                                                    <button data-id="@item.Id" class="btn btn-danger deleteCredit" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                </td>
+                                                            </tr>
                                                             }
                                                         </tbody>
                                                     </table>

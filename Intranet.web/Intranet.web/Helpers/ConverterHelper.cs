@@ -1,12 +1,6 @@
 ﻿using Intranet.web.Data;
 using Intranet.web.Data.Entities;
 using Intranet.web.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http2.HPack;
-using Microsoft.CodeAnalysis.Differencing;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Remotion.Linq.Parsing.Structure.IntermediateModel;
-using System;
 using System.Threading.Tasks;
 
 namespace Intranet.web.Helpers
@@ -31,15 +25,28 @@ namespace Intranet.web.Helpers
                 StartDate = model.StartDate,
                 EndDate = model.StartDate.AddYears(1).AddDays(1),
                 Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
-                
+
                 ExamsType = await _dataContext.ExamsTypes.FindAsync(model.ExamTypeId)
 
 
 
             };
         }
+        public ExamViewModel ToExamViewModel(Exams exams)
+        {
+            return new ExamViewModel
+            {
+                Id = exams.Id,
+                StartDate = exams.StartDate.ToUniversalTime(),
 
-        
+                Employee = exams.Employee,
+                EmployeeId = exams.Employee.Id,
+                ExamTypeId = exams.ExamsType.Id,
+                ExamTypes = _combosHelpers.GetComboExamTypes()
+
+            };
+        }
+
         public async Task<Sons> ToSonsAsync(SonsViewModel model, bool isNew)
         {
             return new Sons
@@ -48,32 +55,51 @@ namespace Intranet.web.Helpers
                 Name = model.Name,
                 Datebirth = model.Datebirth,
                 Genero = model.Genero,
-                UserRegistra=model.UserRegistra,
-               
-                 DateRegistro=model.DateRegistro,
-               
-                Employee = await _dataContext.Employees.FindAsync(model.EmployeeId)
-
-            };
-        }
-        public async Task<Sons> ToEditSonsAsync(EditSonViewModel model)
-        {
-            return new Sons
-            {
-                Id =  model.Id,
-                Name = model.Name,
-                Datebirth = model.Datebirth,
-                Genero = model.Genero,
                 UserRegistra = model.UserRegistra,
-                UserModify=model.UserModify,
-                DateModify=model.DateModify,
+
                 DateRegistro = model.DateRegistro,
 
                 Employee = await _dataContext.Employees.FindAsync(model.EmployeeId)
 
             };
-        }
-        public async Task<Credit> ToEntitiesCreditAsync(CreditViewModel model, bool isNew)
+        }//
+        public async Task<Sons> ToEditSonsAsync(EditSonViewModel model)
+        {
+            return new Sons
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Datebirth = model.Datebirth,
+                Genero = model.Genero,
+                UserRegistra = model.UserRegistra,
+                UserModify = model.UserModify,
+                DateModify = model.DateModify,
+                DateRegistro = model.DateRegistro,
+
+                Employee = await _dataContext.Employees.FindAsync(model.EmployeeId)
+
+            };
+        }//
+        public EditSonViewModel ToEditSonViewModel(Sons son)
+        {
+            return new EditSonViewModel
+            {
+                Id = son.Id,
+                Name = son.Name,
+                Datebirth = son.Datebirth,
+                Genero = son.Genero,
+                EmployeeId = son.Employee.Id,
+                DateRegistro = son.DateRegistro,
+                UserRegistra = son.UserRegistra,
+                DateModify = son.DateModify,
+                UserModify = son.UserModify,
+
+            };
+        }//
+        
+
+
+        public async Task<Credit> ToCreditAsync(CreditViewModel model, bool isNew)
         {
             int mes = int.Parse(model.DeadlinePay.ToString());
             return new Credit
@@ -87,13 +113,60 @@ namespace Intranet.web.Helpers
                 StartDate = model.StartDate,
                 EndDate = model.StartDate.AddMonths(mes).AddDays(1),
                 Employee = await _dataContext.Employees.FindAsync(model.EmployeeIds),
+                DateRegistro = model.DateRegistro,
+                UserRegistra = model.UserRegistra,
 
                 CreditEntities = await _dataContext.CreditEntities.FindAsync(model.EntityId)
 
 
 
             };
+        }//
+        public async Task<Credit> ToEditCreditAsync(EditCreditViewModel model)
+        {
+            return new Credit
+            {
+                Id = model.Id,
+               DeadlinePay=model.DeadlinePay,
+               EndDate=model.EndDate,
+               IsActive=model.IsActive,
+               NumberL=model.NumberL,
+               Quotmonthly=model.Quotmonthly,
+               StartDate=model.StartDate,
+               TotalPrice=model.TotalPrice,
+                UserRegistra = model.UserRegistra,
+                UserModify = model.UserModify,
+                DateModify = model.DateModify,
+                DateRegistro = model.DateRegistro,
+                CreditEntities = await _dataContext.CreditEntities.FindAsync(model.EntityId),
+                Employee = await _dataContext.Employees.FindAsync(model.EmployeeIds)
+
+            };
         }
+        public EditCreditViewModel ToEditCreditViewModel(Credit credit)
+        {
+            return new EditCreditViewModel
+            {
+                Id = credit.Id,
+                NumberL = credit.NumberL,
+                DeadlinePay = credit.DeadlinePay,
+                IsActive = credit.IsActive,
+                Quotmonthly = credit.Quotmonthly,
+                TotalPrice = credit.TotalPrice,
+                StartDate = credit.StartDate,
+                EndDate = credit.EndDate,
+                EmployeeIds = credit.Employee.Id,
+                EntityId = credit.CreditEntities.Id,
+                UserRegistra = credit.UserRegistra,
+                DateRegistro = credit.DateRegistro,
+                UserModify = credit.UserModify,
+                DateModify = credit.DateModify,
+                Entityes = _combosHelpers.GetComboCreditEntities()
+
+            };
+        }
+
+
         public async Task<PersonContact> ToPersonAsync(AddPersonContactViewModel model, bool isNew)
         {
             return new PersonContact
@@ -106,79 +179,6 @@ namespace Intranet.web.Helpers
 
             };
         }
-        public async Task<Endowment> ToAddEndowmentAsync(AddEndowmentViewModel model, bool isNew)
-        {
-            return new Endowment
-            {
-                Id = isNew ? 0 : model.Id,
-                Detail = model.Detail,
-                Count = model.Count,
-                DateDelivery = model.DateDelivery,
-                Size = model.Size,
-                Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
-
-            };
-        }
-
-        public async Task<Area> ToAreaAsync(AddAreaViewModel model, bool isNew)
-        {
-            return new Area
-            {
-                Id = isNew ? 0 : model.Id,
-                Nombre = model.Nombre,
-                SiteHeadquarters = await _dataContext.SiteHeadquarters.FindAsync(model.SiteId)
-
-            };
-        }
-
-        public AddAreaViewModel ToAreaViewModel(Area area)
-        {
-            return new AddAreaViewModel
-            {
-                Id = area.Id,
-                Nombre = area.Nombre,
-                SiteId = area.SiteHeadquarters.Id
-
-            };
-        }
-
-        public SonsViewModel ToSonViewModel(Sons son)
-        {
-            return new SonsViewModel
-            {
-                Id = son.Id,
-                Name = son.Name,
-                Datebirth = son.Datebirth,
-                Genero = son.Genero,
-                EmployeeId = son.Employee.Id,
-                DateRegistro= son.DateRegistro,
-                UserRegistra=son.UserRegistra,
-                
-                              
-            };
-        }
-
-        public CreditViewModel ToCreditViewModel(Credit credit)
-        {
-            return new CreditViewModel
-            {
-                Id = credit.Id,
-                NumberL = credit.NumberL,
-                DeadlinePay = credit.DeadlinePay,
-                IsActive = credit.IsActive,
-                Quotmonthly = credit.Quotmonthly,
-                TotalPrice = credit.TotalPrice,
-                StartDate = credit.StartDate,
-                EndDate = credit.EndDate,
-                EmployeeIds = credit.Employee.Id,
-                EntityId = credit.CreditEntities.Id,
-
-                Entityes = _combosHelpers.GetComboCreditEntities()
-
-            };
-        }
-       
-
         public AddPersonContactViewModel ToPersonContactViewModel(PersonContact person)
         {
             return new AddPersonContactViewModel
@@ -192,21 +192,19 @@ namespace Intranet.web.Helpers
             };
         }
 
-        public ExamViewModel ToExamViewModel(Exams exams)
+        public async Task<Endowment> ToAddEndowmentAsync(AddEndowmentViewModel model, bool isNew)
         {
-            return new ExamViewModel
+            return new Endowment
             {
-                Id = exams.Id,
-                StartDate = exams.StartDate.ToUniversalTime(),
-                
-                Employee = exams.Employee,
-                EmployeeId = exams.Employee.Id,
-                ExamTypeId = exams.ExamsType.Id,
-                ExamTypes = _combosHelpers.GetComboExamTypes()
+                Id = isNew ? 0 : model.Id,
+                Detail = model.Detail,
+                Count = model.Count,
+                DateDelivery = model.DateDelivery,
+                Size = model.Size,
+                Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
 
             };
         }
-
         public AddEndowmentViewModel ToEndowmentViewModel(Endowment endowment)
         {
             return new AddEndowmentViewModel
@@ -221,22 +219,28 @@ namespace Intranet.web.Helpers
             };
         }
 
-        public EditSonViewModel ToEditSonViewModel(Sons son)
+        public async Task<Area> ToAreaAsync(AddAreaViewModel model, bool isNew)
         {
-            return new EditSonViewModel
-                {
-                Id = son.Id,
-                Name = son.Name,
-                Datebirth = son.Datebirth,
-                Genero = son.Genero,
-                EmployeeId = son.Employee.Id,
-                DateRegistro = son.DateRegistro,
-                UserRegistra = son.UserRegistra,
-                DateModify = son.DateModify,
-                UserModify = son.UserModify,
+            return new Area
+            {
+                Id = isNew ? 0 : model.Id,
+                Nombre = model.Nombre,
+                SiteHeadquarters = await _dataContext.SiteHeadquarters.FindAsync(model.SiteId)
 
             };
         }
+        public AddAreaViewModel ToAreaViewModel(Area area)
+        {
+            return new AddAreaViewModel
+            {
+                Id = area.Id,
+                Nombre = area.Nombre,
+                SiteId = area.SiteHeadquarters.Id
+
+            };
+        }
+
+       
     }
 }
 
