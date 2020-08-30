@@ -1,4 +1,4 @@
-﻿@model Intranet.web.Models.AddEndowmentViewModel
+﻿@model Intranet.web.Models.EditEndowmentVieModel
 @{
     ViewData["Title"] = "Edit";
 }
@@ -18,6 +18,18 @@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
                 <a asp-action="Details" asp-route-id="@Model.EmployeeId" class="btn btn-success">Back to Site</a>
+            </div>
+            <div class="panel-footer">
+                <div>
+
+                    <input style="border: none;" type="hidden" asp-for="UserRegistra" />
+
+                    <input style="border: none;" type="hidden" asp-for="DateRegistro" />
+                    <label asp-for="UserModify"></label>
+                    <input style="border: none;" asp-for="UserModify" disabled />
+                    <label asp-for="DateModify"></label>
+                    <input style="border: none;" asp-for="DateModify" disabled />
+                </div>
             </div>
         </form>
     </div>

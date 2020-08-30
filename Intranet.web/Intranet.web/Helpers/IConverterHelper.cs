@@ -22,7 +22,7 @@ namespace Intranet.web.Helpers
         EditPersonVieModel ToPersonContactViewModel(PersonContact person);
 
         Task<Endowment> ToAddEndowmentAsync(AddEndowmentViewModel model, bool isNew);
-        AddEndowmentViewModel ToEndowmentViewModel(Endowment endowment);
+        EditEndowmentVieModel ToEndowmentViewModel(Endowment endowment);
 
         Task<Area> ToAreaAsync(AddAreaViewModel model, bool isNew);
         AddAreaViewModel ToAreaViewModel(Area area);

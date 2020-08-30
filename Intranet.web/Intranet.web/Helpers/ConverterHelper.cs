@@ -211,9 +211,9 @@ namespace Intranet.web.Helpers
 
             };
         }
-        public AddEndowmentViewModel ToEndowmentViewModel(Endowment endowment)
+        public EditEndowmentVieModel ToEndowmentViewModel(Endowment endowment)
         {
-            return new AddEndowmentViewModel
+            return new EditEndowmentVieModel
             {
                 Id = endowment.Id,
                 Detail = endowment.Detail,
@@ -221,7 +221,11 @@ namespace Intranet.web.Helpers
                 DateDelivery = endowment.DateDelivery.ToUniversalTime(),
                 Size = endowment.Size,
                 EmployeeId = endowment.Employee.Id,
-                Employee = endowment.Employee
+                Employee = endowment.Employee,
+                DateRegistro=endowment.DateRegistro,
+                UserRegistra=endowment.UserRegistra,
+                DateModify=endowment.DateModify,
+                UserModify=endowment.UserModify
             };
         }
 

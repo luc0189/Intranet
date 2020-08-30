@@ -743,11 +743,8 @@ namespace Intranet.web.Controllers
             }
             return View(model);
         }
-      
 
-
-
-
+        
         public async Task<IActionResult> AddEndowment(int? id)
         {
             if (id == null)
@@ -778,6 +775,52 @@ namespace Intranet.web.Controllers
             }
             return View(model);
         }
+        public async Task<IActionResult> EditEndowment(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var endowment = await _dataContext.Endowments
+                .Include(s => s.Employee)
+                .FirstOrDefaultAsync(s => s.Id == id);
+            if (endowment == null)
+            {
+                return NotFound();
+            }
+
+            return View(_converterHelper.ToEndowmentViewModel(endowment));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditEndowment(EditEndowmentVieModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var endowment = new Endowment
+                {
+                    Count=model.Count,
+                    DateDelivery=model.DateDelivery,
+                    DateModify=DateTime.Now,
+                    DateRegistro=model.DateRegistro,
+                    Detail=model.Detail,
+                    Employee= await _dataContext.Employees.FindAsync(model.EmployeeId),
+                    Id=model.Id,
+                    Size=model.Size,
+                     UserModify=User.Identity.Name,
+                     UserRegistra=model.UserRegistra
+                };
+              
+                _dataContext.Endowments.Update(endowment);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");
+                // return RedirectToAction($"Details/{model.SiteId}");
+            }
+            return View(model);
+        }
+
+
+
 
 
         public async Task<IActionResult> EditExam(int? id)
@@ -812,36 +855,7 @@ namespace Intranet.web.Controllers
             model.ExamTypes = _combosHelpers.GetComboExamTypes();
             return View(model);
         }
-        public async Task<IActionResult> EditEndowment(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var endowment = await _dataContext.Endowments
-                .Include(s => s.Employee)
-                .FirstOrDefaultAsync(s => s.Id == id);
-            if (endowment == null)
-            {
-                return NotFound();
-            }
-
-            return View(_converterHelper.ToEndowmentViewModel(endowment));
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> EditEndowment(AddEndowmentViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var endowment = await _converterHelper.ToAddEndowmentAsync(model, false);
-                _dataContext.Endowments.Update(endowment);
-                await _dataContext.SaveChangesAsync();
-                return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");
-                // return RedirectToAction($"Details/{model.SiteId}");
-            }
-            return View(model);
-        }
+      
         public async Task<IActionResult> DeleteExam(int? id)
         {
             if (id == null)
