@@ -676,19 +676,77 @@ namespace Intranet.web.Controllers
             };
             return View(model);
         }
-
         [HttpPost]
         public async Task<IActionResult> AddPerson(AddPersonContactViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var personal = await _converterHelper.ToPersonAsync(model, true);
-                _dataContext.PersonContacts.Add(personal);
+                var personCont = new PersonContact
+                {
+                    Name=model.Name,
+                    DateRegistro=DateTime.Now,
+                    relationship=model.relationship,
+                    Telephone=model.Telephone,
+                    UserRegistra=User.Identity.Name,
+                    Employee= await _dataContext.Employees.FindAsync(model.EmployeeId)
+
+                };
+               
+                _dataContext.PersonContacts.Add(personCont);
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction($"Details/{model.EmployeeId}");
             }
             return View(model);
         }
+        public async Task<IActionResult> EditPersonContact(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var person = await _dataContext.PersonContacts
+                .Include(s => s.Employee)
+                .FirstOrDefaultAsync(s => s.Id == id);
+            if (person == null)
+            {
+                return NotFound();
+            }
+
+            return View(_converterHelper.ToPersonContactViewModel(person));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditPersonContact(EditPersonVieModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var person= new PersonContact
+                {
+                    Id = model.Id,
+                    Name = model.Name,
+                    relationship = model.relationship,
+                    Telephone = model.Telephone,
+                    Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
+                    UserRegistra = model.UserRegistra,
+                    DateRegistro = model.DateRegistro,
+                    DateModify = DateTime.Now,
+                    UserModify = User.Identity.Name
+   
+
+
+            };
+              
+                _dataContext.PersonContacts.Update(person);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");
+                // return RedirectToAction($"Details/{model.SiteId}");
+            }
+            return View(model);
+        }
+      
+
+
+
 
         public async Task<IActionResult> AddEndowment(int? id)
         {
@@ -708,7 +766,6 @@ namespace Intranet.web.Controllers
             };
             return View(model);
         }
-
         [HttpPost]
         public async Task<IActionResult> AddEndowment(AddEndowmentViewModel model)
         {
@@ -722,39 +779,6 @@ namespace Intranet.web.Controllers
             return View(model);
         }
 
-     
-      
-
-        public async Task<IActionResult> EditPersonContact(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var person = await _dataContext.PersonContacts
-                .Include(s => s.Employee)
-                .FirstOrDefaultAsync(s => s.Id == id);
-            if (person == null)
-            {
-                return NotFound();
-            }
-
-            return View(_converterHelper.ToPersonContactViewModel(person));
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> EditPersonContact(AddPersonContactViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var person = await _converterHelper.ToPersonAsync(model, false);
-                _dataContext.PersonContacts.Update(person);
-                await _dataContext.SaveChangesAsync();
-                return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");
-                // return RedirectToAction($"Details/{model.SiteId}");
-            }
-            return View(model);
-        }
 
         public async Task<IActionResult> EditExam(int? id)
         {

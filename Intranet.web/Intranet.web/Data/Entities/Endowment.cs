@@ -34,5 +34,14 @@ namespace Intranet.web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public DateTime DateDeliveryLocal => DateDelivery.ToLocalTime();
         public Employee Employee { get; set; }
+        public DateTime DateRegistro { get; set; }
+
+        [MaxLength(30)]
+        public string UserRegistra { get; set; }
+
+        [MaxLength(30)]
+        public string UserModify { get; set; }
+
+        public DateTime DateModify { get; set; }
     }
 }

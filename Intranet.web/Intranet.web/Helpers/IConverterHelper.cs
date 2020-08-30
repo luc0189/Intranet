@@ -19,7 +19,7 @@ namespace Intranet.web.Helpers
 
 
         Task<PersonContact> ToPersonAsync(AddPersonContactViewModel model, bool isNew);
-        AddPersonContactViewModel ToPersonContactViewModel(PersonContact person);
+        EditPersonVieModel ToPersonContactViewModel(PersonContact person);
 
         Task<Endowment> ToAddEndowmentAsync(AddEndowmentViewModel model, bool isNew);
         AddEndowmentViewModel ToEndowmentViewModel(Endowment endowment);

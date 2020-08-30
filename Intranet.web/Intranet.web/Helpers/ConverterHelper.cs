@@ -1,6 +1,7 @@
 ﻿using Intranet.web.Data;
 using Intranet.web.Data.Entities;
 using Intranet.web.Models;
+using Microsoft.CodeAnalysis.Options;
 using System.Threading.Tasks;
 
 namespace Intranet.web.Helpers
@@ -179,16 +180,21 @@ namespace Intranet.web.Helpers
 
             };
         }
-        public AddPersonContactViewModel ToPersonContactViewModel(PersonContact person)
+        public EditPersonVieModel ToPersonContactViewModel(PersonContact person)
         {
-            return new AddPersonContactViewModel
+            return new EditPersonVieModel
             {
                 Id = person.Id,
                 Name = person.Name,
                 relationship = person.relationship,
                 Telephone = person.Telephone,
-                EmployeeId = person.Employee.Id
-
+                EmployeeId = person.Employee.Id,
+                UserRegistra=person.UserRegistra,
+                DateRegistro=person.DateRegistro,
+                DateModify=person.DateModify,
+                UserModify=person.UserModify
+                
+                
             };
         }
 
