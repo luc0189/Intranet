@@ -11,6 +11,10 @@
     <form asp-action="Edit">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="UserCrea" />
+        <input type="hidden" asp-for="DateRegistro" />
+        <input type="hidden" asp-for="UserModify" />
+        <input type="hidden" asp-for="DateModify" />
 
         <partial name="_Employe" />
 

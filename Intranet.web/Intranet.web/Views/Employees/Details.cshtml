@@ -214,6 +214,9 @@
                                                                     @Html.DisplayNameFor(model => model.Sons.FirstOrDefault().Genero)
                                                                 </th>
                                                                 <th>
+                                                                    @Html.DisplayNameFor(model => model.Sons.FirstOrDefault().UserRegistra)
+                                                                </th>
+                                                                <th>
                                                                     Acciones
                                                                 </th>
                                                             </tr>
@@ -221,22 +224,25 @@
                                                         <tbody>
                                                             @foreach (var item in Model.Sons)
                                                             {
-                                                                <tr>
-                                                                    <td>
-                                                                        @Html.DisplayFor(modelItem => item.Name)
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DisplayFor(modelItem => item.Datebirth)
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DisplayFor(modelItem => item.Genero)
-                                                                    </td>
-                                                                    <td>
-                                                                        <a asp-action="EditSon" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                            <tr>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.Name)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.Datebirth)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.Genero)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.UserRegistra)
+                                                                </td>
+                                                                <td>
+                                                                    <a asp-action="EditSon" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
 
-                                                                        <button data-id="@item.Id" class="btn btn-danger deleteSon" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                    </td>
-                                                                </tr>
+                                                                    <button data-id="@item.Id" class="btn btn-danger deleteSon" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                </td>
+                                                            </tr>
                                                             }
                                                         </tbody>
                                                     </table>

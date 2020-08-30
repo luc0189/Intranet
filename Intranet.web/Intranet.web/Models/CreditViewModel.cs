@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Intranet.web.Models
 {
-    public class CreditViewModel : Credit
+    public class CreditViewModel 
     {
         public int EmployeeIds { get; set; }
 

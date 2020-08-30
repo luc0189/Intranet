@@ -1,8 +1,12 @@
 ﻿using Intranet.web.Data;
 using Intranet.web.Data.Entities;
 using Intranet.web.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http2.HPack;
+using Microsoft.CodeAnalysis.Differencing;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Remotion.Linq.Parsing.Structure.IntermediateModel;
+using System;
 using System.Threading.Tasks;
 
 namespace Intranet.web.Helpers
@@ -44,6 +48,27 @@ namespace Intranet.web.Helpers
                 Name = model.Name,
                 Datebirth = model.Datebirth,
                 Genero = model.Genero,
+                UserRegistra=model.UserRegistra,
+               
+                 DateRegistro=model.DateRegistro,
+               
+                Employee = await _dataContext.Employees.FindAsync(model.EmployeeId)
+
+            };
+        }
+        public async Task<Sons> ToEditSonsAsync(EditSonViewModel model)
+        {
+            return new Sons
+            {
+                Id =  model.Id,
+                Name = model.Name,
+                Datebirth = model.Datebirth,
+                Genero = model.Genero,
+                UserRegistra = model.UserRegistra,
+                UserModify=model.UserModify,
+                DateModify=model.DateModify,
+                DateRegistro = model.DateRegistro,
+
                 Employee = await _dataContext.Employees.FindAsync(model.EmployeeId)
 
             };
@@ -125,7 +150,11 @@ namespace Intranet.web.Helpers
                 Name = son.Name,
                 Datebirth = son.Datebirth,
                 Genero = son.Genero,
-                EmployeeId = son.Employee.Id
+                EmployeeId = son.Employee.Id,
+                DateRegistro= son.DateRegistro,
+                UserRegistra=son.UserRegistra,
+                
+                              
             };
         }
 
@@ -192,10 +221,22 @@ namespace Intranet.web.Helpers
             };
         }
 
-       
+        public EditSonViewModel ToEditSonViewModel(Sons son)
+        {
+            return new EditSonViewModel
+                {
+                Id = son.Id,
+                Name = son.Name,
+                Datebirth = son.Datebirth,
+                Genero = son.Genero,
+                EmployeeId = son.Employee.Id,
+                DateRegistro = son.DateRegistro,
+                UserRegistra = son.UserRegistra,
+                DateModify = son.DateModify,
+                UserModify = son.UserModify,
 
-      
-
+            };
+        }
     }
 }
 

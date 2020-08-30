@@ -1,28 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Data.Entities
 {
     public class Sons
     {
         public int Id { get; set; }
+
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
         [Display(Name = "Nombre Completo")]
         [MaxLength(50)]
-        public String Name { get; set; }
+        public string Name { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
         [Display(Name = "Fecha de Nacimiento")]
-        [MaxLength(50)]
-        public String Datebirth { get; set; }
+        public string Datebirth { get; set; }
 
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
         [Display(Name = "Genero")]
         [MaxLength(50)]
-        public String Genero { get; set; }
+        public string Genero { get; set; }
+
         public Employee Employee { get; set; }
+
+        public DateTime DateRegistro { get; set; }
+
+        [MaxLength(30)]
+        public string UserRegistra { get; set; }
+
+        [MaxLength(30)]
+        public string UserModify { get; set; }
+
+        public DateTime DateModify { get; set; }
     }
 }
