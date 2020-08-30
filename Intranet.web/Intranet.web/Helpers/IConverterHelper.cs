@@ -15,7 +15,7 @@ namespace Intranet.web.Helpers
 
         Task<Credit> ToCreditAsync(CreditViewModel model, bool isNew);//
         Task<Credit> ToEditCreditAsync(EditCreditViewModel model);//
-        EditCreditViewModel ToEditCreditViewModel(Credit credit);//
+        EditCreditViewModel ToEditCreditViewModel(Credit credit);
 
 
         Task<PersonContact> ToPersonAsync(AddPersonContactViewModel model, bool isNew);
