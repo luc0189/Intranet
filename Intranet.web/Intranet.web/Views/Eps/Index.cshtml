@@ -4,37 +4,50 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Entidades EPS</h2>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
-                </td>
-                <td>
-                    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Details</a> |
-                    <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog">Delete</button>
 
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a asp-action="Create" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Create New EPS</a>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Nombre)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nombre)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a> 
+                                    <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id"><i class="glyphicon glyphicon-list"></i></a> 
+                                    <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <partial name="_DeleteDialogModal" />
 
 @section Scripts {

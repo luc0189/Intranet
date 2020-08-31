@@ -119,11 +119,11 @@ namespace Intranet.web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(AddUserViewModel view)
+        public async Task<IActionResult> Register(AddUserModel view)
         {
             if (ModelState.IsValid)
             {
-                var user = await _userHelper.AddUser(view, "Employe");
+                var user = await _userHelper.AddUser(view, "Manager");
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "This email is already used.");
@@ -139,8 +139,8 @@ namespace Intranet.web.Controllers
                 }, protocol: HttpContext.Request.Scheme);
 
                 _mailHelper.SendMail(view.Username, "Intranet Lcs - Email confirmation",
-                 $"<table border='1' cellpadding='0' cellspacing='0' width='100%'>" +
-                 $"<h1>Intranet Lcs -Email Confirmation</h1>" +
+                 $"<table border='0' cellpadding='0' cellspacing='0' width='100%'>" +
+                
                  $"<tr>" +
                  $"<td style='padding: 40px 0 30px 0; align=center; bgcolor=#70bbd9'>" +
 
@@ -148,14 +148,15 @@ namespace Intranet.web.Controllers
                  $"</tr>" +
                  $"<tr>" +
                  $"<td>" +
-                $"<table align='center' border='1' cellpadding='0' cellspacing='0' width='600' style='-webkit-box-shadow: 10px 10px 81px -10px rgba(0,0,0,0.75); -moz-box-shadow: 10px 10px 81px -10px rgba(0,0,0,0.75); box-shadow: 10px 10px 81px -10px rgba(0,0,0,0.75);'>" +
+                $"<table align='center' border='0' cellpadding='0' cellspacing='0' width='600' style='-webkit-box-shadow: 10px 10px 81px -10px rgba(0,0,0,0.75); -moz-box-shadow: 10px 10px 81px -10px rgba(0,0,0,0.75); box-shadow: 10px 10px 81px -10px rgba(0,0,0,0.75);'>" +
                         $"<tr>" +
                              $"<td align='center' bgcolor='#70bbd9' style='padding: 40px 0 30px 0;'>" +
+                              $"<h1>Intranet Lcs -Email Confirmation</h1>" +
                                         $"<img src='https://cdn1.iconfinder.com/data/icons/hawcons/32/698922-icon-9-mail-checked-256.png'/>" +
                              $"</td>" +
                         $"</tr>" +
                         $"<tr>" +
-                              $"<td bgcolor='##0c3645' border='0' style='padding: 40px 30px 40px 30px;'>" +
+                              $"<td  border='0' style='padding: 40px 30px 40px 30px;'>" +
                                        $"<table border='0' cellpadding='0' cellspacing='0' width='100%'>" +
                                                $"<tr>" +
                                                        $"<td  style='color:#153643; font-family:Arial; sans-serif; font-size:24px;'>" +
@@ -202,12 +203,11 @@ namespace Intranet.web.Controllers
                  $"</table>" +
             $"</table>" +
 
-                 $"<h1>Intranet Lcs -Email Confirmation</h1>" +
                  $"To allow the user, " +
                  $"plase click in this link:</br></br>" +
                  $"<a href = \"{tokenLink}\">Confirm Email</a>");
                 ViewBag.Message = $"Se ha Enviado un Email a {view.Username} con Instrucciones para Activar el Usuario.";
-                return View(view);
+                return RedirectToAction("Index", "Home");
             }
             return View(view);
         }

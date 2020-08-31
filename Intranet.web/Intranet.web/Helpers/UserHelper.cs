@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using Intranet.web.Data.Entities;
 using Intranet.web.Models;
+using System.Runtime.CompilerServices;
+using System;
 
 namespace Intranet.Web.Helpers
 {
@@ -21,7 +23,7 @@ namespace Intranet.Web.Helpers
             _signInManager = signInManager;
         }
 
-        public async Task<User> AddUser(AddUserViewModel view, string role)
+        public async Task<User> AddUser(AddUserModel view, string role)
         {
             var user =new User
             {
@@ -29,9 +31,9 @@ namespace Intranet.Web.Helpers
                 Document = view.Document,
                 FirstName = view.FirstName,
                 LastName = view.LastName,
-               Movil=view.Movil,
-               Activo=view.Activo,
-               
+                Movil=view.Movil,
+                Activo=view.Activo,
+               DateRegistro= DateTime.Now,
                 Email=view.Username,
                 UserName=view.Username
                 

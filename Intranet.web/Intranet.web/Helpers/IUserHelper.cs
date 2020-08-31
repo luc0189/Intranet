@@ -25,7 +25,7 @@ namespace Intranet.Web.Helpers
         Task<IdentityResult> UpdateUserAsync(User user);
         Task<IdentityResult> UpdateEmployeAsync(Employee Employe);
         Task<SignInResult> ValidatePasswordAsync(User user, string password);
-        Task<User> AddUser(AddUserViewModel view, string role);
+        Task<User> AddUser(AddUserModel view, string role);
         Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword);
 
         Task<string> GenerateEmailConfirmationTokenAsync(User user);
