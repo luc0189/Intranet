@@ -220,5 +220,34 @@ namespace Intranet.web.Controllers
             }
             return View(model);
         }
+        public async Task<IActionResult> DeleteArea(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var area = await _datacontext.Areas
+                .Include(pi => pi.SiteHeadquarters)
+                .FirstOrDefaultAsync(pi => pi.Id == id.Value);
+            if (area == null)
+            {
+                return NotFound();
+            }
+
+
+            try
+            {
+                _datacontext.Areas.Remove(area);
+                await _datacontext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{area.SiteHeadquarters.Id}");
+            }
+            catch (Exception e)
+            {
+
+                ViewBag.Message = $"Se a Generado una excepcion no Controlada: {e.Message}."; ;
+            }
+            return View();
+        }
     }
 }
