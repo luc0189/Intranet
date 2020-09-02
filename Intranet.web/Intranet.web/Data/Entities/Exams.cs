@@ -40,5 +40,7 @@ namespace Intranet.web.Data.Entities
         public string UserModify { get; set; }
 
         public DateTime DateModify { get; set; }
+
+        public bool Activo { get; set; }
     }
 }

@@ -28,6 +28,7 @@ namespace Intranet.web.Data
             await ChekSiteAsyn();
             await ChekAreaAsyn();
             await ChekExamTypeAsyn();
+            await ChekEndowmentTypeAsyn();
             await ChekEpsAsyn();
             await ChekPensionAsyn();
             await ChekCajaCompAsyn();
@@ -38,6 +39,26 @@ namespace Intranet.web.Data
           
          
            
+        }
+
+        private async Task ChekEndowmentTypeAsyn()
+        {
+            if (!_context.EndowmentsTypes.Any())
+            {
+
+                _context.EndowmentsTypes.Add(new EndowmentType
+                {
+
+                    NameType = "Pantalones",
+                    DateRegistro=DateTime.Now,
+                    UserRegistra="System",
+                    EspirationDate= 6
+                    
+
+                });
+
+                await _context.SaveChangesAsync();
+            }
         }
 
         private async Task  ChekExamTypeAsyn()

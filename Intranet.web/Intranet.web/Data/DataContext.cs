@@ -16,6 +16,7 @@ namespace Intranet.web.Data
   
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Endowment> Endowments { get; set; }
+        public DbSet<EndowmentType> EndowmentsTypes { get; set; }
         public DbSet<Eps> Eps { get; set; }
         public DbSet<Exams> Exams { get; set; }
         public DbSet<ExamsType> ExamsTypes { get; set; }

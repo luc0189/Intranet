@@ -1,10 +1,18 @@
 ﻿@model Intranet.web.Models.AddEndowmentViewModel
 
+    <div class="form-group">
+        <label asp-for="EndowmentTypeId" class="control-label"></label>
+        <select asp-for="EndowmentTypeId" asp-items="Model.EndowmnetsTypes" class="form-control">
+        </select>
+        <span asp-validation-for="EndowmentTypeId" class="text-danger"></span>
+    </div>
+
 <div class="form-group">
     <label asp-for="Detail" class="control-label"></label>
     <input asp-for="Detail" class="form-control" />
     <span asp-validation-for="Detail" class="text-danger"></span>
 </div>
+
 <div class="form-group">
     <label asp-for="Count" class="control-label"></label>
     <input asp-for="Count" class="form-control" />

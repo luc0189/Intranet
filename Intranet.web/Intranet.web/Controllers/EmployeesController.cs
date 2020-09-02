@@ -97,7 +97,8 @@ namespace Intranet.web.Controllers
                 .Include(e => e.Exams)
                 .Include(e=>e.CajaCompensacion)
                 .Include(e=>e.Incapacities)
-                .Include(e => e.Endowments));
+                .Include(e => e.Endowments)
+                );
         }
 
 
@@ -122,6 +123,7 @@ namespace Intranet.web.Controllers
                 .Include(e => e.Exams)
                 .ThenInclude(t => t.ExamsType)
                 .Include(e => e.Endowments)
+                .ThenInclude(c=>c.EndowmentType)
                 .FirstOrDefaultAsync(e => e.Id == id);
             if (employee == null)
             {
@@ -914,13 +916,15 @@ namespace Intranet.web.Controllers
             var model = new AddEndowmentViewModel
             {
                 EmployeeId = employe.Id,
-
+                EndowmnetsTypes = _combosHelpers.GetComboEndowmentType(),
             };
             return View(model);
         }
+
         [HttpPost]
         public async Task<IActionResult> AddEndowment(AddEndowmentViewModel model)
         {
+            var cant = await _dataContext.EndowmentsTypes.FirstOrDefaultAsync(e=>e.Id==model.EndowmentTypeId);
             if (ModelState.IsValid)
             {
                 var modelfull = new AddEndowmentViewModel
@@ -932,7 +936,11 @@ namespace Intranet.web.Controllers
                     Employee=model.Employee,
                     EmployeeId=model.EmployeeId,
                     Size=model.Size,
-                    UserRegistra=User.Identity.Name
+                    DateVence= model.DateDelivery.AddMonths(cant.EspirationDate),
+                    UserRegistra=User.Identity.Name,
+                    EndowmentTypeId=model.EndowmentTypeId,
+                    EndowmnetsTypes = _combosHelpers.GetComboEndowmentType(),
+
                 };
                 var endowments = await _converterHelper.ToAddEndowmentAsync(modelfull, true);
                 _dataContext.Endowments.Add(endowments);
@@ -954,6 +962,8 @@ namespace Intranet.web.Controllers
             {
                 return NotFound();
             }
+
+            
 
             return View(_converterHelper.ToEndowmentViewModel(endowment));
         }
@@ -1135,5 +1145,7 @@ namespace Intranet.web.Controllers
             await _dataContext.SaveChangesAsync();
             return RedirectToAction($"{nameof(Details)}/{image.Employee.Id}");
         }
+
+
     }
 }

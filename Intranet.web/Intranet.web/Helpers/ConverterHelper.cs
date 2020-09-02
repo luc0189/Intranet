@@ -249,6 +249,8 @@ namespace Intranet.web.Helpers
                 DateDelivery = model.DateDelivery,
                 Size = model.Size,
                 Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
+                EndowmentType=await _dataContext.EndowmentsTypes.FindAsync(model.EndowmentTypeId),
+                DateVence=model.DateVence,
                 DateRegistro=DateTime.Now,
                 UserRegistra=model.UserRegistra
             };
@@ -267,7 +269,8 @@ namespace Intranet.web.Helpers
                 DateRegistro=endowment.DateRegistro,
                 UserRegistra=endowment.UserRegistra,
                 DateModify=endowment.DateModify,
-                UserModify=endowment.UserModify
+                UserModify=endowment.UserModify,
+                EndowmnetsTypes = _combosHelpers.GetComboEndowmentType()
             };
         }
 

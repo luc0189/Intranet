@@ -193,7 +193,7 @@
                         <li class="active"><a data-toggle="tab" href="#home">Hijos <span class="badge"> @Html.DisplayFor(modelItem => Model.Sons.Count)</span></a></li>
                         <li><a data-toggle="tab" href="#menu1">Creditos <span class="badge"> @Html.DisplayFor(modelItem => Model.Credits.Count)</span></a></li>
                         <li><a data-toggle="tab" href="#menu2">Contactos <span class="badge"> @Html.DisplayFor(modelItem => Model.PersonContacts.Count)</span></a></li>
-                        <li><a data-toggle="tab" href="#menu3">Examenes <span class="badge"> @Html.DisplayFor(modelItem => Model.Exams.Count)</span></a></li>
+                        <li><a data-toggle="tab" href="#menu3">Requirements <span class="badge"> @Html.DisplayFor(modelItem => Model.Exams.Count)</span></a></li>
                         <li><a data-toggle="tab" href="#menu4">Dotaciones <span class="badge"> @Html.DisplayFor(modelItem => Model.Endowments.Count)</span></a></li>
                         <li><a data-toggle="tab" href="#menu5">Incapacidades <span class="badge"> @Html.DisplayFor(modelItem => Model.Incapacities.Count)</span></a></li>
                         <li><a data-toggle="tab" href="#menu6">Activos Fijos <span class="badge"> @Html.DisplayFor(modelItem => Model.Endowments.Count)</span></a></li>
@@ -489,7 +489,7 @@
                                             <div class="col-md-12">
                                                 <div class="panel panel-default">
                                                     <div class="panel-heading">
-                                                        <a asp-action="AddExam" class="btn btn-primary" asp-route-id="@Model.Id">Add Exams</a>
+                                                        <a asp-action="AddExam" class="btn btn-primary" asp-route-id="@Model.Id">Add requirements</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -501,7 +501,7 @@
                                             <div class="col-md-12">
                                                 <div class="panel panel-default">
                                                     <div class="panel-heading">
-                                                        <a asp-action="AddExam" class="btn btn-primary" asp-route-id="@Model.Id">Add Exams</a>
+                                                        <a asp-action="AddExam" class="btn btn-primary" asp-route-id="@Model.Id">Add requirements</a>
                                                     </div>
                                                     <div class="panel-body">
                                                         <div class="table-responsive">
@@ -592,6 +592,9 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th>
+                                                                            @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().EndowmentType.NameType)
+                                                                        </th>
+                                                                        <th>
                                                                             @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().Detail)
                                                                         </th>
                                                                         <th>
@@ -604,6 +607,9 @@
                                                                             @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().DateDeliveryLocal)
                                                                         </th>
                                                                         <th>
+                                                                            @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().DateVence)
+                                                                        </th>
+                                                                        <th>
                                                                             @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().UserRegistra)
                                                                         </th>
                                                                         <th>
@@ -614,28 +620,34 @@
                                                                 <tbody>
                                                                     @foreach (var item in Model.Endowments)
                                                                     {
-                                                                        <tr>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.Detail)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.Count)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.Size)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.DateDeliveryLocal)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.UserRegistra)
-                                                                            </td>
-                                                                            <td>
-                                                                                <a asp-action="EditEndowment" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                                    <tr>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.EndowmentType.NameType)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Detail)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Count)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Size)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.DateDeliveryLocal)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.DateVence)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.UserRegistra)
+                                                                        </td>
+                                                                        <td>
+                                                                            <a asp-action="EditEndowment" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
 
-                                                                                <button data-id="@item.Id" class="btn btn-danger deleteEndowment" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                            </td>
-                                                                        </tr>
+                                                                            <button data-id="@item.Id" class="btn btn-danger deleteEndowment" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                        </td>
+                                                                    </tr>
                                                                     }
                                                                 </tbody>
                                                             </table>

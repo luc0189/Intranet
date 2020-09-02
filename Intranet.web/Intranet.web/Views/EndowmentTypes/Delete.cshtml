@@ -1,0 +1,57 @@
+﻿@model Intranet.web.Data.Entities.EndowmentType
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>EndowmentType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NameType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NameType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EspirationDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EspirationDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserRegistra)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserRegistra)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserModify)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserModify)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateRegistro)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateRegistro)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateModify)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateModify)
+        </dd>
+    </dl>
+    @Html.Raw(TempData["msg"])
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

@@ -163,5 +163,21 @@ namespace Intranet.web.Helpers
             });
             return list;
         }
+
+        public IEnumerable<SelectListItem> GetComboEndowmentType()
+        {
+            var list = _dataContext.EndowmentsTypes.Select(a => new SelectListItem
+            {
+                Text = a.NameType,
+                Value = $"{a.Id}"
+            }).OrderBy(a => a.Text)
+            .ToList();
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione un Elemento...)",
+                Value = "0"
+            });
+            return list;
+        }
     }
 }
