@@ -19,28 +19,16 @@ namespace Intranet.web.Controllers
         }
         public IActionResult Index()
         {
-            var users = (from u in _dataContext.Exams
-                         join t in _dataContext.ExamsTypes
-                         select new
-                         {
-                             //t.Name,
-                             //u.StartDate,
-                             //u.EndDate,
-                             //u.Activo,
-
-                             Name = t.Name,
-                             EndDate = u.EndDate,
-                             Dato = SqlFunctions.DateDiff("DAY", now, a.DateLowStock) >= 14) <= 1 ? "A" :
-                                            grade.Grade.Value >= 3 ? "B" :
-                                            grade.Grade.Value >= 2 ? "C" :
-                                            grade.Grade.Value != null ? "D" : "-"
-                         }).GroupBy(e => e.AgeRange);
-
-
-
-
-
-            return View(users) ;
+            var query = from u in _dataContext.Exams
+                        select new
+                        {
+                            name = u.Id,
+                            imported = (((TimeSpan)(DateTime.Now - u.EndDate)).Days >= 1 ) ? "Vencido" : "no se"
+                        };
+            return View(_dataContext.Exams
+                .Include(s => s.ExamsType)
+                .Include(s => s.Employee));
+               
         }
     }
 }
