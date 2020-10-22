@@ -1,5 +1,6 @@
 ﻿using Intranet.web.Data.Entities;
 using Intranet.web.Models;
+using Microsoft.EntityFrameworkCore.Query;
 using System.Threading.Tasks;
 
 namespace Intranet.web.Helpers
@@ -32,6 +33,7 @@ namespace Intranet.web.Helpers
 
         Task<Sons> ToSonsAsync(SonsViewModel model, bool isNew);//
         Task<Sons> ToEditSonsAsync(EditSonViewModel modelfull);//
+        ReportExam ToReportExamViewModel(Exams model);
         EditSonViewModel ToEditSonViewModel(Sons son);//
        
     }

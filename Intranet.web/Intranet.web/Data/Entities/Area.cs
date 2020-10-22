@@ -13,7 +13,8 @@ namespace Intranet.web.Data.Entities
         [Required (ErrorMessage ="El campo {0} es Obligatorio.")]
         [Display(Name ="Nombre del Area")]
         [MaxLength(40)]
-        public String Nombre { get; set; }
+        public string Nombre { get; set; }
+
         public SiteHeadquarters SiteHeadquarters { get; set; }
         public ICollection<Employee> Employees { get; set; }
        

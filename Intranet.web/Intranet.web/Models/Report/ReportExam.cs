@@ -18,53 +18,35 @@ namespace Intranet.web.Models
         [Display(Name = "First Name")]
         [MaxLength(50, ErrorMessage = "The {0} field can not have more than {1} characters.")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
-        public string FirstName { get; set; }
+        public string FullName { get; set; }
 
-        [Display(Name = "Last Name")]
-        [MaxLength(50, ErrorMessage = "The {0} field can not have more than {1} characters.")]
+        [Display(Name = "Start Date")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
-        public string LastName { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        public DateTime StartDate { get; set; }
 
-        [MaxLength(100, ErrorMessage = "The {0} field can not have more than {1} characters.")]
-        public string Address { get; set; }
+        [Display(Name = "End Date")]
 
-        [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
-        [Display(Name = "Tipo RH")]
-        [MaxLength(50)]
-        public string Rh { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        public DateTime EndDate { get; set; }
 
-        [Display(Name = "Movil")]
-        [MaxLength(10)]
-        [DisplayFormat(DataFormatString = "{0:(###) ###-####}", ApplyFormatInEditMode = true)]
-        public string Movil { get; set; }
+        [Display(Name = "Start Date")]
 
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        public DateTime StartDateLocal => StartDate.ToLocalTime();
 
-        [Display(Name = "Fecha Cumpleaños")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
-        public string DateCumple { get; set; }
-
-        [Display(Name = "Fecha retiro")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
-        public string DateRetiro { get; set; }
-
-        [Display(Name = "Fecha Ingreso")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
-        public string DateIngreso { get; set; }
-
-        //aqui los campos que para tigger
+        [Display(Name = "End Date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        public DateTime EndDateLocal => EndDate.ToLocalTime();
 
         [MaxLength(30)]
-        public string UserCrea { get; set; }
+        public string UserModify { get; set; }
+        [MaxLength(30)]
+        public string State { get; set; }
 
-        public DateTime DateRegistro { get; set; }
+        public DateTime DateModify { get; set; }
 
-        [Required(ErrorMessage = "The Field {0} is mandatory.")]
-        [Display(Name = "Area")]
-        public int AreaId { get; set; }
-
+        public bool Activo { get; set; }
 
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         [Display(Name = "Cargo")]
@@ -74,12 +56,8 @@ namespace Intranet.web.Models
         [Display(Name = "ExamTypeId")]
         public int ExamtypeId { get; set; }
 
-
-
-        public IEnumerable<SelectListItem> Areas { get; set; }
         public IEnumerable<SelectListItem> ExamTypes { get; set; }
        
-        
         public IEnumerable<SelectListItem> PositionEmplooyed { get; set; }
       
     }

@@ -60,8 +60,6 @@ namespace Intranet.web.Models
 
         
 
-
-
         [Required(ErrorMessage = "The Field {0} is mandatory.")]
         [Display(Name = "Entity Credit")]
         [Range(1, int.MaxValue, ErrorMessage = "You must select a Entity Credit.")]

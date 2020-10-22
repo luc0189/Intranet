@@ -2,6 +2,7 @@
 using Intranet.web.Data.Entities;
 using Intranet.web.Models;
 using Microsoft.CodeAnalysis.Options;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Threading.Tasks;
 
@@ -68,7 +69,43 @@ namespace Intranet.web.Helpers
 
             };
         }
+        //public ReportExam ToReportExamViewModel(Exams exams)
+        //{
+        //    string states = "";
+        //    var valor = ((TimeSpan)(DateTime.Now - exams.EndDate)).Days;
+        //    if (valor <= 1)
+        //    {
+        //        states = "Vencido";
+        //    }
+        //    if (valor <= 30)
+        //    {
+        //        states = "A vences";
+        //    }
+        //    if (valor >= 31)
+        //    {
+        //        states = "Activo";
+        //    }
 
+        //    return new ReportExam
+        //    {
+           
+        //    Id = exams.Id,
+        //         Document= exams.Employee.Document,
+        //         ExamtypeId=exams.ExamsType.Id,
+        //         FullName=exams.Employee.FullName,
+        //         Activo=exams.Activo,
+        //         State= states,
+        //         EndDate=exams.EndDate,
+        //         PositionEmpId= exams.ExamsType.Id,
+                
+        //         DateModify=exams.DateModify,
+        //         StartDate=exams.StartDate,
+        //         UserModify=exams.UserModify
+
+               
+
+        //    };
+        //}
         public EditIncapacityViewModel ToIncapViewModel(Incapacity incap)
         {
             return new EditIncapacityViewModel
@@ -295,7 +332,43 @@ namespace Intranet.web.Helpers
             };
         }
 
-       
+        public ReportExam ToReportExamViewModel(Exams model)
+        {
+            string states = "";
+            var valor = ((TimeSpan)(DateTime.Now - model.EndDate)).Days;
+            if (valor <= 1)
+            {
+                states = "Vencido";
+            }
+            if (valor <= 30)
+            {
+                states = "A vences";
+            }
+            if (valor >= 31)
+            {
+                states = "Activo";
+            }
+
+            return new ReportExam
+            {
+
+                Id = model.Id,
+                Document = model.Employee.Document,
+                ExamtypeId = model.ExamsType.Id,
+                FullName = model.Employee.FullName,
+                Activo = model.Activo,
+                State = states,
+                EndDate = model.EndDate,
+                PositionEmpId = model.ExamsType.Id,
+
+                DateModify = model.DateModify,
+                StartDate = model.StartDate,
+                UserModify = model.UserModify
+
+
+
+            };
+        }
     }
 }
 

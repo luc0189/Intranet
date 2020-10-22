@@ -61,7 +61,12 @@
             // Delete item
             var item_to_delete;
             var action_to_delete;
-            $('#MyTable').DataTable();
+            $('#MyTable').DataTable( {
+        "createdRow": function ( row, data, index ) {
+            if ( data[5].replace(/[\$,]/g, '') * 1 > 150000 ) {
+                $('td', row).eq(5).addClass('highlight');
+            }
+        });
             $('.deleteItem').click((e) => {
                 item_to_delete = e.currentTarget.dataset.id;
                 action_to_delete = 1;
