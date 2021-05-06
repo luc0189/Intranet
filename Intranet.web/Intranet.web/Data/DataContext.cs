@@ -31,6 +31,7 @@ namespace Intranet.web.Data
         public DbSet<Incapacity> Incapacities { get; set; }
         public DbSet<StoreLeader> StoreLeaders { get; set; }
         public DbSet<UserImages> UserImages { get; set; }
+        public DbSet<Contract> Contracts { get; set; }
 
 
     }

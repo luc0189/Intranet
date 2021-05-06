@@ -193,10 +193,12 @@
                         <li class="active"><a data-toggle="tab" href="#home">Hijos <span class="badge"> @Html.DisplayFor(modelItem => Model.Sons.Count)</span></a></li>
                         <li><a data-toggle="tab" href="#menu1">Creditos <span class="badge"> @Html.DisplayFor(modelItem => Model.Credits.Count)</span></a></li>
                         <li><a data-toggle="tab" href="#menu2">Contactos <span class="badge"> @Html.DisplayFor(modelItem => Model.PersonContacts.Count)</span></a></li>
+
                         <li><a data-toggle="tab" href="#menu3">Requirements <span class="badge"> @Html.DisplayFor(modelItem => Model.Exams.Count)</span></a></li>
                         <li><a data-toggle="tab" href="#menu4">Dotaciones <span class="badge"> @Html.DisplayFor(modelItem => Model.Endowments.Count)</span></a></li>
                         <li><a data-toggle="tab" href="#menu5">Incapacidades <span class="badge"> @Html.DisplayFor(modelItem => Model.Incapacities.Count)</span></a></li>
                         <li><a data-toggle="tab" href="#menu6">Activos Fijos <span class="badge"> @Html.DisplayFor(modelItem => Model.Endowments.Count)</span></a></li>
+                        <li><a data-toggle="tab" href="#menu7">Contract <span class="badge"> @Html.DisplayFor(modelItem => Model.Contracts.Count)</span></a></li>
 
                     </ul>
                     <div class="tab-content">
@@ -620,34 +622,34 @@
                                                                 <tbody>
                                                                     @foreach (var item in Model.Endowments)
                                                                     {
-                                                                    <tr>
-                                                                        <td>
-                                                                            @Html.DisplayFor(modelItem => item.EndowmentType.NameType)
-                                                                        </td>
-                                                                        <td>
-                                                                            @Html.DisplayFor(modelItem => item.Detail)
-                                                                        </td>
-                                                                        <td>
-                                                                            @Html.DisplayFor(modelItem => item.Count)
-                                                                        </td>
-                                                                        <td>
-                                                                            @Html.DisplayFor(modelItem => item.Size)
-                                                                        </td>
-                                                                        <td>
-                                                                            @Html.DisplayFor(modelItem => item.DateDeliveryLocal)
-                                                                        </td>
-                                                                        <td>
-                                                                            @Html.DisplayFor(modelItem => item.DateVence)
-                                                                        </td>
-                                                                        <td>
-                                                                            @Html.DisplayFor(modelItem => item.UserRegistra)
-                                                                        </td>
-                                                                        <td>
-                                                                            <a asp-action="EditEndowment" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                                        <tr>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.EndowmentType.NameType)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.Detail)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.Count)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.Size)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.DateDeliveryLocal)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.DateVence)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.UserRegistra)
+                                                                            </td>
+                                                                            <td>
+                                                                                <a asp-action="EditEndowment" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
 
-                                                                            <button data-id="@item.Id" class="btn btn-danger deleteEndowment" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                        </td>
-                                                                    </tr>
+                                                                                <button data-id="@item.Id" class="btn btn-danger deleteEndowment" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                            </td>
+                                                                        </tr>
                                                                     }
                                                                 </tbody>
                                                             </table>
@@ -760,6 +762,86 @@
                                 </div>
                                 <div class="panel-body">
                                     No Funcional
+                                </div>
+                            </div>
+                        </div>
+                        <div id="menu7" class="tab-pane fade">
+                            <div class="panel">
+
+                                <div class="panel-body">
+                                    @if (Model.Contracts.Count == 0)
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <a asp-action="AddContract" class="btn btn-primary" asp-route-id="@Model.Id">Add Contract</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+
+                                                        <a asp-action="AddContract" class="btn btn-primary" asp-route-id="@Model.Id">Add Contract</a>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover table-responsive table-striped display">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().DateStart)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().DateEnd)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().Note)
+                                                                        </th>
+                                                                      
+
+                                                                        <th>
+                                                                            Acciones
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var item in Model.Contracts)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.DateStart)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.DateEnd)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.Note)
+                                                                            </td>
+                                                                           
+                                                                            <td>
+                                                                                <a asp-action="EditIncap" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                                                                <button data-id="@item.Id" class="btn btn-danger deleteIncap" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>

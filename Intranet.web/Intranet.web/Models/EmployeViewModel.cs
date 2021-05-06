@@ -126,6 +126,7 @@ namespace Intranet.web.Models
         public IEnumerable<SelectListItem> CajaCompensacion { get; set; }
         public IEnumerable<SelectListItem> PositionEmplooyed { get; set; }
         public IEnumerable<SelectListItem> Incapacitys { get; set; }
+      
 
     }
 }

@@ -98,6 +98,7 @@ namespace Intranet.web.Controllers
                 .Include(e=>e.CajaCompensacion)
                 .Include(e=>e.Incapacities)
                 .Include(e => e.Endowments)
+                .Include(e => e.Contracts)
                 );
         }
 
@@ -118,6 +119,7 @@ namespace Intranet.web.Controllers
                 .Include(e => e.PersonContacts)
                 .Include(i => i.UserImages)
                 .Include(e => e.Incapacities)
+                .Include(e => e.Contracts)
                 .Include(e => e.Credits)
                 .ThenInclude(c => c.CreditEntities)
                 .Include(e => e.Exams)
@@ -987,6 +989,98 @@ namespace Intranet.web.Controllers
                      UserRegistra=model.UserRegistra
                 };
               
+                _dataContext.Endowments.Update(endowment);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");
+                // return RedirectToAction($"Details/{model.SiteId}");
+            }
+            return View(model);
+        }
+        public async Task<IActionResult> AddContrac(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var employe = await _dataContext.Employees.FindAsync(id);
+            if (employe == null)
+            {
+                return NotFound();
+            }
+            var model = new AddEndowmentViewModel
+            {
+                EmployeeId = employe.Id,
+              
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddContrac(AddEndowmentViewModel model)
+        {
+            var cant = await _dataContext.EndowmentsTypes.FirstOrDefaultAsync(e => e.Id == model.EndowmentTypeId);
+            if (ModelState.IsValid)
+            {
+                var modelfull = new AddEndowmentViewModel
+                {
+                    Count = model.Count,
+                    DateDelivery = model.DateDelivery,
+                    DateRegistro = model.DateRegistro,
+                    Detail = model.Detail,
+                    Employee = model.Employee,
+                    EmployeeId = model.EmployeeId,
+                    Size = model.Size,
+                    DateVence = model.DateDelivery.AddMonths(cant.EspirationDate),
+                    UserRegistra = User.Identity.Name,
+                    EndowmentTypeId = model.EndowmentTypeId,
+                    EndowmnetsTypes = _combosHelpers.GetComboEndowmentType(),
+
+                };
+                var endowments = await _converterHelper.ToAddEndowmentAsync(modelfull, true);
+                _dataContext.Endowments.Add(endowments);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"Details/{model.EmployeeId}");
+            }
+            return View(model);
+        }
+        public async Task<IActionResult> EditContract(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var endowment = await _dataContext.Endowments
+                .Include(s => s.Employee)
+                .FirstOrDefaultAsync(s => s.Id == id);
+            if (endowment == null)
+            {
+                return NotFound();
+            }
+
+
+
+            return View(_converterHelper.ToEndowmentViewModel(endowment));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditContract(EditEndowmentVieModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var endowment = new Endowment
+                {
+                    Count = model.Count,
+                    DateDelivery = model.DateDelivery,
+                    DateModify = DateTime.Now,
+                    DateRegistro = model.DateRegistro,
+                    Detail = model.Detail,
+                    Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
+                    Id = model.Id,
+                    Size = model.Size,
+                    UserModify = User.Identity.Name,
+                    UserRegistra = model.UserRegistra
+                };
+
                 _dataContext.Endowments.Update(endowment);
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");

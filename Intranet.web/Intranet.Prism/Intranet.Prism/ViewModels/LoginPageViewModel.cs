@@ -30,7 +30,7 @@ namespace Intranet.Prism.ViewModels
             IsEnable = true;
             _navigationService = navigationService;
             _apiService = apiService;
-            Email = "yency0187@gmail.com";
+            Email = "luc0189@gmail.com";
             Password = "123456";
         }
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(Login));
