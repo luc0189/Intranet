@@ -31,7 +31,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                  
+
 
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Manager"))
                     {
@@ -51,10 +51,25 @@
                                 <li><a asp-area="" class="dropdown-item" asp-controller="Eps" asp-action="Index">Eps</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a asp-area="" class="dropdown-item" asp-controller="UploadEmployed" asp-action="Index">Upload Employed</a></li>
+                                <li role="separator" class="divider"></li>
+
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Activos Fijos <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+
+                                <li><a asp-area="" class="dropdown-item" asp-controller="Models" asp-action="Index">Modelos</a></li>
+                                <li><a asp-area="" class="dropdown-item" asp-controller="Fabrics" asp-action="Index">Fabricante</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a asp-area="" class="dropdown-item" asp-controller="Categories" asp-action="Index">Categorias</a></li>
+                                <li><a asp-area="" class="dropdown-item" asp-controller="Providers" asp-action="Index">Proveedores</a></li>
+                                
+
                             </ul>
                         </li>
                         <li><a asp-area="" asp-controller="Employees" asp-action="Index">Employees</a></li>
-                     
+                        <li><a asp-area="" asp-controller="Items1" asp-action="Index">Activos</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -65,7 +80,7 @@
                                 <li><a asp-area="" class="dropdown-item" asp-controller="SiteHeadquarters" asp-action="Index">Sedes</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a asp-area="" class="dropdown-item" asp-controller="CreditEntities" asp-action="Index">Entidades de credito</a></li>
-                               
+
                             </ul>
                         </li>
                     }

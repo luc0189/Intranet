@@ -179,5 +179,65 @@ namespace Intranet.web.Helpers
             });
             return list;
         }
+        public IEnumerable<SelectListItem> GetComboProveedor()
+        {
+            var list = _dataContext.Providers.Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = $"{a.Id}"
+            }).OrderBy(a => a.Text)
+             .ToList();
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione Un Proveedor...)",
+                Value = "0"
+            });
+            return list;
+        }
+        public IEnumerable<SelectListItem> GetComboModel()
+        {
+            var list = _dataContext.Models.Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = $"{a.Id}"
+            }).OrderBy(a => a.Text)
+             .ToList();
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione Un Modelo...)",
+                Value = "0"
+            });
+            return list;
+        } 
+        public IEnumerable<SelectListItem> GetComboCategory()
+        {
+            var list = _dataContext.Categories.Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = $"{a.Id}"
+            }).OrderBy(a => a.Text)
+             .ToList();
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione Una Categoria...)",
+                Value = "0"
+            });
+            return list;
+        }
+        public IEnumerable<SelectListItem> GetComboFabricante()
+        {
+            var list = _dataContext.Fabrics.Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = $"{a.Id}"
+            }).OrderBy(a => a.Text)
+             .ToList();
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione Un Fabricante...)",
+                Value = "0"
+            });
+            return list;
+        }
     }
 }

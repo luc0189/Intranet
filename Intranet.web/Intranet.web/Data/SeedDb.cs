@@ -1,4 +1,5 @@
 ﻿using Intranet.web.Data.Entities;
+using Intranet.web.Data.Entities.Activos;
 using Intranet.Web.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -32,6 +33,10 @@ namespace Intranet.web.Data
             await ChekEpsAsyn();
             await ChekPensionAsyn();
             await ChekCajaCompAsyn();
+            await ChekCategoryAsyn();
+            await ChekFabricAsyn();
+            await ChekModelAsyn();
+            await ChekProviderAsyn();
             var manager = await CheckUserAsync(1117498993, "Luis Carlos", "Sanchez Cabrera","luc0189@gmail.com",
                                                 "Calle Luna Calle Sol","3107957939", "Manager",true);
                   
@@ -170,7 +175,77 @@ namespace Intranet.web.Data
                 await _context.SaveChangesAsync();
             }
         }
-      
+        private async Task ChekCategoryAsyn()
+        {
+            if (!_context.Categories.Any())
+            {
+                _context.Categories.Add(new Category
+                {
+
+                    Name = "EQ DE COMPUTACION Y COMUNICACION",
+                    Datecreate = DateTime.Now,
+                    LifeUse=60,
+                    Usucreo="system",
+                    Otros=false
+                }) ;
+
+
+                await _context.SaveChangesAsync();
+            }
+        }
+        private async Task ChekFabricAsyn()
+        {
+            if (!_context.Fabrics.Any())
+            {
+                _context.Fabrics.Add(new Fabric
+                {
+
+                    Name = "APPLE",
+                    Datecreate=DateTime.Now,
+                    Usucreo="system"
+
+                });
+
+
+                await _context.SaveChangesAsync();
+            }
+        }
+        private async Task ChekModelAsyn()
+        {
+            if (!_context.Models.Any())
+            {
+                _context.Models.Add(new Model
+                {
+
+                    Name = "XR",
+                    Datecreate = DateTime.Now,
+                    Usucreo="system"
+                }) ;
+
+
+                await _context.SaveChangesAsync();
+            }
+        }  private async Task ChekProviderAsyn()
+        {
+            if (!_context.Providers.Any())
+            {
+                _context.Providers.Add(new Provider
+                {
+
+                    Name = "PROVEEDOR DE PRUEBA",
+                    Di = "11111",
+                    Direccion = "CALLE NORTE",
+                    Email = "LUC01@HOTMAIL.COM",
+                    Phone = "311214",
+                    Usucreo = "SYSTEM",
+                    Datecreate = DateTime.Today
+                    
+                }) ;
+
+
+                await _context.SaveChangesAsync();
+            }
+        }
         private async Task CheckManagerAsync(User user)
         {
             if (!_context.Managers.Any())

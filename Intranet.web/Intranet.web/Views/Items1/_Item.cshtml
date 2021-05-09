@@ -1,0 +1,79 @@
+﻿@model Intranet.web.Models.ItemViewModel
+<div class="col-md-4">
+
+
+    <div class="form-group">
+        <label asp-for="Seriale" class="control-label"></label>
+        <input asp-for="Seriale" class="form-control" />
+        <span asp-validation-for="Seriale" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Nombre" class="control-label"></label>
+        <input asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Datepurchase" class="control-label"></label>
+        <input asp-for="Datepurchase" class="form-control" />
+        <span asp-validation-for="Datepurchase" class="text-danger"></span>
+    </div>
+   
+    <div class="form-group">
+        <div class="checkbox">
+            <label>
+                <input asp-for="Activo" /> @Html.DisplayNameFor(model => model.Activo)
+            </label>
+        </div>
+    </div>
+
+   
+   
+
+   
+   
+
+</div>
+<div class="col-md-4">
+    <div class="form-group">
+        <label asp-for="UnitValue" class="control-label"></label>
+        <input asp-for="UnitValue" class="form-control" />
+        <span asp-validation-for="UnitValue" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TimeGarant" class="control-label"></label>
+        <input asp-for="TimeGarant" class="form-control" />
+        <span asp-validation-for="TimeGarant" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Coment" class="control-label"></label>
+        <input asp-for="Coment" class="form-control" />
+        <span asp-validation-for="Coment" class="text-danger"></span>
+    </div>
+
+</div>
+<div class="col-md-4">
+    <div class="form-group">
+        <label asp-for="ModeloId" class="control-label"></label>
+        <select asp-for="ModeloId" asp-items="Model.Modelo" class="form-control">
+        </select>
+        <span asp-validation-for="ModeloId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="FabricId" class="control-label"></label>
+        <select asp-for="FabricId" asp-items="Model.Fabricante" class="form-control">
+        </select>
+        <span asp-validation-for="FabricId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CategoryId" class="control-label"></label>
+        <select asp-for="CategoryId" asp-items="Model.Categoria" class="form-control">
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProviderId" class="control-label"></label>
+        <select asp-for="ProviderId" asp-items="Model.Proveedor" class="form-control">
+        </select>
+        <span asp-validation-for="ProviderId" class="text-danger"></span>
+    </div>
+</div>

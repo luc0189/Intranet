@@ -27,7 +27,7 @@ namespace Intranet.web.Data.Entities
         [MaxLength(500)]        
         public string Clausulas{ get; set; }
 
-        [Display(Name = "Clausulas")]
+        [Display(Name = "Notas")]
         [MaxLength(500)]
         public string Note { get; set; }
         public Employee Employee { get; set; }

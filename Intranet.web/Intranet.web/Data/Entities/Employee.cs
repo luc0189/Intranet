@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
+﻿using Intranet.web.Data.Entities.Activos;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -115,6 +116,7 @@ namespace Intranet.web.Data.Entities
         public ICollection<PersonContact> PersonContacts { get; set; }
         public ICollection<Incapacity> Incapacities { get; set; }
         public ICollection<Contract> Contracts { get; set; }
+        public ICollection<Item> Items { get; set; }
         
 
     }

@@ -17,5 +17,9 @@ namespace Intranet.web.Helpers
         IEnumerable<SelectListItem> GetComboPension();
         IEnumerable<SelectListItem> GetComboCajaCompensacion();
         IEnumerable<SelectListItem> GetComboPositionEmploye();
+        IEnumerable<SelectListItem> GetComboProveedor();
+        IEnumerable<SelectListItem> GetComboModel();
+        IEnumerable<SelectListItem> GetComboCategory();
+        IEnumerable<SelectListItem> GetComboFabricante();
     }
 }

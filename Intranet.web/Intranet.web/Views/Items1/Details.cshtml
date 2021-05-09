@@ -1,0 +1,85 @@
+﻿@model Intranet.web.Data.Entities.Activos.Item
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Item</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Serial)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Serial)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Datepurchase)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Datepurchase)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UnitValue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UnitValue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Coment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Coment)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Dateitemcreate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Dateitemcreate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateMod)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateMod)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeGarant)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TimeGarant)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Activo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Activo)
+        </dd>
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.Usucreate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Usucreate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Usermod)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Usermod)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

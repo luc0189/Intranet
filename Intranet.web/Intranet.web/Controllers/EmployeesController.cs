@@ -6,8 +6,6 @@ using Intranet.Web.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Org.BouncyCastle.Asn1.IsisMtt.X509;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,8 +93,8 @@ namespace Intranet.web.Controllers
                 .Include(e => e.PersonContacts)
                 .Include(e => e.Credits)
                 .Include(e => e.Exams)
-                .Include(e=>e.CajaCompensacion)
-                .Include(e=>e.Incapacities)
+                .Include(e => e.CajaCompensacion)
+                .Include(e => e.Incapacities)
                 .Include(e => e.Endowments)
                 .Include(e => e.Contracts)
                 );
@@ -125,7 +123,7 @@ namespace Intranet.web.Controllers
                 .Include(e => e.Exams)
                 .ThenInclude(t => t.ExamsType)
                 .Include(e => e.Endowments)
-                .ThenInclude(c=>c.EndowmentType)
+                .ThenInclude(c => c.EndowmentType)
                 .FirstOrDefaultAsync(e => e.Id == id);
             if (employee == null)
             {
@@ -141,13 +139,13 @@ namespace Intranet.web.Controllers
             var model = new EmployeViewModel
             {
                 DateRegistro = DateTime.Today,
-             
+
                 Areas = _combosHelpers.GetComboAreas(),
-                 Eps = _combosHelpers.GetComboEps(),
-                 Pension = _combosHelpers.GetComboPension(),
-                 CajaCompensacion = _combosHelpers.GetComboCajaCompensacion(),
-                 PositionEmplooyed = _combosHelpers.GetComboPositionEmploye(),
-                 //Roles = _combosHelpers.GetComboRoles()
+                Eps = _combosHelpers.GetComboEps(),
+                Pension = _combosHelpers.GetComboPension(),
+                CajaCompensacion = _combosHelpers.GetComboCajaCompensacion(),
+                PositionEmplooyed = _combosHelpers.GetComboPositionEmploye(),
+                //Roles = _combosHelpers.GetComboRoles()
             };
             model.Areas = _combosHelpers.GetComboAreas();
             model.Eps = _combosHelpers.GetComboEps();
@@ -163,54 +161,54 @@ namespace Intranet.web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(EmployeViewModel model)
         {
-            
+
 
             if (ModelState.IsValid)
             {
-                
-                    var employe = new Employee
-                    {
-                        Document=model.Document,
-                        SiteExpedition=model.SiteExpedition,
-                        FirstName= model.FirstName,
-                        LastName=model.LastName,
-                        Activo=model.Activo,
-                        Address=model.Address,
-                        DateIngreso=model.DateIngreso,
-                        DateRegistro=DateTime.Today,
-                        DateRetiro=model.DateRetiro,
-                        Email=model.Email,
-                        JobTitle=model.JobTitle,
-                        License=model.License,
-                        Movil=model.Movil,
-                        NivelEducation=model.NivelEducation,
-                        Rh=model.Rh,
-                        SiteBirth=model.SiteBirth,
-                        Arl=model.Arl,
-                        UserRegistra=User.Identity.Name,
-                        DateCumple=model.DateCumple,
-                        Credits = new List<Credit>(),
-                        Sons = new List<Sons>(),
-                        Endowments = new List<Endowment>(),
-                        Exams = new List<Exams>(),
-                        PersonContacts = new List<PersonContact>(),
-                        Incapacities = new List<Incapacity>(),
-                        UserImages = new List<UserImages>(),
-                        Area = await _dataContext.Areas.FindAsync(model.AreaId),
-                        Eps = await _dataContext.Eps.FindAsync(model.EpsId),
-                        Pension = await _dataContext.Pensions.FindAsync(model.PensionId),
-                        CajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(model.CajaCompenId),
-                        PositionEmployee = await _dataContext.PositionEmployees.FindAsync(model.PositionEmpId)
+
+                var employe = new Employee
+                {
+                    Document = model.Document,
+                    SiteExpedition = model.SiteExpedition,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Activo = model.Activo,
+                    Address = model.Address,
+                    DateIngreso = model.DateIngreso,
+                    DateRegistro = DateTime.Today,
+                    DateRetiro = model.DateRetiro,
+                    Email = model.Email,
+                    JobTitle = model.JobTitle,
+                    License = model.License,
+                    Movil = model.Movil,
+                    NivelEducation = model.NivelEducation,
+                    Rh = model.Rh,
+                    SiteBirth = model.SiteBirth,
+                    Arl = model.Arl,
+                    UserRegistra = User.Identity.Name,
+                    DateCumple = model.DateCumple,
+                    Credits = new List<Credit>(),
+                    Sons = new List<Sons>(),
+                    Endowments = new List<Endowment>(),
+                    Exams = new List<Exams>(),
+                    PersonContacts = new List<PersonContact>(),
+                    Incapacities = new List<Incapacity>(),
+                    UserImages = new List<UserImages>(),
+                    Area = await _dataContext.Areas.FindAsync(model.AreaId),
+                    Eps = await _dataContext.Eps.FindAsync(model.EpsId),
+                    Pension = await _dataContext.Pensions.FindAsync(model.PensionId),
+                    CajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(model.CajaCompenId),
+                    PositionEmployee = await _dataContext.PositionEmployees.FindAsync(model.PositionEmpId)
 
 
-                    };
-                    _dataContext.Employees.Add(employe);
-                    await _dataContext.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-               
-               
+                };
+                _dataContext.Employees.Add(employe);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
 
-                
+
+
+
             }
             ModelState.AddModelError(string.Empty, "The user Exist");
             model.Areas = _combosHelpers.GetComboAreas();
@@ -221,7 +219,7 @@ namespace Intranet.web.Controllers
             //model.Roles = _combosHelpers.GetComboRoles();
             return View(model);
         }
-   
+
         //private async Task<User> CreateUserAsync(AddUserViewModel model)
         //{
         //    var user = new User
@@ -242,13 +240,13 @@ namespace Intranet.web.Controllers
         //        DateRetiro=model.DateRetiro,
         //        NivelEducation=model.NivelEducation,
         //        UserName=model.Username
-                
+
         //    };
         //    var result = await _userHelper.AddUserAsync(user, model.Password);
         //    if (result.Succeeded)
         //    {
-                
-                
+
+
         //        user = await _userHelper.GetUserByEmailAsync(model.Username);
         //        await _userHelper.AddUserToRoleAsync(user, "Employe");
         //        return user;
@@ -272,7 +270,7 @@ namespace Intranet.web.Controllers
                 .Include(e => e.PositionEmployee)
                 .Include(e => e.Pension)
                 .Include(e => e.Eps)
-                
+
                 .Include(e => e.Exams)
                 .Include(e => e.CajaCompensacion)
                 .Include(e => e.Endowments)
@@ -284,41 +282,41 @@ namespace Intranet.web.Controllers
 
             var view = new EditEmployedViewModel
             {
-                
+
                 Address = employe.Address,
                 Document = employe.Document,
                 FirstName = employe.FirstName,
                 Id = employe.Id,
                 LastName = employe.LastName,
-                 Activo= employe.Activo,
-                Arl=employe.Arl,
-                DateRetiro=employe.DateRetiro,
-                JobTitle=employe.JobTitle,
-                License=employe.License,
-                Movil=employe.Movil,
-                NivelEducation=employe.NivelEducation,
-                Rh=employe.Rh,
-                SiteBirth=employe.SiteBirth,
-                SiteExpedition=employe.SiteExpedition,
-                DateIngreso=employe.DateIngreso,
-                Email=employe.Email,
-                DateCumple=employe.DateCumple,
-                UserCrea=employe.UserRegistra,
-                DateModify=employe.DateModify,
-                UserModify=employe.UserModify,
-                DateRegistro=employe.DateRegistro,
-                
+                Activo = employe.Activo,
+                Arl = employe.Arl,
+                DateRetiro = employe.DateRetiro,
+                JobTitle = employe.JobTitle,
+                License = employe.License,
+                Movil = employe.Movil,
+                NivelEducation = employe.NivelEducation,
+                Rh = employe.Rh,
+                SiteBirth = employe.SiteBirth,
+                SiteExpedition = employe.SiteExpedition,
+                DateIngreso = employe.DateIngreso,
+                Email = employe.Email,
+                DateCumple = employe.DateCumple,
+                UserCrea = employe.UserRegistra,
+                DateModify = employe.DateModify,
+                UserModify = employe.UserModify,
+                DateRegistro = employe.DateRegistro,
+
                 PositionEmpId = employe.PositionEmployee.Id,
-                PositionEmplooyed =_combosHelpers.GetComboPositionEmploye(),
+                PositionEmplooyed = _combosHelpers.GetComboPositionEmploye(),
 
                 PensionId = employe.Pension.Id,
-                Pension =_combosHelpers.GetComboPension(),
+                Pension = _combosHelpers.GetComboPension(),
 
                 EpsId = employe.Eps.Id,
-                Eps =_combosHelpers.GetComboEps(),
+                Eps = _combosHelpers.GetComboEps(),
 
-               CajaCompenId = employe.CajaCompensacion.Id,
-                CajaCompensacion =_combosHelpers.GetComboCajaCompensacion(),
+                CajaCompenId = employe.CajaCompensacion.Id,
+                CajaCompensacion = _combosHelpers.GetComboCajaCompensacion(),
 
                 AreaId = employe.Area.Id,
                 Areas = _combosHelpers.GetComboAreas()
@@ -331,7 +329,7 @@ namespace Intranet.web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditEmployedViewModel vista)
         {
-            
+
             if (ModelState.IsValid)
             {
                 var employe = await _dataContext.Employees
@@ -345,7 +343,7 @@ namespace Intranet.web.Controllers
                     .Include(e => e.CajaCompensacion)
                     .Include(e => e.Endowments)
                     .FirstOrDefaultAsync(o => o.Id == vista.Id);
-                if (employe!=null)
+                if (employe != null)
                 {
                     employe.Address = vista.Address;
                     employe.Document = vista.Document;
@@ -373,21 +371,21 @@ namespace Intranet.web.Controllers
                     employe.CajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(vista.CajaCompenId);
                     employe.PositionEmployee = await _dataContext.PositionEmployees.FindAsync(vista.PositionEmpId);
 
-                     _dataContext.Employees.Update(employe);
+                    _dataContext.Employees.Update(employe);
                     await _dataContext.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
 
-                
+
             }
 
             vista.Areas = _combosHelpers.GetComboAreas();
-                vista.Eps = _combosHelpers.GetComboEps();
+            vista.Eps = _combosHelpers.GetComboEps();
             vista.Pension = _combosHelpers.GetComboPension();
             vista.CajaCompensacion = _combosHelpers.GetComboCajaCompensacion();
             vista.PositionEmplooyed = _combosHelpers.GetComboPositionEmploye();
             //vista.Roles = _combosHelpers.GetComboRoles();
-          
+
             return View(vista);
         }
         //TODO: para borrar todo puedo utilizar la opcion 59-par19 delete... 21:10
@@ -399,22 +397,22 @@ namespace Intranet.web.Controllers
             }
 
             var employee = await _dataContext.Employees
-                .Include(e=>e.PersonContacts)
-                .Include(e=>e.Sons)
-                .Include(e=>e.UserImages)
-                .Include(e=>e.Endowments)
-                .Include(e=>e.Credits)
-                .Include(e=>e.Incapacities)
-                
+                .Include(e => e.PersonContacts)
+                .Include(e => e.Sons)
+                .Include(e => e.UserImages)
+                .Include(e => e.Endowments)
+                .Include(e => e.Credits)
+                .Include(e => e.Incapacities)
+
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (employee == null)
             {
                 return NotFound();
             }
-            if (employee.PersonContacts.Count!=0 ||
+            if (employee.PersonContacts.Count != 0 ||
                 employee.Sons.Count != 0 ||
-                employee.UserImages.Count != 0||
-                employee.Endowments.Count != 0||
+                employee.UserImages.Count != 0 ||
+                employee.Endowments.Count != 0 ||
                 employee.Credits.Count != 0 ||
                 employee.Incapacities.Count != 0)
             {
@@ -424,10 +422,10 @@ namespace Intranet.web.Controllers
 
             _dataContext.Employees.Remove(employee);
             await _dataContext.SaveChangesAsync();
-            
+
             return RedirectToAction(nameof(Index));
 
-            
+
         }
 
 
@@ -448,7 +446,7 @@ namespace Intranet.web.Controllers
             }
             var model = new ExamViewModel
             {
-                
+
                 EmployeeId = employe.Id,
                 ExamTypes = _combosHelpers.GetComboExamTypes()
             };
@@ -462,15 +460,15 @@ namespace Intranet.web.Controllers
             {
                 var modelfull = new ExamViewModel
                 {
-                    DateRegistro=DateTime.Now,
-                    EmployeeId=model.EmployeeId,
-                    EndDate= model.StartDate.AddYears(1),
-                    ExamsType=await _dataContext.ExamsTypes.FindAsync(model.ExamTypeId),
+                    DateRegistro = DateTime.Now,
+                    EmployeeId = model.EmployeeId,
+                    EndDate = model.StartDate.AddYears(1),
+                    ExamsType = await _dataContext.ExamsTypes.FindAsync(model.ExamTypeId),
                     Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
-                    StartDate =model.StartDate,
-                    UserRegistra=User.Identity.Name,
-                    ExamTypeId=model.ExamTypeId,
-                  
+                    StartDate = model.StartDate,
+                    UserRegistra = User.Identity.Name,
+                    ExamTypeId = model.ExamTypeId,
+
                 };
                 var examen = await _converterHelper.ToExamAsync(modelfull, true);
                 _dataContext.Exams.Add(examen);
@@ -505,17 +503,17 @@ namespace Intranet.web.Controllers
                 var modelfull = new Exams
                 {
                     Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
-                    EndDate= model.StartDate.AddYears(1).AddDays(1),
-                    DateModify= DateTime.Now,
-                    ExamsType= await _dataContext.ExamsTypes.FindAsync(model.ExamTypeId),
-                    Id=model.Id,
-                    StartDate=model.StartDate,
+                    EndDate = model.StartDate.AddYears(1).AddDays(1),
+                    DateModify = DateTime.Now,
+                    ExamsType = await _dataContext.ExamsTypes.FindAsync(model.ExamTypeId),
+                    Id = model.Id,
+                    StartDate = model.StartDate,
                     DateRegistro = model.DateRegistro,
                     UserRegistra = User.Identity.Name,
-                    UserModify=User.Identity.Name
+                    UserModify = User.Identity.Name
 
                 };
-                
+
                 _dataContext.Exams.Update(modelfull);
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");
@@ -539,9 +537,9 @@ namespace Intranet.web.Controllers
             }
             var model = new AddIncapacityViewModel
             {
-                StartDate=DateTime.Today,
+                StartDate = DateTime.Today,
                 EmployeeIds = employe.Id
-                
+
             };
             return View(model);
         }
@@ -554,13 +552,13 @@ namespace Intranet.web.Controllers
                 var modelfull = new AddIncapacityViewModel
                 {
                     DateRegistro = DateTime.Now,
-                    Novedad=model.Novedad,
+                    Novedad = model.Novedad,
                     EndDate = model.EndDate,
                     Employee = await _dataContext.Employees.FindAsync(model.EmployeeIds),
                     StartDate = model.StartDate,
                     UserRegistra = User.Identity.Name,
-                   CantDay=model.CantDay,
-                   EmployeeIds=model.EmployeeIds
+                    CantDay = model.CantDay,
+                    EmployeeIds = model.EmployeeIds
 
                 };
                 var incap = await _converterHelper.ToIncapAsync(modelfull, true);
@@ -568,7 +566,7 @@ namespace Intranet.web.Controllers
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction($"Details/{model.EmployeeIds}");
             }
-           
+
             return View(model);
         }
         public async Task<IActionResult> EditIncap(int? id)
@@ -597,8 +595,8 @@ namespace Intranet.web.Controllers
                     Employee = await _dataContext.Employees.FindAsync(model.EmployeeIds),
                     EndDate = model.StartDate.AddDays(model.CantDay),
                     DateModify = DateTime.Now,
-                    CantDay=model.CantDay,
-                    Novedad=model.Novedad,
+                    CantDay = model.CantDay,
+                    Novedad = model.Novedad,
                     Id = model.Id,
                     StartDate = model.StartDate,
                     DateRegistro = model.DateRegistro,
@@ -612,7 +610,7 @@ namespace Intranet.web.Controllers
                 return RedirectToAction($"{nameof(Details)}/{model.EmployeeIds}");
                 // return RedirectToAction($"Details/{model.SiteId}");
             }
-            
+
             return View();
         }
 
@@ -635,7 +633,7 @@ namespace Intranet.web.Controllers
             var model = new SonsViewModel
             {
                 EmployeeId = employe.Id,
-                UserRegistra=User.Identity.Name
+                UserRegistra = User.Identity.Name
 
             };
             return View(model);
@@ -652,13 +650,13 @@ namespace Intranet.web.Controllers
                 Genero = model.Genero,
                 Name = model.Name,
                 UserRegistra = User.Identity.Name,
-                
+
 
             };
 
             if (ModelState.IsValid)
             {
-               
+
                 var sons = await _converterHelper.ToSonsAsync(modelfull, true);
                 _dataContext.Sons.Add(sons);
                 await _dataContext.SaveChangesAsync();
@@ -729,7 +727,7 @@ namespace Intranet.web.Controllers
             {
 
                 EmployeeIds = employe.Id,
-                StartDate=DateTime.Today,
+                StartDate = DateTime.Today,
                 Entityes = _combosHelpers.GetComboCreditEntities(),
                 UserRegistra = User.Identity.Name
             };
@@ -743,16 +741,16 @@ namespace Intranet.web.Controllers
                 var modelfull = new CreditViewModel
                 {
                     EmployeeIds = model.EmployeeIds,
-                    UserRegistra=User.Identity.Name,
-                    DateRegistro=DateTime.Now,
-                    DeadlinePay=model.DeadlinePay,
-                    EndDate=model.EndDate,
-                    EntityId=model.EntityId,
-                    IsActive=model.IsActive,
-                    NumberL=model.NumberL,
-                    Quotmonthly=model.Quotmonthly,
-                    StartDate=model.StartDate,
-                    TotalPrice=model.TotalPrice
+                    UserRegistra = User.Identity.Name,
+                    DateRegistro = DateTime.Now,
+                    DeadlinePay = model.DeadlinePay,
+                    EndDate = model.EndDate,
+                    EntityId = model.EntityId,
+                    IsActive = model.IsActive,
+                    NumberL = model.NumberL,
+                    Quotmonthly = model.Quotmonthly,
+                    StartDate = model.StartDate,
+                    TotalPrice = model.TotalPrice
 
 
                 };
@@ -793,16 +791,16 @@ namespace Intranet.web.Controllers
                     EmployeeIds = model.EmployeeIds,
                     DeadlinePay = model.DeadlinePay,
                     DateRegistro = model.DateRegistro,
-                    EndDate=model.EndDate,
-                    EntityId=model.EntityId,
-                    IsActive=model.IsActive,
-                    NumberL=model.NumberL,
-                    Quotmonthly=model.Quotmonthly,
-                    StartDate=model.StartDate,
-                    TotalPrice=model.TotalPrice,
+                    EndDate = model.EndDate,
+                    EntityId = model.EntityId,
+                    IsActive = model.IsActive,
+                    NumberL = model.NumberL,
+                    Quotmonthly = model.Quotmonthly,
+                    StartDate = model.StartDate,
+                    TotalPrice = model.TotalPrice,
                     UserModify = User.Identity.Name,
                     DateModify = DateTime.Now,
-                   
+
                     UserRegistra = model.UserRegistra
 
 
@@ -842,15 +840,15 @@ namespace Intranet.web.Controllers
             {
                 var personCont = new PersonContact
                 {
-                    Name=model.Name,
-                    DateRegistro=DateTime.Now,
-                    relationship=model.relationship,
-                    Telephone=model.Telephone,
-                    UserRegistra=User.Identity.Name,
-                    Employee= await _dataContext.Employees.FindAsync(model.EmployeeId)
+                    Name = model.Name,
+                    DateRegistro = DateTime.Now,
+                    relationship = model.relationship,
+                    Telephone = model.Telephone,
+                    UserRegistra = User.Identity.Name,
+                    Employee = await _dataContext.Employees.FindAsync(model.EmployeeId)
 
                 };
-               
+
                 _dataContext.PersonContacts.Add(personCont);
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction($"Details/{model.EmployeeId}");
@@ -879,7 +877,7 @@ namespace Intranet.web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var person= new PersonContact
+                var person = new PersonContact
                 {
                     Id = model.Id,
                     Name = model.Name,
@@ -890,11 +888,11 @@ namespace Intranet.web.Controllers
                     DateRegistro = model.DateRegistro,
                     DateModify = DateTime.Now,
                     UserModify = User.Identity.Name
-   
 
 
-            };
-              
+
+                };
+
                 _dataContext.PersonContacts.Update(person);
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");
@@ -903,7 +901,7 @@ namespace Intranet.web.Controllers
             return View(model);
         }
 
-        
+
         public async Task<IActionResult> AddEndowment(int? id)
         {
             if (id == null)
@@ -926,21 +924,21 @@ namespace Intranet.web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddEndowment(AddEndowmentViewModel model)
         {
-            var cant = await _dataContext.EndowmentsTypes.FirstOrDefaultAsync(e=>e.Id==model.EndowmentTypeId);
+            var cant = await _dataContext.EndowmentsTypes.FirstOrDefaultAsync(e => e.Id == model.EndowmentTypeId);
             if (ModelState.IsValid)
             {
                 var modelfull = new AddEndowmentViewModel
                 {
-                    Count=model.Count,
-                    DateDelivery=model.DateDelivery,
-                    DateRegistro=model.DateRegistro,
-                    Detail=model.Detail,
-                    Employee=model.Employee,
-                    EmployeeId=model.EmployeeId,
-                    Size=model.Size,
-                    DateVence= model.DateDelivery.AddMonths(cant.EspirationDate),
-                    UserRegistra=User.Identity.Name,
-                    EndowmentTypeId=model.EndowmentTypeId,
+                    Count = model.Count,
+                    DateDelivery = model.DateDelivery,
+                    DateRegistro = model.DateRegistro,
+                    Detail = model.Detail,
+                    Employee = model.Employee,
+                    EmployeeId = model.EmployeeId,
+                    Size = model.Size,
+                    DateVence = model.DateDelivery.AddMonths(cant.EspirationDate),
+                    UserRegistra = User.Identity.Name,
+                    EndowmentTypeId = model.EndowmentTypeId,
                     EndowmnetsTypes = _combosHelpers.GetComboEndowmentType(),
 
                 };
@@ -965,7 +963,7 @@ namespace Intranet.web.Controllers
                 return NotFound();
             }
 
-            
+
 
             return View(_converterHelper.ToEndowmentViewModel(endowment));
         }
@@ -977,18 +975,18 @@ namespace Intranet.web.Controllers
             {
                 var endowment = new Endowment
                 {
-                    Count=model.Count,
-                    DateDelivery=model.DateDelivery,
-                    DateModify=DateTime.Now,
-                    DateRegistro=model.DateRegistro,
-                    Detail=model.Detail,
-                    Employee= await _dataContext.Employees.FindAsync(model.EmployeeId),
-                    Id=model.Id,
-                    Size=model.Size,
-                     UserModify=User.Identity.Name,
-                     UserRegistra=model.UserRegistra
+                    Count = model.Count,
+                    DateDelivery = model.DateDelivery,
+                    DateModify = DateTime.Now,
+                    DateRegistro = model.DateRegistro,
+                    Detail = model.Detail,
+                    Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
+                    Id = model.Id,
+                    Size = model.Size,
+                    UserModify = User.Identity.Name,
+                    UserRegistra = model.UserRegistra
                 };
-              
+
                 _dataContext.Endowments.Update(endowment);
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");
@@ -1010,7 +1008,7 @@ namespace Intranet.web.Controllers
             var model = new AddEndowmentViewModel
             {
                 EmployeeId = employe.Id,
-              
+
             };
             return View(model);
         }
@@ -1106,7 +1104,7 @@ namespace Intranet.web.Controllers
                 return NotFound();
             }
 
-           
+
             try
             {
                 _dataContext.Incapacities.Remove(exams);

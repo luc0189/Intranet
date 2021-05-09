@@ -1,4 +1,6 @@
 ﻿using Intranet.web.Data.Entities;
+using Intranet.web.Data.Entities.Activos;
+using Intranet.web.Data.Entities.More;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,7 +33,12 @@ namespace Intranet.web.Data
         public DbSet<Incapacity> Incapacities { get; set; }
         public DbSet<StoreLeader> StoreLeaders { get; set; }
         public DbSet<UserImages> UserImages { get; set; }
-        public DbSet<Contract> Contracts { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Fabric> Fabrics { get; set; }
+        public DbSet<Item> Items { get; set; }
+        public DbSet<Model> Models { get; set; }
+        public DbSet<Provider> Providers { get; set; }
+        public DbSet<City> Cities { get; set; }
 
 
     }
