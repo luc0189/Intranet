@@ -261,38 +261,25 @@ namespace Intranet.web.Controllers
 
 
 
-        //// GET: Items1/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var item = await _context.Items
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (item == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var items = await _context.Items
+                .Include(e => e.Model)
+                .Include(e => e.Category)
+                .Include(e => e.Fabric)
+                .Include(e => e.Provider)
+                .FirstOrDefaultAsync(o => o.Id == id.Value);
+            if (items == null)
+            {
+                return NotFound();
+            }
 
-        //    return View(item);
-        //}
-
-        //// POST: Items1/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var item = await _context.Items.FindAsync(id);
-        //    _context.Items.Remove(item);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
-
-        //private bool ItemExists(int id)
-        //{
-        //    return _context.Items.Any(e => e.Id == id);
-        //}
+            return View(items);
+        }
     }
 }

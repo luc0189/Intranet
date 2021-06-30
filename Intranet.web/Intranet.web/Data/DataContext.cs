@@ -1,5 +1,6 @@
 ﻿using Intranet.web.Data.Entities;
 using Intranet.web.Data.Entities.Activos;
+using Intranet.web.Data.Entities.Compras;
 using Intranet.web.Data.Entities.More;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +40,7 @@ namespace Intranet.web.Data
         public DbSet<Model> Models { get; set; }
         public DbSet<Provider> Providers { get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<Providercompras> providercompras { get; set; }
 
 
     }
