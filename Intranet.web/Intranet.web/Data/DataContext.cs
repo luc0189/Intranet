@@ -40,7 +40,8 @@ namespace Intranet.web.Data
         public DbSet<Model> Models { get; set; }
         public DbSet<Provider> Providers { get; set; }
         public DbSet<City> Cities { get; set; }
-        public DbSet<Providercompras> providercompras { get; set; }
+        public DbSet<Providercompras> Providercompras { get; set; }
+        public DbSet<Clasification> Clasifications { get; set; }
 
 
     }

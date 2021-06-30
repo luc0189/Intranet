@@ -6,26 +6,23 @@ using System.Threading.Tasks;
 
 namespace Intranet.web.Data.Entities.Compras
 {
-    public class Providercompras
+    public class Clasification
     {
         public int Id { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
-        [Display(Name = "Nombre del Proveedor")]
+        [Display(Name = "Nombre Clasificacion")]
         [MaxLength(100)]
-        public string NameProvider { get; set; }
-        
-        [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
-        [Display(Name = "Numero Tel")]
-        public int TelProvider { get; set; }
+        public string Name { get; set; }
 
+      
         [Display(Name = "Usuario")]
         [MaxLength(100)]
-        public string UsuCreate { get; set; }
+        public string Usercrete { get; set; }
 
-        [Display(Name = "Fecha Creacion")]
+        //[Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
+        [Display(Name = "Fecha")]
         [MaxLength(100)]
         public string TimeCreate { get; set; }
-
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Intranet.web.Data.Entities.Compras.Providercompras>
+﻿@model IEnumerable<Intranet.web.Data.Entities.Compras.Clasification>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,13 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NameProvider)
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TelProvider)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuCreate)
+                @Html.DisplayNameFor(model => model.Usercrete)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TimeCreate)
@@ -31,13 +28,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.NameProvider)
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TelProvider)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuCreate)
+                @Html.DisplayFor(modelItem => item.Usercrete)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TimeCreate)

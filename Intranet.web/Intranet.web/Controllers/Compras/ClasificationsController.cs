@@ -10,22 +10,22 @@ using Intranet.web.Data.Entities.Compras;
 
 namespace Intranet.web.Controllers.Compras
 {
-    public class ProvidercomprasController : Controller
+    public class ClasificationsController : Controller
     {
         private readonly DataContext _context;
 
-        public ProvidercomprasController(DataContext context)
+        public ClasificationsController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: Providercompras
+        // GET: Clasifications
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Providercompras.ToListAsync());
+            return View(await _context.Clasifications.ToListAsync());
         }
 
-        // GET: Providercompras/Details/5
+        // GET: Clasifications/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace Intranet.web.Controllers.Compras
                 return NotFound();
             }
 
-            var providercompras = await _context.Providercompras
+            var clasification = await _context.Clasifications
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (providercompras == null)
+            if (clasification == null)
             {
                 return NotFound();
             }
 
-            return View(providercompras);
+            return View(clasification);
         }
 
-        // GET: Providercompras/Create
+        // GET: Clasifications/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Providercompras/Create
+        // POST: Clasifications/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NameProvider,TelProvider,UsuCreate,TimeCreate")] Providercompras providercompras)
+        public async Task<IActionResult> Create([Bind("Id,Name,Usercrete,TimeCreate")] Clasification clasification)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(providercompras);
+                _context.Add(clasification);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(providercompras);
+            return View(clasification);
         }
 
-        // GET: Providercompras/Edit/5
+        // GET: Clasifications/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace Intranet.web.Controllers.Compras
                 return NotFound();
             }
 
-            var providercompras = await _context.Providercompras.FindAsync(id);
-            if (providercompras == null)
+            var clasification = await _context.Clasifications.FindAsync(id);
+            if (clasification == null)
             {
                 return NotFound();
             }
-            return View(providercompras);
+            return View(clasification);
         }
 
-        // POST: Providercompras/Edit/5
+        // POST: Clasifications/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NameProvider,TelProvider,UsuCreate,TimeCreate")] Providercompras providercompras)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Usercrete,TimeCreate")] Clasification clasification)
         {
-            if (id != providercompras.Id)
+            if (id != clasification.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace Intranet.web.Controllers.Compras
             {
                 try
                 {
-                    _context.Update(providercompras);
+                    _context.Update(clasification);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProvidercomprasExists(providercompras.Id))
+                    if (!ClasificationExists(clasification.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace Intranet.web.Controllers.Compras
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(providercompras);
+            return View(clasification);
         }
 
-        // GET: Providercompras/Delete/5
+        // GET: Clasifications/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace Intranet.web.Controllers.Compras
                 return NotFound();
             }
 
-            var providercompras = await _context.Providercompras
+            var clasification = await _context.Clasifications
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (providercompras == null)
+            if (clasification == null)
             {
                 return NotFound();
             }
 
-            return View(providercompras);
+            return View(clasification);
         }
 
-        // POST: Providercompras/Delete/5
+        // POST: Clasifications/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var providercompras = await _context.Providercompras.FindAsync(id);
-            _context.Providercompras.Remove(providercompras);
+            var clasification = await _context.Clasifications.FindAsync(id);
+            _context.Clasifications.Remove(clasification);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProvidercomprasExists(int id)
+        private bool ClasificationExists(int id)
         {
-            return _context.Providercompras.Any(e => e.Id == id);
+            return _context.Clasifications.Any(e => e.Id == id);
         }
     }
 }

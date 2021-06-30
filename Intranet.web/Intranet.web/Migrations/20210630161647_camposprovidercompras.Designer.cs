@@ -4,14 +4,16 @@ using Intranet.web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Intranet.web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210630161647_camposprovidercompras")]
+    partial class camposprovidercompras
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -225,27 +227,6 @@ namespace Intranet.web.Migrations
                     b.ToTable("CajaCompensacions");
                 });
 
-            modelBuilder.Entity("Intranet.web.Data.Entities.Compras.Clasification", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.Property<string>("TimeCreate")
-                        .HasMaxLength(100);
-
-                    b.Property<string>("Usercrete")
-                        .HasMaxLength(100);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Clasifications");
-                });
-
             modelBuilder.Entity("Intranet.web.Data.Entities.Compras.Providercompras", b =>
                 {
                     b.Property<int>("Id")
@@ -256,8 +237,6 @@ namespace Intranet.web.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.Property<int>("TelProvider");
-
                     b.Property<string>("TimeCreate")
                         .HasMaxLength(100);
 
@@ -266,7 +245,7 @@ namespace Intranet.web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Providercompras");
+                    b.ToTable("providercompras");
                 });
 
             modelBuilder.Entity("Intranet.web.Data.Entities.Contract", b =>
