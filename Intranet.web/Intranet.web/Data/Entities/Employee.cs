@@ -34,7 +34,7 @@ namespace Intranet.web.Data.Entities
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Cargo")]
-        [MaxLength(50)]
+        [MaxLength(150)]
         public string JobTitle { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
@@ -61,11 +61,16 @@ namespace Intranet.web.Data.Entities
         public string Rh { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
+        [Display(Name = "SEXO")]
+        [MaxLength(50)]
+        public string Sexo { get; set; }
+
+        [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Carnet ")]
         public bool License { get; set; }
 
         [Display(Name = "Movil")]
-        [MaxLength(10)]
+        [MaxLength(70)]
         [DisplayFormat(DataFormatString = "{0:(###) ###-####}", ApplyFormatInEditMode = true)]
         public string Movil { get; set; }
 
@@ -91,6 +96,21 @@ namespace Intranet.web.Data.Entities
         public string DateCumple { get; set; }
         //aqui los campos que para tigger
 
+
+    
+        [Display(Name = "Sueldo")]
+        [MaxLength(80)]
+        public int Sueldo { get; set; }
+
+        [Display(Name = "CTA Nomina")]
+        public bool CtaNomina { get; set; }
+
+
+        [Display(Name = "Numero de Cuenta")]
+        [MaxLength(80)]
+        public int NumeroCtaAhorros { get; set; }
+
+        
         public DateTime DateRegistro { get; set; }
         
         [MaxLength(30)]
@@ -105,8 +125,9 @@ namespace Intranet.web.Data.Entities
         public string FullName => $"{FirstName} {LastName}";
         public Area Area { get; set; }
         public Eps Eps { get; set; }
-        public PositionEmployee PositionEmployee { get; set; }
+        
         public Pension Pension { get; set; }
+       
         public CajaCompensacion CajaCompensacion { get; set; }
         public ICollection<UserImages> UserImages { get; set; }
         public ICollection<Credit> Credits { get; set; }
@@ -117,6 +138,7 @@ namespace Intranet.web.Data.Entities
         public ICollection<Incapacity> Incapacities { get; set; }
         public ICollection<Contract> Contracts { get; set; }
         public ICollection<Item> Items { get; set; }
+        public ICollection<CargosAsg> CargosAsgs { get; set; }
         
 
     }

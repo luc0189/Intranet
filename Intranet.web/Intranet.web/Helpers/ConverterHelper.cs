@@ -32,7 +32,8 @@ namespace Intranet.web.Helpers
                 UserRegistra = model.UserRegistra,
                 Novedad=model.Novedad,
                 CantDay=model.CantDay,
-                
+                TypeNew = await _dataContext.TypeNews.FindAsync(model.TypeId)
+         
 
 
             };
@@ -121,8 +122,9 @@ namespace Intranet.web.Helpers
                 Novedad=incap.Novedad,
                 UserModify=incap.UserModify,
                 
-                UserRegistra=incap.UserRegistra
-                
+                UserRegistra=incap.UserRegistra,
+                TypeId=incap.TypeNew.Id,
+                TypeNews = _combosHelpers.GetComboTypeNew()
 
             };
         }
@@ -175,9 +177,8 @@ namespace Intranet.web.Helpers
 
             };
         }//
-        
 
-
+      
         public async Task<Credit> ToCreditAsync(CreditViewModel model, bool isNew)
         {
             int mes = int.Parse(model.DeadlinePay.ToString());

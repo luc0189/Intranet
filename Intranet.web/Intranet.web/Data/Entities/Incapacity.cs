@@ -15,7 +15,7 @@ namespace Intranet.web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public DateTime StartDate { get; set; }
 
-        [Display(Name ="Dias Incapacidad")]
+        [Display(Name ="Dias Novedad")]
         [Required(ErrorMessage ="El campo {0} es Requerido")]
         public int CantDay { get; set; }
 
@@ -28,6 +28,7 @@ namespace Intranet.web.Data.Entities
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         public string Novedad { get; set; }
         public Employee Employee { get; set; }
+        public TypeNew TypeNew { get; set; }
 
         public DateTime DateRegistro { get; set; }
 

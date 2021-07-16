@@ -42,6 +42,11 @@ namespace Intranet.web.Data
         public DbSet<City> Cities { get; set; }
         public DbSet<Providercompras> Providercompras { get; set; }
         public DbSet<Clasification> Clasifications { get; set; }
+        public DbSet<TypeNew> TypeNews { get; set; }
+        public DbSet<CargosAsg> CargosAsgs { get; set; }
+        public DbSet<Mes> Mes { get; set; }
+        public DbSet<Intranet.web.Data.Entities.Compras.ProductBonifi> ProductBonifi { get; set; }
+        public DbSet<Intranet.web.Data.Entities.Compras.Negociation> Negociation { get; set; }
 
 
     }

@@ -1,0 +1,66 @@
+﻿@model Intranet.web.Data.Entities.Compras.Negociation
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Negociation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateIn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateIn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Detalle)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Detalle)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorNegociacion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValorNegociacion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BaseLiquidacion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BaseLiquidacion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Document)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Document)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UsuCreate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UsuCreate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Verificado)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Verificado)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pago)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pago)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

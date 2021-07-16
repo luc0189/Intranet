@@ -117,6 +117,7 @@ namespace Intranet.web.Controllers
                 .Include(e => e.PersonContacts)
                 .Include(i => i.UserImages)
                 .Include(e => e.Incapacities)
+                .ThenInclude(e=> e.TypeNew)
                 .Include(e => e.Contracts)
                 .Include(e => e.Credits)
                 .ThenInclude(c => c.CreditEntities)
@@ -198,7 +199,7 @@ namespace Intranet.web.Controllers
                     Eps = await _dataContext.Eps.FindAsync(model.EpsId),
                     Pension = await _dataContext.Pensions.FindAsync(model.PensionId),
                     CajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(model.CajaCompenId),
-                    PositionEmployee = await _dataContext.PositionEmployees.FindAsync(model.PositionEmpId)
+                    //PositionEmployee = await _dataContext.PositionEmployees.FindAsync(model.PositionEmpId)
 
 
                 };
@@ -267,7 +268,7 @@ namespace Intranet.web.Controllers
                 .ThenInclude(s => s.SiteHeadquarters)
                 .Include(e => e.PersonContacts)
                 .Include(e => e.Credits)
-                .Include(e => e.PositionEmployee)
+                //.Include(e => e.PositionEmployee)
                 .Include(e => e.Pension)
                 .Include(e => e.Eps)
 
@@ -306,7 +307,7 @@ namespace Intranet.web.Controllers
                 UserModify = employe.UserModify,
                 DateRegistro = employe.DateRegistro,
 
-                PositionEmpId = employe.PositionEmployee.Id,
+                //PositionEmpId = employe.PositionEmployee.Id,
                 PositionEmplooyed = _combosHelpers.GetComboPositionEmploye(),
 
                 PensionId = employe.Pension.Id,
@@ -369,7 +370,7 @@ namespace Intranet.web.Controllers
                     employe.Eps = await _dataContext.Eps.FindAsync(vista.EpsId);
                     employe.Pension = await _dataContext.Pensions.FindAsync(vista.PensionId);
                     employe.CajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(vista.CajaCompenId);
-                    employe.PositionEmployee = await _dataContext.PositionEmployees.FindAsync(vista.PositionEmpId);
+                    //employe.PositionEmployee = await _dataContext.PositionEmployees.FindAsync(vista.PositionEmpId);
 
                     _dataContext.Employees.Update(employe);
                     await _dataContext.SaveChangesAsync();
@@ -538,8 +539,8 @@ namespace Intranet.web.Controllers
             var model = new AddIncapacityViewModel
             {
                 StartDate = DateTime.Today,
-                EmployeeIds = employe.Id
-
+                EmployeeIds = employe.Id,
+                TypeNews = _combosHelpers.GetComboTypeNew(),
             };
             return View(model);
         }
@@ -558,7 +559,9 @@ namespace Intranet.web.Controllers
                     StartDate = model.StartDate,
                     UserRegistra = User.Identity.Name,
                     CantDay = model.CantDay,
-                    EmployeeIds = model.EmployeeIds
+                    EmployeeIds = model.EmployeeIds,
+                    TypeId=model.TypeId
+
 
                 };
                 var incap = await _converterHelper.ToIncapAsync(modelfull, true);
@@ -577,6 +580,7 @@ namespace Intranet.web.Controllers
             }
             var incap = await _dataContext.Incapacities
                 .Include(s => s.Employee)
+                .Include(n=>n.TypeNew)
                 .FirstOrDefaultAsync(s => s.Id == id);
             if (incap == null)
             {
@@ -601,7 +605,8 @@ namespace Intranet.web.Controllers
                     StartDate = model.StartDate,
                     DateRegistro = model.DateRegistro,
                     UserRegistra = model.UserRegistra,
-                    UserModify = User.Identity.Name
+                    UserModify = User.Identity.Name,
+                    TypeNew = await _dataContext.TypeNews.FindAsync(model.TypeId)
 
                 };
 

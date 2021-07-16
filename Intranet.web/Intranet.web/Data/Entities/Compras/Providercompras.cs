@@ -26,6 +26,7 @@ namespace Intranet.web.Data.Entities.Compras
         [Display(Name = "Fecha Creacion")]
         [MaxLength(100)]
         public string TimeCreate { get; set; }
+        public ICollection<Negociation> Negociations { get; set; }
 
     }
 }

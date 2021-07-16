@@ -196,7 +196,7 @@
 
                         <li><a data-toggle="tab" href="#menu3">Requirements <span class="badge"> @Html.DisplayFor(modelItem => Model.Exams.Count)</span></a></li>
                         <li><a data-toggle="tab" href="#menu4">Dotaciones <span class="badge"> @Html.DisplayFor(modelItem => Model.Endowments.Count)</span></a></li>
-                        <li><a data-toggle="tab" href="#menu5">Incapacidades <span class="badge"> @Html.DisplayFor(modelItem => Model.Incapacities.Count)</span></a></li>
+                        <li><a data-toggle="tab" href="#menu5">Novedades <span class="badge"> @Html.DisplayFor(modelItem => Model.Incapacities.Count)</span></a></li>
                         <li><a data-toggle="tab" href="#menu6">Activos Fijos <span class="badge"> @Html.DisplayFor(modelItem => Model.Endowments.Count)</span></a></li>
                         <li><a data-toggle="tab" href="#menu7">Contract <span class="badge"> @Html.DisplayFor(modelItem => Model.Contracts.Count)</span></a></li>
 
@@ -675,7 +675,7 @@
                                             <div class="col-md-12">
                                                 <div class="panel panel-default">
                                                     <div class="panel-heading">
-                                                        <a asp-action="AddIncapacity" class="btn btn-primary" asp-route-id="@Model.Id">Add Incapacity</a>
+                                                        <a asp-action="AddIncapacity" class="btn btn-primary" asp-route-id="@Model.Id">Add News</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -688,13 +688,16 @@
                                                 <div class="panel panel-default">
                                                     <div class="panel-heading">
 
-                                                        <a asp-action="AddIncapacity" class="btn btn-primary" asp-route-id="@Model.Id">Add Incapacity</a>
+                                                        <a asp-action="AddIncapacity" class="btn btn-primary" asp-route-id="@Model.Id">Add News</a>
                                                     </div>
                                                     <div class="panel-body">
                                                         <div class="table-responsive">
                                                             <table class="table table-hover table-responsive table-striped display">
                                                                 <thead>
                                                                     <tr>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().TypeNew.Nombre)
+                                                                        </th>
                                                                         <th>
                                                                             @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().Novedad)
                                                                         </th>
@@ -719,28 +722,31 @@
                                                                 <tbody>
                                                                     @foreach (var item in Model.Incapacities)
                                                                     {
-                                                                        <tr>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.Novedad)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.StartDate)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.CantDay)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.EndDate)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.UserRegistra)
-                                                                            </td>
-                                                                            <td>
-                                                                                <a asp-action="EditIncap" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                                    <tr>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.TypeNew.Nombre)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Novedad)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.StartDate)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.CantDay)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.EndDate)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.UserRegistra)
+                                                                        </td>
+                                                                        <td>
+                                                                            <a asp-action="EditIncap" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
 
-                                                                                <button data-id="@item.Id" class="btn btn-danger deleteIncap" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                            </td>
-                                                                        </tr>
+                                                                            <button data-id="@item.Id" class="btn btn-danger deleteIncap" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                        </td>
+                                                                    </tr>
                                                                     }
                                                                 </tbody>
                                                             </table>

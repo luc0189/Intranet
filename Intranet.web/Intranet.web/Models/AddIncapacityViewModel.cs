@@ -1,5 +1,7 @@
 ﻿using Intranet.web.Data.Entities;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Intranet.web.Models
@@ -9,7 +11,7 @@ namespace Intranet.web.Models
         public int EmployeeIds { get; set; }
         public int Id { get; set; }
 
-        [Display(Name = "Dias Incapacidad")]
+        [Display(Name = "Dias Novedad")]
         [Required(ErrorMessage = "El campo {0} es Requerido")]
         public int CantDay { get; set; }
 
@@ -27,6 +29,14 @@ namespace Intranet.web.Models
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         public string Novedad { get; set; }
         public Employee Employee { get; set; }
+
+
+        [Required(ErrorMessage = "The Field {0} is mandatory.")]
+        [Display(Name = "Type News")]
+        [Range(1, int.MaxValue, ErrorMessage = "You must select a Type  News.")]
+        public int TypeId { get; set; }
+
+        public IEnumerable<SelectListItem> TypeNews { get; set; }
         public DateTime DateRegistro { get; set; }
 
         [MaxLength(30)]

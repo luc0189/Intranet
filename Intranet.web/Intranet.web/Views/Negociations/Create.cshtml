@@ -1,0 +1,72 @@
+﻿@model Intranet.web.Data.Entities.Compras.Negociation
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Negociation</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DateIn" class="control-label"></label>
+                <input asp-for="DateIn" class="form-control" />
+                <span asp-validation-for="DateIn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Detalle" class="control-label"></label>
+                <input asp-for="Detalle" class="form-control" />
+                <span asp-validation-for="Detalle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorNegociacion" class="control-label"></label>
+                <input asp-for="ValorNegociacion" class="form-control" />
+                <span asp-validation-for="ValorNegociacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BaseLiquidacion" class="control-label"></label>
+                <input asp-for="BaseLiquidacion" class="form-control" />
+                <span asp-validation-for="BaseLiquidacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Document" class="control-label"></label>
+                <input asp-for="Document" class="form-control" />
+                <span asp-validation-for="Document" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UsuCreate" class="control-label"></label>
+                <input asp-for="UsuCreate" class="form-control" />
+                <span asp-validation-for="UsuCreate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Verificado" /> @Html.DisplayNameFor(model => model.Verificado)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Pago" /> @Html.DisplayNameFor(model => model.Pago)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

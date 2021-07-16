@@ -97,7 +97,9 @@ namespace Intranet.web.Controllers
                             string pensionId = reader.GetValue(15).ToString();
                             string cajaCompenId = reader.GetValue(16).ToString();
                             string positionEmpId = reader.GetValue(17).ToString();
-                           
+                            string sexo = reader.GetValue(18).ToString();
+                            bool carnet = Convert.ToBoolean( reader.GetValue(19).ToString());
+                            int sueldo = Convert.ToInt32(reader.GetValue(20).ToString());
                             var exits = await _dataContext.Employees.FirstOrDefaultAsync(s => s.Document == documento);
 
                             if (exits == null)
@@ -105,7 +107,7 @@ namespace Intranet.web.Controllers
                                 _dataContext.Employees.Add(new Employee()
                                 {
                                     Document = documento,
-                                    SiteExpedition  = siteExpedition,
+                                    SiteExpedition = siteExpedition,
                                     FirstName = firstName,
                                     LastName = lastname,
                                     JobTitle = jobTitle,
@@ -125,9 +127,14 @@ namespace Intranet.web.Controllers
                                     Eps = await _dataContext.Eps.FirstAsync(o => o.Nombre == epsId),
                                     Pension = await _dataContext.Pensions.FirstAsync(o => o.Nombre == pensionId),
                                     CajaCompensacion = await _dataContext.CajaCompensacions.FirstAsync(o => o.Nombre == cajaCompenId),
-                                    PositionEmployee = await _dataContext.PositionEmployees.FirstAsync(o => o.Position == positionEmpId)
+                                    Sexo = sexo,
+                                    License=carnet,
+                                    Sueldo=sueldo,
+                                   
+
                                     //Site =  _dataContext.Sites.FirstAsync(s => s.Id ==  (Convert.ToInt32(reader.GetValue(2).ToString())))
-                                }); contadorSave++;
+                                })
+                                ; contadorSave++;
                                 await _dataContext.SaveChangesAsync();
 
                             }

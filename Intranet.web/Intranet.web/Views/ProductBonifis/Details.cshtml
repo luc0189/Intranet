@@ -1,0 +1,48 @@
+﻿@model Intranet.web.Data.Entities.Compras.ProductBonifi
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ProductBonifi</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Plu)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Plu)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Articulo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Articulo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorUnit)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValorUnit)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cant)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cant)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

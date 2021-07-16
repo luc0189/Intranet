@@ -1,5 +1,6 @@
 ﻿using Intranet.web.Data.Entities;
 using Intranet.web.Data.Entities.Activos;
+using Intranet.web.Data.Entities.Compras;
 using Intranet.Web.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -36,7 +37,8 @@ namespace Intranet.web.Data
             await ChekCategoryAsyn();
             await ChekFabricAsyn();
             await ChekModelAsyn();
-            await ChekProviderAsyn();
+            await ChekProviderAsyn(); 
+            await ChekMesAsyn();
             var manager = await CheckUserAsync(1117498993, "Luis Carlos", "Sanchez Cabrera","luc0189@gmail.com",
                                                 "Calle Luna Calle Sol","3107957939", "Manager",true);
                   
@@ -170,6 +172,51 @@ namespace Intranet.web.Data
                    
                     Nombre = "Comfaca"
                 });
+
+
+                await _context.SaveChangesAsync();
+            }
+        }
+        private async Task ChekMesAsyn()
+        {
+            if (!_context.Mes.Any())
+            {
+                _context.Mes.Add(new Mes
+                {
+                    Name = "Enero"
+                });
+                _context.Mes.Add(new Mes
+                { Name = "Febrero"
+                });
+                _context.Mes.Add(new Mes
+                { Name = "Marzo"
+                });
+                _context.Mes.Add(new Mes
+                {Name = "Abril"
+                });
+                _context.Mes.Add(new Mes
+                { Name = "Mayo"
+                });
+                _context.Mes.Add(new Mes
+                { Name = "Junio"
+                });
+                _context.Mes.Add(new Mes
+                {Name = "Julio"
+                });
+                _context.Mes.Add(new Mes
+                { Name = "Agosto"
+                });
+                _context.Mes.Add(new Mes
+                {Name = "Septiembre"
+                });
+                _context.Mes.Add(new Mes
+                { Name = "Octubre"
+                }); _context.Mes.Add(new Mes
+                { Name = "Noviembre"
+                }); _context.Mes.Add(new Mes
+                { Name = "Diciembre"
+                });
+
 
 
                 await _context.SaveChangesAsync();

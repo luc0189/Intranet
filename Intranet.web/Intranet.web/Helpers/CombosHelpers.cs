@@ -32,6 +32,22 @@ namespace Intranet.web.Helpers
             });
             return list;
         }
+        
+             public IEnumerable<SelectListItem> GetComboTypeNew()
+        {
+            var list = _dataContext.TypeNews.Select(et => new SelectListItem
+            {
+                Text = et.Nombre,
+                Value = $"{et.Id}"
+            }).OrderBy(et => et.Text)
+             .ToList();
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione un Tipo de Novedad...)",
+                Value = "0"
+            });
+            return list;
+        }
         public IEnumerable<SelectListItem> GetComboCreditEntities()
         {
             var list = _dataContext.CreditEntities.Select(et => new SelectListItem

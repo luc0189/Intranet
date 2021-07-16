@@ -21,5 +21,6 @@ namespace Intranet.web.Helpers
         IEnumerable<SelectListItem> GetComboModel();
         IEnumerable<SelectListItem> GetComboCategory();
         IEnumerable<SelectListItem> GetComboFabricante();
+        IEnumerable<SelectListItem> GetComboTypeNew();
     }
 }
