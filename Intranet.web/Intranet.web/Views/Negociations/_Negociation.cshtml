@@ -1,0 +1,57 @@
+﻿@model Intranet.web.Models.NegociationViewModel
+
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="DateIn" class="control-label"></label>
+            <input asp-for="DateIn" class="form-control" />
+            <span asp-validation-for="DateIn" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Detalle" class="control-label"></label>
+            <textarea asp-for="Detalle" class="form-control" rows="5"></textarea>
+            <span asp-validation-for="Detalle" class="text-danger"></span>
+        </div>
+        
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="ValorNegociacion" class="control-label"></label>
+            <input asp-for="ValorNegociacion" class="form-control" />
+            <span asp-validation-for="ValorNegociacion" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="BaseLiquidacion" class="control-label"></label>
+            <input asp-for="BaseLiquidacion" class="form-control" />
+            <span asp-validation-for="BaseLiquidacion" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Document" class="control-label"></label>
+            <input asp-for="Document" class="form-control" />
+            <span asp-validation-for="Document" class="text-danger"></span>
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="ProvidercomprasId" class="control-label"></label>
+            <select asp-for="ProvidercomprasId" asp-items="Model.Providercompras" class="form-control">
+            </select>
+            <span asp-validation-for="ProvidercomprasId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="MesId" class="control-label"></label>
+            <select asp-for="MesId" asp-items="Model.Mes" class="form-control">
+            </select>
+            <span asp-validation-for="MesId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ClasificationId" class="control-label"></label>
+            <select asp-for="ClasificationId" asp-items="Model.Clasification" class="form-control">
+            </select>
+            <span asp-validation-for="ClasificationId" class="text-danger"></span>
+        </div>
+    </div>
+

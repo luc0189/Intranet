@@ -90,11 +90,24 @@ namespace Intranet.web.Models
         public string DateIngreso { get; set; }
 
         //aqui los campos que para tigger
-        
+        [Display(Name = "Sueldo")]
+        [MaxLength(80)]
+        public int Sueldo { get; set; }
+        [Display(Name = "CTA Nomina")]
+        public bool CtaNomina { get; set; }
+
+
+        [Display(Name = "Numero de Cuenta")]
+        [MaxLength(80)]
+        public int NumeroCtaAhorros { get; set; }
+
+
         [MaxLength(30)]
         public string UserCrea { get; set; }
 
         public DateTime DateRegistro { get; set; }
+
+
 
         [Required(ErrorMessage = "The Field {0} is mandatory.")]
         [Display(Name = "Area")]

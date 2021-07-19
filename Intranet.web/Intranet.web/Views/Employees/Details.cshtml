@@ -197,8 +197,9 @@
                         <li><a data-toggle="tab" href="#menu3">Requirements <span class="badge"> @Html.DisplayFor(modelItem => Model.Exams.Count)</span></a></li>
                         <li><a data-toggle="tab" href="#menu4">Dotaciones <span class="badge"> @Html.DisplayFor(modelItem => Model.Endowments.Count)</span></a></li>
                         <li><a data-toggle="tab" href="#menu5">Novedades <span class="badge"> @Html.DisplayFor(modelItem => Model.Incapacities.Count)</span></a></li>
-                        <li><a data-toggle="tab" href="#menu6">Activos Fijos <span class="badge"> @Html.DisplayFor(modelItem => Model.Endowments.Count)</span></a></li>
+                        <li><a data-toggle="tab" href="#menu6">Activos <span class="badge"> @Html.DisplayFor(modelItem => Model.Endowments.Count)</span></a></li>
                         <li><a data-toggle="tab" href="#menu7">Contract <span class="badge"> @Html.DisplayFor(modelItem => Model.Contracts.Count)</span></a></li>
+                        <li><a data-toggle="tab" href="#menu8">Cargos <span class="badge"> @Html.DisplayFor(modelItem => Model.CargosAsgs.Count)</span></a></li>
 
                     </ul>
                     <div class="tab-content">
@@ -722,31 +723,31 @@
                                                                 <tbody>
                                                                     @foreach (var item in Model.Incapacities)
                                                                     {
-                                                                    <tr>
-                                                                        <td>
-                                                                            @Html.DisplayFor(modelItem => item.TypeNew.Nombre)
-                                                                        </td>
-                                                                        <td>
-                                                                            @Html.DisplayFor(modelItem => item.Novedad)
-                                                                        </td>
-                                                                        <td>
-                                                                            @Html.DisplayFor(modelItem => item.StartDate)
-                                                                        </td>
-                                                                        <td>
-                                                                            @Html.DisplayFor(modelItem => item.CantDay)
-                                                                        </td>
-                                                                        <td>
-                                                                            @Html.DisplayFor(modelItem => item.EndDate)
-                                                                        </td>
-                                                                        <td>
-                                                                            @Html.DisplayFor(modelItem => item.UserRegistra)
-                                                                        </td>
-                                                                        <td>
-                                                                            <a asp-action="EditIncap" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                                        <tr>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.TypeNew.Nombre)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.Novedad)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.StartDate)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.CantDay)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.EndDate)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.UserRegistra)
+                                                                            </td>
+                                                                            <td>
+                                                                                <a asp-action="EditIncap" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
 
-                                                                            <button data-id="@item.Id" class="btn btn-danger deleteIncap" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                        </td>
-                                                                    </tr>
+                                                                                <button data-id="@item.Id" class="btn btn-danger deleteIncap" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                            </td>
+                                                                        </tr>
                                                                     }
                                                                 </tbody>
                                                             </table>
@@ -810,7 +811,7 @@
                                                                         <th>
                                                                             @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().Note)
                                                                         </th>
-                                                                      
+
 
                                                                         <th>
                                                                             Acciones
@@ -830,7 +831,80 @@
                                                                             <td>
                                                                                 @Html.DisplayFor(modelItem => item.Note)
                                                                             </td>
-                                                                           
+
+                                                                            <td>
+                                                                                <a asp-action="EditIncap" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                                                                <button data-id="@item.Id" class="btn btn-danger deleteIncap" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div id="menu8" class="tab-pane fade">
+                            <div class="panel">
+
+                                <div class="panel-body">
+                                    @if (Model.CargosAsgs.Count == 0)
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <a asp-action="AddIncapacity" class="btn btn-primary" asp-route-id="@Model.Id">Add Cargo</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+
+                                                        <a asp-action="AddIncapacity" class="btn btn-primary" asp-route-id="@Model.Id">Add Cargo</a>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover table-responsive table-striped display">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.CargosAsgs.FirstOrDefault().PositionEmployee.Position)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.CargosAsgs.FirstOrDefault().DateAsg)
+                                                                        </th>
+                                                                        
+                                                                        <th>
+                                                                            Acciones
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var item in Model.CargosAsgs)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.PositionEmployee.Position)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.DateAsg)
+                                                                            </td>
+                                                                            
                                                                             <td>
                                                                                 <a asp-action="EditIncap" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
 

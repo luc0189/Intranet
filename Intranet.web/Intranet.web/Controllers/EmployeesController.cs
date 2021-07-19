@@ -97,6 +97,7 @@ namespace Intranet.web.Controllers
                 .Include(e => e.Incapacities)
                 .Include(e => e.Endowments)
                 .Include(e => e.Contracts)
+                .Include(e=> e.CargosAsgs)
                 );
         }
 
@@ -119,6 +120,7 @@ namespace Intranet.web.Controllers
                 .Include(e => e.Incapacities)
                 .ThenInclude(e=> e.TypeNew)
                 .Include(e => e.Contracts)
+                .Include(e => e.CargosAsgs)
                 .Include(e => e.Credits)
                 .ThenInclude(c => c.CreditEntities)
                 .Include(e => e.Exams)

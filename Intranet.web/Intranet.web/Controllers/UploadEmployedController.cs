@@ -96,10 +96,10 @@ namespace Intranet.web.Controllers
                             string epsId = reader.GetValue(14).ToString();
                             string pensionId = reader.GetValue(15).ToString();
                             string cajaCompenId = reader.GetValue(16).ToString();
-                            string positionEmpId = reader.GetValue(17).ToString();
-                            string sexo = reader.GetValue(18).ToString();
-                            bool carnet = Convert.ToBoolean( reader.GetValue(19).ToString());
-                            int sueldo = Convert.ToInt32(reader.GetValue(20).ToString());
+                           
+                            string sexo = reader.GetValue(17).ToString();
+                            bool carnet = Convert.ToBoolean( reader.GetValue(18).ToString());
+                            int sueldo = Convert.ToInt32(reader.GetValue(19).ToString());
                             var exits = await _dataContext.Employees.FirstOrDefaultAsync(s => s.Document == documento);
 
                             if (exits == null)
@@ -127,6 +127,7 @@ namespace Intranet.web.Controllers
                                     Eps = await _dataContext.Eps.FirstAsync(o => o.Nombre == epsId),
                                     Pension = await _dataContext.Pensions.FirstAsync(o => o.Nombre == pensionId),
                                     CajaCompensacion = await _dataContext.CajaCompensacions.FirstAsync(o => o.Nombre == cajaCompenId),
+                                   
                                     Sexo = sexo,
                                     License=carnet,
                                     Sueldo=sueldo,

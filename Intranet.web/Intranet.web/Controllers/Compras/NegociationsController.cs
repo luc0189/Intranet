@@ -7,16 +7,28 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Intranet.web.Data;
 using Intranet.web.Data.Entities.Compras;
+using Intranet.web.Models;
+using Intranet.Web.Helpers;
+using Intranet.web.Helpers;
 
 namespace Intranet.web.Controllers.Compras
 {
     public class NegociationsController : Controller
     {
         private readonly DataContext _context;
-
-        public NegociationsController(DataContext context)
+        private readonly IUserHelper _userHelper;
+        private readonly ICombosHelpers _combosHelpers;
+        private readonly IConverterHelper _converterHelper;
+        public NegociationsController(DataContext context,
+             IUserHelper userHelper,
+           ICombosHelpers combosHelpers,
+            IConverterHelper converterHelper)
         {
             _context = context;
+            _userHelper = userHelper;
+            _combosHelpers = combosHelpers;
+            _converterHelper = converterHelper;
+
         }
 
         // GET: Negociations
@@ -46,7 +58,22 @@ namespace Intranet.web.Controllers.Compras
         // GET: Negociations/Create
         public IActionResult Create()
         {
-            return View();
+            var model = new NegociationViewModel
+            {
+                DateCreate = DateTime.Today,
+
+                Clasification = _combosHelpers.GetComboClasification(),
+                Providercompras = _combosHelpers.GetComboProviderCompras(),
+                Mes = _combosHelpers.GetComboMes(),
+               
+                //Roles = _combosHelpers.GetComboRoles()
+            };
+            model.Clasification = _combosHelpers.GetComboClasification();
+            model.Providercompras = _combosHelpers.GetComboProviderCompras();
+            model.Mes = _combosHelpers.GetComboMes();
+           
+            //model.Roles = _combosHelpers.GetComboRoles();
+            return View(model);
         }
 
         // POST: Negociations/Create
@@ -133,6 +160,34 @@ namespace Intranet.web.Controllers.Compras
 
             return View(negociation);
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> ActivaVerifica(ActivaVerificaVieModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var negociation = new Negociation
+        //        {
+        //            Count = model.Count,
+        //            DateDelivery = model.DateDelivery,
+        //            DateModify = DateTime.Now,
+        //            DateRegistro = model.DateRegistro,
+        //            Detail = model.Detail,
+        //            Employee = await _context.Employees.FindAsync(model.EmployeeId),
+        //            Id = model.Id,
+        //            Size = model.Size,
+        //            UserModify = User.Identity.Name,
+        //            UserRegistra = model.UserRegistra
+        //        };
+
+        //        _context.Endowments.Update(endowment);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");
+        //        // return RedirectToAction($"Details/{model.SiteId}");
+        //    }
+        //    return View(model);
+
+        //}
 
         // POST: Negociations/Delete/5
         [HttpPost, ActionName("Delete")]

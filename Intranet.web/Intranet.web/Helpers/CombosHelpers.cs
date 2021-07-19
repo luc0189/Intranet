@@ -255,5 +255,50 @@ namespace Intranet.web.Helpers
             });
             return list;
         }
+        //compras
+        public IEnumerable<SelectListItem> GetComboClasification()
+        {
+            var list = _dataContext.Clasifications.Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = $"{a.Id}"
+            }).OrderBy(a => a.Text)
+             .ToList();
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione Una Clasificacion...)",
+                Value = "0"
+            });
+            return list;
+        } 
+        public IEnumerable<SelectListItem> GetComboProviderCompras()
+        {
+            var list = _dataContext.Providercompras.Select(a => new SelectListItem
+            {
+                Text = a.NameProvider,
+                Value = $"{a.Id}"
+            }).OrderBy(a => a.Text)
+             .ToList();
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione Un Proveedor...)",
+                Value = "0"
+            });
+            return list;
+        }
+        public IEnumerable<SelectListItem> GetComboMes()
+        {
+            var list = _dataContext.Mes.Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = $"{a.Id}"
+            }).ToList();
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione Un Mes...)",
+                Value = "0"
+            });
+            return list;
+        }
     }
 }
