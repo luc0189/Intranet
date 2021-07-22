@@ -10,6 +10,7 @@ using Intranet.web.Data.Entities.Compras;
 using Intranet.web.Models;
 using Intranet.Web.Helpers;
 using Intranet.web.Helpers;
+using Intranet.web.Models.Compras;
 
 namespace Intranet.web.Controllers.Compras
 {
@@ -34,7 +35,12 @@ namespace Intranet.web.Controllers.Compras
         // GET: Negociations
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Negociation.ToListAsync());
+            return View(await _context.Negociation
+                .Include(e=> e.Providercompras)
+                .Include(e=> e.Clasification)
+                .Include(e=> e.Mes)
+                .Include(r=> r.Verificados)
+                .ToListAsync());
         }
 
         // GET: Negociations/Details/5
@@ -46,6 +52,10 @@ namespace Intranet.web.Controllers.Compras
             }
 
             var negociation = await _context.Negociation
+                .Include(e=> e.Providercompras)
+                .Include(e=> e.Pagos)
+                .Include(e => e.Clasification)
+                .Include(e=> e.Verificados)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (negociation == null)
             {
@@ -76,20 +86,47 @@ namespace Intranet.web.Controllers.Compras
             return View(model);
         }
 
-        // POST: Negociations/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DateIn,Detalle,ValorNegociacion,BaseLiquidacion,Document,UsuCreate,Verificado,Pago")] Negociation negociation)
+        public async Task<IActionResult> Create(NegociationViewModel model)
         {
+
             if (ModelState.IsValid)
             {
-                _context.Add(negociation);
+
+                var negociacion = new Negociation
+                {
+                    Document = model.Document,
+                    DateIn = model.DateIn,
+                    Detalle = model.Detalle,
+                    ValorNegociacion = model.ValorNegociacion,
+                    BaseLiquidacion = model.BaseLiquidacion,
+                    Datecreate = DateTime.Today,
+                    UsuCreate = User.Identity.Name,
+                   
+                    Providercompras = await _context.Providercompras.FindAsync(model.ProvidercomprasId),
+                    Clasification = await _context.Clasifications.FindAsync(model.ClasificationId),
+                    Mes = await _context.Mes.FindAsync(model.MesId)
+                 
+                    //PositionEmployee = await _dataContext.PositionEmployees.FindAsync(model.PositionEmpId)
+
+
+                };
+                _context.Negociation.Add(negociacion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+
+
+
+
             }
-            return View(negociation);
+            ModelState.AddModelError(string.Empty, "The user Exist");
+            model.Providercompras = _combosHelpers.GetComboProviderCompras();
+            model.Clasification = _combosHelpers.GetComboClasification();
+            model.Mes = _combosHelpers.GetComboMes();
+           
+            //model.Roles = _combosHelpers.GetComboRoles();
+            return View(model);
         }
 
         // GET: Negociations/Edit/5
@@ -100,47 +137,88 @@ namespace Intranet.web.Controllers.Compras
                 return NotFound();
             }
 
-            var negociation = await _context.Negociation.FindAsync(id);
+            var negociation = await _context.Negociation
+                .Include(e => e.Providercompras)
+                .Include(e => e.Clasification)
+                .Include(e => e.Mes)
+                .FirstOrDefaultAsync(o => o.Id == id.Value);
             if (negociation == null)
             {
                 return NotFound();
             }
-            return View(negociation);
+
+            var view = new EditnegociationViewModel
+            {
+
+                Document = negociation.Document,
+                DateIn = negociation.DateIn,
+                Detalle = negociation.Detalle,
+                ValorNegociacion = negociation.ValorNegociacion,
+                BaseLiquidacion = negociation.BaseLiquidacion,
+                DateCreate = negociation.Datecreate,
+                UsuCreate = negociation.UsuCreate,
+                UserModify=negociation.UserModify,
+                DateModifica=negociation.DateModifica,
+                ClasificationId = negociation.Clasification.Id,
+                Clasification = _combosHelpers.GetComboClasification(),
+
+                ProvidercomprasId = negociation.Providercompras.Id,
+                Providercompras = _combosHelpers.GetComboProviderCompras(),
+
+                MesId = negociation.Mes.Id,
+                Mes = _combosHelpers.GetComboMes(),
+
+               
+                //PositionEmpId = employe.PositionEmployee.Id,
+
+            };
+            return View(view);
         }
 
-        // POST: Negociations/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DateIn,Detalle,ValorNegociacion,BaseLiquidacion,Document,UsuCreate,Verificado,Pago")] Negociation negociation)
+        public async Task<IActionResult> Edit(EditnegociationViewModel vista)
         {
-            if (id != negociation.Id)
-            {
-                return NotFound();
-            }
+
 
             if (ModelState.IsValid)
             {
-                try
+                var negociation = await _context.Negociation
+                    .Include(e => e.Clasification)
+                    .Include(e => e.Providercompras)
+                    .Include(e => e.Mes)
+                    .FirstOrDefaultAsync(o => o.Id == vista.Id);
+                if (negociation != null)
                 {
-                    _context.Update(negociation);
+                    negociation.DateIn = vista.DateIn;
+                    negociation.Detalle = vista.Detalle;
+                    negociation.BaseLiquidacion = vista.BaseLiquidacion;
+                    negociation.ValorNegociacion = vista.ValorNegociacion;
+                    negociation.Document = vista.Document;
+                    negociation.UsuCreate = vista.UsuCreate;
+                    negociation.Datecreate = vista.DateCreate;
+                    negociation.UserModify = User.Identity.Name;
+                    negociation.DateModifica = DateTime.Today;
+
+                    negociation.Clasification = await _context.Clasifications.FindAsync(vista.ClasificationId);
+                    negociation.Providercompras = await _context.Providercompras.FindAsync(vista.ProvidercomprasId);
+                    negociation.Mes = await _context.Mes.FindAsync(vista.MesId);
+
+                    //employe.PositionEmployee = await _dataContext.PositionEmployees.FindAsync(vista.PositionEmpId);
+
+                    _context.Negociation.Update(negociation);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!NegociationExists(negociation.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+
+
             }
-            return View(negociation);
+            vista.Clasification = _combosHelpers.GetComboClasification();
+            vista.Providercompras = _combosHelpers.GetComboProviderCompras();
+            vista.Mes = _combosHelpers.GetComboMes();
+          
+            return View(vista);
         }
 
         // GET: Negociations/Delete/5
@@ -161,33 +239,148 @@ namespace Intranet.web.Controllers.Compras
             return View(negociation);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> ActivaVerifica(ActivaVerificaVieModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var negociation = new Negociation
-        //        {
-        //            Count = model.Count,
-        //            DateDelivery = model.DateDelivery,
-        //            DateModify = DateTime.Now,
-        //            DateRegistro = model.DateRegistro,
-        //            Detail = model.Detail,
-        //            Employee = await _context.Employees.FindAsync(model.EmployeeId),
-        //            Id = model.Id,
-        //            Size = model.Size,
-        //            UserModify = User.Identity.Name,
-        //            UserRegistra = model.UserRegistra
-        //        };
 
-        //        _context.Endowments.Update(endowment);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");
-        //        // return RedirectToAction($"Details/{model.SiteId}");
-        //    }
-        //    return View(model);
+        public async Task<IActionResult> AddPago(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var negociation = await _context.Negociation.FindAsync(id);
+            if (negociation == null)
+            {
+                return NotFound();
+            }
+            var model = new PagoViewModel
+            {
+                NegociacionId = negociation.Id,
+                Userregistro = User.Identity.Name,
+            };
+            return View(model);
+        }
 
-        //}
+        [HttpPost]
+        public async Task<IActionResult> AddPago(PagoViewModel model)
+        {
+            var modelfull = new PagoViewModel
+            {
+                NegociacionId = model.NegociacionId,
+                Novedad = model.Novedad,
+                DocCobro = model.DocCobro,
+                
+                DocLegalizacion = model.DocLegalizacion,
+                ValorPagado = model.ValorPagado,
+                DatePago = model.DatePago,
+                Dateregistro= DateTime.Today,
+                Userregistro= User.Identity.Name,
+
+
+            };
+
+            if (ModelState.IsValid)
+            {
+
+                var pago = await _converterHelper.ToPagoAsync(modelfull, true);
+                _context.Pagos.Add(pago);
+                await _context.SaveChangesAsync();
+                var negociacion = await _context.Negociation.FirstAsync(s => s.Id == model.NegociacionId);
+                if (negociacion != null)
+                {
+
+                    negociacion.Detalle = negociacion.Detalle;
+                    negociacion.Document = negociacion.Document;
+                    negociacion.UsuCreate = negociacion.UsuCreate;
+                    negociacion.Pago = true;
+                    negociacion.UserPaga = User.Identity.Name;
+                    negociacion.DatePaga = DateTime.Now.ToString();
+                    
+                };
+                _context.Negociation.Update(negociacion);
+                await _context.SaveChangesAsync();
+                return RedirectToAction($"Details/{model.NegociacionId}");
+            }
+            return View(model);
+        }
+        public async Task<IActionResult> AddCheckVerificar(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var negociation = await _context.Negociation.FindAsync(id);
+            if (negociation == null)
+            {
+                return NotFound();
+            }
+            var model = new VerificaViewModel
+            {
+                NegociacionId = negociation.Id,
+                UserRegistro = User.Identity.Name,
+            };
+            return View(model);
+
+
+
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
+            //var negociacion = await _context.Negociation.FirstAsync(s => s.Id == id);
+            //if (negociacion != null)
+            //{
+               
+            //    negociacion.Detalle = negociacion.Detalle;
+            //    negociacion.Document = negociacion.Document;
+            //    negociacion.UsuCreate = negociacion.UsuCreate;
+            //    negociacion.Verificado = true;
+            //    negociacion.UserVerifica = User.Identity.Name;
+            //    negociacion.DateVerifica = DateTime.Now.ToString();
+            //};
+            //_context.Negociation.Update(negociacion);
+            //await _context.SaveChangesAsync();
+
+            //return RedirectToAction($"Details/{id}");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddCheckVerificar(VerificaViewModel model)
+        {
+            var modelfull = new VerificaViewModel
+            {
+                NegociacionId = model.NegociacionId,
+                Novedad = model.Novedad,
+               
+                Dateregistro = DateTime.Today.ToString(),
+                UserRegistro = User.Identity.Name,
+
+
+            };
+
+            if (ModelState.IsValid)
+            {
+
+                var verificado = await _converterHelper.ToVerificaAsync(modelfull, true);
+                _context.Verificados.Add(verificado);
+                await _context.SaveChangesAsync();
+                var negociacion = await _context.Negociation.FirstAsync(s => s.Id == model.NegociacionId);
+                if (negociacion != null)
+                {
+
+                    negociacion.Detalle = negociacion.Detalle;
+                    negociacion.Document = negociacion.Document;
+                    negociacion.UsuCreate = negociacion.UsuCreate;
+                    negociacion.Verificar = true;
+                    negociacion.UserVerifica = User.Identity.Name;
+                    negociacion.DateVerifica = DateTime.Now.ToString();
+
+                };
+                _context.Negociation.Update(negociacion);
+                await _context.SaveChangesAsync();
+                return RedirectToAction($"Details/{model.NegociacionId}");
+            }
+            return View(model);
+        }
+
 
         // POST: Negociations/Delete/5
         [HttpPost, ActionName("Delete")]

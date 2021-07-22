@@ -1,0 +1,34 @@
+﻿@model Intranet.web.Models.Compras.PagoViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<hr />
+
+<form asp-action="AddPago">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2>Crear</h2>
+                <h4>Pago</h4>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-4">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="NegociacionId" />
+                    <partial name="_Pagos" />
+                </div>
+            </div>
+
+
+
+            <div class="panel-footer">
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <a asp-action="Details" asp-route-id="@Model.NegociacionId" class="btn btn-success">Back to Negociacion</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>

@@ -1,6 +1,8 @@
 ﻿using Intranet.web.Data;
 using Intranet.web.Data.Entities;
+using Intranet.web.Data.Entities.Compras;
 using Intranet.web.Models;
+using Intranet.web.Models.Compras;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
@@ -178,7 +180,39 @@ namespace Intranet.web.Helpers
             };
         }//
 
-      
+        public async Task<Verificado> ToVerificaAsync(VerificaViewModel model, bool isNew)
+        {
+            return new Verificado
+            {
+                Id = isNew ? 0 : model.Id,
+                Novedad = model.Novedad,
+                
+                Dateregistro=model.Dateregistro,
+                UserRegistro=model.UserRegistro,
+
+                Negociation= await _dataContext.Negociation.FindAsync(model.NegociacionId)
+
+            };
+        }//
+
+        public async Task<Pagos> ToPagoAsync(PagoViewModel model, bool isNew)
+        {
+            return new Pagos
+            {
+                Id = isNew ? 0 : model.Id,
+                Novedad = model.Novedad,
+                DocCobro = model.DocCobro,
+                DocLegalizacion = model.DocLegalizacion,
+                ValorPagado = model.ValorPagado,
+                DatePago = model.DatePago,
+                Dateregistro = model.Dateregistro,
+                Userregistro = model.Userregistro,
+
+                Negociation = await _dataContext.Negociation.FindAsync(model.NegociacionId)
+
+            };
+        }//
+
         public async Task<Credit> ToCreditAsync(CreditViewModel model, bool isNew)
         {
             int mes = int.Parse(model.DeadlinePay.ToString());

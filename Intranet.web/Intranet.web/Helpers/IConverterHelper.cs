@@ -1,5 +1,7 @@
 ﻿using Intranet.web.Data.Entities;
+using Intranet.web.Data.Entities.Compras;
 using Intranet.web.Models;
+using Intranet.web.Models.Compras;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Threading.Tasks;
 
@@ -32,6 +34,8 @@ namespace Intranet.web.Helpers
 
 
         Task<Sons> ToSonsAsync(SonsViewModel model, bool isNew);//
+        Task<Pagos> ToPagoAsync(PagoViewModel model, bool isNew);//
+        Task<Verificado> ToVerificaAsync(VerificaViewModel model, bool isNew);//
         Task<Sons> ToEditSonsAsync(EditSonViewModel modelfull);//
         ReportExam ToReportExamViewModel(Exams model);
         EditSonViewModel ToEditSonViewModel(Sons son);//

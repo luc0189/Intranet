@@ -45,6 +45,8 @@ namespace Intranet.web.Data
         public DbSet<TypeNew> TypeNews { get; set; }
         public DbSet<CargosAsg> CargosAsgs { get; set; }
         public DbSet<Mes> Mes { get; set; }
+        public DbSet<Pagos> Pagos { get; set; }
+        public DbSet<Verificado> Verificados { get; set; }
         public DbSet<Intranet.web.Data.Entities.Compras.ProductBonifi> ProductBonifi { get; set; }
         public DbSet<Intranet.web.Data.Entities.Compras.Negociation> Negociation { get; set; }
 

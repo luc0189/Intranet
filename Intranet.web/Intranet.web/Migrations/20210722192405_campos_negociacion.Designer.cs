@@ -4,14 +4,16 @@ using Intranet.web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Intranet.web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210722192405_campos_negociacion")]
+    partial class campos_negociacion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -335,7 +337,7 @@ namespace Intranet.web.Migrations
 
                     b.Property<int>("ValorNegociacion");
 
-                    b.Property<bool>("Verificar");
+                    b.Property<bool>("Verificado");
 
                     b.HasKey("Id");
 
@@ -433,29 +435,6 @@ namespace Intranet.web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Providercompras");
-                });
-
-            modelBuilder.Entity("Intranet.web.Data.Entities.Compras.Verificado", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Dateregistro");
-
-                    b.Property<int?>("NegociationId");
-
-                    b.Property<string>("Novedad")
-                        .IsRequired()
-                        .HasMaxLength(500);
-
-                    b.Property<string>("UserRegistro");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NegociationId");
-
-                    b.ToTable("Verificados");
                 });
 
             modelBuilder.Entity("Intranet.web.Data.Entities.Contract", b =>
@@ -1297,13 +1276,6 @@ namespace Intranet.web.Migrations
                 {
                     b.HasOne("Intranet.web.Data.Entities.Compras.Negociation", "Negociation")
                         .WithMany("Pagos")
-                        .HasForeignKey("NegociationId");
-                });
-
-            modelBuilder.Entity("Intranet.web.Data.Entities.Compras.Verificado", b =>
-                {
-                    b.HasOne("Intranet.web.Data.Entities.Compras.Negociation", "Negociation")
-                        .WithMany("Verificados")
                         .HasForeignKey("NegociationId");
                 });
 

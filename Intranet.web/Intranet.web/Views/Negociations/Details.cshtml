@@ -4,63 +4,281 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>Negociation</h4>
+
+
+  
+
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DateIn)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DateIn)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Detalle)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Detalle)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ValorNegociacion)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ValorNegociacion)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.BaseLiquidacion)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.BaseLiquidacion)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Document)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Document)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UsuCreate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UsuCreate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Verificado)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Verificado)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Pago)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Pago)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-8 ">
+                        <h2>Details</h2>
+                        <h4>Negociacion</h4>
+                    </div>
+                    <div class="col-md-4">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.DateIn)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.DateIn)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Verificar)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Verificar)
+                               
+                            </dd>
+                            <dt>
+
+                                @Html.DisplayNameFor(model => model.Pago)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Pago)
+                            </dd>
+
+
+                        </dl>
+                        
+                        
+                        
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="panel-body">
+                <dl class="dl-horizontal">
+
+                    
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ValorNegociacion)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.ValorNegociacion)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.BaseLiquidacion)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.BaseLiquidacion)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Document)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Document)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UsuCreate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.UsuCreate)
+                    </dd>
+
+                </dl>
+                <hr />
+                <div class="row">
+                    <ul class="nav nav-tabs nav-justified">
+                        <li class="active"><a data-toggle="tab" href="#home">Detalles</a></li>
+                        <li><a data-toggle="tab" href="#menu1">Verificar</a></li>
+                        <li><a data-toggle="tab" href="#menu2">Pagar</a></li>
+
+                       
+
+                    </ul>
+                    <div class="tab-content">
+                        <div id="home" class="tab-pane fade in active">
+                            <div class="panel">
+
+                                <div class="panel-body">
+                                    <dl>
+                                        <dt>
+                                            @Html.DisplayNameFor(model => model.Detalle)
+                                        </dt>
+                                        <dd>
+                                            @Html.DisplayFor(model => model.Detalle)
+                                        </dd>
+                                    </dl>
+                                  
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div id="menu1" class="tab-pane fade">
+                            <div class="panel">
+
+                                <div class="panel-body">
+                                    @if (Model.Verificados.Count == 0)
+                                    {
+
+                                        <a asp-action="AddCheckVerificar" class="btn btn-primary" asp-route-id="@Model.Id">Verificar</a>
+                                    }
+                                    else
+                                    {
+                                        <dl class="dl-horizontal">
+                                            <dt>
+                                                Negociacion verificada por el usuario:
+                                            </dt>
+                                            <dd>
+                                                @Html.DisplayFor(model => model.UserVerifica)
+                                            </dd>
+                                            <dt>
+                                                Fecha:
+                                            </dt>
+                                            <dd>
+                                                @Html.DisplayFor(model => model.UserVerifica)
+                                            </dd>
+
+                                        </dl>
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-responsive table-striped display">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            @Html.DisplayNameFor(model => model.Verificados.FirstOrDefault().Novedad)
+                                                        </th>
+                                                                                                             
+                                                        <th>
+                                                            Acciones
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.Verificados)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.Novedad)
+                                                            </td>
+                                                           
+                                                            <td>
+                                                                <a asp-action="EditPago" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                                                <button data-id="@item.Id" class="btn btn-danger deleteExam" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                        <div id="menu2" class="tab-pane fade">
+                            <div class="panel">
+
+                                <div class="panel-body">
+                                    @if (Model.Pagos.Count == 0)
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <a asp-action="AddPago" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Pago</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <a asp-action="AddPago" class="btn btn-primary" asp-route-id="@Model.Id">Add Pago</a>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover table-responsive table-striped display">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Pagos.FirstOrDefault().Novedad)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Pagos.FirstOrDefault().DocCobro)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Pagos.FirstOrDefault().DocLegalizacion)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Pagos.FirstOrDefault().ValorPagado)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Pagos.FirstOrDefault().DatePago)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Pagos.FirstOrDefault().Userregistro)
+                                                                        </th>
+                                                                        <th>
+                                                                            Acciones
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var item in Model.Pagos)
+                                                                    {
+                                                                    <tr>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Novedad)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.DocCobro)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.DocLegalizacion)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.ValorPagado)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.DatePago)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Userregistro)
+                                                                        </td>
+                                                                        <td>
+                                                                            <a asp-action="EditPago" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                                                            <button data-id="@item.Id" class="btn btn-danger deleteExam" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                        </td>
+                                                                    </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+                <div class="panel-footer">
+                    <div class="form-group">
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a> |
+                        <a asp-action="Index" class="btn btn-success">Back to List</a>
+                    </div>
+                </div>
+        </div>
+    </div>
+               

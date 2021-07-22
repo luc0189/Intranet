@@ -15,7 +15,7 @@ namespace Intranet.web.Data.Entities.Compras
         public string DateIn { get; set; }
 
         [Required (ErrorMessage ="El campo {0} es requerido.")]
-        [MaxLength(300)]
+        [MaxLength(600)]
         [Display(Name ="Detalle Negociacion")]
         public string Detalle { get; set; }
 
@@ -44,12 +44,22 @@ namespace Intranet.web.Data.Entities.Compras
         [MaxLength(30)]
         public string UserVerifica { get; set; }
 
+        [Display(Name = "Fecha Verifica")]
+        [MaxLength(30)]
+        public string DateVerifica { get; set; }
+        [Display(Name = "Fecha Paga")]
+        [MaxLength(30)]
+        public string DatePaga { get; set; }
+
         [Display(Name = "User Paga")]
         [MaxLength(30)]
         public string UserPaga { get; set; }
 
+     
+
+
         [Display(Name = "Verificado ")]
-        public bool Verificado { get; set; }
+        public bool Verificar { get; set; }
 
        
         [Display(Name = "Pago")]
@@ -59,5 +69,8 @@ namespace Intranet.web.Data.Entities.Compras
         public Providercompras Providercompras { get; set; }
         public User User { get; set; }
         public Mes Mes { get; set; }
+        public ICollection<Pagos> Pagos { get; set; }
+        public ICollection<Verificado> Verificados { get; set; }
+
     }
 }

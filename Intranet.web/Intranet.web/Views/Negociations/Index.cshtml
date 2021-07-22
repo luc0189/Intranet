@@ -16,27 +16,26 @@
                 @Html.DisplayNameFor(model => model.DateIn)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Detalle)
+                @Html.DisplayNameFor(model => model.Providercompras.NameProvider)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ValorNegociacion)
+                @Html.DisplayNameFor(model => model.Clasification.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BaseLiquidacion)
+                @Html.DisplayNameFor(model => model.Mes.Name)
             </th>
+
+
             <th>
-                @Html.DisplayNameFor(model => model.Document)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuCreate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Verificado)
+                @Html.DisplayNameFor(model => model.Verificar)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Pago)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.UsuCreate)
+            </th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -46,30 +45,29 @@
                 @Html.DisplayFor(modelItem => item.DateIn)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Detalle)
+                @Html.DisplayFor(modelItem => item.Providercompras.NameProvider)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ValorNegociacion)
+                @Html.DisplayFor(modelItem => item.Clasification.Name)
             </td>
+          
             <td>
-                @Html.DisplayFor(modelItem => item.BaseLiquidacion)
+                @Html.DisplayFor(modelItem => item.Mes.Name)
             </td>
+
             <td>
-                @Html.DisplayFor(modelItem => item.Document)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuCreate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Verificado)
+                @Html.DisplayFor(modelItem => item.Verificar)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Pago)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @Html.DisplayFor(modelItem => item.UsuCreate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info"><i class="glyphicon glyphicon-list"></i></a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
             </td>
         </tr>
 }
