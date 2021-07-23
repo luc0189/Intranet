@@ -114,16 +114,14 @@ namespace Intranet.web.Helpers
             });
             return list;
         }
-       
-
-        public IEnumerable<SelectListItem> GetComboRoles()
+        public IEnumerable<SelectListItem> GetComboRols()
         {
             var list = _dataContext.Roles.Select(a => new SelectListItem
             {
                 Text = a.Name,
-                Value = $"{a.Name}"
+                Value = $"{a.Id}"
             }).OrderBy(a => a.Text)
-            .ToList();
+             .ToList();
             list.Insert(0, new SelectListItem
             {
                 Text = "(Seleccione un Rol...)",
@@ -131,6 +129,9 @@ namespace Intranet.web.Helpers
             });
             return list;
         }
+       
+
+      
 
         public IEnumerable<SelectListItem> GetComboPension()
         {

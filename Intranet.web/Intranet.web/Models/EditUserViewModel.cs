@@ -34,6 +34,7 @@ namespace Intranet.web.Models
         [Display(Name = "Activo")]
         public bool Activo { get; set; }
 
-             
+       
+
     }
 }

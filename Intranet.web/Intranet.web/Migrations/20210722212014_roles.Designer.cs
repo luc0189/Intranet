@@ -4,14 +4,16 @@ using Intranet.web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Intranet.web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210722212014_roles")]
+    partial class roles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -968,7 +970,7 @@ namespace Intranet.web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roleis");
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("Intranet.web.Data.Entities.SiteHeadquarters", b =>

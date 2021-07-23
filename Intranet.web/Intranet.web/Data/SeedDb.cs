@@ -39,6 +39,7 @@ namespace Intranet.web.Data
             await ChekModelAsyn();
             await ChekProviderAsyn(); 
             await ChekMesAsyn();
+          
             var manager = await CheckUserAsync(1117498993, "Luis Carlos", "Sanchez Cabrera","luc0189@gmail.com",
                                                 "Calle Luna Calle Sol","3107957939", "Manager",true);
                   
@@ -83,6 +84,8 @@ namespace Intranet.web.Data
                 await _context.SaveChangesAsync();
             }
         }
+        
+   
 
         private async Task ChekPositionAsyn()
         {

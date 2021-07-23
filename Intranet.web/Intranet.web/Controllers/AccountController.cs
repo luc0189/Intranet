@@ -111,9 +111,52 @@ namespace Intranet.web.Controllers
         {
             return View();
         }
+        private async Task<User> CheckUserAsync(
+            int document,
+            string firstName,
+            string lastName,
+            string email,
+            string address,
+            string movil,
+            string role,
+             bool activo
+
+            )
+        {
+            var user = await _userHelper.GetUserByEmailAsync(email);
+            if (user == null)
+            {
+                user = new User
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Email = email,
+                    UserName = email,
+                    PhoneNumber = movil,
+                    Movil = movil,
+                    Address = address,
+                    Document = document,
+                    DateRegistro = DateTime.Today,
+                    Activo = activo,
+
+
+                };
+
+                await _userHelper.AddUserAsync(user, "123456");
+                await _userHelper.AddUserToRoleAsync(user, role);
+                var token = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+                await _userHelper.ConfirmEmailAsync(user, token);
+            }
+
+            return user;
+        }
+
+
+
+
         public IActionResult Register()
         {
-            
+           
             return View();
         }
 
@@ -123,7 +166,8 @@ namespace Intranet.web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userHelper.AddUser(view, "Manager");
+                    
+                var user = await _userHelper.AddUser(view, "UserApp");
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "This email is already used.");

@@ -13,7 +13,7 @@ namespace Intranet.web.Helpers
    
         IEnumerable<SelectListItem> GetComboAreaEntities();
         IEnumerable<SelectListItem> GetComboEps();
-        IEnumerable<SelectListItem> GetComboRoles();
+
         IEnumerable<SelectListItem> GetComboPension();
         IEnumerable<SelectListItem> GetComboCajaCompensacion();
         IEnumerable<SelectListItem> GetComboPositionEmploye();
@@ -25,6 +25,7 @@ namespace Intranet.web.Helpers
 
         //compras
         IEnumerable<SelectListItem> GetComboClasification();
+        IEnumerable<SelectListItem> GetComboRols();
         IEnumerable<SelectListItem> GetComboProviderCompras();
         IEnumerable<SelectListItem> GetComboMes();
     }
