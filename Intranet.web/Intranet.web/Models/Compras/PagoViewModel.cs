@@ -32,6 +32,7 @@ namespace Intranet.web.Models.Compras
         public int ValorPagado { get; set; }
 
         [Display(Name = "Fecha Pago")]
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public string DatePago { get; set; }
 
