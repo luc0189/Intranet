@@ -161,7 +161,7 @@ namespace Intranet.web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> Register(AddUserModel view)
         {
             if (ModelState.IsValid)

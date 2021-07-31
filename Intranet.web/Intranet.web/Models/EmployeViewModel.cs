@@ -48,7 +48,7 @@ namespace Intranet.web.Models
         [MaxLength(50)]
         public string SiteBirth { get; set; }
 
-        [MaxLength(100, ErrorMessage = "The {0} field can not have more than {1} characters.")]
+        [MaxLength(200, ErrorMessage = "The {0} field can not have more than {1} characters.")]
         public string Address { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
@@ -56,13 +56,18 @@ namespace Intranet.web.Models
         [MaxLength(50)]
         public string Rh { get; set; }
 
+        [Display(Name = "SEXO")]
+        [MaxLength(50)]
+        public string Sexo { get; set; }
+
+
+
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Carnet ")]
         public bool License { get; set; }
 
         [Display(Name = "Movil")]
         [MaxLength(10)]
-
         [DisplayFormat(DataFormatString = "{0:(###) ###-####}",ApplyFormatInEditMode = true)]
         public string Movil { get; set; }
 
@@ -93,13 +98,15 @@ namespace Intranet.web.Models
         [Display(Name = "Sueldo")]
         [MaxLength(80)]
         public int Sueldo { get; set; }
+
+
         [Display(Name = "CTA Nomina")]
         public bool CtaNomina { get; set; }
 
 
         [Display(Name = "Numero de Cuenta")]
         [MaxLength(80)]
-        public int NumeroCtaAhorros { get; set; }
+        public string NumeroCtaAhorros { get; set; }
 
 
         [MaxLength(30)]

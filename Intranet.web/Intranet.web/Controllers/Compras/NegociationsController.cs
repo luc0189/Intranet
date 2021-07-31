@@ -315,7 +315,7 @@ namespace Intranet.web.Controllers.Compras
             var model = new VerificaViewModel
             {
                 NegociacionId = negociation.Id,
-                UserRegistro = User.Identity.Name,
+               
             };
             return View(model);
 

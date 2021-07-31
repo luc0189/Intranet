@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Intranet.web.Data.Entities.Compras
+namespace Intranet.web.Models.Compras
 {
-    public class Providercompras
+    public class ProviderViewModel
     {
         public int Id { get; set; }
 
@@ -14,7 +14,10 @@ namespace Intranet.web.Data.Entities.Compras
         [Display(Name = "Nombre del Proveedor")]
         [MaxLength(100)]
         public string NameProvider { get; set; }
-       
+
+        [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
+        [Display(Name = "Numero Tel")]
+        public int TelProvider { get; set; }
 
         [Display(Name = "Usuario")]
         [MaxLength(100)]
@@ -23,7 +26,5 @@ namespace Intranet.web.Data.Entities.Compras
         [Display(Name = "Fecha Creacion")]
         [MaxLength(100)]
         public string TimeCreate { get; set; }
-        public ICollection<Negociation> Negociations { get; set; }
-
     }
 }

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Intranet.web.Data.Entities.Fidelizacion.Bono>
+
+<hr />
+<div class="row">
+    <form asp-controller="UploadBonos" asp-action="Index" method="post" enctype="multipart/form-data">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2>Subir Listado de Bonos</h2>
+
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <input type="file" name="file" value="" />
+                        <div class="text-danger">
+                            <p>
+                                @ViewBag.Message
+                            </p>
+                        </div>
+                        <div class="text-success">
+                            <p>
+                                @ViewBag.Success
+                            </p>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="panel-footer">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"> Upload </button>
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-success">Home</a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

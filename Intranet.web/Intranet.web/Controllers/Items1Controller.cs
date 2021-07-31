@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Intranet.web.Controllers
 {
-    [Authorize(Roles = "Manager")]
+    //[Authorize(Roles = "Manager")]
     public class Items1Controller : Controller
     {
         private readonly DataContext _context;

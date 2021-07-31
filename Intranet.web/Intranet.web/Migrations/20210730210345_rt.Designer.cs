@@ -4,14 +4,16 @@ using Intranet.web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Intranet.web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210730210345_rt")]
+    partial class rt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -785,28 +787,17 @@ namespace Intranet.web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Actividad")
-                        .HasMaxLength(200);
+                    b.Property<string>("Codigo");
 
-                    b.Property<string>("Codigo")
-                        .IsRequired()
-                        .HasMaxLength(150);
+                    b.Property<string>("FechaRedimido");
 
-                    b.Property<string>("FechaRedimido")
-                        .HasMaxLength(150);
-
-                    b.Property<string>("Fechacreado")
-                        .HasMaxLength(150);
+                    b.Property<string>("Fechacreado");
 
                     b.Property<bool>("Redimido");
 
-                    b.Property<string>("UsuarioRedime")
-                        .HasMaxLength(150);
+                    b.Property<string>("UsuarioRedime");
 
-                    b.Property<string>("Usuariocrea")
-                        .HasMaxLength(150);
-
-                    b.Property<int>("Valor");
+                    b.Property<string>("usuariocrea");
 
                     b.HasKey("Id");
 

@@ -30,10 +30,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                   
 
 
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("Manager")||User.IsInRole("Recursoshumanos"))
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Manager") || User.IsInRole("Recursoshumanos"))
                     {
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Parametros <span class="caret"></span></a>
@@ -52,6 +52,7 @@
                                 <li><a asp-area="" class="dropdown-item" asp-controller="Eps" asp-action="Index">Eps</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a asp-area="" class="dropdown-item" asp-controller="UploadEmployed" asp-action="Index">Upload Employed</a></li>
+                                <li><a asp-area="" class="dropdown-item" asp-controller="UploadBonos" asp-action="Index">Upload Bonos</a></li>
                                 <li role="separator" class="divider"></li>
 
                             </ul>
@@ -85,7 +86,7 @@
                             </ul>
                         </li>
                     }
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("Compras")||User.IsInRole("Manager"))
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Compras") || User.IsInRole("Manager"))
                     {
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Compras <span class="caret"></span></a>
@@ -101,8 +102,21 @@
                                 <li><a asp-area="" class="dropdown-item" asp-controller="ProductBonifis" asp-action="Index">Productos Bonificados</a></li>
                             </ul>
                         </li>
-                     
-                       
+
+
+                    }
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("StoreLeader") || User.IsInRole("Manager"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Fidelizacion <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+
+                                <li><a asp-area="" class="dropdown-item" asp-controller="Bonoes" asp-action="Index">Bonos</a></li>
+                                
+                            </ul>
+                        </li>
+
+
                     }
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

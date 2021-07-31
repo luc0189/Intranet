@@ -6,28 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Intranet.web.Data;
-using Intranet.web.Data.Entities;
-using Microsoft.AspNetCore.Authorization;
+using Intranet.web.Data.Entities.Fidelizacion;
 
-namespace Intranet.web.Controllers
+namespace Intranet.web.Controllers.Fidelizacion
 {
-   
-    public class EpsController : Controller
+    public class BonoesController : Controller
     {
         private readonly DataContext _context;
 
-        public EpsController(DataContext context)
+        public BonoesController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: Eps
+        // GET: Bonoes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Eps.ToListAsync());
+            return View(await _context.Bonos.ToListAsync());
         }
 
-        // GET: Eps/Details/5
+        // GET: Bonoes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,39 +33,39 @@ namespace Intranet.web.Controllers
                 return NotFound();
             }
 
-            var eps = await _context.Eps
+            var bono = await _context.Bonos
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (eps == null)
+            if (bono == null)
             {
                 return NotFound();
             }
 
-            return View(eps);
+            return View(bono);
         }
 
-        // GET: Eps/Create
+        // GET: Bonoes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Eps/Create
+        // POST: Bonoes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre")] Eps eps)
+        public async Task<IActionResult> Create([Bind("Id,Codigo,Redimido,Fechacreado,usuariocrea,FechaRedimido,UsuarioRedime")] Bono bono)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(eps);
+                _context.Add(bono);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(eps);
+            return View(bono);
         }
 
-        // GET: Eps/Edit/5
+        // GET: Bonoes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -75,22 +73,22 @@ namespace Intranet.web.Controllers
                 return NotFound();
             }
 
-            var eps = await _context.Eps.FindAsync(id);
-            if (eps == null)
+            var bono = await _context.Bonos.FindAsync(id);
+            if (bono == null)
             {
                 return NotFound();
             }
-            return View(eps);
+            return View(bono);
         }
 
-        // POST: Eps/Edit/5
+        // POST: Bonoes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre")] Eps eps)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Codigo,Redimido,Fechacreado,usuariocrea,FechaRedimido,UsuarioRedime")] Bono bono)
         {
-            if (id != eps.Id)
+            if (id != bono.Id)
             {
                 return NotFound();
             }
@@ -99,12 +97,12 @@ namespace Intranet.web.Controllers
             {
                 try
                 {
-                    _context.Update(eps);
+                    _context.Update(bono);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EpsExists(eps.Id))
+                    if (!BonoExists(bono.Id))
                     {
                         return NotFound();
                     }
@@ -115,10 +113,10 @@ namespace Intranet.web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(eps);
+            return View(bono);
         }
 
-       
+        // GET: Bonoes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -126,24 +124,56 @@ namespace Intranet.web.Controllers
                 return NotFound();
             }
 
-            var eps = await _context.Eps
+            var bono = await _context.Bonos
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (eps == null)
+            if (bono == null)
             {
                 return NotFound();
             }
-            _context.Eps.Remove(eps);
+
+            return View(bono);
+        }
+
+        // POST: Bonoes/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var bono = await _context.Bonos.FindAsync(id);
+            _context.Bonos.Remove(bono);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-
-            
         }
 
-      
-
-        private bool EpsExists(int id)
+        private bool BonoExists(int id)
         {
-            return _context.Eps.Any(e => e.Id == id);
+            return _context.Bonos.Any(e => e.Id == id);
         }
+        public async Task<IActionResult> Redime(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var bono = await _context.Bonos
+                .FirstOrDefaultAsync(m => m.Id == id);
+          
+            if (bono != null)
+            {
+
+                bono.Redimido = true;
+                bono.UsuarioRedime = User.Identity.Name;
+                bono.FechaRedimido = DateTime.Now.ToString(); ;
+             
+
+            };
+            _context.Bonos.Update(bono);
+            await _context.SaveChangesAsync();
+            
+            //return RedirectToAction($"Details/{model.NegociacionId}");
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

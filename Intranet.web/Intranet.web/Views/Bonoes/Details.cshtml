@@ -1,0 +1,54 @@
+﻿@model Intranet.web.Data.Entities.Fidelizacion.Bono
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Bono</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Codigo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Redimido)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Redimido)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Fechacreado)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Fechacreado)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuariocrea)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Usuariocrea)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaRedimido)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FechaRedimido)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UsuarioRedime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UsuarioRedime)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

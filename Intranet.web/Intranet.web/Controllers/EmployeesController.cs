@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Intranet.web.Controllers
 {
-    [Authorize(Roles = "Manager")]
+    
     public class EmployeesController : Controller
     {
         private readonly DataContext _dataContext;
@@ -98,6 +98,7 @@ namespace Intranet.web.Controllers
                 .Include(e => e.Endowments)
                 .Include(e => e.Contracts)
                 .Include(e=> e.CargosAsgs)
+                .Include(e=> e.UserImages)
                 );
         }
 

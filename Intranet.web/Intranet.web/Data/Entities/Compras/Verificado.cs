@@ -15,6 +15,7 @@ namespace Intranet.web.Data.Entities.Compras
         public string Novedad { get; set; }
 
         [Display(Name = "Fecha Registro")]
+
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public string Dateregistro { get; set; }
 

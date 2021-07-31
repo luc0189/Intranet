@@ -1,6 +1,7 @@
 ﻿using Intranet.web.Data.Entities;
 using Intranet.web.Data.Entities.Activos;
 using Intranet.web.Data.Entities.Compras;
+using Intranet.web.Data.Entities.Fidelizacion;
 using Intranet.web.Data.Entities.More;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +48,7 @@ namespace Intranet.web.Data
         public DbSet<Mes> Mes { get; set; }
         public DbSet<Pagos> Pagos { get; set; }
         public DbSet<Verificado> Verificados { get; set; }
+        public DbSet<Bono> Bonos { get; set; }
       
         public DbSet<Intranet.web.Data.Entities.Compras.ProductBonifi> ProductBonifi { get; set; }
         public DbSet<Intranet.web.Data.Entities.Compras.Negociation> Negociation { get; set; }

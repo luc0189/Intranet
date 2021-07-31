@@ -1,0 +1,124 @@
+﻿@model IEnumerable<Intranet.web.Data.Entities.Fidelizacion.Bono>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+<hr />
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2>Bonos Supermio</h2>
+                <a asp-action="Create">Create New</a>
+            </div>
+
+            <div class="panel-body">
+                <div class="table-responsive ">
+                    <table class="table  id="MyTable">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Codigo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Redimido)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Valor)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fechacreado)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Usuariocrea)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FechaRedimido)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UsuarioRedime)
+                                </th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Codigo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Redimido)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Valor)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fechacreado)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Usuariocrea)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FechaRedimido)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UsuarioRedime)
+                                    </td>
+                                    <td>
+                                        @if (item.Redimido == true)
+                                            {
+                                                <label class="label-warning">Bono Redimido</label>
+
+                                            }
+                                            else
+                                            {
+                                        <button data-id="@item.Id" class="btn btn-success deleteItem" data-toggle="modal" data-target="#RedimeDialog"><i class="glyphicon glyphicon-ok"></i></button>
+
+                                        }
+
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_Redimir" />
+
+
+
+
+
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Delete item
+            var item_to_delete;
+            var action_to_delete;
+            $('#MyTable').DataTable();
+            $('.deleteItem').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+                action_to_delete = 1;
+            });
+
+            $("#btnYesRedime").click(function () {
+                window.location.href = '/Bonoes/Redime/' + item_to_delete;
+            });
+        });
+    </script>
+}

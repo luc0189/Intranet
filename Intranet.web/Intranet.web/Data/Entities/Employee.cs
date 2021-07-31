@@ -52,7 +52,7 @@ namespace Intranet.web.Data.Entities
         [MaxLength(50)]
         public string SiteBirth { get; set; }
 
-        [MaxLength(100, ErrorMessage = "The {0} field can not have more than {1} characters.")]
+        [MaxLength(200, ErrorMessage = "The {0} field can not have more than {1} characters.")]
         public string Address { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
@@ -83,6 +83,12 @@ namespace Intranet.web.Data.Entities
         [Display(Name = "Activo")]
         public bool Activo { get; set; }
 
+
+        [Display(Name = "Fecha Cumpleaños")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
+        public string DateCumple { get; set; }
+        //aqui los campos que para tigger
+
         [Display(Name = "Fecha retiro")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public string DateRetiro { get; set; }
@@ -91,13 +97,7 @@ namespace Intranet.web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public string DateIngreso { get; set; }
 
-        [Display(Name = "Fecha Cumpleaños")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
-        public string DateCumple { get; set; }
-        //aqui los campos que para tigger
-
-
-    
+            
         [Display(Name = "Sueldo")]
         [MaxLength(80)]
         public int Sueldo { get; set; }
@@ -108,7 +108,7 @@ namespace Intranet.web.Data.Entities
 
         [Display(Name = "Numero de Cuenta")]
         [MaxLength(80)]
-        public int NumeroCtaAhorros { get; set; }
+        public string NumeroCtaAhorros { get; set; }
 
         
         public DateTime DateRegistro { get; set; }
