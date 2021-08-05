@@ -40,6 +40,7 @@ namespace Intranet.web.Controllers.Compras
                 .Include(e=> e.Clasification)
                 .Include(e=> e.Mes)
                 .Include(r=> r.Verificados)
+                .Include(e => e.ProductBonifis)
                 .ToListAsync());
         }
 
@@ -56,6 +57,7 @@ namespace Intranet.web.Controllers.Compras
                 .Include(e=> e.Pagos)
                 .Include(e => e.Clasification)
                 .Include(e=> e.Verificados)
+                .Include(e=>e.ProductBonifis)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (negociation == null)
             {
@@ -301,6 +303,59 @@ namespace Intranet.web.Controllers.Compras
             }
             return View(model);
         }
+
+
+        public async Task<IActionResult> AddProductoBon(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var negociation = await _context.Negociation.FindAsync(id);
+            if (negociation == null)
+            {
+                return NotFound();
+            }
+            var model = new ProductBonViewModel
+            {
+                NegociacionId = negociation.Id,
+                Userregistro = User.Identity.Name.ToString(),
+                Dateregistro= DateTime.Now,
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddProductoBon(ProductBonViewModel model)
+        {
+            var modelfull = new ProductBonViewModel
+            {
+                NegociacionId = model.NegociacionId,
+                Plu = model.Plu,
+                Articulo = model.Articulo,
+
+                Cant = model.Cant,
+                ValorUnit = model.ValorUnit,
+              
+                Dateregistro = DateTime.Today,
+                Userregistro = User.Identity.Name.ToString(),
+
+
+            };
+
+            if (ModelState.IsValid)
+            {
+
+                var productobon = await _converterHelper.ToProductBonAsync(modelfull, true);
+                _context.ProductBonifi.Add(productobon);
+                await _context.SaveChangesAsync();
+                
+                return RedirectToAction($"Details/{model.NegociacionId}");
+            }
+            return View(model);
+        }
+
+
         public async Task<IActionResult> AddCheckVerificar(int? id)
         {
             if (id == null)

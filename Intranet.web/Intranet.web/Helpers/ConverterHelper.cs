@@ -213,6 +213,25 @@ namespace Intranet.web.Helpers
             };
         }//
 
+
+        public async Task<ProductBonifi> ToProductBonAsync(ProductBonViewModel model, bool isNew)
+        {
+            return new ProductBonifi
+            {
+                Id = isNew ? 0 : model.Id,
+                Plu = model.Plu,
+                Articulo = model.Articulo,
+                Cant = model.Cant,
+                ValorUnit = model.ValorUnit,
+                
+                Dateregistro = model.Dateregistro,
+                Userregistro = model.Userregistro,
+
+                Negociation = await _dataContext.Negociation.FindAsync(model.NegociacionId)
+
+            };
+        }//
+
         public async Task<Credit> ToCreditAsync(CreditViewModel model, bool isNew)
         {
             int mes = int.Parse(model.DeadlinePay.ToString());

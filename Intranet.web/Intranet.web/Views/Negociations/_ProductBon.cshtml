@@ -1,0 +1,32 @@
+﻿@model Intranet.web.Models.Compras.ProductBonViewModel
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Plu" class="control-label"></label>
+                <input asp-for="Plu" class="form-control" />
+                <span asp-validation-for="Plu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Articulo" class="control-label"></label>
+                <input asp-for="Articulo" class="form-control" />
+                <span asp-validation-for="Articulo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Cant" class="control-label"></label>
+                <input asp-for="Cant" class="form-control" />
+                <span asp-validation-for="Cant" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorUnit" class="control-label"></label>
+                <input asp-for="ValorUnit" class="form-control" />
+                <span asp-validation-for="ValorUnit" class="text-danger"></span>
+            </div>
+
+
+         
+        </div>
+    </div>

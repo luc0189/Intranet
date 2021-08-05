@@ -35,6 +35,10 @@ namespace Intranet.web.Helpers
 
         Task<Sons> ToSonsAsync(SonsViewModel model, bool isNew);//
         Task<Pagos> ToPagoAsync(PagoViewModel model, bool isNew);//
+
+        Task<ProductBonifi> ToProductBonAsync(ProductBonViewModel model, bool isNew);//
+
+
         Task<Verificado> ToVerificaAsync(VerificaViewModel model, bool isNew);//
         Task<Sons> ToEditSonsAsync(EditSonViewModel modelfull);//
         ReportExam ToReportExamViewModel(Exams model);

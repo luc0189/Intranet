@@ -71,6 +71,7 @@ namespace Intranet.web.Data.Entities.Compras
         public Mes Mes { get; set; }
         public ICollection<Pagos> Pagos { get; set; }
         public ICollection<Verificado> Verificados { get; set; }
+        public ICollection<ProductBonifi> ProductBonifis { get; set; }
 
     }
 }

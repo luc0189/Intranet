@@ -4,14 +4,16 @@ using Intranet.web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Intranet.web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210803225931_sg")]
+    partial class sg
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -399,17 +401,11 @@ namespace Intranet.web.Migrations
 
                     b.Property<int>("Cant");
 
-                    b.Property<DateTime>("Dateregistro");
-
                     b.Property<int?>("NegociationId");
 
                     b.Property<string>("Plu")
                         .IsRequired()
                         .HasMaxLength(40);
-
-                    b.Property<string>("Userregistro")
-                        .IsRequired()
-                        .HasMaxLength(100);
 
                     b.Property<int>("ValorUnit");
 

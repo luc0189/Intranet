@@ -2,6 +2,12 @@
   "dependencies": {
     "mssql1": {
       "type": "mssql",
+      "connectionId": "DefaultConnection2",
+      "suggestion": "true",
+      "ignored": "true"
+    },
+    "mssql2": {
+      "type": "mssql",
       "connectionId": "DefaultConnection"
     }
   }

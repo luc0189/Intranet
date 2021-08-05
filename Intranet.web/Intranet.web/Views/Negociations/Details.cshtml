@@ -15,8 +15,8 @@
         <div class="panel-heading">
             <div class="row">
                 <div class="col-md-8 ">
-                    <h2>Details</h2>
-                    <h4>Negociacion</h4>
+                    <h2>Detalles de Negociacion </h2>
+                   
                 </div>
                 <div class="col-md-4">
                     <dl class="dl-horizontal">
@@ -103,6 +103,7 @@
                     <li class="active"><a data-toggle="tab" href="#home">Detalles</a></li>
                     <li><a data-toggle="tab" href="#menu1">Verificar</a></li>
                     <li><a data-toggle="tab" href="#menu2">Pagar</a></li>
+                    <li><a data-toggle="tab" href="#menu3">Bonificados <span class="badge"> @Html.DisplayFor(modelItem => Model.ProductBonifis.Count)</span></a></li>
 
 
 
@@ -160,7 +161,7 @@
                                                         @Html.DisplayNameFor(model => model.Verificados.FirstOrDefault().Novedad)
                                                     </th>
 
-                                                   
+
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -171,7 +172,7 @@
                                                             @Html.DisplayFor(modelItem => item.Novedad)
                                                         </td>
 
-                                                       
+
                                                     </tr>
                                                 }
                                             </tbody>
@@ -278,14 +279,125 @@
                             </div>
                         </div>
                     </div>
+                    <div id="menu3" class="tab-pane fade">
+                        <div class="panel">
 
+                            <div class="panel-body">
+                                @if (Model.Clasification.Name.Equals("BONIFICADOS"))
+                                {
+                                    @if (Model.ProductBonifis.Count == 0)
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <a asp-action="AddProductoBon" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Producto</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <a asp-action="AddProductoBon" class="btn btn-primary" asp-route-id="@Model.Id">Add Producto</a>
+                                                        
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover table-responsive table-striped display">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.ProductBonifis.FirstOrDefault().Plu)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.ProductBonifis.FirstOrDefault().Articulo)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.ProductBonifis.FirstOrDefault().Cant)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.ProductBonifis.FirstOrDefault().ValorUnit)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.ProductBonifis.FirstOrDefault().Total)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.ProductBonifis.FirstOrDefault().Userregistro)
+                                                                        </th>
+                                                                        <th>
+                                                                           
+                                                                            Acciones
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var item in Model.ProductBonifis)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.Plu)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.Articulo)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.Cant)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.ValorUnit)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.Total)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.Userregistro)
+                                                                            </td>
+                                                                            <td>
+                                                                               
+                                                                                <a asp-action="EditPago" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                                                                <button data-id="@item.Id" class="btn btn-danger deleteExam" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="panel-default">
+                                        <div class="panel-heading">
+                                            <label>No Aplica Para èste tipo de Negociacion</label>
+                                        </div>
+                                    </div>
+
+                                    
+                                }
+
+
+
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>
         </div>
         <div class="panel-footer">
             <div class="form-group">
-                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a> |
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a> 
                 <a asp-action="Index" class="btn btn-success">Back to List</a>
             </div>
         </div>
