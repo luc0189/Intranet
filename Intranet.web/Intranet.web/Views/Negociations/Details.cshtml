@@ -101,8 +101,8 @@
             <div class="row">
                 <ul class="nav nav-tabs nav-justified">
                     <li class="active"><a data-toggle="tab" href="#home">Detalles</a></li>
-                    <li><a data-toggle="tab" href="#menu1">Verificar</a></li>
-                    <li><a data-toggle="tab" href="#menu2">Pagar</a></li>
+                    <li><a data-toggle="tab" href="#menu1">Verificar <span class="badge"> @Html.DisplayFor(modelItem => Model.Verificados.Count)</span></a></li>
+                    <li><a data-toggle="tab" href="#menu2">Pagos <span class="badge"> @Html.DisplayFor(modelItem => Model.Pagos.Count)</span></a></li>
                     <li><a data-toggle="tab" href="#menu3">Bonificados <span class="badge"> @Html.DisplayFor(modelItem => Model.ProductBonifis.Count)</span></a></li>
 
 
@@ -206,7 +206,7 @@
                                         <div class="col-md-12">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
-                                                    <a asp-action="AddPago" class="btn btn-primary" asp-route-id="@Model.Id">Add Pago</a>
+                                                    <a asp-action="AddPago" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Pago</a>
                                                 </div>
                                                 <div class="panel-body">
                                                     <div class="table-responsive">

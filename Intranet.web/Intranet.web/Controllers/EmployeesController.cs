@@ -198,6 +198,8 @@ namespace Intranet.web.Controllers
                     PersonContacts = new List<PersonContact>(),
                     Incapacities = new List<Incapacity>(),
                     UserImages = new List<UserImages>(),
+                    Sexo= model.Sexo,
+                    Sueldo=model.Sueldo,
                     Area = await _dataContext.Areas.FindAsync(model.AreaId),
                     Eps = await _dataContext.Eps.FindAsync(model.EpsId),
                     Pension = await _dataContext.Pensions.FindAsync(model.PensionId),

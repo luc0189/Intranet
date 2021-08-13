@@ -11,6 +11,7 @@ using Intranet.web.Models;
 using Intranet.Web.Helpers;
 using Intranet.web.Helpers;
 using Intranet.web.Models.Compras;
+using System.Data.SqlClient;
 
 namespace Intranet.web.Controllers.Compras
 {
@@ -304,6 +305,53 @@ namespace Intranet.web.Controllers.Compras
             return View(model);
         }
 
+        public async Task<IActionResult> EditPago(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var pago = await _context.Pagos
+                .Include(s => s.Negociation)
+                .FirstOrDefaultAsync(s => s.Id == id);
+            if (pago == null)
+            {
+                return NotFound();
+            }
+
+            return View(_converterHelper.ToEditPagoViewModel(pago));
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditPago(EditPagoViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var modelfull = new Pagos
+                {
+                    Negociation = await _context.Negociation.FindAsync(model.NegociacionId),
+                    ValorPagado = model.ValorPagado,
+                   
+                    Userregistro=model.Userregistro,
+                    DatePago=model.DatePago,
+                    Novedad=model.Novedad,
+                    Dateregistro=model.Dateregistro,
+                    DocCobro=model.DocCobro,
+                    DocLegalizacion=model.DocLegalizacion,
+                    Id = model.Id,
+                    DateModify = DateTime.Now,
+                    UserModify = User.Identity.Name
+
+                };
+
+                _context.Pagos.Update(modelfull);
+                await _context.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{model.NegociacionId}");
+                // return RedirectToAction($"Details/{model.SiteId}");
+            }
+     
+            return View(model);
+        }
+
 
         public async Task<IActionResult> AddProductoBon(int? id)
         {
@@ -445,6 +493,45 @@ namespace Intranet.web.Controllers.Compras
             var negociation = await _context.Negociation.FindAsync(id);
             _context.Negociation.Remove(negociation);
             await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        public async Task<IActionResult> Out_focus(int ? plu)
+        {
+            
+            using (SqlConnection connection=new SqlConnection("Server=192.168.1.113,7433;Database=supermio;Persist Security Info=True;User Id=l.sanchez;Password=Team0103"))
+            {
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandText = "select detalle from articulo where codigo='" + plu + "'";
+                command.CommandType = System.Data.CommandType.Text;
+                
+                connection.Open();
+                using(SqlDataReader reader= command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                           Console.WriteLine(reader[0]);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("articulo no Existe");      
+                    }
+                    reader.Close();
+                }
+            }
+            //var articulo = context.articulo
+            //            .Where(b => b.codigo.Contains(plu))
+            //            .ToList(); 
+
+            //   var negociation = await _context.Negociation.FindAsync(id);
+            //   _context.Negociation.Remove(negociation);
+            //   await _context.SaveChangesAsync();
+            //return RedirectToAction($"{nameof/{plu}");
             return RedirectToAction(nameof(Index));
         }
 

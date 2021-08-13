@@ -96,7 +96,7 @@ namespace Intranet.web.Models
 
         //aqui los campos que para tigger
         [Display(Name = "Sueldo")]
-        [MaxLength(80)]
+        
         public int Sueldo { get; set; }
 
 

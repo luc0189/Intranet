@@ -5,12 +5,12 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label asp-for="Plu" class="control-label"></label>
-                <input asp-for="Plu" class="form-control" />
+                <input asp-for="Plu" class="form-control" id="fname" onfocusout="myFunction()"/>
                 <span asp-validation-for="Plu" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Articulo" class="control-label"></label>
-                <input asp-for="Articulo" class="form-control" />
+                <input asp-for="Articulo" class="form-control"  id="detalle"/>
                 <span asp-validation-for="Articulo" class="text-danger"></span>
             </div>
         </div>

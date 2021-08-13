@@ -12,6 +12,7 @@ namespace Intranet.web.Helpers
         Task<Exams> ToExamAsync(ExamViewModel model, bool isNew);
         EditExamViewModel ToExamViewModel(Exams exams);
 
+
         Task<Incapacity> ToIncapAsync(AddIncapacityViewModel model, bool isNew);
        
         EditIncapacityViewModel ToIncapViewModel(Incapacity incap);
@@ -35,6 +36,10 @@ namespace Intranet.web.Helpers
 
         Task<Sons> ToSonsAsync(SonsViewModel model, bool isNew);//
         Task<Pagos> ToPagoAsync(PagoViewModel model, bool isNew);//
+        EditPagoViewModel ToEditPagoViewModel(Pagos pagos);
+
+
+
 
         Task<ProductBonifi> ToProductBonAsync(ProductBonViewModel model, bool isNew);//
 

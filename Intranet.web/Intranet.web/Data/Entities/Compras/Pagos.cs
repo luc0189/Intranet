@@ -38,8 +38,12 @@ namespace Intranet.web.Data.Entities.Compras
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
         [Display(Name = "Usuario Registra")]
         [MaxLength(100)]
-        public string Userregistro { get; set; }
 
+        public string Userregistro { get; set; }
+        [MaxLength(100)]
+        public string UserModify { get; set; }
+
+        public DateTime DateModify { get; set; }
         public Negociation Negociation { get; set; }
     }
 }

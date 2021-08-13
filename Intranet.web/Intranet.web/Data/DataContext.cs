@@ -12,6 +12,7 @@ namespace Intranet.web.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
+
         }
         public DbSet<Area> Areas { get; set; }
         public DbSet<CajaCompensacion> CajaCompensacions { get; set; }
@@ -49,7 +50,6 @@ namespace Intranet.web.Data
         public DbSet<Pagos> Pagos { get; set; }
         public DbSet<Verificado> Verificados { get; set; }
         public DbSet<Bono> Bonos { get; set; }
-      
         public DbSet<Intranet.web.Data.Entities.Compras.ProductBonifi> ProductBonifi { get; set; }
         public DbSet<Intranet.web.Data.Entities.Compras.Negociation> Negociation { get; set; }
 

@@ -212,7 +212,26 @@ namespace Intranet.web.Helpers
 
             };
         }//
+        public EditPagoViewModel ToEditPagoViewModel(Pagos pagos)
+        {
+            return new EditPagoViewModel
+            {
+                Id = pagos.Id,
+                DatePago = pagos.DatePago,
 
+                DateModify = DateTime.Now,
+                UserModify = pagos.UserModify,
+                Dateregistro = pagos.Dateregistro,
+                DocCobro=pagos.DocCobro,
+                DocLegalizacion=pagos.DocLegalizacion,
+                Novedad=pagos.Novedad,
+                Userregistro=pagos.Userregistro,
+                ValorPagado=pagos.ValorPagado,
+                NegociacionId=pagos.Negociation.Id,
+                //ExamTypes = _combosHelpers.GetComboExamTypes()
+
+            };
+        }
 
         public async Task<ProductBonifi> ToProductBonAsync(ProductBonViewModel model, bool isNew)
         {

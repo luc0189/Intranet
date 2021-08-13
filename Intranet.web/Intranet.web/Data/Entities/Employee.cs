@@ -14,12 +14,12 @@ namespace Intranet.web.Data.Entities
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Document")]
-        [MaxLength(10)]
+        
         public int Document { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Lugar de expedicion")]
-        [MaxLength(50)]
+        [MaxLength(80)]
         public string SiteExpedition { get; set; }
 
         [Display(Name = "First Name")]
@@ -99,7 +99,7 @@ namespace Intranet.web.Data.Entities
 
             
         [Display(Name = "Sueldo")]
-        [MaxLength(80)]
+       
         public int Sueldo { get; set; }
 
         [Display(Name = "CTA Nomina")]
@@ -113,11 +113,11 @@ namespace Intranet.web.Data.Entities
         
         public DateTime DateRegistro { get; set; }
         
-        [MaxLength(30)]
+        [MaxLength(60)]
         [Required]
         public string UserRegistra { get; set; }
 
-        [MaxLength(30)]
+        [MaxLength(60)]
         public string UserModify { get; set; }
 
         public DateTime DateModify { get; set; }
