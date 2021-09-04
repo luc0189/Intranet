@@ -69,6 +69,7 @@ namespace Intranet.web.Data.Entities.Compras
         public Providercompras Providercompras { get; set; }
         public User User { get; set; }
         public Mes Mes { get; set; }
+        public SalaVenta SalaVenta { get; set; }
         public ICollection<Pagos> Pagos { get; set; }
         public ICollection<Verificado> Verificados { get; set; }
         public ICollection<ProductBonifi> ProductBonifis { get; set; }

@@ -28,5 +28,6 @@ namespace Intranet.web.Helpers
         IEnumerable<SelectListItem> GetComboRols();
         IEnumerable<SelectListItem> GetComboProviderCompras();
         IEnumerable<SelectListItem> GetComboMes();
+        IEnumerable<SelectListItem> GetComboSalaVentas();
     }
 }

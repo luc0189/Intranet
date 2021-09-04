@@ -69,10 +69,14 @@ namespace Intranet.web.Models
         [Display(Name = "Mes")]
         public int MesId { get; set; }
 
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        [Display(Name = "Sala de Ventas")]
+        public int SalaVentaId { get; set; }
         public IEnumerable<SelectListItem> Clasification { get; set; }
         public IEnumerable<SelectListItem> Providercompras { get; set; }
        
         public IEnumerable<SelectListItem> Mes { get; set; }
+        public IEnumerable<SelectListItem> SalaVentas { get; set; }
 
     }
 }

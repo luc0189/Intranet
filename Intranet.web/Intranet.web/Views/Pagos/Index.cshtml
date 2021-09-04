@@ -1,0 +1,53 @@
+﻿
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<hr />
+<div class="col-md-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <h2>Check de Pagos</h2> 
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="form-group">
+
+                        <label>Proveedor: </label>
+                        <input type="text" name="Proveedor" value="" />
+
+                    </div>
+                    <select>
+                        <option value="Bonificacion">Bonificacion</option>
+                    </select>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-6">
+                        <div class="table table-responsive">
+                        aqui la tabla
+                        por aqui el total de la tabla
+                            </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel">
+                            <div class="input-group">
+                                <label>Valor a aplicar</label>
+                                <input type="number" name="namevalor" value="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <DIV class="panel-footer">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-success">Back to List</a>
+                </DIV>
+                </div>
+                
+            </div>
+        </div>
+    </div>

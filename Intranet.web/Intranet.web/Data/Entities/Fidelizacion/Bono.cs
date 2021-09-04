@@ -17,7 +17,7 @@ namespace Intranet.web.Data.Entities.Fidelizacion
                
         public bool Redimido { get; set; }
 
-        [Display(Name = "Fecha Registro")]
+        [Display(Name = "Actividad")]
         [MaxLength(200)]
        public string Actividad { get; set; }
 
@@ -38,5 +38,6 @@ namespace Intranet.web.Data.Entities.Fidelizacion
         [Display(Name = "Usuario Check")]
         [MaxLength(150)]
         public string UsuarioRedime { get; set; }
+        public ICollection<Redimidos> Redimidos { get; set; }
     }
 }

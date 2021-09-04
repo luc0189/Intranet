@@ -30,20 +30,22 @@
                 <span asp-validation-for="Fechacreado" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Valor" class="control-label"></label>
+                <input asp-for="Valor" class="form-control" />
+                <span asp-validation-for="Valor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Actividad" class="control-label"></label>
+                <input asp-for="Actividad" class="form-control" />
+                <span asp-validation-for="Actividad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Usuariocrea" class="control-label"></label>
                 <input asp-for="Usuariocrea" class="form-control" />
                 <span asp-validation-for="Usuariocrea" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="FechaRedimido" class="control-label"></label>
-                <input asp-for="FechaRedimido" class="form-control" />
-                <span asp-validation-for="FechaRedimido" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UsuarioRedime" class="control-label"></label>
-                <input asp-for="UsuarioRedime" class="form-control" />
-                <span asp-validation-for="UsuarioRedime" class="text-danger"></span>
-            </div>
+            
+            
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>

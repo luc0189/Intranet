@@ -6,30 +6,32 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Intranet.web.Data;
-using Intranet.web.Data.Entities.Fidelizacion;
+using Intranet.web.Data.Entities.Compras;
 
-namespace Intranet.web.Controllers.Fidelizacion
+namespace Intranet.web.Controllers.Compras
 {
-    public class BonoesController : Controller
+    public class PagosController : Controller
     {
         private readonly DataContext _context;
 
-        public BonoesController(DataContext context)
+        public PagosController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: Bonoes
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_context.Bonos
-              
-              .Include(e => e.Redimidos)
-              );
+            return View(await _context.Negociation
+                .Include(e => e.Providercompras)
+                .Include(e => e.Clasification)
+                .Include(e => e.Mes)
+                .Include(r => r.Verificados)
+                .Include(e => e.ProductBonifis)
+                .Include(p=> p.Pagos)
+                .ToListAsync());
         }
-  
 
-        // GET: Bonoes/Details/5
+        // GET: Pagos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,40 +39,39 @@ namespace Intranet.web.Controllers.Fidelizacion
                 return NotFound();
             }
 
-            var bono = await _context.Bonos
-                .Include(e=> e.Redimidos)
+            var pagos = await _context.Pagos
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (bono == null)
+            if (pagos == null)
             {
                 return NotFound();
             }
 
-            return View(bono);
+            return View(pagos);
         }
 
-        // GET: Bonoes/Create
+        // GET: Pagos/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Bonoes/Create
+        // POST: Pagos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Codigo,Redimido,Fechacreado,usuariocrea,Valor,Actividad,Usuariocrea")] Bono bono)
+        public async Task<IActionResult> Create([Bind("Id,Novedad,DocCobro,DocLegalizacion,ValorPagado,DatePago,Dateregistro,Userregistro,UserModify,DateModify")] Pagos pagos)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(bono);
+                _context.Add(pagos);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(bono);
+            return View(pagos);
         }
 
-        // GET: Bonoes/Edit/5
+        // GET: Pagos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,22 +79,22 @@ namespace Intranet.web.Controllers.Fidelizacion
                 return NotFound();
             }
 
-            var bono = await _context.Bonos.FindAsync(id);
-            if (bono == null)
+            var pagos = await _context.Pagos.FindAsync(id);
+            if (pagos == null)
             {
                 return NotFound();
             }
-            return View(bono);
+            return View(pagos);
         }
 
-        // POST: Bonoes/Edit/5
+        // POST: Pagos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Codigo,Redimido,Fechacreado,Usuariocrea,Actividad,Valor")] Bono bono)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Novedad,DocCobro,DocLegalizacion,ValorPagado,DatePago,Dateregistro,Userregistro,UserModify,DateModify")] Pagos pagos)
         {
-            if (id != bono.Id)
+            if (id != pagos.Id)
             {
                 return NotFound();
             }
@@ -102,12 +103,12 @@ namespace Intranet.web.Controllers.Fidelizacion
             {
                 try
                 {
-                    _context.Update(bono);
+                    _context.Update(pagos);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BonoExists(bono.Id))
+                    if (!PagosExists(pagos.Id))
                     {
                         return NotFound();
                     }
@@ -118,10 +119,10 @@ namespace Intranet.web.Controllers.Fidelizacion
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(bono);
+            return View(pagos);
         }
 
-        // GET: Bonoes/Delete/5
+        // GET: Pagos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -129,58 +130,30 @@ namespace Intranet.web.Controllers.Fidelizacion
                 return NotFound();
             }
 
-            var bono = await _context.Bonos
+            var pagos = await _context.Pagos
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (bono == null)
+            if (pagos == null)
             {
                 return NotFound();
             }
 
-            return View(bono);
+            return View(pagos);
         }
 
-        // POST: Bonoes/Delete/5
+        // POST: Pagos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var bono = await _context.Bonos.FindAsync(id);
-            _context.Bonos.Remove(bono);
+            var pagos = await _context.Pagos.FindAsync(id);
+            _context.Pagos.Remove(pagos);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool BonoExists(int id)
+        private bool PagosExists(int id)
         {
-            return _context.Bonos.Any(e => e.Id == id);
+            return _context.Pagos.Any(e => e.Id == id);
         }
-        public async Task<IActionResult> Redime(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var bono = await _context.Bonos
-                .FirstOrDefaultAsync(m => m.Id == id);
-            var redime = new Redimidos();
-            if (bono != null)
-            {
-
-                redime.Bono = await _context.Bonos
-                .FirstOrDefaultAsync(m => m.Id == id);
-                redime.UserRegistra = User.Identity.Name;
-                redime.FechaRegistro = DateTime.Now.ToString(); ;
-                bono.Redimido = true;
-
-            };
-            _context.Bonos.Update(bono);
-            _context.Redimidos.Add(redime);
-            await _context.SaveChangesAsync();
-            
-            //return RedirectToAction($"Details/{model.NegociacionId}");
-            return RedirectToAction(nameof(Index));
-        }
-
     }
 }

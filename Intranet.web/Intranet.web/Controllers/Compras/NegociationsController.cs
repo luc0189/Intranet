@@ -42,6 +42,7 @@ namespace Intranet.web.Controllers.Compras
                 .Include(e=> e.Mes)
                 .Include(r=> r.Verificados)
                 .Include(e => e.ProductBonifis)
+                .Include(e=>e.SalaVenta)
                 .ToListAsync());
         }
 
@@ -59,6 +60,7 @@ namespace Intranet.web.Controllers.Compras
                 .Include(e => e.Clasification)
                 .Include(e=> e.Verificados)
                 .Include(e=>e.ProductBonifis)
+                .Include(e=>e.SalaVenta)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (negociation == null)
             {
@@ -78,13 +80,14 @@ namespace Intranet.web.Controllers.Compras
                 Clasification = _combosHelpers.GetComboClasification(),
                 Providercompras = _combosHelpers.GetComboProviderCompras(),
                 Mes = _combosHelpers.GetComboMes(),
+                SalaVentas = _combosHelpers.GetComboSalaVentas(),
                
                 //Roles = _combosHelpers.GetComboRoles()
             };
             model.Clasification = _combosHelpers.GetComboClasification();
             model.Providercompras = _combosHelpers.GetComboProviderCompras();
             model.Mes = _combosHelpers.GetComboMes();
-           
+            model.SalaVentas = _combosHelpers.GetComboSalaVentas();
             //model.Roles = _combosHelpers.GetComboRoles();
             return View(model);
         }
@@ -109,25 +112,31 @@ namespace Intranet.web.Controllers.Compras
                    
                     Providercompras = await _context.Providercompras.FindAsync(model.ProvidercomprasId),
                     Clasification = await _context.Clasifications.FindAsync(model.ClasificationId),
-                    Mes = await _context.Mes.FindAsync(model.MesId)
-                 
+                    Mes = await _context.Mes.FindAsync(model.MesId),
+                    SalaVenta=await _context.SalaVentas.FindAsync(model.SalaVentaId)
                     //PositionEmployee = await _dataContext.PositionEmployees.FindAsync(model.PositionEmpId)
 
 
                 };
                 _context.Negociation.Add(negociacion);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                ModelState.AddModelError(string.Empty, "Registro Correcto");
+                model.Providercompras = _combosHelpers.GetComboProviderCompras();
+                model.Clasification = _combosHelpers.GetComboClasification();
+                model.Mes = _combosHelpers.GetComboMes();
+                model.SalaVentas = _combosHelpers.GetComboSalaVentas();
 
-
+                return View(model);
 
 
             }
-            ModelState.AddModelError(string.Empty, "The user Exist");
+            ModelState.AddModelError(string.Empty, "Registro Fallido: Revise la informacion");
             model.Providercompras = _combosHelpers.GetComboProviderCompras();
             model.Clasification = _combosHelpers.GetComboClasification();
             model.Mes = _combosHelpers.GetComboMes();
-           
+            model.SalaVentas = _combosHelpers.GetComboSalaVentas();
+
             //model.Roles = _combosHelpers.GetComboRoles();
             return View(model);
         }
@@ -144,6 +153,7 @@ namespace Intranet.web.Controllers.Compras
                 .Include(e => e.Providercompras)
                 .Include(e => e.Clasification)
                 .Include(e => e.Mes)
+                .Include(e=> e.SalaVenta)
                 .FirstOrDefaultAsync(o => o.Id == id.Value);
             if (negociation == null)
             {
@@ -164,8 +174,9 @@ namespace Intranet.web.Controllers.Compras
                 DateModifica=negociation.DateModifica,
                 ClasificationId = negociation.Clasification.Id,
                 Clasification = _combosHelpers.GetComboClasification(),
-
+                SalaVentas=_combosHelpers.GetComboSalaVentas(),
                 ProvidercomprasId = negociation.Providercompras.Id,
+                SalaVentaId=negociation.SalaVenta.Id,
                 Providercompras = _combosHelpers.GetComboProviderCompras(),
 
                 MesId = negociation.Mes.Id,
@@ -191,6 +202,7 @@ namespace Intranet.web.Controllers.Compras
                     .Include(e => e.Clasification)
                     .Include(e => e.Providercompras)
                     .Include(e => e.Mes)
+                    .Include(e=> e.SalaVenta)
                     .FirstOrDefaultAsync(o => o.Id == vista.Id);
                 if (negociation != null)
                 {
@@ -203,7 +215,7 @@ namespace Intranet.web.Controllers.Compras
                     negociation.Datecreate = vista.DateCreate;
                     negociation.UserModify = User.Identity.Name;
                     negociation.DateModifica = DateTime.Today;
-
+                    negociation.SalaVenta = await _context.SalaVentas.FindAsync(vista.SalaVentaId);
                     negociation.Clasification = await _context.Clasifications.FindAsync(vista.ClasificationId);
                     negociation.Providercompras = await _context.Providercompras.FindAsync(vista.ProvidercomprasId);
                     negociation.Mes = await _context.Mes.FindAsync(vista.MesId);
@@ -220,6 +232,7 @@ namespace Intranet.web.Controllers.Compras
             vista.Clasification = _combosHelpers.GetComboClasification();
             vista.Providercompras = _combosHelpers.GetComboProviderCompras();
             vista.Mes = _combosHelpers.GetComboMes();
+            vista.SalaVentas = _combosHelpers.GetComboSalaVentas();
           
             return View(vista);
         }

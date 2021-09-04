@@ -4,14 +4,16 @@ using Intranet.web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Intranet.web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210823202942_salasventas")]
+    partial class salasventas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -456,9 +458,7 @@ namespace Intranet.web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(500);
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
@@ -841,27 +841,6 @@ namespace Intranet.web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Bonos");
-                });
-
-            modelBuilder.Entity("Intranet.web.Data.Entities.Fidelizacion.Redimidos", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("BonoId");
-
-                    b.Property<string>("FechaRegistro");
-
-                    b.Property<string>("Tercero");
-
-                    b.Property<string>("UserRegistra");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BonoId");
-
-                    b.ToTable("Redimidos");
                 });
 
             modelBuilder.Entity("Intranet.web.Data.Entities.Incapacity", b =>
@@ -1458,13 +1437,6 @@ namespace Intranet.web.Migrations
                     b.HasOne("Intranet.web.Data.Entities.ExamsType", "ExamsType")
                         .WithMany("Exams")
                         .HasForeignKey("ExamsTypeId");
-                });
-
-            modelBuilder.Entity("Intranet.web.Data.Entities.Fidelizacion.Redimidos", b =>
-                {
-                    b.HasOne("Intranet.web.Data.Entities.Fidelizacion.Bono", "Bono")
-                        .WithMany("Redimidos")
-                        .HasForeignKey("BonoId");
                 });
 
             modelBuilder.Entity("Intranet.web.Data.Entities.Incapacity", b =>

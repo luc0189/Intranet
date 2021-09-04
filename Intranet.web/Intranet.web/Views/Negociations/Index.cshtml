@@ -4,15 +4,16 @@
     ViewData["Title"] = "Index";
 }
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
-<HR />
+
+<br />
 <div class="row">
-<div class="col-md-12">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <p>
-                <a asp-action="Create" class="btn btn-primary">Crear Nueva Negociacion</a>
-            </p>
-        </div>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <p>
+                    <a asp-action="Create" class="btn btn-primary">Crear Nueva Negociacion</a>
+                </p>
+            </div>
             <div class="panel-body">
                 <div class="table-responsive ">
                     <table class="table table-hover table-striped" id="MyTable">
@@ -39,7 +40,10 @@
                                     @Html.DisplayNameFor(model => model.Pago)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.UsuCreate)
+                                    @Html.DisplayNameFor(model => model.SalaVenta.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Document)
                                 </th>
                                 <th>Acciones</th>
                             </tr>
@@ -47,36 +51,39 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DateIn)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Providercompras.NameProvider)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Clasification.Name)
-                                    </td>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateIn)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Providercompras.NameProvider)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Clasification.Name)
+                                </td>
 
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Mes.Name)
-                                    </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Mes.Name)
+                                </td>
 
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Verificar)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Pago)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.UsuCreate)
-                                    </td>
-                                    <td>
-                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
-                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info"><i class="glyphicon glyphicon-list"></i></a>
-                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
-                                    </td>
-                                </tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Verificar)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Pago)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SalaVenta.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Document)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info"><i class="glyphicon glyphicon-list"></i></a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>
@@ -85,78 +92,25 @@
 
             </div>
         </div>
-     </div>
+    </div>
 </div>
 
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            @section Scripts {
-            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-            <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    // Delete item
-                    var item_to_delete;
-                    var action_to_delete;
-                    $('.display').DataTable();
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
-                    $('.deleteEndowment').click((e) => {
-                        item_to_delete = e.currentTarget.dataset.id;
-                        action_to_delete = 1;
-                    });
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Delete item
+            var item_to_delete;
+            $('#MyTable').DataTable();
+            $('.deleteItem').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+            });
 
-                    $('.deleteExam').click((e) => {
-                        item_to_delete = e.currentTarget.dataset.id;
-                        action_to_delete = 2;
-                    });
-                    $('.deletePerson').click((e) => {
-                        item_to_delete = e.currentTarget.dataset.id;
-                        action_to_delete = 3;
-                    });
-                    $('.deleteCredit').click((e) => {
-                        item_to_delete = e.currentTarget.dataset.id;
-                        action_to_delete = 4;
-                    });
-                    $('.deleteSon').click((e) => {
-                        item_to_delete = e.currentTarget.dataset.id;
-                        action_to_delete = 5;
-                    });
-                    $('.deleteImage').click((e) => {
-                        item_to_delete = e.currentTarget.dataset.id;
-                        action_to_delete = 6;
-                    });
-                    $('.deleteIncap').click((e) => {
-                        item_to_delete = e.currentTarget.dataset.id;
-                        action_to_delete = 7;
-                    });
-
-                    $("#btnYesDelete").click(function () {
-                        if (action_to_delete == 1) {
-                            window.location.href = '/Employees/DeleteEndowment/' + item_to_delete;
-                        } if (action_to_delete == 2) {
-                            window.location.href = '/Employees/DeleteExam/' + item_to_delete;
-                        } if (action_to_delete == 3) {
-                            window.location.href = '/Employees/DeletePersonContac/' + item_to_delete;
-                        } if (action_to_delete == 4) {
-                            window.location.href = '/Employees/DeleteCredit/' + item_to_delete;
-                        } if (action_to_delete == 5) {
-                            window.location.href = '/Employees/DeleteSon/' + item_to_delete;
-                        } if (action_to_delete == 6) {
-                            window.location.href = '/Employees/DeleteImage/' + item_to_delete;
-                        } if (action_to_delete == 7) {
-                            window.location.href = '/Employees/EditIncapacity/' + item_to_delete;
-                        }
-
-                    });
-                });
-            </script>
-            }
+            $("#btnYesDelete").click(function () {
+                window.location.href = '/Employees/Delete/' + item_to_delete;
+            });
+        });
+    </script>
+}

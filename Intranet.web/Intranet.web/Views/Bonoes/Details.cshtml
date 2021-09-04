@@ -48,7 +48,129 @@
         </dd>
     </dl>
 </div>
+<div class="row">
+    <ul class="nav nav-tabs nav-justified">
+        <li class="active"><a data-toggle="tab" href="#home">Lista Redimidos <span class="badge"> @Html.DisplayFor(modelItem => Model.Redimidos.Count)</span></a></li>
+
+
+    </ul>
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+            <div class="panel">
+
+                <div class="panel-body">
+                    @if (Model.Redimidos.Count == 0)
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <button data-id="@Model.Id" class="btn btn-success Redime" data-toggle="modal" data-target="#RedimeDialog"><i class="glyphicon glyphicon-ok"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <button data-id="@Model.Id" class="btn btn-success Redime" data-toggle="modal" data-target="#RedimeDialog"><i class="glyphicon glyphicon-ok"></i></button>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="table-responsive ">
+                                            <table class="table table-hover table-striped display">
+                                                <thead>
+                                                    <tr>
+                                                        @*<th>
+                                                            @Html.DisplayNameFor(model => model.Redimidos.FirstOrDefault().Tercero)
+                                                        </th>*@
+                                                        <th>
+                                                            @Html.DisplayNameFor(model => model.Redimidos.FirstOrDefault().UserRegistra)
+                                                        </th>
+                                                        <th>
+                                                            @Html.DisplayNameFor(model => model.Redimidos.FirstOrDefault().FechaRegistro)
+                                                        </th>
+
+                                                        @*<th>
+                                                            Acciones
+                                                        </th>*@
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.Redimidos)
+                                                    {
+                                                        <tr>
+                                                            @*<td>
+                                                                @Html.DisplayFor(modelItem => item.Tercero)
+                                                            </td>*@
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.UserRegistra)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.FechaRegistro)
+                                                            </td>
+
+                                                            @*<td>*@
+                                                                @*<a asp-action="EditSon" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                                                    <button data-id="@item.Id" class="btn btn-danger deleteSon" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>*@
+                                                            @*</td>*@
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+<partial name="_Redimir" />
+
+
+
+
+
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Delete item
+            var item_to_delete;
+            var action_to_delete;
+            $('#MyTable').DataTable();
+            $('.Redime').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+                action_to_delete = 1;
+            });
+
+            $("#btnYesRedime").click(function () {
+                window.location.href = '/Bonoes/Redime/' + item_to_delete;
+            });
+        });
+    </script>
+}

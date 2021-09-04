@@ -1,6 +1,13 @@
 ﻿@model Intranet.web.Models.NegociationViewModel
-
-
+  
+    <div class="text-center">
+        <div class="form-group">
+            <label asp-for="SalaVentaId" class="control-label"></label>
+            <select asp-for="SalaVentaId" asp-items="Model.SalaVentas" class="form-control js-example-basic-single">
+            </select>
+            <span asp-validation-for="SalaVentaId" class="text-danger"></span>
+        </div>
+    </div>
     <div class="col-md-4">
         <div class="form-group">
             <label asp-for="DateIn" class="control-label"></label>
@@ -37,19 +44,19 @@
     <div class="col-md-4">
         <div class="form-group">
             <label asp-for="ProvidercomprasId" class="control-label"></label>
-            <select asp-for="ProvidercomprasId" asp-items="Model.Providercompras" class="form-control">
+            <select asp-for="ProvidercomprasId" asp-items="Model.Providercompras" class="form-control js-example-basic-single">
             </select>
             <span asp-validation-for="ProvidercomprasId" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="MesId" class="control-label"></label>
-            <select asp-for="MesId" asp-items="Model.Mes" class="form-control">
+            <select asp-for="MesId" asp-items="Model.Mes" class="form-control js-example-basic-single">
             </select>
             <span asp-validation-for="MesId" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="ClasificationId" class="control-label"></label>
-            <select asp-for="ClasificationId" asp-items="Model.Clasification" class="form-control">
+            <select asp-for="ClasificationId" asp-items="Model.Clasification" class="form-control js-example-basic-single">
             </select>
             <span asp-validation-for="ClasificationId" class="text-danger"></span>
         </div>

@@ -301,5 +301,19 @@ namespace Intranet.web.Helpers
             });
             return list;
         }
+        public IEnumerable<SelectListItem> GetComboSalaVentas()
+        {
+            var list = _dataContext.SalaVentas.Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = $"{a.Id}"
+            }).ToList();
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione Una Sala De Ventas...)",
+                Value = "0"
+            });
+            return list;
+        }
     }
 }

@@ -50,6 +50,8 @@ namespace Intranet.web.Data
         public DbSet<Pagos> Pagos { get; set; }
         public DbSet<Verificado> Verificados { get; set; }
         public DbSet<Bono> Bonos { get; set; }
+        public DbSet<SalaVenta> SalaVentas { get; set; }
+        public DbSet<Redimidos> Redimidos { get; set; }
         public DbSet<Intranet.web.Data.Entities.Compras.ProductBonifi> ProductBonifi { get; set; }
         public DbSet<Intranet.web.Data.Entities.Compras.Negociation> Negociation { get; set; }
 
