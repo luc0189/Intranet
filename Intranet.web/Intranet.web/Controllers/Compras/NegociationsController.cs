@@ -13,6 +13,7 @@ using Intranet.web.Helpers;
 using Intranet.web.Models.Compras;
 using System.Data.SqlClient;
 
+
 namespace Intranet.web.Controllers.Compras
 {
     public class NegociationsController : Controller
@@ -154,6 +155,7 @@ namespace Intranet.web.Controllers.Compras
                 .Include(e => e.Clasification)
                 .Include(e => e.Mes)
                 .Include(e=> e.SalaVenta)
+               
                 .FirstOrDefaultAsync(o => o.Id == id.Value);
             if (negociation == null)
             {
@@ -172,12 +174,13 @@ namespace Intranet.web.Controllers.Compras
                 UsuCreate = negociation.UsuCreate,
                 UserModify=negociation.UserModify,
                 DateModifica=negociation.DateModifica,
-                ClasificationId = negociation.Clasification.Id,
+                
                 Clasification = _combosHelpers.GetComboClasification(),
-                SalaVentas=_combosHelpers.GetComboSalaVentas(),
-                ProvidercomprasId = negociation.Providercompras.Id,
+                ClasificationId = negociation.Clasification.Id,
+                SalaVentas =_combosHelpers.GetComboSalaVentas(),
                 SalaVentaId=negociation.SalaVenta.Id,
                 Providercompras = _combosHelpers.GetComboProviderCompras(),
+                ProvidercomprasId = negociation.Providercompras.Id,
 
                 MesId = negociation.Mes.Id,
                 Mes = _combosHelpers.GetComboMes(),

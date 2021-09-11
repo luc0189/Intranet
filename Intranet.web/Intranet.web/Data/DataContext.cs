@@ -52,6 +52,7 @@ namespace Intranet.web.Data
         public DbSet<Bono> Bonos { get; set; }
         public DbSet<SalaVenta> SalaVentas { get; set; }
         public DbSet<Redimidos> Redimidos { get; set; }
+        public DbSet<TercBnet> TercBnets { get; set; }
         public DbSet<Intranet.web.Data.Entities.Compras.ProductBonifi> ProductBonifi { get; set; }
         public DbSet<Intranet.web.Data.Entities.Compras.Negociation> Negociation { get; set; }
 

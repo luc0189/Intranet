@@ -7,40 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Intranet.web.Data;
 using Intranet.web.Data.Entities.Fidelizacion;
-using ESC_POS_USB_NET.Printer;
-using ESC_POS_USB_NET.Enums;
 
 namespace Intranet.web.Controllers.Fidelizacion
 {
-    public class BonoesController : Controller
+    public class TercBnetsController : Controller
     {
         private readonly DataContext _context;
 
-        public BonoesController(DataContext context)
+        public TercBnetsController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: Bonoes
-        public IActionResult Index()
+        // GET: TercBnets
+        public async Task<IActionResult> Index()
         {
-            //Printer printer = new Printer("EPSONs");
-            //printer.CondensedMode(PrinterModeState.On);
-            //printer.AlignCenter();
-            //printer.Append("Visitanos");
-            //printer.QrCode("www.supermio.co");
-            //printer.AlignLeft();
-            //printer.FullPaperCut();
-            //printer.PrintDocument();
-            return View(_context.Bonos
-              
-              .Include(e => e.Redimidos)
-              );
-         
+            return View(await _context.TercBnets.ToListAsync());
         }
-  
 
-        // GET: Bonoes/Details/5
+        // GET: TercBnets/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,40 +33,39 @@ namespace Intranet.web.Controllers.Fidelizacion
                 return NotFound();
             }
 
-            var bono = await _context.Bonos
-                .Include(e=> e.Redimidos)
+            var tercBnet = await _context.TercBnets
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (bono == null)
+            if (tercBnet == null)
             {
                 return NotFound();
             }
 
-            return View(bono);
+            return View(tercBnet);
         }
 
-        // GET: Bonoes/Create
+        // GET: TercBnets/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Bonoes/Create
+        // POST: TercBnets/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Codigo,Redimido,Fechacreado,usuariocrea,Valor,Actividad,Usuariocrea")] Bono bono)
+        public async Task<IActionResult> Create([Bind("Id,Documento,Nombre,Nombre2,Apellido1,Apellido2,Telefono,Correo,Usercreo,Datecrea")] TercBnet tercBnet)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(bono);
+                _context.Add(tercBnet);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(bono);
+            return View(tercBnet);
         }
 
-        // GET: Bonoes/Edit/5
+        // GET: TercBnets/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -89,22 +73,22 @@ namespace Intranet.web.Controllers.Fidelizacion
                 return NotFound();
             }
 
-            var bono = await _context.Bonos.FindAsync(id);
-            if (bono == null)
+            var tercBnet = await _context.TercBnets.FindAsync(id);
+            if (tercBnet == null)
             {
                 return NotFound();
             }
-            return View(bono);
+            return View(tercBnet);
         }
 
-        // POST: Bonoes/Edit/5
+        // POST: TercBnets/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Codigo,Redimido,Fechacreado,Usuariocrea,Actividad,Valor")] Bono bono)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Documento,Nombre,Nombre2,Apellido1,Apellido2,Telefono,Correo,Usercreo,Datecrea")] TercBnet tercBnet)
         {
-            if (id != bono.Id)
+            if (id != tercBnet.Id)
             {
                 return NotFound();
             }
@@ -113,12 +97,12 @@ namespace Intranet.web.Controllers.Fidelizacion
             {
                 try
                 {
-                    _context.Update(bono);
+                    _context.Update(tercBnet);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BonoExists(bono.Id))
+                    if (!TercBnetExists(tercBnet.Id))
                     {
                         return NotFound();
                     }
@@ -129,10 +113,10 @@ namespace Intranet.web.Controllers.Fidelizacion
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(bono);
+            return View(tercBnet);
         }
 
-        // GET: Bonoes/Delete/5
+        // GET: TercBnets/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -140,58 +124,30 @@ namespace Intranet.web.Controllers.Fidelizacion
                 return NotFound();
             }
 
-            var bono = await _context.Bonos
+            var tercBnet = await _context.TercBnets
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (bono == null)
+            if (tercBnet == null)
             {
                 return NotFound();
             }
 
-            return View(bono);
+            return View(tercBnet);
         }
 
-        // POST: Bonoes/Delete/5
+        // POST: TercBnets/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var bono = await _context.Bonos.FindAsync(id);
-            _context.Bonos.Remove(bono);
+            var tercBnet = await _context.TercBnets.FindAsync(id);
+            _context.TercBnets.Remove(tercBnet);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool BonoExists(int id)
+        private bool TercBnetExists(int id)
         {
-            return _context.Bonos.Any(e => e.Id == id);
+            return _context.TercBnets.Any(e => e.Id == id);
         }
-        public async Task<IActionResult> Redime(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var bono = await _context.Bonos
-                .FirstOrDefaultAsync(m => m.Id == id);
-            var redime = new Redimidos();
-            if (bono != null)
-            {
-
-                redime.Bono = await _context.Bonos
-                .FirstOrDefaultAsync(m => m.Id == id);
-                redime.UserRegistra = User.Identity.Name;
-                redime.FechaRegistro = DateTime.Now.ToString(); ;
-                bono.Redimido = true;
-
-            };
-            _context.Bonos.Update(bono);
-            _context.Redimidos.Add(redime);
-            await _context.SaveChangesAsync();
-            
-            //return RedirectToAction($"Details/{model.NegociacionId}");
-            return RedirectToAction(nameof(Index));
-        }
-
     }
 }
