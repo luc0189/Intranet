@@ -4,14 +4,16 @@ using Intranet.web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Intranet.web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210911140712_tercerosBnet")]
+    partial class tercerosBnet
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -809,25 +811,6 @@ namespace Intranet.web.Migrations
                     b.ToTable("ExamsTypes");
                 });
 
-            modelBuilder.Entity("Intranet.web.Data.Entities.Fidelizacion.Boletas", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CampañaId");
-
-                    b.Property<int?>("TercBnetId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CampañaId");
-
-                    b.HasIndex("TercBnetId");
-
-                    b.ToTable("Boletas");
-                });
-
             modelBuilder.Entity("Intranet.web.Data.Entities.Fidelizacion.Bono", b =>
                 {
                     b.Property<int>("Id")
@@ -860,47 +843,6 @@ namespace Intranet.web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Bonos");
-                });
-
-            modelBuilder.Entity("Intranet.web.Data.Entities.Fidelizacion.Campaña", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Condiciones")
-                        .IsRequired()
-                        .HasMaxLength(500);
-
-                    b.Property<string>("DateCrea")
-                        .IsRequired()
-                        .HasMaxLength(150);
-
-                    b.Property<string>("DateOut")
-                        .IsRequired()
-                        .HasMaxLength(60);
-
-                    b.Property<string>("Datein")
-                        .IsRequired()
-                        .HasMaxLength(60);
-
-                    b.Property<string>("NameCampaña")
-                        .IsRequired()
-                        .HasMaxLength(150);
-
-                    b.Property<string>("NumberConsecutive")
-                        .IsRequired()
-                        .HasMaxLength(60);
-
-                    b.Property<string>("UsuarioCrea")
-                        .IsRequired()
-                        .HasMaxLength(150);
-
-                    b.Property<int>("Valor");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Campañas");
                 });
 
             modelBuilder.Entity("Intranet.web.Data.Entities.Fidelizacion.Redimidos", b =>
@@ -1563,17 +1505,6 @@ namespace Intranet.web.Migrations
                     b.HasOne("Intranet.web.Data.Entities.ExamsType", "ExamsType")
                         .WithMany("Exams")
                         .HasForeignKey("ExamsTypeId");
-                });
-
-            modelBuilder.Entity("Intranet.web.Data.Entities.Fidelizacion.Boletas", b =>
-                {
-                    b.HasOne("Intranet.web.Data.Entities.Fidelizacion.Campaña", "Campaña")
-                        .WithMany("Boletas")
-                        .HasForeignKey("CampañaId");
-
-                    b.HasOne("Intranet.web.Data.Entities.Fidelizacion.TercBnet", "TercBnet")
-                        .WithMany("Boletas")
-                        .HasForeignKey("TercBnetId");
                 });
 
             modelBuilder.Entity("Intranet.web.Data.Entities.Fidelizacion.Redimidos", b =>

@@ -3,7 +3,7 @@
     <div class="text-center">
         <div class="form-group">
             <label asp-for="SalaVentaId" class="control-label"></label>
-            <select asp-for="SalaVentaId" asp-items="Model.SalaVentas" class="form-control js-example-basic-single">
+            <select asp-for="SalaVentaId" asp-items="Model.SalaVentas" class="form-control js-example-basic-single" required>
             </select>
             <span asp-validation-for="SalaVentaId" class="text-danger"></span>
         </div>

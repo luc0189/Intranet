@@ -106,7 +106,7 @@
 
 
                     }
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("StoreLeader") || User.IsInRole("Manager"))
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("StoreLeader") || User.IsInRole("Manager") || User.IsInRole("Recursoshumanos"))
                     {
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Fidelizacion <span class="caret"></span></a>
@@ -115,7 +115,8 @@
                                 <li><a asp-area="" class="dropdown-item" asp-controller="Bonoes" asp-action="Index">Bonos</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a asp-area="" class="dropdown-item" asp-controller="TercBnets" asp-action="Index">Terceros Bnet</a></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="Bonoes" asp-action="Index">Generar Boletas</a></li>
+                                <li><a asp-area="" class="dropdown-item" asp-controller="GenerarBoleta" asp-action="Index">Generar Boletas</a></li>
+                                <li><a asp-area="" class="dropdown-item" asp-controller="Campaña" asp-action="Index">Campañas</a></li>
                             </ul>
                         </li>
 

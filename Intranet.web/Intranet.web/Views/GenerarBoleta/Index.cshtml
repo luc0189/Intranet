@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Intranet.web.Data.Entities.Fidelizacion.Campaña>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Boletas</h2>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+<div class=" row">
+    <div class="col-md-4">
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                  Boletas Generadas:  @Html.DisplayFor(modelItem => item.Boletas.Count)
+                </td>
+            </tr>
+        }
+
+    </div>
+    </div>
+    <div class="row">
+       
+        <form action="/" method="post">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+
+                    <div class="input-group">
+                        Buscador
+                        <input type="text" name="name" value="" required class="form-control is-invalid" />
+                        <input type="submit" name="submit" value="Ir" class="btn btn-primary" />
+                        
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div>
+
+                    </div>
+                </div>
+                <div class="panel-footer">
+
+                </div>
+            </div>
+        </form>
+    </div>
+   
+
+
+

@@ -29,7 +29,7 @@ namespace Intranet.web.Data.Entities.Fidelizacion
         public string  Apellido1 { get; set; }
 
    
-        [Display(Name = "codigo")]
+        [Display(Name = "Segundo Apellido")]
         [MaxLength(150)]
         public string  Apellido2 { get; set; }
 
@@ -39,7 +39,7 @@ namespace Intranet.web.Data.Entities.Fidelizacion
         public string  Telefono { get; set; }
         
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
-        [Display(Name = "codigo")]
+        [Display(Name = "Correo")]
         [MaxLength(150)]
         public string  Correo { get; set; } 
         
@@ -49,8 +49,9 @@ namespace Intranet.web.Data.Entities.Fidelizacion
         public string  Usercreo { get; set; }
 
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
-        [Display(Name = "codigo")]
+        [Display(Name = "Fecha Creacion")]
         [MaxLength(150)]
         public string Datecrea { get; set; }
+        public ICollection<Boletas> Boletas { get; set; }
     }
 }
