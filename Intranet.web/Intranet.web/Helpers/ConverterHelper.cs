@@ -1,8 +1,10 @@
 ﻿using Intranet.web.Data;
 using Intranet.web.Data.Entities;
 using Intranet.web.Data.Entities.Compras;
+using Intranet.web.Data.Entities.Fidelizacion;
 using Intranet.web.Models;
 using Intranet.web.Models.Compras;
+using Intranet.web.Models.Fidelizacion;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
@@ -41,6 +43,20 @@ namespace Intranet.web.Helpers
             };
         }
 
+        public async Task<Redimidos> ToredimidosAsync(AddRedimidosViewModel model, bool isNew)
+        {
+            return new Redimidos
+            {
+                Id = isNew ? 0 : model.Id,
+              
+                Bono = await _dataContext.Bonos.FindAsync(model.BonoId),
+                FechaRegistro = DateTime.Now.ToString(),
+                UserRegistra = model.UserRegistra,
+                Tercero = model.Tercero,
+              
+
+            };
+        }
 
         public async Task<Exams> ToExamAsync(ExamViewModel model, bool isNew)
         {

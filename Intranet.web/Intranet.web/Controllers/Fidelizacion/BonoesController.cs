@@ -1,24 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Intranet.web.Data;
+using Intranet.web.Data.Entities.Fidelizacion;
+using Intranet.web.Helpers;
+using Intranet.web.Models.Fidelizacion;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Intranet.web.Data;
-using Intranet.web.Data.Entities.Fidelizacion;
-using ESC_POS_USB_NET.Printer;
-using ESC_POS_USB_NET.Enums;
 
 namespace Intranet.web.Controllers.Fidelizacion
 {
     public class BonoesController : Controller
     {
         private readonly DataContext _context;
+        private readonly IConverterHelper _converterHelper;
 
-        public BonoesController(DataContext context)
+        public BonoesController(DataContext context,
+             IConverterHelper converterHelper)
         {
             _context = context;
+            _converterHelper = converterHelper;
         }
 
         // GET: Bonoes
@@ -33,12 +34,12 @@ namespace Intranet.web.Controllers.Fidelizacion
             //printer.FullPaperCut();
             //printer.PrintDocument();
             return View(_context.Bonos
-              
+
               .Include(e => e.Redimidos)
               );
-         
+
         }
-  
+
 
         // GET: Bonoes/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -49,7 +50,7 @@ namespace Intranet.web.Controllers.Fidelizacion
             }
 
             var bono = await _context.Bonos
-                .Include(e=> e.Redimidos)
+                .Include(e => e.Redimidos)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (bono == null)
             {
@@ -180,6 +181,7 @@ namespace Intranet.web.Controllers.Fidelizacion
 
                 redime.Bono = await _context.Bonos
                 .FirstOrDefaultAsync(m => m.Id == id);
+                redime.Tercero =
                 redime.UserRegistra = User.Identity.Name;
                 redime.FechaRegistro = DateTime.Now.ToString(); ;
                 bono.Redimido = true;
@@ -188,10 +190,59 @@ namespace Intranet.web.Controllers.Fidelizacion
             _context.Bonos.Update(bono);
             _context.Redimidos.Add(redime);
             await _context.SaveChangesAsync();
-            
+
             //return RedirectToAction($"Details/{model.NegociacionId}");
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> AddRedime(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var bono = await _context.Bonos.FindAsync(id);
+            if (bono == null)
+            {
+                return NotFound();
+            }
+            var model = new AddRedimidosViewModel
+            {
+                FechaRegistro = DateTime.Today.ToString(),
+                BonoId = bono.Id,
 
+            };
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AddRedime(AddRedimidosViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var bono = await _context.Bonos.FirstOrDefaultAsync(m => m.Id == model.Id);
+                bono.Redimido = true;
+                var modelfull = new AddRedimidosViewModel
+                {
+
+                    Tercero = model.Tercero,
+                    FechaRegistro = DateTime.Now.ToString(),
+                    UserRegistra = User.Identity.Name,
+                    BonoId=model.BonoId
+
+
+                };
+
+               
+
+                var redimidosHelper = await _converterHelper.ToredimidosAsync (modelfull, true);
+                _context.Redimidos.Add(redimidosHelper);
+                _context.Bonos.Update(bono);
+                await _context.SaveChangesAsync();
+                return RedirectToAction($"Details/{model.BonoId}");
+            }
+
+            return View(model);
+        }
     }
 }

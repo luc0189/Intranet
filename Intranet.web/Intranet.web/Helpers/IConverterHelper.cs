@@ -1,7 +1,9 @@
 ﻿using Intranet.web.Data.Entities;
 using Intranet.web.Data.Entities.Compras;
+using Intranet.web.Data.Entities.Fidelizacion;
 using Intranet.web.Models;
 using Intranet.web.Models.Compras;
+using Intranet.web.Models.Fidelizacion;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Threading.Tasks;
 
@@ -14,6 +16,7 @@ namespace Intranet.web.Helpers
 
 
         Task<Incapacity> ToIncapAsync(AddIncapacityViewModel model, bool isNew);
+        Task<Redimidos> ToredimidosAsync(AddRedimidosViewModel model, bool isNew);
        
         EditIncapacityViewModel ToIncapViewModel(Incapacity incap);
 
