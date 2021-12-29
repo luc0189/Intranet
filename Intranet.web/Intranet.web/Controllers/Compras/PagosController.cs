@@ -31,6 +31,31 @@ namespace Intranet.web.Controllers.Compras
                 .ToListAsync());
         }
 
+        public async Task<IActionResult> Searchforeign(string nameForeing)
+        {
+            if (nameForeing == null)
+            {
+                return NotFound();
+            }
+            try
+            {
+                var Pago = await _context.Negociation
+               .Include(s => s.Pagos)
+               .FirstOrDefaultAsync(m => m.Providercompras.NameProvider.Contains(nameForeing));
+                if (Pago == null)
+                {
+                    return NotFound();
+                }
+                return RedirectToAction($"Details/{Pago.Id}");
+            }
+            catch (Exception e)
+            {
+
+                return RedirectToAction(nameof(Index));
+            }
+
+        }
+
         // GET: Pagos/Details/5
         public async Task<IActionResult> Details(int? id)
         {

@@ -17,14 +17,17 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <div class="form-group">
-
-                        <label>Proveedor: </label>
-                        <input type="text" name="Proveedor" value="" />
+                        <form action="GetPago" method="post">
+                            <label>Proveedor: </label>
+                            <input type="text" name="Proveedor" value="" />
+                            <input type="submit" value="Buscar" class="btn btn-primary" />
+                            <a asp-action="Index" class="btn btn-danger">Limpiar</a>
+                            <a asp-action="Index" class="btn btn-success">Pagar</a>
+                        </form>
+                       
 
                     </div>
-                    <select>
-                        <option value="Bonificacion">Bonificacion</option>
-                    </select>
+                   
                 </div>
                 <div class="panel-body">
                     <div class="col-md-6">
@@ -43,7 +46,7 @@
                     </div>
                 </div>
                 <DIV class="panel-footer">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                 
                     <a asp-action="Index" class="btn btn-success">Back to List</a>
                 </DIV>
                 </div>

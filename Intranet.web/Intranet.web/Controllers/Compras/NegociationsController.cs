@@ -119,25 +119,34 @@ namespace Intranet.web.Controllers.Compras
 
 
                 };
-                _context.Negociation.Add(negociacion);
-                await _context.SaveChangesAsync();
-                //return RedirectToAction(nameof(Index));
-                ModelState.AddModelError(string.Empty, "Registro Correcto");
-                model.Providercompras = _combosHelpers.GetComboProviderCompras();
-                model.Clasification = _combosHelpers.GetComboClasification();
-                model.Mes = _combosHelpers.GetComboMes();
-                model.SalaVentas = _combosHelpers.GetComboSalaVentas();
+                try
+                {
+                    _context.Negociation.Add(negociacion);
+                    await _context.SaveChangesAsync();
+                    model.Providercompras = _combosHelpers.GetComboProviderCompras();
+                    model.Clasification = _combosHelpers.GetComboClasification();
+                    model.Mes = _combosHelpers.GetComboMes();
+                    model.SalaVentas = _combosHelpers.GetComboSalaVentas();
+                    ModelState.AddModelError(string.Empty, "Registro Correcto");
+                }
+                catch (Exception e)
+                {
+                    ViewBag.Message = $"Excepcion no Controlada: {e.Message} mas detalles:{e.InnerException}";
+                    return View(model);
+                }
 
+                                
+              
                 return View(model);
 
 
             }
-            ModelState.AddModelError(string.Empty, "Registro Fallido: Revise la informacion");
+            
             model.Providercompras = _combosHelpers.GetComboProviderCompras();
             model.Clasification = _combosHelpers.GetComboClasification();
             model.Mes = _combosHelpers.GetComboMes();
             model.SalaVentas = _combosHelpers.GetComboSalaVentas();
-
+            ModelState.AddModelError(string.Empty, "Registro Fallido: Revise la informacion");
             //model.Roles = _combosHelpers.GetComboRoles();
             return View(model);
         }
@@ -513,7 +522,7 @@ namespace Intranet.web.Controllers.Compras
         }
 
 
-        public async Task<IActionResult> Out_focus(int ? plu)
+        public async Task<IActionResult> Out_focus(string  plu)
         {
             
             using (SqlConnection connection=new SqlConnection("Server=192.168.1.113,7433;Database=supermio;Persist Security Info=True;User Id=l.sanchez;Password=Team0103"))
@@ -548,7 +557,8 @@ namespace Intranet.web.Controllers.Compras
             //   _context.Negociation.Remove(negociation);
             //   await _context.SaveChangesAsync();
             //return RedirectToAction($"{nameof/{plu}");
-            return RedirectToAction(nameof(Index));
+            ///   return RedirectToAction(nameof(Index));
+            return View();
         }
 
         private bool NegociationExists(int id)

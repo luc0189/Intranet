@@ -4,14 +4,16 @@ using Intranet.web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Intranet.web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20211227212159_requerid_full")]
+    partial class requerid_full
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -369,11 +371,11 @@ namespace Intranet.web.Migrations
 
                     b.Property<string>("DocCobro")
                         .IsRequired()
-                        .HasMaxLength(300);
+                        .HasMaxLength(14);
 
                     b.Property<string>("DocLegalizacion")
                         .IsRequired()
-                        .HasMaxLength(300);
+                        .HasMaxLength(14);
 
                     b.Property<int?>("NegociationId");
 

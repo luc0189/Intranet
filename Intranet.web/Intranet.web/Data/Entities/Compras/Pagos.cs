@@ -16,12 +16,12 @@ namespace Intranet.web.Data.Entities.Compras
 
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
         [Display(Name = "Doc. de Cobro")]
-        [MaxLength(14)]
+        [MaxLength(300)]
         public string DocCobro { get; set; }
 
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
         [Display(Name = "Doc. de Legalizacion")]
-        [MaxLength(14)]
+        [MaxLength(300)]
         public string DocLegalizacion { get; set; }
 
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
