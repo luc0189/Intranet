@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-md-8 ">
                     <h2>Detalles de Negociacion </h2>
-                   
+
                 </div>
                 <div class="col-md-4">
                     <dl class="dl-horizontal">
@@ -95,8 +95,8 @@
                     </dl>
                 </div>
             </div>
-           
-          
+
+
             <hr />
             <div class="row">
                 <ul class="nav nav-tabs nav-justified">
@@ -305,10 +305,14 @@
                                                     <div class="panel-heading">
                                                         <a asp-action="AddProductoBon" class="btn btn-primary" asp-route-id="@Model.Id">Add Producto</a>
                                                         
+                                                            <button type="button" class="btn btn-primary">
+                                                                Valor total: <span id="total" class="badge badge-light"></span>
+                                                            </button>
+                                                       
                                                     </div>
                                                     <div class="panel-body">
                                                         <div class="table-responsive">
-                                                            <table class="table table-hover table-responsive table-striped display">
+                                                            <table class="table table-hover table-responsive table-striped display" id="bonificados">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>
@@ -330,7 +334,7 @@
                                                                             @Html.DisplayNameFor(model => model.ProductBonifis.FirstOrDefault().Userregistro)
                                                                         </th>
                                                                         <th>
-                                                                           
+
                                                                             Acciones
                                                                         </th>
                                                                     </tr>
@@ -358,14 +362,24 @@
                                                                                 @Html.DisplayFor(modelItem => item.Userregistro)
                                                                             </td>
                                                                             <td>
-                                                                               
-                                                                                <a asp-action="EditPago" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
 
-                                                                                <button data-id="@item.Id" class="btn btn-danger deleteExam" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+
+
+                                                                                <button data-id="@item.Id" class="btn btn-danger deleteProductBon" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
                                                                             </td>
                                                                         </tr>
                                                                     }
                                                                 </tbody>
+                                                                <tfoot>
+                                                                    <tr>
+                                                                        <th></th>
+                                                                        <th></th>
+                                                                        <th></th>
+                                                                        <th></th>
+                                                                        <th></th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                </tfoot>
                                                             </table>
                                                         </div>
 
@@ -383,7 +397,7 @@
                                         </div>
                                     </div>
 
-                                    
+
                                 }
 
 
@@ -397,24 +411,44 @@
         </div>
         <div class="panel-footer">
             <div class="form-group">
-                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a> 
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
                 <a asp-action="Index" class="btn btn-success">Back to List</a>
             </div>
         </div>
     </div>
 </div>
+<partial name="_DeleteDialogModal" />
+<partial name="_ExceptionModal" />
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.11.5/api/sum().js"></script>
+    
     <script type="text/javascript">
+        // Delete item
+
+      
         $(document).ready(function () {
-            // Delete item
+
+            var table = $('#bonificados').DataTable({
+                "drawCallback": function () {
+                    var api = this.api();
+                    $(api.column(4).footer()).html(
+                        "Total: " + api.column(4, {page:'current'}).data().sum()
+                    )
+                }
+            });
+            var tot = table.column(4).data().sum();
+            $("#total").text(tot);
+            
+
+
             var item_to_delete;
             var action_to_delete;
-            $('.display').DataTable();
 
-            $('.deleteEndowment').click((e) => {
+
+            $('.deleteProductBon').click((e) => {
                 item_to_delete = e.currentTarget.dataset.id;
                 action_to_delete = 1;
             });
@@ -423,42 +457,11 @@
                 item_to_delete = e.currentTarget.dataset.id;
                 action_to_delete = 2;
             });
-            $('.deletePerson').click((e) => {
-                item_to_delete = e.currentTarget.dataset.id;
-                action_to_delete = 3;
-            });
-            $('.deleteCredit').click((e) => {
-                item_to_delete = e.currentTarget.dataset.id;
-                action_to_delete = 4;
-            });
-            $('.deleteSon').click((e) => {
-                item_to_delete = e.currentTarget.dataset.id;
-                action_to_delete = 5;
-            });
-            $('.deleteImage').click((e) => {
-                item_to_delete = e.currentTarget.dataset.id;
-                action_to_delete = 6;
-            });
-            $('.deleteIncap').click((e) => {
-                item_to_delete = e.currentTarget.dataset.id;
-                action_to_delete = 7;
-            });
+
 
             $("#btnYesDelete").click(function () {
                 if (action_to_delete == 1) {
-                    window.location.href = '/Employees/DeleteEndowment/' + item_to_delete;
-                } if (action_to_delete == 2) {
-                    window.location.href = '/Employees/DeleteExam/' + item_to_delete;
-                } if (action_to_delete == 3) {
-                    window.location.href = '/Employees/DeletePersonContac/' + item_to_delete;
-                } if (action_to_delete == 4) {
-                    window.location.href = '/Employees/DeleteCredit/' + item_to_delete;
-                } if (action_to_delete == 5) {
-                    window.location.href = '/Employees/DeleteSon/' + item_to_delete;
-                } if (action_to_delete == 6) {
-                    window.location.href = '/Employees/DeleteImage/' + item_to_delete;
-                } if (action_to_delete == 7) {
-                    window.location.href = '/Employees/EditIncapacity/' + item_to_delete;
+                    window.location.href = '/Negociations/DeleteProductBon/' + item_to_delete;
                 }
 
             });

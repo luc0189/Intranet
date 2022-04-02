@@ -330,6 +330,39 @@ namespace Intranet.web.Controllers.Compras
             return View(model);
         }
 
+    
+        //public async Task<IActionResult> AddProductoBon(string Buscar)
+        //{
+        //    var modelfull = new SearchNegociationViewModel
+        //    {
+        //        ProviderId = model.ProviderId,
+               
+        //    };
+
+        //    if (ModelState.IsValid)
+        //    {
+
+        //        var negociaciones = await _converterHelper.ToPagoAsync(modelfull, true);
+        //        _context.Pagos.Add(pago);
+        //        await _context.SaveChangesAsync();
+        //        var negociacion = await _context.Negociation.FirstAsync(s => s.Id == model.NegociacionId);
+        //        if (negociacion != null)
+        //        {
+
+        //            negociacion.Detalle = negociacion.Detalle;
+        //            negociacion.Document = negociacion.Document;
+        //            negociacion.UsuCreate = negociacion.UsuCreate;
+        //            negociacion.Pago = true;
+        //            negociacion.UserPaga = User.Identity.Name;
+        //            negociacion.DatePaga = DateTime.Now.ToString();
+
+        //        };
+        //        _context.Negociation.Update(negociacion);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction($"Details/{model.NegociacionId}");
+        //    }
+        //    return View(model);
+        //}
         public async Task<IActionResult> EditPago(int? id)
         {
             if (id == null)
@@ -422,12 +455,14 @@ namespace Intranet.web.Controllers.Compras
                 var productobon = await _converterHelper.ToProductBonAsync(modelfull, true);
                 _context.ProductBonifi.Add(productobon);
                 await _context.SaveChangesAsync();
-                
-                return RedirectToAction($"Details/{model.NegociacionId}");
+                ModelState.AddModelError(string.Empty, "Registro Correcto");
+
+                //return RedirectToAction($"Details/{model.NegociacionId}");
             }
             return View(model);
         }
 
+     
 
         public async Task<IActionResult> AddCheckVerificar(int? id)
         {
@@ -521,49 +556,84 @@ namespace Intranet.web.Controllers.Compras
             return RedirectToAction(nameof(Index));
         }
 
-
-        public async Task<IActionResult> Out_focus(string  plu)
+        // GET: Negociations/Out_focus/{ProductoID}
+        public IActionResult Out_focus(string plu)
         {
-            
-            using (SqlConnection connection=new SqlConnection("Server=192.168.1.113,7433;Database=supermio;Persist Security Info=True;User Id=l.sanchez;Password=Team0103"))
+            ProductSearchResult productSearchResult = new ProductSearchResult();
+
+            using (SqlConnection connection = new SqlConnection("Server=192.168.1.113,7433;Database=supermio;Persist Security Info=True;User Id=l.sanchez;Password=Team0103"))
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = "select detalle from articulo where codigo='" + plu + "'";
+                command.CommandText = $"select codigo, detalle from articulo where codigo='{plu}'";
                 command.CommandType = System.Data.CommandType.Text;
-                
+
                 connection.Open();
-                using(SqlDataReader reader= command.ExecuteReader())
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                           Console.WriteLine(reader[0]);
+                            productSearchResult.Codigo = reader[0].ToString();
+                            productSearchResult.Nombre = reader[1].ToString();
                         }
                     }
                     else
                     {
-                        Console.WriteLine("articulo no Existe");      
+                        Console.WriteLine("articulo no Existe");
                     }
                     reader.Close();
                 }
             }
-            //var articulo = context.articulo
-            //            .Where(b => b.codigo.Contains(plu))
-            //            .ToList(); 
+            return Ok(productSearchResult.Nombre);
 
-            //   var negociation = await _context.Negociation.FindAsync(id);
-            //   _context.Negociation.Remove(negociation);
-            //   await _context.SaveChangesAsync();
-            //return RedirectToAction($"{nameof/{plu}");
-            ///   return RedirectToAction(nameof(Index));
-            return View();
         }
+
+
+
 
         private bool NegociationExists(int id)
         {
             return _context.Negociation.Any(e => e.Id == id);
         }
+        public async Task<IActionResult> DeleteProductBon(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var productBon = await _context.ProductBonifi
+                .Include(pi => pi.Negociation)
+                .FirstOrDefaultAsync(pi => pi.Id == id.Value);
+            if (productBon == null)
+            {
+                return NotFound();
+            }
+
+
+            try
+            {
+                _context.ProductBonifi.Remove(productBon);
+                await _context.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{productBon.Negociation.Id}");
+            }
+            catch (Exception e)
+            {
+
+                ViewBag.Message = $"Se a Generado una excepcion no Controlada: {e.Message}."; ;
+            }
+            return View();
+        }
     }
+   
+
+    public class ProductSearchResult
+    {
+        public string Codigo { get; set; }
+
+        public string Nombre { get; set; }
+    }
+
 }

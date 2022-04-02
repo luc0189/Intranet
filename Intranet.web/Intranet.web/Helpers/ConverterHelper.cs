@@ -228,6 +228,10 @@ namespace Intranet.web.Helpers
 
             };
         }//
+
+     
+
+
         public EditPagoViewModel ToEditPagoViewModel(Pagos pagos)
         {
             return new EditPagoViewModel

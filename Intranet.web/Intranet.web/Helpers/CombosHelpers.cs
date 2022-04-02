@@ -129,10 +129,6 @@ namespace Intranet.web.Helpers
             });
             return list;
         }
-       
-
-      
-
         public IEnumerable<SelectListItem> GetComboPension()
         {
             var list = _dataContext.Pensions.Select(a => new SelectListItem

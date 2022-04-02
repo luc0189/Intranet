@@ -37,7 +37,7 @@ namespace Intranet.web.Data.Entities.Compras
         [Display(Name = "Usuario Registra")]
         [MaxLength(100)]
         public string Userregistro { get; set; }
-
+       
         public Negociation Negociation { get; set; }
 
     }

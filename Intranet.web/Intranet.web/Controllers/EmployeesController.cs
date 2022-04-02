@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Intranet.web.Controllers
 {
-    
+
     public class EmployeesController : Controller
     {
         private readonly DataContext _dataContext;
@@ -97,8 +97,8 @@ namespace Intranet.web.Controllers
                 .Include(e => e.Incapacities)
                 .Include(e => e.Endowments)
                 .Include(e => e.Contracts)
-                .Include(e=> e.CargosAsgs)
-                .Include(e=> e.UserImages)
+                .Include(e => e.CargosAsgs)
+                .Include(e => e.UserImages)
                 );
         }
 
@@ -110,31 +110,57 @@ namespace Intranet.web.Controllers
                 return NotFound();
             }
 
-            var employee = await _dataContext.Employees
-                .Include(e => e.Sons)
-                .Include(e => e.Area)
-                .Include(e => e.Eps)
-                .Include(e => e.Pension)
-                .Include(e => e.CajaCompensacion)
-                .Include(e => e.PersonContacts)
-                .Include(i => i.UserImages)
-                .Include(e => e.Incapacities)
-                .ThenInclude(e=> e.TypeNew)
-                .Include(e => e.Contracts)
-                .Include(e => e.CargosAsgs)
-                .Include(e => e.Credits)
-                .ThenInclude(c => c.CreditEntities)
-                .Include(e => e.Exams)
-                .ThenInclude(t => t.ExamsType)
-                .Include(e => e.Endowments)
-                .ThenInclude(c => c.EndowmentType)
-                .FirstOrDefaultAsync(e => e.Id == id);
-            if (employee == null)
+            //var employee = await _dataContext.Employees
+            //    .Include(e => e.Sons)
+            //    .Include(e => e.Area)
+            //    .Include(e => e.Eps)
+            //    .Include(e => e.Pension)
+            //    .Include(e => e.CajaCompensacion)
+            //    .Include(e => e.PersonContacts)
+            //    .Include(i => i.UserImages)
+            //    .Include(e => e.Incapacities)
+            //    .ThenInclude(e => e.TypeNew)
+            //    .Include(e => e.Contracts)
+            //    .Include(e => e.CargosAsgs)
+            //    .Include(e => e.Credits)
+            //    .ThenInclude(c => c.CreditEntities)
+            //    .Include(e => e.Exams)
+            //    .ThenInclude(t => t.ExamsType)
+            //    .Include(e => e.Endowments)
+            //    .ThenInclude(c => c.EndowmentType)
+            //    .FirstOrDefaultAsync(e => e.Id == id);
+            Employee x = null;
+            try
             {
-                return NotFound();
+                x = await (from r in _dataContext.Employees.Include(e => e.Sons)
+                                  .Include(e => e.Area)
+                                  .Include(e => e.Eps)
+                                  .Include(e => e.Pension)
+                                  .Include(e => e.CajaCompensacion)
+                                  .Include(e => e.PersonContacts)
+                                  .Include(i => i.UserImages)
+                                  .Include(e => e.Incapacities)
+                                  .ThenInclude(e => e.TypeNew)
+                                  .Include(e => e.Contracts)
+                                  .Include(e => e.CargosAsgs)
+                                  .Include(e => e.Credits)
+                                  .ThenInclude(c => c.CreditEntities)
+                                  .Include(e => e.Exams)
+                                  .ThenInclude(t => t.ExamsType)
+                                  .Include(e => e.Endowments)
+                                  .ThenInclude(c => c.EndowmentType)
+                           where r.Id == id
+                           select r).FirstOrDefaultAsync();
+                if (x == null)
+                {
+                    return NotFound();
+                }
             }
-
-            return View(employee);
+            catch (Exception)
+            {
+                throw;
+            }
+            return View(x);
         }
 
 
@@ -198,8 +224,8 @@ namespace Intranet.web.Controllers
                     PersonContacts = new List<PersonContact>(),
                     Incapacities = new List<Incapacity>(),
                     UserImages = new List<UserImages>(),
-                    Sexo= model.Sexo,
-                    Sueldo=model.Sueldo,
+                    Sexo = model.Sexo,
+                    Sueldo = model.Sueldo,
                     Area = await _dataContext.Areas.FindAsync(model.AreaId),
                     Eps = await _dataContext.Eps.FindAsync(model.EpsId),
                     Pension = await _dataContext.Pensions.FindAsync(model.PensionId),
@@ -565,7 +591,7 @@ namespace Intranet.web.Controllers
                     UserRegistra = User.Identity.Name,
                     CantDay = model.CantDay,
                     EmployeeIds = model.EmployeeIds,
-                    TypeId=model.TypeId
+                    TypeId = model.TypeId
 
 
                 };
@@ -585,7 +611,7 @@ namespace Intranet.web.Controllers
             }
             var incap = await _dataContext.Incapacities
                 .Include(s => s.Employee)
-                .Include(n=>n.TypeNew)
+                .Include(n => n.TypeNew)
                 .FirstOrDefaultAsync(s => s.Id == id);
             if (incap == null)
             {

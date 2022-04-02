@@ -3,54 +3,118 @@
 @{
     ViewData["Title"] = "Create";
 }
+    <hr />
+    <div class="panel panel-default">
 
-<form asp-action="AddProductoBon">
-    <div class="row">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2>Crear</h2>
-                <h4>Producto</h4>
+        <div class="panel-heading">
+            <h2>Crear</h2>
+            <h4>Producto</h4>
+        </div>
+
+
+        <form asp-action="Out_focus" >
+            <div class="panel-body">
+                <div class="form-group">
+                    <label asp-for="Plu" class="control-label"></label>
+                    <input  class="form-control"  id="fname" />
+                    <span asp-validation-for="Plu" class="text-danger"></span>
+                </div>
             </div>
+
+            <input value="Buscar" class="btn btn-primary" onclick="myFunction()" />
+        </form>
+    <form asp-action="AddProductoBon">
+        <div class="row">
+
             <div class="panel-body">
 
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div asp-validation-summary="ModelOnly" id="Valida" class="text-danger"></div>
                 <input type="hidden" asp-for="NegociacionId" />
-                <input type="hidden" asp-for="Plu" />
+             
                 <partial name="_ProductBon" />
 
             </div>
 
-
-
-            <div class="panel-footer">
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                    <a asp-action="Details" asp-route-id="@Model.NegociacionId" class="btn btn-success">Back to Negociacion</a>
-                </div>
-            </div>
-
         </div>
-    </div>
-</form>
 
+
+        <div class="panel-footer">
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Details" asp-route-id="@Model.NegociacionId" class="btn btn-success">Back to Negociacion</a>
+            </div>
+        </div>
+    </form>
+    </div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript">
-
+        setTimeout(function () {
+            document.getElementById('Valida').style.display = 'none';
+        }, 3000);
+        
         function myFunction() {
 
             var input = document.getElementById("fname");
             var valor = input.value;
 
-            alert("El valor del campo es:" + valor);
+            //alert("El valor del campo es:" + valor);
             //var value = document.getElementById('fname').value;
+
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:44370/Negociations/Out_focus/",
+                data: {plu:valor},
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    document.getElementById("fname2").value = input.value;
+                    document.getElementById("detalle").value = response;
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                   
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                   
            
-     
-            window.location.href = '/Negociations/Out_focus/' + valor;
+                }
+            });
+        
+            
         }
 
+        function myFunction2() {
 
+            var input = document.getElementById("fname");
+            var valor = input.value;
+
+            //alert("El valor del campo es:" + valor);
+            //var value = document.getElementById('fname').value;
+
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:44370/Negociations/Out_focus/",
+                data: { plu: valor },
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    document.getElementById("fname2").value = input.value;
+                    document.getElementById("detalle").value = response;
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+
+                },
+                error: function (response) {
+                    alert(response.responseText);
+
+
+                }
+            });
+
+
+        }
         $(document).ready(function () {
             // Delete item
             var item_to_delete;
