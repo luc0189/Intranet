@@ -64,7 +64,7 @@
 
             $.ajax({
                 type: "GET",
-                url: "https://localhost:44370/Negociations/Out_focus/",
+                url: "http://192.168.1.219:8082/Negociations/Out_focus/",
                 data: {plu:valor},
                 contentType: "application/json; charset=utf-8",
                 success: function (response) {
@@ -95,7 +95,8 @@
 
             $.ajax({
                 type: "GET",
-                url: "https://localhost:44370/Negociations/Out_focus/",
+                url: "http://localhost:8082/Negociations/Out_focus/",
+                url: "http://localhost:8082/Negociations/Out_focus/",
                 data: { plu: valor },
                 contentType: "application/json; charset=utf-8",
                 success: function (response) {

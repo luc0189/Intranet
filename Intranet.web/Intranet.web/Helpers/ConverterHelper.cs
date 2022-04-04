@@ -433,9 +433,9 @@ namespace Intranet.web.Helpers
             {
                 states = "Vencido";
             }
-            if (valor <= 30)
+            if (valor <= 30 & valor>=1)
             {
-                states = "A vences";
+                states = "A vencer";
             }
             if (valor >= 31)
             {

@@ -21,7 +21,7 @@ namespace Intranet.web.Controllers
            _dataContext = dataContext;
            _converterHelper = converterHelper;
         }
-        public async Task<IActionResult> Index()
+        public  IActionResult Index()
         {
             //var query = from u in _dataContext.Exams
             //            select new
@@ -29,10 +29,9 @@ namespace Intranet.web.Controllers
             //                name = u.Id,
             //                imported = (((TimeSpan)(DateTime.Now - u.EndDate)).Days >= 1 ) ? "Vencido" : "no se"
             //            };
-            var exams = await _dataContext.Exams
+            var exams =  _dataContext.Exams
                 .Include(s => s.Employee)
-                .Include(e => e.ExamsType)
-                .FirstOrDefaultAsync(s => s.Id == 1);
+                .Include(e => e.ExamsType);
 
             var model = _dataContext.Exams
                 .Include(s => s.ExamsType)
@@ -40,8 +39,9 @@ namespace Intranet.web.Controllers
                 .Include(s => s.Employee);
             
 
-            return View(_converterHelper.ToReportExamViewModel(exams));
+            return View(exams);
                
         }
+
     }
 }

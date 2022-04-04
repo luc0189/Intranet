@@ -38,13 +38,13 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.Employee.Movil)
                                 </th>
-                             
+
                                 <th>
                                     @Html.DisplayNameFor(model => model.Activo)
                                 </th>
-                                <th>
+                                @*<th>
                                     Acciones
-                                </th>
+                                </th>*@
 
                             </tr>
                         </thead>
@@ -62,7 +62,7 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.StartDate)
                                     </td>
-                                    <td>
+                                    <td id="datefin">
                                         @Html.DisplayFor(modelItem => item.EndDate)
                                     </td>
 
@@ -72,13 +72,13 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Activo)
                                     </td>
-                                   
-                                    <td>
+
+                                    @*<td>
                                         <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
-                                        <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id"><i class="glyphicon glyphicon-list"></i></a> |
+                                        <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id"><i class="glyphicon glyphicon-list"></i></a>
                                         <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
 
-                                    </td>
+                                    </td>*@
                                 </tr>
                             }
                         </tbody>
@@ -95,19 +95,61 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.11.5/api/sum().js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
             // Delete item
             var item_to_delete;
-            $('#MyTable').DataTable();
-            $('.deleteItem').click((e) => {
-                item_to_delete = e.currentTarget.dataset.id;
-            });
+            var fechafin = document.getElementById("#datefin");
+            var hoy = new Date(new Date().setHours(0,0,0,0));
+           
+         
+       
+            var table = $('#MyTable').DataTable({
+                "createdRow": function (row, data, index) {
+                    var datotabla = new Date(data[3]);
+                    var resta = datotabla - hoy;
+                    console.log(resta);
+                    console.log(hoy);
+                    console.log(datotabla);
+                    if (resta <= 1) {
+                        
+                        $('td', row).eq(3).css({
+                            'background-color': '#d9534f',
+                            'color': 'white',
+                        });
+                    } if (resta <= 5356800000 & resta>=1) {
+                        
+                        $('td', row).eq(3).css({
+                            'background-color': '#F5BA44',
+                            'color': 'white',
+                        });
+                        }
+                    }
+                });
 
-            $("#btnYesDelete").click(function () {
-                window.location.href = '/Employees/Delete/' + item_to_delete;
-            });
         });
+
+
+
+
+
+
+        //$('.deleteItem').click((e) => {
+        //    item_to_delete = e.currentTarget.dataset.id;
+        //});
+
+        //$("#btnYesDelete").click(function () {
+        //    window.location.href = '/Employees/Delete/' + item_to_delete;
+        //});
+
+
+        //"drawCallback": function () {
+                //    var api = this.api();
+                //    $(api.column(4).footer()).html(
+                //        "Total: " + api.column(4, { page: 'current' }).data().sum()
+                //    )
+                //}
     </script>
-}
+} 

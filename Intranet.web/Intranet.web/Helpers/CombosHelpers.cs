@@ -58,7 +58,7 @@ namespace Intranet.web.Helpers
              .ToList();
             list.Insert(0, new SelectListItem
             {
-                Text = "(Seleccione un Tipo de Examen...)",
+                Text = "(Seleccione una Entidad...)",
                 Value = "0"
             });
             return list;
