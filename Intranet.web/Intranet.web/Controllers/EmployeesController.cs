@@ -98,6 +98,7 @@ namespace Intranet.web.Controllers
                 .Include(e => e.Endowments)
                 .Include(e => e.Contracts)
                 .Include(e => e.CargosAsgs)
+                .ThenInclude(e=>e.PositionEmployee)
                 .Include(e => e.UserImages)
                 );
         }
@@ -143,6 +144,7 @@ namespace Intranet.web.Controllers
                                   .ThenInclude(e => e.TypeNew)
                                   .Include(e => e.Contracts)
                                   .Include(e => e.CargosAsgs)
+                                  .ThenInclude(e=>e.PositionEmployee)
                                   .Include(e => e.Credits)
                                   .ThenInclude(c => c.CreditEntities)
                                   .Include(e => e.Exams)
@@ -650,6 +652,97 @@ namespace Intranet.web.Controllers
             return View();
         }
 
+        public async Task<IActionResult> AddCargos(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var employe = await _dataContext.Employees.FindAsync(id);
+            if (employe == null)
+            {
+                return NotFound();
+            }
+           
+            var model = new CargosViewModels
+            {
+                EmployeeIds = employe.Id ,
+                UserRegistra = User.Identity.Name,
+                PositionEmployeds = _combosHelpers.GetComboCargos(),
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddCargos(CargosViewModels model)
+        {
+            var modelfull = new CargosViewModels
+            {
+                EmployeeIds = model.EmployeeIds,
+            
+                DateRegistro = DateTime.Now.ToString(),
+                PositionId=model.PositionId,
+                UserRegistra = User.Identity.Name,
+
+
+            };
+
+            if (ModelState.IsValid)
+            {
+
+                var cargo = await _converterHelper.ToCargosAsync(modelfull, true);
+                _dataContext.CargosAsgs.Add(cargo);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"Details/{model.EmployeeIds}");
+            }
+            return View(model);
+        }
+        public async Task<IActionResult> EditCargos(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var son = await _dataContext.Sons
+                .Include(s => s.Employee)
+                .FirstOrDefaultAsync(s => s.Id == id);
+            if (son == null)
+            {
+                return NotFound();
+            }
+
+
+            return View(_converterHelper.ToEditSonViewModel(son));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditCargos(EditSonViewModel model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var modelfull = new EditSonViewModel
+                {
+                    Id = model.Id,
+                    EmployeeId = model.Id,
+                    Datebirth = model.Datebirth,
+                    DateRegistro = model.DateRegistro,
+                    UserModify = User.Identity.Name,
+                    DateModify = DateTime.Now,
+                    Genero = model.Genero,
+                    Name = model.Name,
+                    UserRegistra = model.UserRegistra
+
+
+                };
+                var sons = await _converterHelper.ToEditSonsAsync(modelfull);
+                _dataContext.Sons.Update(sons);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");
+                // return RedirectToAction($"Details/{model.SiteId}");
+            }
+            return View(model);
+        }
 
 
 
@@ -1041,33 +1134,31 @@ namespace Intranet.web.Controllers
             {
                 return NotFound();
             }
-            var model = new AddEndowmentViewModel
+            var model = new ContractViewModel
             {
-                EmployeeId = employe.Id,
+                EmployeeIds = employe.Id,
 
             };
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddContrac(AddEndowmentViewModel model)
+        public async Task<IActionResult> AddContrac(ContractViewModel model)
         {
-            var cant = await _dataContext.EndowmentsTypes.FirstOrDefaultAsync(e => e.Id == model.EndowmentTypeId);
+            
             if (ModelState.IsValid)
             {
-                var modelfull = new AddEndowmentViewModel
+                var modelfull = new ContractViewModel
                 {
-                    Count = model.Count,
-                    DateDelivery = model.DateDelivery,
-                    DateRegistro = model.DateRegistro,
-                    Detail = model.Detail,
-                    Employee = model.Employee,
-                    EmployeeId = model.EmployeeId,
-                    Size = model.Size,
-                    DateVence = model.DateDelivery.AddMonths(cant.EspirationDate),
-                    UserRegistra = User.Identity.Name,
-                    EndowmentTypeId = model.EndowmentTypeId,
-                    EndowmnetsTypes = _combosHelpers.GetComboEndowmentType(),
+                    Clausulas = model.Clausulas,
+                    DateStart = model.DateStart,
+                    Id = model.Id,
+                    Note = model.Note,
+                    EmployeeIds = model.EmployeeIds,
+                  
+                    
+                    DateEnd = model.DateEnd.AddYears(1),
+                   
 
                 };
                 var endowments = await _converterHelper.ToAddEndowmentAsync(modelfull, true);

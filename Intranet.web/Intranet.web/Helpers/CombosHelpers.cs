@@ -17,6 +17,21 @@ namespace Intranet.web.Helpers
         {
             _dataContext = dataContext;
         }
+        public IEnumerable<SelectListItem> GetComboCargos()
+        {
+            var list = _dataContext.PositionEmployees.Select(et => new SelectListItem
+            {
+                Text = et.Position,
+                Value = $"{et.Id}"
+            }).OrderBy(et => et.Text)
+             .ToList();
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione un Cargo...)",
+                Value = "0"
+            });
+            return list;
+        }
         public IEnumerable<SelectListItem> GetComboExamTypes()
         {
             var list = _dataContext.ExamsTypes.Select(et => new SelectListItem
@@ -32,7 +47,7 @@ namespace Intranet.web.Helpers
             });
             return list;
         }
-        
+    
              public IEnumerable<SelectListItem> GetComboTypeNew()
         {
             var list = _dataContext.TypeNews.Select(et => new SelectListItem

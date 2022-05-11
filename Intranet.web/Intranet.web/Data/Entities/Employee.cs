@@ -22,12 +22,12 @@ namespace Intranet.web.Data.Entities
         [MaxLength(80)]
         public string SiteExpedition { get; set; }
 
-        [Display(Name = "First Name")]
-        [MaxLength(50, ErrorMessage = "The {0} field can not have more than {1} characters.")]
+        [Display(Name = "Nombres")]
+        [MaxLength(50, ErrorMessage = "El campo {0} maximo {1} Caracteres.")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         public string FirstName { get; set; }
 
-        [Display(Name = "Last Name")]
+        [Display(Name = "Apellidos")]
         [MaxLength(50, ErrorMessage = "The {0} field can not have more than {1} characters.")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         public string LastName { get; set; }
@@ -52,7 +52,7 @@ namespace Intranet.web.Data.Entities
         [MaxLength(50)]
         public string SiteBirth { get; set; }
 
-        [MaxLength(200, ErrorMessage = "The {0} field can not have more than {1} characters.")]
+        [MaxLength(200, ErrorMessage = "el campo {0} debe contener maximo {1} Caracteres.")]
         public string Address { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]

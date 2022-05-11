@@ -1,49 +1,54 @@
 ﻿@model Intranet.web.Models.EmployeViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Nuevo Empleado";
 }
    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 
-<hr />
 
-    
-    <form asp-action="Create">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h2>Create</h2>
+   <section class="content-header">
+       <hr />
+   </section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-action="Create">
+                    <div class="card card-dark">
+                        <div class="card-header">
+                            Datos del Empleado
 
-                    <h4>Employe</h4>
-
-                </div>
-                <div class="panel-body">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="Id" />
-
-                    <partial name="_Employe" />
-
-
-
-                    
-                 </div>
-                <div class="panel-footer">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <input type="submit" value="Create" class="btn btn-primary" />
-                                <a asp-action="Index" class="btn btn-success">Back to List</a>
+                            <div class="card-tools">
+                                <input type="submit" value="Guardar" class="btn btn-dark" />
                             </div>
+                        </div>
+                        <div class="card-body">
+
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Id" />
+
+                            <partial name="_Employe" />
+
+
+                        </div>
+                        <div class="card-footer">
+
+                            <div class="form-group">
+
+                                <a asp-action="Index" class="btn btn-success">Volver Atras</a>
+                            </div>
+
+
                         </div>
 
                     </div>
-                </div>
+
+                </form>
             </div>
-         </div>
-    </form>
+        </div>
+    </div>
+</section>
 
-
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+                        @section Scripts {
+                            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+                        }

@@ -1,115 +1,141 @@
 ﻿@model IEnumerable<Intranet.web.Data.Entities.Employee>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Listado de Empleados";
 }
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
     
     <br />
 
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <a asp-action="Create" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>Create New Employe</a>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Listado Empleados</h1>
             </div>
-            <div class="panel-body">
-                <div class="table-responsive ">
-                    <table class="table table-hover table-striped" id="MyTable">
-                        <thead>
-                            <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.UserImages)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Document)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.FullName)
-                                </th>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                    <li class="breadcrumb-item active">Empleados</li>
+                    <li class="breadcrumb-item active">Listado</li>
 
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Address)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Rh)
-                                </th>
-
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Movil)
-                                </th>
-                                <th>
-                                    Exams
-                                </th>
-                                <th>
-                                    Hijos
-                                </th>
-                                <th>
-                                    Creditos
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Activo)
-                                </th>
-                                <th>
-                                    Acciones
-                                </th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.UserImages)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Document)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FullName)
-                                </td>
-
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Address)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Rh)
-                                </td>
-
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Movil)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Exams.Count)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Sons.Count)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Credits.Count)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Activo)
-                                </td>
-                                <td>
-                                    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
-                                    <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id"><i class="glyphicon glyphicon-list"></i></a>
-                                    <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-
-                                </td>
-                            </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-             
+                </ol>
             </div>
         </div>
     </div>
-</div>
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-dark">
+                    <div class="card-header">
+                        <div class="card-tools">
+                            <a asp-action="Create" class="btn btn-dark"><i class="fa fa-plus"></i> Nuevo </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped MyTable" >
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.UserImages)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Document)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.FullName)
+                                        </th>
+
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Address)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Rh)
+                                        </th>
+
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Movil)
+                                        </th>
+                                        <th>
+                                            Exams
+                                        </th>
+                                        <th>
+                                            Hijos
+                                        </th>
+                                        <th>
+                                            Creditos
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Activo)
+                                        </th>
+                                        <th>
+                                            Acciones
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.UserImages)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Document)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.FullName)
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Address)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Rh)
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Movil)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Exams.Count)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Sons.Count)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Credits.Count)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Activo)
+                                            </td>
+                                            <td>
+                                                <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id"><i class="glyphicon glyphicon-list"></i></a>
+                                                <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <partial name="_DeleteDialogModal" />
 
 
@@ -121,7 +147,8 @@
         $(document).ready(function () {
             // Delete item
             var item_to_delete;
-            $('#MyTable').DataTable();
+           
+            GridGeneral();
             $('.deleteItem').click((e) => {
                 item_to_delete = e.currentTarget.dataset.id;
             });
@@ -130,5 +157,75 @@
                 window.location.href = '/Employees/Delete/' + item_to_delete;
             });
         });
+        var GridGeneral = function () {
+            $(".MyTable").prepend($("<thead></thead>").append($(".MyTable").find("tr:first"))).dataTable({
+                "language": lenguaje_espanol,
+                "dom": "Bfrtip",
+                "buttons": botoneraExport,
+                responsive: true
+            });
+        }
+        var lenguaje_espanol = {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados ",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        }
+        var botoneraExport =
+            [
+                {
+                    extend: 'copy',
+                    className: 'copyButton',
+                    text: '<i class="fa fa-clone"></i> Copiar'
+                },
+                {
+                    extend: 'excel',
+                    text: '<i class="fa fa-file-excel-o"></i> Excel'
+                },
+
+                {
+                    extend: 'csv',
+                    text: '<i class="fa fa-file-excel-o"></i> CSV'
+                },
+                {
+                    extend: 'pdf',
+                    text: '<i class="fa fa-file-pdf-o"></i> PDF'
+                },
+                {
+                    extend: 'print',
+                    text: '<i class="fa fa-print"></i> Imprimir',
+                    customize: function (win) {
+                        $(win.document.body)
+                            .css('font-size', '10pt')
+                            .prepend(
+                                '<img src="../dist/img/ws.png" style="position:absolute; top:0; left:1;" />'
+
+                            );
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+
+            ]
     </script>
 }

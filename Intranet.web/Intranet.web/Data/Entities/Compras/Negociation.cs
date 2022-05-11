@@ -83,7 +83,7 @@ namespace Intranet.web.Data.Entities.Compras
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         public SalaVenta SalaVenta { get; set; }
 
-        public ICollection<Pagos> Pagos { get; set; }
+        public ICollection<Pagos> Pagoss { get; set; }
         public ICollection<Verificado> Verificados { get; set; }
         public ICollection<ProductBonifi> ProductBonifis { get; set; }
 

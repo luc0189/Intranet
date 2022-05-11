@@ -1,968 +1,986 @@
 ﻿@model Intranet.web.Data.Entities.Employee
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles Empleado";
 }
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
-<hr />
+
+<section class="content-header">
+  
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-dark">
+                    <div class="card-header">
+                        <h2>Detalles Empleado</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
 
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2>Details Employe</h2>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-3">
-
-
-                        @if (Model.UserImages.Count == 0)
-                        {
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <a asp-action="AddImage" class="btn btn-primary" asp-route-id="@Model.Id"><i class="glyphicon glyphicon-plus"></i> Add Fhoto</a>
+                                @if (Model.UserImages.Count == 0)
+                                {
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card card-default">
+                                                <div class="card-header">
+                                                    <a asp-action="AddImage" class="btn btn-primary" asp-route-id="@Model.Id"><i class="glyphicon glyphicon-plus"></i> Add Fhoto</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+
+                                }
+                                else
+                                {
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <table class="table">
+
+                                                        <tbody>
+                                                            @foreach (var item in Model.UserImages)
+                                                            {
+                                                                <tr>
+                                                                    <td>
+                                                                        @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                                                        {
+                                                                            <div class="thumbnail">
+                                                                                <img src="@Url.Content(item.ImageUrl)" alt="Image" style="width:150px;height:150px;" />
+                                                                            </div>
+                                                                        }
+
+                                                                    </td>
+
+                                                                    <td>
+
+
+                                                                        <button data-id="@item.Id" class="btn btn-danger deleteImage" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+
+
+
                             </div>
 
-                        }
-                        else
-                        {
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <table class="table">
 
-                                                <tbody>
-                                                    @foreach (var item in Model.UserImages)
-                                                    {
-                                                        <tr>
-                                                            <td>
-                                                                @if (!string.IsNullOrEmpty(item.ImageUrl))
-                                                                {
-                                                                    <div class="thumbnail">
-                                                                        <img src="@Url.Content(item.ImageUrl)" alt="Image" style="width:150px;height:150px;" />
+                            <div class="col-md-3">
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Document)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Document)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.FirstName)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.FirstName)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.LastName)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.LastName)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Address)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Address)
+                                    </dd>
+                                   
+
+
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Movil)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Movil)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.DateCumple)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.DateCumple)
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="col-md-3">
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Email)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Email)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Area.Nombre)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Area.Nombre)
+                                    </dd>
+
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.JobTitle)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.JobTitle)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.NivelEducation)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.NivelEducation)
+                                    </dd>
+
+
+
+                                    <dt>
+                                        Eps:
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Eps.Nombre)
+                                    </dd>
+
+
+
+                                </dl>
+                            </div>
+                            <div class="col-md-3">
+                                <dl class="dl-horizontal">
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Rh)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Rh)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Activo)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Activo)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Arl)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Arl)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.License)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.License)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.DateRetiro)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.DateRetiro)
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="card card-dark card-tabs">
+                            <div class="card-header p-0 pt-1">
+                                <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">Dotaciones <span class="badge"> @Html.DisplayFor(modelItem => Model.Endowments.Count)</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">Novedades <span class="badge"> @Html.DisplayFor(modelItem => Model.Incapacities.Count)</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill" href="#custom-tabs-one-messages" role="tab" aria-controls="custom-tabs-one-messages" aria-selected="false">Hijos <span class="badge"> @Html.DisplayFor(modelItem => Model.Sons.Count)</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill" href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="false">Creditos <span class="badge"> @Html.DisplayFor(modelItem => Model.Credits.Count)</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="custom-tabs-one-contatos-tab" data-toggle="pill" href="#custom-tabs-one-contatos" role="tab" aria-controls="custom-tabs-one-contatos" aria-selected="false">Contacto <span class="badge"> @Html.DisplayFor(modelItem => Model.PersonContacts.Count)</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="custom-tabs-one-Exam-tab" data-toggle="pill" href="#custom-tabs-one-Exam" role="tab" aria-controls="custom-tabs-one-Exam" aria-selected="false">Examenes <span class="badge"> @Html.DisplayFor(modelItem => Model.Exams.Count)</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="custom-tabs-one-Carg-tab" data-toggle="pill" href="#custom-tabs-one-Carg" role="tab" aria-controls="custom-tabs-one-Carg" aria-selected="false">Cargos <span class="badge"> @Html.DisplayFor(modelItem => Model.CargosAsgs.Count)</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="custom-tabs-one-Exam-tab" data-toggle="pill" href="#custom-tabs-one-Cont" role="tab" aria-controls="custom-tabs-one-Cont" aria-selected="false">Contratos <span class="badge"> @Html.DisplayFor(modelItem => Model.Contracts.Count)</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="custom-tabs-one-Exam-tab" data-toggle="pill" href="#custom-tabs-one-Exam" role="tab" aria-controls="custom-tabs-one-Exam" aria-selected="false">Activos <span class="badge"> @Html.DisplayFor(modelItem => Model.Endowments.Count)</span></a></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content" id="custom-tabs-one-tabContent">
+                                    <div class="tab-pane fade active show" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
+                                        <div class="card">
+
+                                            <div class="card-body">
+                                                @if (Model.Endowments.Count == 0)
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="card card-default">
+                                                                <div class="card-header">
+                                                                    <a asp-action="AddEndowment" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Dotacion</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="card card-default">
+                                                                <div class="card-header">
+
+                                                                    <a asp-action="AddEndowment" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Dotacion</a>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-hover table-responsive table-striped display">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().EndowmentType.NameType)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().Detail)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().Count)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().Size)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().DateDeliveryLocal)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().DateVence)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().UserRegistra)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        Acciones
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @foreach (var item in Model.Endowments)
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.EndowmentType.NameType)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.Detail)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.Count)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.Size)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.DateDeliveryLocal)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.DateVence)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.UserRegistra)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <a asp-action="EditEndowment" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                                                                            <button data-id="@item.Id" class="btn btn-danger deleteEndowment" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                }
+                                                                            </tbody>
+                                                                        </table>
                                                                     </div>
-                                                                }
 
-                                                            </td>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                                            <td>
 
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
+                                        <div class="card">
 
-                                                                <button data-id="@item.Id" class="btn btn-danger deleteImage" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                            </td>
-                                                        </tr>
-                                                    }
-                                                </tbody>
-                                            </table>
+                                            <div class="card-body">
+                                                @if (Model.Incapacities.Count == 0)
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="card card-default">
+                                                                <div class="card-header">
+                                                                    <a asp-action="AddIncapacity" class="btn btn-primary" asp-route-id="@Model.Id">Add News</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="card card-default">
+                                                                <div class="card-header">
+
+                                                                    <a asp-action="AddIncapacity" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Novedad</a>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-hover table-responsive table-striped display">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().TypeNew.Nombre)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().Novedad)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().StartDate)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().CantDay)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().EndDate)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().UserRegistra)
+                                                                                    </th>
+
+                                                                                    <th>
+                                                                                        Acciones
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @foreach (var item in Model.Incapacities)
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.TypeNew.Nombre)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.Novedad)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.StartDate)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.CantDay)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.EndDate)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.UserRegistra)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <a asp-action="EditIncap" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                                                                            <button data-id="@item.Id" class="btn btn-danger deleteIncap" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                }
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel" aria-labelledby="custom-tabs-one-messages-tab">
+                                        <div class="card">
+
+                                            <div class="card-body">
+                                                @if (Model.Sons.Count == 0)
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="card card-default">
+                                                                <div class="card-header">
+                                                                    <a asp-action="AddSons" class="btn btn-primary" asp-route-id="@Model.Id">Add Sons</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="card card-default">
+                                                                <div class="card-header">
+                                                                    <a asp-action="AddSons" class="btn btn-primary" asp-route-id="@Model.Id">Add Sons</a>
+                                                                </div>
+                                                                <div class="panel-body">
+                                                                    <div class="table-responsive ">
+                                                                        <table class="table table-hover table-striped display">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Sons.FirstOrDefault().Name)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Sons.FirstOrDefault().Datebirth)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Sons.FirstOrDefault().Genero)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Sons.FirstOrDefault().UserRegistra)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        Acciones
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @foreach (var item in Model.Sons)
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.Name)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.Datebirth)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.Genero)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.UserRegistra)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <a asp-action="EditSon" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                                                                            <button data-id="@item.Id" class="btn btn-danger deleteSon" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                }
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="custom-tabs-one-settings" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
+                                        <div class="card">
+
+                                            <div class="card-body">
+                                                @if (Model.Credits.Count == 0)
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="card card-default">
+                                                                <div class="card-header">
+                                                                    <a asp-action="AddCredit" class="btn btn-primary" asp-route-id="@Model.Id">Add Creditos</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="card card-default">
+                                                                <div class="card-header">
+                                                                    <a asp-action="AddCredit" class="btn btn-primary" asp-route-id="@Model.Id">Add Creditos</a>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <div class="table-responsive ">
+                                                                        <table class="table table-hover table-striped display">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().CreditEntities.Name)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().NumberL)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().Quotmonthly)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().TotalPrice)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().DeadlinePay)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().StartDateLocal)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().EndDateLocal)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().IsActive)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().UserRegistra)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        Acciones
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @foreach (var item in Model.Credits)
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.CreditEntities.Name)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.NumberL)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.Quotmonthly)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.TotalPrice)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.DeadlinePay)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.StartDateLocal)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.EndDateLocal)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.IsActive)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.UserRegistra)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <a asp-action="EditCredit" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                                                                            <button data-id="@item.Id" class="btn btn-danger deleteCredit" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                }
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="custom-tabs-one-contatos" role="tabpanel" aria-labelledby="custom-tabs-one-contatos-tab">
+                                        <div class="panel">
+
+                                            <div class="panel-body">
+                                                @if (Model.PersonContacts.Count == 0)
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">
+                                                                    <a asp-action="AddPerson" class="btn btn-primary" asp-route-id="@Model.Id">Add Person Contact</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">
+                                                                    <a asp-action="AddPerson" class="btn btn-primary" asp-route-id="@Model.Id">Add Person Contact</a>
+                                                                </div>
+                                                                <div class="panel-body">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-hover  table-striped display">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.PersonContacts.FirstOrDefault().Name)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.PersonContacts.FirstOrDefault().Telephone)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.PersonContacts.FirstOrDefault().relationship)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.PersonContacts.FirstOrDefault().UserRegistra)
+                                                                                    </th>
+
+                                                                                    <th>
+                                                                                        Acciones
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @foreach (var item in Model.PersonContacts)
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.Name)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.Telephone)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.relationship)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.UserRegistra)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <a asp-action="EditPersonContact" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                                                                            <button data-id="@item.Id" class="btn btn-danger deletePerson" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                }
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="custom-tabs-one-Exam" role="tabpanel" aria-labelledby="custom-tabs-one-Exam-tab">
+                                        <div class="panel">
+
+                                            <div class="panel-body">
+                                                @if (Model.Exams.Count == 0)
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">
+                                                                    <a asp-action="AddExam" class="btn btn-primary" asp-route-id="@Model.Id">Add requirements</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">
+                                                                    <a asp-action="AddExam" class="btn btn-primary" asp-route-id="@Model.Id">Add requirements</a>
+                                                                </div>
+                                                                <div class="panel-body">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-hover table-responsive table-striped display" id="MyTable">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Exams.FirstOrDefault().ExamsType.Name)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Exams.FirstOrDefault().StartDateLocal)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Exams.FirstOrDefault().EndDateLocal)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Exams.FirstOrDefault().UserRegistra)
+                                                                                    </th>
+
+                                                                                    <th>
+                                                                                        Acciones
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @foreach (var item in Model.Exams)
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.ExamsType.Name)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.StartDateLocal)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.EndDateLocal)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.UserRegistra)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <a asp-action="EditExam" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                                                                            <button data-id="@item.Id" class="btn btn-danger deleteExam" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                }
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="custom-tabs-one-Carg" role="tabpanel" aria-labelledby="custom-tabs-one-Carg-tab">
+                                        <div class="card">
+
+                                            <div class="card-body">
+                                                @if (Model.CargosAsgs.Count == 0)
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="card card-default">
+                                                                <div class="card-header">
+                                                                    <a asp-action="AddCargos" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Cargo</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="card card-default">
+                                                                <div class="card-header">
+
+                                                                    <a asp-action="AddCargos" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Cargo</a>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-hover table-responsive table-striped display">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.CargosAsgs.FirstOrDefault().PositionEmployee.Position)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.CargosAsgs.FirstOrDefault().DateAsg)
+                                                                                    </th>
+
+                                                                                    <th>
+                                                                                        Acciones
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @foreach (var item in Model.CargosAsgs)
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.PositionEmployee.Position)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.DateAsg)
+                                                                                        </td>
+
+                                                                                        <td>
+                                                                                            <a asp-action="EditIncap" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                                                                            <button data-id="@item.Id" class="btn btn-danger deleteIncap" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                }
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="custom-tabs-one-Cont" role="tabpanel" aria-labelledby="custom-tabs-one-Cont-tab">
+                                        <div class="panel">
+
+                                            <div class="panel-body">
+                                                @if (Model.Contracts.Count == 0)
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">
+                                                                    <a asp-action="AddContratos" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Contratos</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">
+
+                                                                    <a asp-action="AddContratos" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Contratos</a>
+                                                                </div>
+                                                                <div class="panel-body">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-hover table-responsive table-striped display">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().Note)
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().DateStart)
+                                                                                    </th>
+
+                                                                                    <th>
+                                                                                        Acciones
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @foreach (var item in Model.Contracts)
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.Note)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.DateStart)
+                                                                                        </td>
+
+                                                                                        <td>
+                                                                                            <a asp-action="EditIncap" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                                                                            <button data-id="@item.Id" class="btn btn-danger deleteIncap" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                }
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                        }
-
-
-
+                        </div>
+                      
                     </div>
-                    <div class="col-md-4">
-                        <dl class="dl-horizontal">
-                            <dt>
-                                @Html.DisplayNameFor(model => model.Document)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.Document)
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => model.FirstName)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.FirstName)
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => model.LastName)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.LastName)
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => model.Address)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.Address)
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => model.Email)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.Email)
-                            </dd>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div>
+                                    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@Model.Id"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
 
-
-
-                            <dt>
-                                @Html.DisplayNameFor(model => model.Rh)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.Rh)
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => model.Movil)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.Movil)
-                            </dd>
-
-                            <dt>
-                                @Html.DisplayNameFor(model => model.DateCumple)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.DateCumple)
-                            </dd>
-                        </dl>
-                    </div>
-                    <div class="col-md-4">
-                        <dl class="dl-horizontal">
-                            <dt>
-                                @Html.DisplayNameFor(model => model.Activo)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.Activo)
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => model.Area.Nombre)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.Area.Nombre)
-                            </dd>
-
-
-                            <dt>
-                                @Html.DisplayNameFor(model => model.JobTitle)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.JobTitle)
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => model.NivelEducation)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.NivelEducation)
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => model.Arl)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.Arl)
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => model.DateRetiro)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.DateRetiro)
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => model.License)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.License)
-                            </dd>
-                            <dt>
-                                Eps:
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.Eps.Nombre)
-                            </dd>
-
-
-
-                        </dl>
-                    </div>
-
-                </div>
-
-                <div class="row">
-                    <ul class="nav nav-tabs nav-justified">
-                        <li class="active"><a data-toggle="tab" href="#home">Hijos <span class="badge"> @Html.DisplayFor(modelItem => Model.Sons.Count)</span></a></li>
-                        <li><a data-toggle="tab" href="#menu1">Creditos <span class="badge"> @Html.DisplayFor(modelItem => Model.Credits.Count)</span></a></li>
-                        <li><a data-toggle="tab" href="#menu2">Contactos <span class="badge"> @Html.DisplayFor(modelItem => Model.PersonContacts.Count)</span></a></li>
-
-                        <li><a data-toggle="tab" href="#menu3">Requirements <span class="badge"> @Html.DisplayFor(modelItem => Model.Exams.Count)</span></a></li>
-                        <li><a data-toggle="tab" href="#menu4">Dotaciones <span class="badge"> @Html.DisplayFor(modelItem => Model.Endowments.Count)</span></a></li>
-                        <li><a data-toggle="tab" href="#menu5">Novedades <span class="badge"> @Html.DisplayFor(modelItem => Model.Incapacities.Count)</span></a></li>
-                        <li><a data-toggle="tab" href="#menu6">Activos <span class="badge"> @Html.DisplayFor(modelItem => Model.Endowments.Count)</span></a></li>
-                        <li><a data-toggle="tab" href="#menu7">Contract <span class="badge"> @Html.DisplayFor(modelItem => Model.Contracts.Count)</span></a></li>
-                        <li><a data-toggle="tab" href="#menu8">Cargos <span class="badge"> @Html.DisplayFor(modelItem => Model.CargosAsgs.Count)</span></a></li>
-
-                    </ul>
-                    <div class="tab-content">
-                        <div id="home" class="tab-pane fade in active">
-                            <div class="panel">
-
-                                <div class="panel-body">
-                                    @if (Model.Sons.Count == 0)
-                                    {
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <a asp-action="AddSons" class="btn btn-primary" asp-route-id="@Model.Id">Add Sons</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <a asp-action="AddSons" class="btn btn-primary" asp-route-id="@Model.Id">Add Sons</a>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        <div class="table-responsive ">
-                                                            <table class="table table-hover table-striped display">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Sons.FirstOrDefault().Name)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Sons.FirstOrDefault().Datebirth)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Sons.FirstOrDefault().Genero)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Sons.FirstOrDefault().UserRegistra)
-                                                                        </th>
-                                                                        <th>
-                                                                            Acciones
-                                                                        </th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach (var item in Model.Sons)
-                                                                    {
-                                                                        <tr>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.Name)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.Datebirth)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.Genero)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.UserRegistra)
-                                                                            </td>
-                                                                            <td>
-                                                                                <a asp-action="EditSon" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
-
-                                                                                <button data-id="@item.Id" class="btn btn-danger deleteSon" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                            </td>
-                                                                        </tr>
-                                                                    }
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    }
+                                    <a asp-action="Index" class="btn btn-success">Back to List</a>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input style="border: none;" type="hidden" asp-for="UserRegistra" />
 
-
-                        </div>
-                        <div id="menu1" class="tab-pane fade">
-                            <div class="panel">
-
-                                <div class="panel-body">
-                                    @if (Model.Credits.Count == 0)
-                                    {
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <a asp-action="AddCredit" class="btn btn-primary" asp-route-id="@Model.Id">Add Creditos</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <a asp-action="AddCredit" class="btn btn-primary" asp-route-id="@Model.Id">Add Creditos</a>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        <div class="table-responsive ">
-                                                            <table class="table table-hover table-striped display">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().CreditEntities.Name)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().NumberL)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().Quotmonthly)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().TotalPrice)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().DeadlinePay)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().StartDateLocal)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().EndDateLocal)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().IsActive)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().UserRegistra)
-                                                                        </th>
-                                                                        <th>
-                                                                            Acciones
-                                                                        </th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach (var item in Model.Credits)
-                                                                    {
-                                                                        <tr>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.CreditEntities.Name)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.NumberL)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.Quotmonthly)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.TotalPrice)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.DeadlinePay)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.StartDateLocal)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.EndDateLocal)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.IsActive)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.UserRegistra)
-                                                                            </td>
-                                                                            <td>
-                                                                                <a asp-action="EditCredit" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
-
-                                                                                <button data-id="@item.Id" class="btn btn-danger deleteCredit" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                            </td>
-                                                                        </tr>
-                                                                    }
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
+                                    <input style="border: none;" type="hidden" asp-for="DateRegistro" />
+                                    <label asp-for="UserModify"></label>
+                                    <input style="border: none;" asp-for="UserModify" disabled />
+                                    <label asp-for="DateModify"></label>
+                                    <input style="border: none;" asp-for="DateModify" disabled />
                                 </div>
-                            </div>
-                        </div>
-                        <div id="menu2" class="tab-pane fade">
-                            <div class="panel">
 
-                                <div class="panel-body">
-                                    @if (Model.PersonContacts.Count == 0)
-                                    {
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <a asp-action="AddPerson" class="btn btn-primary" asp-route-id="@Model.Id">Add Person Contact</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <a asp-action="AddPerson" class="btn btn-primary" asp-route-id="@Model.Id">Add Person Contact</a>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-hover  table-striped display">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.PersonContacts.FirstOrDefault().Name)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.PersonContacts.FirstOrDefault().Telephone)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.PersonContacts.FirstOrDefault().relationship)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.PersonContacts.FirstOrDefault().UserRegistra)
-                                                                        </th>
-
-                                                                        <th>
-                                                                            Acciones
-                                                                        </th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach (var item in Model.PersonContacts)
-                                                                    {
-                                                                        <tr>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.Name)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.Telephone)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.relationship)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.UserRegistra)
-                                                                            </td>
-                                                                            <td>
-                                                                                <a asp-action="EditPersonContact" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
-
-                                                                                <button data-id="@item.Id" class="btn btn-danger deletePerson" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                            </td>
-                                                                        </tr>
-                                                                    }
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
                             </div>
                         </div>
 
-                        <div id="menu3" class="tab-pane fade">
-                            <div class="panel">
-
-                                <div class="panel-body">
-                                    @if (Model.Exams.Count == 0)
-                                    {
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <a asp-action="AddExam" class="btn btn-primary" asp-route-id="@Model.Id">Add requirements</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <a asp-action="AddExam" class="btn btn-primary" asp-route-id="@Model.Id">Add requirements</a>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-hover table-responsive table-striped display">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Exams.FirstOrDefault().ExamsType.Name)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Exams.FirstOrDefault().StartDateLocal)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Exams.FirstOrDefault().EndDateLocal)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Exams.FirstOrDefault().UserRegistra)
-                                                                        </th>
-
-                                                                        <th>
-                                                                            Acciones
-                                                                        </th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach (var item in Model.Exams)
-                                                                    {
-                                                                        <tr>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.ExamsType.Name)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.StartDateLocal)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.EndDateLocal)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.UserRegistra)
-                                                                            </td>
-                                                                            <td>
-                                                                                <a asp-action="EditExam" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
-
-                                                                                <button data-id="@item.Id" class="btn btn-danger deleteExam" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                            </td>
-                                                                        </tr>
-                                                                    }
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                        <div id="menu4" class="tab-pane fade">
-                            <div class="panel">
-
-                                <div class="panel-body">
-                                    @if (Model.Endowments.Count == 0)
-                                    {
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <a asp-action="AddEndowment" class="btn btn-primary" asp-route-id="@Model.Id">Add Endowment</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-
-                                                        <a asp-action="AddEndowment" class="btn btn-primary" asp-route-id="@Model.Id">Add Endowment</a>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-hover table-responsive table-striped display">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().EndowmentType.NameType)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().Detail)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().Count)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().Size)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().DateDeliveryLocal)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().DateVence)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().UserRegistra)
-                                                                        </th>
-                                                                        <th>
-                                                                            Acciones
-                                                                        </th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach (var item in Model.Endowments)
-                                                                    {
-                                                                        <tr>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.EndowmentType.NameType)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.Detail)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.Count)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.Size)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.DateDeliveryLocal)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.DateVence)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.UserRegistra)
-                                                                            </td>
-                                                                            <td>
-                                                                                <a asp-action="EditEndowment" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
-
-                                                                                <button data-id="@item.Id" class="btn btn-danger deleteEndowment" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                            </td>
-                                                                        </tr>
-                                                                    }
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                        <div id="menu5" class="tab-pane fade">
-                            <div class="panel">
-
-                                <div class="panel-body">
-                                    @if (Model.Incapacities.Count == 0)
-                                    {
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <a asp-action="AddIncapacity" class="btn btn-primary" asp-route-id="@Model.Id">Add News</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-
-                                                        <a asp-action="AddIncapacity" class="btn btn-primary" asp-route-id="@Model.Id">Add News</a>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-hover table-responsive table-striped display">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().TypeNew.Nombre)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().Novedad)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().StartDate)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().CantDay)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().EndDate)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().UserRegistra)
-                                                                        </th>
-
-                                                                        <th>
-                                                                            Acciones
-                                                                        </th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach (var item in Model.Incapacities)
-                                                                    {
-                                                                        <tr>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.TypeNew.Nombre)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.Novedad)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.StartDate)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.CantDay)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.EndDate)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.UserRegistra)
-                                                                            </td>
-                                                                            <td>
-                                                                                <a asp-action="EditIncap" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
-
-                                                                                <button data-id="@item.Id" class="btn btn-danger deleteIncap" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                            </td>
-                                                                        </tr>
-                                                                    }
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                        <div id="menu6" class="tab-pane fade">
-                            <div class="panel">
-                                <div class="panel-heading">
-                                    <a asp-action="VerListado" class="btn btn-primary" asp-route-id="@Model.Id">Ver Listado</a>
-                                </div>
-                                <div class="panel-body">
-                                    No Funcional
-                                </div>
-                            </div>
-                        </div>
-                        <div id="menu7" class="tab-pane fade">
-                            <div class="panel">
-
-                                <div class="panel-body">
-                                    @if (Model.Contracts.Count == 0)
-                                    {
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <a asp-action="AddContract" class="btn btn-primary" asp-route-id="@Model.Id">Add Contract</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-
-                                                        <a asp-action="AddContract" class="btn btn-primary" asp-route-id="@Model.Id">Add Contract</a>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-hover table-responsive table-striped display">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().DateStart)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().DateEnd)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().Note)
-                                                                        </th>
-
-
-                                                                        <th>
-                                                                            Acciones
-                                                                        </th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach (var item in Model.Contracts)
-                                                                    {
-                                                                        <tr>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.DateStart)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.DateEnd)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.Note)
-                                                                            </td>
-
-                                                                            <td>
-                                                                                <a asp-action="EditIncap" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
-
-                                                                                <button data-id="@item.Id" class="btn btn-danger deleteIncap" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                            </td>
-                                                                        </tr>
-                                                                    }
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                        <div id="menu8" class="tab-pane fade">
-                            <div class="panel">
-
-                                <div class="panel-body">
-                                    @if (Model.CargosAsgs.Count == 0)
-                                    {
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <a asp-action="AddIncapacity" class="btn btn-primary" asp-route-id="@Model.Id">Add Cargo</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-
-                                                        <a asp-action="AddIncapacity" class="btn btn-primary" asp-route-id="@Model.Id">Add Cargo</a>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-hover table-responsive table-striped display">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.CargosAsgs.FirstOrDefault().PositionEmployee.Position)
-                                                                        </th>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.CargosAsgs.FirstOrDefault().DateAsg)
-                                                                        </th>
-
-                                                                        <th>
-                                                                            Acciones
-                                                                        </th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach (var item in Model.CargosAsgs)
-                                                                    {
-                                                                        <tr>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.PositionEmployee.Position)
-                                                                            </td>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.DateAsg)
-                                                                            </td>
-
-                                                                            <td>
-                                                                                <a asp-action="EditIncap" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
-
-                                                                                <button data-id="@item.Id" class="btn btn-danger deleteIncap" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                            </td>
-                                                                        </tr>
-                                                                    }
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel-footer">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div>
-                            <a asp-action="Edit" class="btn btn-warning" asp-route-id="@Model.Id"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
-
-                            <a asp-action="Index" class="btn btn-success">Back to List</a>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <input style="border: none;" type="hidden" asp-for="UserRegistra" />
-
-                            <input style="border: none;" type="hidden" asp-for="DateRegistro" />
-                            <label asp-for="UserModify"></label>
-                            <input style="border: none;" asp-for="UserModify" disabled />
-                            <label asp-for="DateModify"></label>
-                            <input style="border: none;" asp-for="DateModify" disabled />
-                        </div>
 
                     </div>
                 </div>
+
+
+
 
 
             </div>
         </div>
-
-
-
-
-
     </div>
-</div>
+</section>
+
+
+
 <partial name="_DeleteDialogModal" />
-<partial name="_ExceptionModal" />
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
@@ -970,6 +988,41 @@
     <script type="text/javascript">
         $(document).ready(function () {
             // Delete item
+       
+            var hoy = new Date(new Date().setHours(0, 0, 0, 0));
+
+
+
+            var table = $('#MyTable').DataTable({
+                "createdRow": function (row, data, index) {
+                    var datotabla = new Date(data[2]);
+                    var resta = datotabla - hoy;
+                    console.log(resta);
+                    console.log(hoy);
+                    console.log(datotabla);
+                    if (resta <= 1) {
+
+                        $('td', row).eq(2).css({
+                            'background-color': '#d9534f',
+                            'color': 'white',
+                        });
+                    } if (resta <= 5356800000 & resta >= 1) {
+
+                        $('td', row).eq(2).css({
+                            'background-color': '#F5BA44',
+                            'color': 'white',
+                        });
+                    }
+                }
+            });
+
+
+
+
+
+
+
+
             var item_to_delete;
             var action_to_delete;
             $('.display').DataTable();

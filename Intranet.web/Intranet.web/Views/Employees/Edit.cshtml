@@ -1,71 +1,71 @@
 ﻿@model Intranet.web.Models.EditEmployedViewModel
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Empleado";
 }
 
-<hr />
-<form asp-action="Edit">
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2>Edit</h2>
+<section class="content-header">
+    <hr />
+</section>
+<section class="content">
+    <div class="container-fluid">
+        
+            <form asp-action="Edit">
+                <div class="col-md-12">
+                    <div class="card card-dark ">
+                        <div class="card-header">
+                            Editar empleado
 
-                <h4>Employe</h4>
+                        </div>
+                        <div class="card-body">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Id" />
+                            <input type="hidden" asp-for="UserCrea" />
+                            <input type="hidden" asp-for="DateRegistro" />
+                            <input type="hidden" asp-for="UserModify" />
+                            <input type="hidden" asp-for="DateModify" />
 
-            </div>
-            <div class="panel-body">
+                            <partial name="_Employe" />
+                        </div>
 
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="Id" />
-                <input type="hidden" asp-for="UserCrea" />
-                <input type="hidden" asp-for="DateRegistro" />
-                <input type="hidden" asp-for="UserModify" />
-                <input type="hidden" asp-for="DateModify" />
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="submit" value="Guardar" class="btn btn-primary" />
+                                        <a asp-action="Index" class="btn btn-success">Volver atras</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <input style="border: none;" type="hidden" asp-for="UserCrea" />
 
-                <partial name="_Employe" />
+                                        <input style="border: none;" type="hidden" asp-for="DateRegistro" />
+                                        <label asp-for="UserModify"></label>
+                                        <input style="border: none;" asp-for="UserModify" disabled />
+                                        <label asp-for="DateModify"></label>
+                                        <input style="border: none;" asp-for="DateModify" disabled />
+                                    </div>
+                                </div>
+                            </div>
 
-                <hr />
-                <div class="row">
-                    <div class="col-md-12">
+
+                        </div>
 
 
 
 
                     </div>
+                 
 
                 </div>
 
 
+            </form>
+        
+    </div>
+  
+</section>
 
-            </div>
-            <div class="panel-footer">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <input type="submit" value="Save" class="btn btn-primary" />
-                            <a asp-action="Index" class="btn btn-success">Back to List</a>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <input style="border: none;" type="hidden" asp-for="UserCrea" />
-
-                            <input style="border: none;" type="hidden" asp-for="DateRegistro" />
-                            <label asp-for="UserModify"></label>
-                            <input style="border: none;" asp-for="UserModify" disabled />
-                            <label asp-for="DateModify"></label>
-                            <input style="border: none;" asp-for="DateModify" disabled />
-                        </div>
-                    </div>
-                </div>
-
-
-</div>
-
-            </div>
-
-        </div>
-</form>
 
 
 @section Scripts {

@@ -10,18 +10,18 @@ namespace Intranet.web.Data.Entities
     {
         public int Id { get; set; }
      
-        [Display(Name = "Fecha retiro")]
+        [Display(Name = "Fecha Inicio")]
         [Required]
         [MaxLength(100)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
-        public string DateStart { get; set; } 
+        public DateTime DateStart { get; set; } 
         
         
         [Display(Name = "Fecha retiro")]
         [Required]
         [MaxLength(100)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
-        public string DateEnd { get; set; }
+        public DateTime DateEnd { get; set; }
 
         [Display(Name = "Clausulas")]
         [MaxLength(500)]        

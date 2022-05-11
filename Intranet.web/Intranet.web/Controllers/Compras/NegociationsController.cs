@@ -41,12 +41,24 @@ namespace Intranet.web.Controllers.Compras
                 .Include(e=> e.Providercompras)
                 .Include(e=> e.Clasification)
                 .Include(e=> e.Mes)
+                .Include(e => e.Pagoss)
                 .Include(r=> r.Verificados)
                 .Include(e => e.ProductBonifis)
                 .Include(e=>e.SalaVenta)
                 .ToListAsync());
         }
-
+        public async Task<IActionResult> ReportNego()
+        {
+            return View(await _context.Negociation
+                .Include(a=> a.Providercompras)
+                .Include(a => a.Clasification)
+                .Include(a => a.Mes)
+                .Include(a => a.Pagoss)
+                .Include(a => a.Verificados)
+                .Include(a => a.ProductBonifis)
+                .Include(a => a.SalaVenta)
+                .ToListAsync());
+        }
         // GET: Negociations/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -57,7 +69,7 @@ namespace Intranet.web.Controllers.Compras
 
             var negociation = await _context.Negociation
                 .Include(e=> e.Providercompras)
-                .Include(e=> e.Pagos)
+                .Include(e=> e.Pagoss)
                 .Include(e => e.Clasification)
                 .Include(e=> e.Verificados)
                 .Include(e=>e.ProductBonifis)
@@ -150,8 +162,24 @@ namespace Intranet.web.Controllers.Compras
             //model.Roles = _combosHelpers.GetComboRoles();
             return View(model);
         }
+        //public Task<IActionResult> Negociacionesvalor()
+        //{
+        //    List<Negociation> neg = new List<Negociation>();
+        //    var sqlnegociacion = from n in neg
+        //                         where (n.ValorNegociacion ==410)
+        //                         select n;
+        //    if (sqlnegociacion == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    foreach (var item in sqlnegociacion)
+        //    {
+        //        return View(sqlnegociacion);
+        //    }
 
-        // GET: Negociations/Edit/5
+
+        //    return View(sqlnegociacion);
+        //}
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

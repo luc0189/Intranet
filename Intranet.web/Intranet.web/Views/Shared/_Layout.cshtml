@@ -5,170 +5,277 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Intranet.web</title>
 
-    <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
-    </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    </environment>
+    @*<environment include="Development">
+            <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+            <link rel="stylesheet" href="~/css/site.css" />
+        </environment>
+        <environment exclude="Development">
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+                  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        </environment>*@
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link href="~/adminlte/plugins/font-awesome4/css/font-awesome.css" rel="stylesheet" />
+
+    <link href="~/adminlte/plugins/fontawesome-free/css/all.css" rel="stylesheet" />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/adminlte/dist/css/adminlte.min.css">
+    @RenderSection("Styles", required: false)
 </head>
-<body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Intranet.web</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                   
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <partial name="_CookieConsentPartial" />
+        <partial name="_Navbar" />
+        <partial name="_Mainsidebar" />
+        <div class="content-wrapper">
+
+            @RenderBody()
 
 
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("Manager") || User.IsInRole("Recursoshumanos"))
-                    {
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Parametros <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
 
-                                <li><a asp-area="" class="dropdown-item" asp-controller="ExamsTypes" asp-action="Index">Tipos de Examenes</a></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="EndowmentTypes" asp-action="Index">Tipos Dotacion</a></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="TypeNews" asp-action="Index">Tipos de Novedades</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="SiteHeadquarters" asp-action="Index">Sedes</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="CreditEntities" asp-action="Index">Entidades de credito</a></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="CajaCompensacions" asp-action="Index">Caja Compensacion</a></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="Pensions" asp-action="Index">Entidad AFP</a></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="PositionEmployees" asp-action="Index">Cargos Empleados</a></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="Eps" asp-action="Index">Eps</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="UploadEmployed" asp-action="Index">Upload Employed</a></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="UploadBonos" asp-action="Index">Upload Bonos</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="SalaVentas" asp-action="Index">Salas de Ventas</a></li>
-
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Activos Fijos <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-
-                                <li><a asp-area="" class="dropdown-item" asp-controller="Models" asp-action="Index">Modelos</a></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="Fabrics" asp-action="Index">Fabricante</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="Categories" asp-action="Index">Categorias</a></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="Providers" asp-action="Index">Proveedores</a></li>
-
-                            </ul>
-                        </li>
-                        <li><a asp-area="" asp-controller="Employees" asp-action="Index">Empleados</a></li>
-                        <li><a asp-area="" asp-controller="Items1" asp-action="Index">Activos</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-
-                                <li><a asp-area="" class="dropdown-item" asp-controller="ReportExam" asp-action="Index">Examenes y Cursos</a></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="EndowmentTypes" asp-action="Index">Tipos Dotacion</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="SiteHeadquarters" asp-action="Index">Sedes</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="CreditEntities" asp-action="Index">Entidades de credito</a></li>
-
-                            </ul>
-                        </li>
-                    }
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("Compras") || User.IsInRole("Manager"))
-                    {
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Compras <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-
-                                <li><a asp-area="" class="dropdown-item" asp-controller="Negociations" asp-action="Index">Negociaciones</a></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="Pagos" asp-action="Index">Pagos</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="Providercompras" asp-action="Index">Proveedores</a></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="Clasifications" asp-action="Index">Clasificaciones</a></li>
-
-
-                                <li role="separator" class="divider"></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="ProductBonifis" asp-action="Index">Productos Bonificados</a></li>
-                            </ul>
-                        </li>
-
-
-                    }
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("StoreLeader") || User.IsInRole("Manager") || User.IsInRole("Recursoshumanos"))
-                    {
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Fidelizacion <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-
-                                <li><a asp-area="" class="dropdown-item" asp-controller="Bonoes" asp-action="Index">Bonos</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="TercBnets" asp-action="Index">Terceros Bnet</a></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="GenerarBoleta" asp-action="Index">Generar Boletas</a></li>
-                                <li><a asp-area="" class="dropdown-item" asp-controller="Campaña" asp-action="Index">Campañas</a></li>
-                            </ul>
-                        </li>
-
-
-                    }
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li><a asp-area="" asp-controller="Account" asp-action="ChangeUser">@User.Identity.Name</a></li>
-                        <li><a asp-area="" asp-controller="Account" asp-action="Logout">Salir</a></li>
-                    }
-                    else
-                    {
-                        <li><a asp-area="" asp-controller="Account" asp-action="Login">Entrar</a></li>
-                    }
-                </ul>
-            </div>
         </div>
-    </nav>
-
-    <partial name="_CookieConsentPartial" />
-
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2020 - Intranet.web</p>
-        </footer>
+        <partial name="_Sidebar" />
+        <partial name="_Footer" />
     </div>
+   
+    
 
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-        </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
+    @*<nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Intranet.web</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
 
+
+
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Manager") || User.IsInRole("Recursoshumanos"))
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Parametros <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li></li>
+
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Activos Fijos <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+
+                                    <li><a asp-area="" class="dropdown-item" asp-controller="Models" asp-action="Index">Modelos</a></li>
+                                    <li><a asp-area="" class="dropdown-item" asp-controller="Fabrics" asp-action="Index">Fabricante</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a asp-area="" class="dropdown-item" asp-controller="Categories" asp-action="Index">Categorias</a></li>
+                                    <li><a asp-area="" class="dropdown-item" asp-controller="Providers" asp-action="Index">Proveedores</a></li>
+
+                                </ul>
+                            </li>
+                            <li></li>
+                            <li><a asp-area="" asp-controller="Items1" asp-action="Index">Activos</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+
+                                    <li></li>
+                                    <li><a asp-area="" class="dropdown-item" asp-controller="EndowmentTypes" asp-action="Index">Tipos Dotacion</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a asp-area="" class="dropdown-item" asp-controller="SiteHeadquarters" asp-action="Index">Sedes</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a asp-area="" class="dropdown-item" asp-controller="CreditEntities" asp-action="Index">Entidades de credito</a></li>
+
+                                </ul>
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Compras") || User.IsInRole("Manager"))
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Compras <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+
+                                    <li></li>
+                                    <li></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li></li>
+                                    <li></li>
+
+
+                                    <li role="separator" class="divider"></li>
+                                    <li><a asp-area="" class="dropdown-item" asp-controller="ProductBonifis" asp-action="Index">Productos Bonificados</a></li>
+                                </ul>
+                            </li>
+
+
+                        }
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("StoreLeader") || User.IsInRole("Manager") || User.IsInRole("Recursoshumanos"))
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Fidelizacion <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+
+                                    <li></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                </ul>
+                            </li>
+
+
+                        }
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li><a asp-area="" asp-controller="Account" asp-action="ChangeUser">@User.Identity.Name</a></li>
+                            <li><a asp-area="" asp-controller="Account" asp-action="Logout">Salir</a></li>
+                        }
+                        else
+                        {
+                            <li><a asp-area="" asp-controller="Account" asp-action="Login">Entrar</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>*@
+
+
+
+
+
+
+
+    @*<environment include="Development">
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+        </environment>
+        <environment exclude="Development">
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery"
+                    crossorigin="anonymous"
+                    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+            </script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                    crossorigin="anonymous"
+                    integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
+            </script>
+            <script src="~/js/site.min.js" asp-append-version="true"></script>
+        </environment>*@
+    <!-- jQuery -->
+    <script src="~/adminlte/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/adminlte/dist/js/adminlte.min.js"></script>
     @RenderSection("Scripts", required: false)
+    <script src="~/adminlte/plugins/datatables/jquery.dataTables.js">
+
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.Mytable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'print'
+                ]
+            });
+
+            var lenguaje_espanol = {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados ",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+
+            var botoneraExport =
+                [
+                    {
+                        extend: 'copy',
+                        className: 'copyButton',
+                        text: '<i class="fa fa-clone"></i> Copiar'
+                    },
+                    {
+                        extend: 'excel',
+                        text: '<i class="fa fa-file-excel-o"></i> Excel'
+                    },
+
+                    {
+                        extend: 'csv',
+                        text: '<i class="fa fa-file-excel-o"></i> CSV'
+                    },
+                    {
+                        extend: 'pdf',
+                        text: '<i class="fa fa-file-pdf-o"></i> PDF'
+                    },
+                    {
+                        extend: 'print',
+                        text: '<i class="fa fa-print"></i> Imprimir',
+                        customize: function (win) {
+                            $(win.document.body)
+                                .css('font-size', '10pt')
+                                .prepend(
+                                    '<img src="../dist/img/ws.png" style="position:absolute; top:0; left:1;" />'
+
+                                );
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+
+                ]
+
+
+        });
+    </script>
+
 </body>
 </html>

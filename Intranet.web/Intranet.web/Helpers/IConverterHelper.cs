@@ -36,7 +36,7 @@ namespace Intranet.web.Helpers
         AddAreaViewModel ToAreaViewModel(Area area);
 
 
-
+        Task<CargosAsg> ToCargosAsync(CargosViewModels model, bool isNew);//
         Task<Sons> ToSonsAsync(SonsViewModel model, bool isNew);//
         Task<Pagos> ToPagoAsync(PagoViewModel model, bool isNew);//
         EditPagoViewModel ToEditPagoViewModel(Pagos pagos);

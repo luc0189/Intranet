@@ -102,7 +102,7 @@
                 <ul class="nav nav-tabs nav-justified">
                     <li class="active"><a data-toggle="tab" href="#home">Detalles</a></li>
                     <li><a data-toggle="tab" href="#menu1">Verificar <span class="badge"> @Html.DisplayFor(modelItem => Model.Verificados.Count)</span></a></li>
-                    <li><a data-toggle="tab" href="#menu2">Pagos <span class="badge"> @Html.DisplayFor(modelItem => Model.Pagos.Count)</span></a></li>
+                    <li><a data-toggle="tab" href="#menu2">Pagos <span class="badge"> @Html.DisplayFor(modelItem => Model.Pagoss.Count)</span></a></li>
                     <li><a data-toggle="tab" href="#menu3">Bonificados <span class="badge"> @Html.DisplayFor(modelItem => Model.ProductBonifis.Count)</span></a></li>
 
 
@@ -188,7 +188,7 @@
                         <div class="panel">
 
                             <div class="panel-body">
-                                @if (Model.Pagos.Count == 0)
+                                @if (Model.Pagoss.Count == 0)
                                 {
                                     <div class="row">
                                         <div class="col-md-12">
@@ -214,22 +214,22 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th>
-                                                                        @Html.DisplayNameFor(model => model.Pagos.FirstOrDefault().Novedad)
+                                                                        @Html.DisplayNameFor(model => model.Pagoss.FirstOrDefault().Novedad)
                                                                     </th>
                                                                     <th>
-                                                                        @Html.DisplayNameFor(model => model.Pagos.FirstOrDefault().DocCobro)
+                                                                        @Html.DisplayNameFor(model => model.Pagoss.FirstOrDefault().DocCobro)
                                                                     </th>
                                                                     <th>
-                                                                        @Html.DisplayNameFor(model => model.Pagos.FirstOrDefault().DocLegalizacion)
+                                                                        @Html.DisplayNameFor(model => model.Pagoss.FirstOrDefault().DocLegalizacion)
                                                                     </th>
                                                                     <th>
-                                                                        @Html.DisplayNameFor(model => model.Pagos.FirstOrDefault().ValorPagado)
+                                                                        @Html.DisplayNameFor(model => model.Pagoss.FirstOrDefault().ValorPagado)
                                                                     </th>
                                                                     <th>
-                                                                        @Html.DisplayNameFor(model => model.Pagos.FirstOrDefault().DatePago)
+                                                                        @Html.DisplayNameFor(model => model.Pagoss.FirstOrDefault().DatePago)
                                                                     </th>
                                                                     <th>
-                                                                        @Html.DisplayNameFor(model => model.Pagos.FirstOrDefault().Userregistro)
+                                                                        @Html.DisplayNameFor(model => model.Pagoss.FirstOrDefault().Userregistro)
                                                                     </th>
                                                                     <th>
                                                                         Acciones
@@ -237,7 +237,7 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach (var item in Model.Pagos)
+                                                                @foreach (var item in Model.Pagoss)
                                                                 {
                                                                     <tr>
                                                                         <td>

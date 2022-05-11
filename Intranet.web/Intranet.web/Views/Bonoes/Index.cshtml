@@ -1,21 +1,22 @@
 ﻿@model IEnumerable<Intranet.web.Data.Entities.Fidelizacion.Bono>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Crear Bono";
 }
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+
 <hr />
 
 
 <div class="row">
     <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
+        <div class="card card-default">
+            <div class="card-heading">
                 <h2>Bonos Supermio</h2>
-                <a asp-action="Create" class="btn btn-primary" >Crear Bono</a>
+                <a asp-action="Create" class="btn btn-primary">Crear Bono</a>
             </div>
 
-            <div class="panel-body">
+            <div class="card-body">
                 <div class="table-responsive ">
                     <table class="table table-hover table-striped display" id="MyTable">
                         <thead>
@@ -49,50 +50,50 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Codigo)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Redimido)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Actividad)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Valor)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Fechacreado)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Usuariocrea)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Redimidos.Count)
-                                </td>
-                                <td>
-                                    @if (User.Identity.IsAuthenticated && User.IsInRole("Manager"))
-                                    {
-                                        <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Codigo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Redimido)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Actividad)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Valor)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fechacreado)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Usuariocrea)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Redimidos.Count)
+                                    </td>
+                                    <td>
+                                        @if (User.Identity.IsAuthenticated && User.IsInRole("Manager"))
+                                        {
+                                            <a asp-action="Edit" class="btn btn-warning btn-sm" asp-route-id="@item.Id"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 
-                                    }
-
-
-                                    @if (item.Redimido == true)
-                                    {
-                                        <label class="label-warning">Bono Redimido</label>
-
-                                    }
-                                    else
-                                    {
-                                        <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id"><i class="glyphicon glyphicon-list"></i></a>
-
-                                    }
+                                        }
 
 
-                                </td>
-                            </tr>
+                                        @if (item.Redimido == true)
+                                        {
+                                            <label class="label-warning">Bono Redimido</label>
+
+                                        }
+                                        else
+                                        {
+                                            <a asp-action="Details" class="btn btn-info btn-sm" asp-route-id="@item.Id"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a>
+
+                                        }
+
+
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>

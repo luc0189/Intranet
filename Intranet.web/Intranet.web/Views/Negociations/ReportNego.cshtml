@@ -1,0 +1,225 @@
+﻿@model IEnumerable<Intranet.web.Data.Entities.Compras.Negociation>
+
+@{
+    ViewData["Title"] = "Reporte Negociaciones";
+}
+
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Reporte Negociaciones</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                    <li class="breadcrumb-item active">Reportes</li>
+                    <li class="breadcrumb-item active">Negociaciones</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+         
+            <section class="col-lg-12 connectedSortable ui-sortable">
+                <div class="card card-default  style=" position: relative; left: 0px; top: 0px;"">
+                    <div class="card-header ui-sortable-handle" style="cursor: move;">
+                        <h3 class="card-title">
+                            <i class="ion ion-clipboard mr-1"></i>
+                            Listado
+                        </h3>
+                        <div class="card-tools">
+
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+
+         
+                            <table class="table table-hover table-striped MyTable" id="MyTable">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Id)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Mes.Name)
+
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Clasification.Name)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Providercompras.NameProvider)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ValorNegociacion)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Pago)
+                                        </th>
+
+
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Id)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Mes.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Clasification.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Providercompras.NameProvider)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ValorNegociacion)
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Pago)
+                                            </td>
+
+                                            <td>
+                                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info"><i class="glyphicon glyphicon-list"></i></a>
+                                                @*<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>*@
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Delete item
+            var item_to_delete;
+            //$('MyTable').DataTable({
+            //    dom: 'Bfrtip',
+            //    botoneraExport: [
+            //        'copy', 'csv', 'excel', 'print'
+            //    ]
+                
+            //});
+         
+
+            $("#btnYesDelete").click(function () {
+                window.location.href = '/Employees/Delete/' + item_to_delete;
+            });
+         
+
+           
+        });
+    </script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            GridGeneral();
+           
+        });
+
+        var GridGeneral = function () {
+            $(".MyTable").prepend($("<thead></thead>").append($(".MyTable").find("tr:first"))).dataTable({
+                "language": lenguaje_espanol,
+                "dom": "Bfrtip",
+                "buttons": botoneraExport,
+                responsive: true
+            });
+        }
+
+        var lenguaje_espanol = {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados ",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        }
+
+        var botoneraExport =
+            [
+                {
+                    extend: 'copy',
+                    className: 'copyButton',
+                    text: '<i class="fa fa-clone"></i> Copiar'
+                },
+                {
+                    extend: 'excel',
+                    text: '<i class="fa fa-file-excel-o"></i> Excel'
+                },
+
+                {
+                    extend: 'csv',
+                    text: '<i class="fa fa-file-excel-o"></i> CSV'
+                },
+                {
+                    extend: 'pdf',
+                    text: '<i class="fa fa-file-pdf-o"></i> PDF'
+                },
+                {
+                    extend: 'print',
+                    text: '<i class="fa fa-print"></i> Imprimir',
+                    customize: function (win) {
+                        $(win.document.body)
+                            .css('font-size', '10pt')
+                            .prepend(
+                                '<img src="../dist/img/ws.png" style="position:absolute; top:0; left:1;" />'
+
+                            );
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+
+            ]
+    </script>
+}

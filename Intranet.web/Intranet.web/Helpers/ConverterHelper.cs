@@ -228,6 +228,19 @@ namespace Intranet.web.Helpers
 
             };
         }//
+        public async Task<CargosAsg> ToCargosAsync(CargosViewModels model, bool isNew)
+        {
+            return new CargosAsg
+            {
+                Id = isNew ? 0 : model.Id,
+                PositionEmployee = await _dataContext.PositionEmployees.FindAsync(model.PositionEmployeds),
+
+                DateAsg = model.DateRegistro,
+               
+                Employee = await _dataContext.Employees.FindAsync(model.EmployeeIds)
+
+            };
+        }//
 
      
 

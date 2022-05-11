@@ -1,61 +1,65 @@
 ﻿@model Intranet.web.Data.Entities.Fidelizacion.Bono
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crear Bono";
 }
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1> Crear Bonos</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                 
+                    <li class="breadcrumb-item active">Fidelizacion</li>
+                    <li class="breadcrumb-item active">Crear Bono</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
 
-<h2>Create</h2>
-
-<h4>Bono</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+    <div class="col-lg-6">
+        <form asp-action="Create" class="form-horizontal" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Codigo" class="control-label"></label>
-                <input asp-for="Codigo" class="form-control" />
-                <span asp-validation-for="Codigo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="Redimido" /> @Html.DisplayNameFor(model => model.Redimido)
-                    </label>
+            <div class="card card-dark">
+                <div class="card-header">
+                    <h3 class="card-title">Quick Example</h3>
+                    <div class="card-tools">
+                        <div class="custom-control custom-checkbox">
+                            <label>
+                                <input asp-for="Redimido" /> @Html.DisplayNameFor(model => model.Redimido)
+                            </label>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="Fechacreado" class="control-label"></label>
-                <input asp-for="Fechacreado" class="form-control" />
-                <span asp-validation-for="Fechacreado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Valor" class="control-label"></label>
-                <input asp-for="Valor" class="form-control" />
-                <span asp-validation-for="Valor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Actividad" class="control-label"></label>
-                <input asp-for="Actividad" class="form-control" />
-                <span asp-validation-for="Actividad" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Usuariocrea" class="control-label"></label>
-                <input asp-for="Usuariocrea" class="form-control" />
-                <span asp-validation-for="Usuariocrea" class="text-danger"></span>
-            </div>
-            
-            
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+               <partial name="_Bono" />
+                <div class="card-footer">
+                    
+                        <input type="submit" value="Create" class="btn btn-success" />
+                   
+                
+                        <a asp-action="Index" class="btn btn-default float-right">Back to List</a>
+                  
+                </div>
+
+
             </div>
         </form>
     </div>
-</div>
+  
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+      
+    </div>
+   
+
+
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

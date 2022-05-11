@@ -16,7 +16,8 @@ namespace Intranet.web.Models
         [Display(Name = "Cargo de empleado")]
         [Range(1, int.MaxValue, ErrorMessage = "You must select a cargo de empleado.")]
         public int PositionId { get; set; }
-
+        public string UserRegistra { get; set; }
+        public string DateRegistro { get; set; }
 
         public IEnumerable<SelectListItem> PositionEmployeds { get; set; }
 

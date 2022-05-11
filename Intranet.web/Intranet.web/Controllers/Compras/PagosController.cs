@@ -27,7 +27,7 @@ namespace Intranet.web.Controllers.Compras
                 .Include(e => e.Mes)
                 .Include(r => r.Verificados)
                 .Include(e => e.ProductBonifis)
-                .Include(p=> p.Pagos)
+                .Include(p=> p.Pagoss)
                 .ToListAsync());
         }
 
@@ -40,7 +40,7 @@ namespace Intranet.web.Controllers.Compras
             try
             {
                 var Pago = await _context.Negociation
-               .Include(s => s.Pagos)
+               .Include(s => s.Pagoss)
                .FirstOrDefaultAsync(m => m.Providercompras.NameProvider.Contains(nameForeing));
                 if (Pago == null)
                 {

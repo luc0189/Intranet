@@ -7,6 +7,7 @@ namespace Intranet.web.Helpers
     {
         IEnumerable<SelectListItem> GetComboExamTypes();
         IEnumerable<SelectListItem> GetComboCreditEntities();
+        IEnumerable<SelectListItem> GetComboCargos();
         IEnumerable<SelectListItem> GetComboSedes();
         IEnumerable<SelectListItem> GetComboAreas();
         IEnumerable<SelectListItem> GetComboEndowmentType();

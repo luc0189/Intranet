@@ -10,7 +10,7 @@ namespace Intranet.web.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
-        [Display(Name = "Document")]
+        [Display(Name = "Documento")]
         public int Document { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
@@ -18,14 +18,14 @@ namespace Intranet.web.Models
         [MaxLength(50)]
         public string SiteExpedition { get; set; }
 
-        [Display(Name = "First Name")]
-        [MaxLength(50, ErrorMessage = "The {0} field can not have more than {1} characters.")]
-        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        [Display(Name = "Nombres")]
+        [MaxLength(50, ErrorMessage = "El campo {0} admite {1} Caracteres Maximo.")]
+        [Required(ErrorMessage = "El campo {0} Es Obligatorio.")]
         public string FirstName { get; set; }
 
-        [Display(Name = "Last Name")]
-        [MaxLength(50, ErrorMessage = "The {0} field can not have more than {1} characters.")]
-        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        [Display(Name = "Apellidos")]
+        [MaxLength(50, ErrorMessage = "El campo {0} admite {1} Caracteres Maximo.")]
+        [Required(ErrorMessage = "El campo {0} Es Obligatorio.")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
@@ -48,7 +48,8 @@ namespace Intranet.web.Models
         [MaxLength(50)]
         public string SiteBirth { get; set; }
 
-        [MaxLength(200, ErrorMessage = "The {0} field can not have more than {1} characters.")]
+        [MaxLength(200, ErrorMessage = "El campo {0} admite {1} Caracteres Maximo.")]
+        [Display(Name = "Direccion")]
         public string Address { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]

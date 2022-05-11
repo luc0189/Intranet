@@ -1,0 +1,163 @@
+﻿<div class="card card-dark">
+    <div class="card-header">
+        Informe de rotacion de inventario
+        <div class="card-tools">
+           time
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <input type="date" name="name" value="" id="date1" />
+            <input type="date" name="name" value="" id="date2" />
+            <input type="text" name="name" value="" id="prove" />
+            <input value="Buscar" class="btn btn-primary" onclick="myFunction()" />
+        </div>
+        <div class="table-responsive">
+            <asp:gridview runat="server" id="Gridviewcumpleañeros" gridlines="None"
+                          cssclass=" table table-striped dysplay" onselectedindexchanged="LinkButton1_Click" emptydatatext="No se encontraron Registros con los parametros indicados.">
+                <Columns>
+
+                    <asp:CommandField ShowSelectButton="true" ButtonType="Image" SelectText="Selecciona" SelectImageUrl="../dist/img/iconfinder_sms_43332.png" ControlStyle-CssClass="c" AccessibleHeaderText="Envio SMS" HeaderText="Envio SMS">
+
+
+                    </asp:CommandField>
+
+
+                </Columns>
+            </asp:gridview>
+        </div>
+    </div>
+   
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+        setTimeout(function () {
+            document.getElementById('Valida').style.display = 'none';
+        }, 3000);
+
+        function myFunction() {
+
+            var fechain = document.getElementById("date1");
+            var fechafi = document.getElementById("date2");
+            var proveedors = document.getElementById("prove");
+            var valorfechai = fechain.value;
+            var valorfechaf = fechafi.value;
+            var valorprov = proveedors.value;
+
+            //alert("El valor del campo es:" + valor);
+            //var value = document.getElementById('fname').value;
+
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:44370/Rotacion/Out_focus/",
+                data: { fechai: valorfechai, fechaf: valorfechaf, proveedor: valorprov },
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    document.getElementById("fname2").value = input.value;
+                    document.getElementById("detalle").value = response;
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+
+                },
+                error: function (response) {
+                    alert(response.responseText);
+
+
+                }
+            });
+
+
+        }
+
+        function myFunction2() {
+
+            var input = document.getElementById("fname");
+            var valor = input.value;
+
+            //alert("El valor del campo es:" + valor);
+            //var value = document.getElementById('fname').value;
+
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8082/Negociations/Out_focus/",
+               /* url: "http://localhost:8082/Negociations/Out_focus/",*/
+                data: { plu: valor },
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    document.getElementById("fname2").value = input.value;
+                    document.getElementById("detalle").value = response;
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+
+                },
+                error: function (response) {
+                    alert(response.responseText);
+
+
+                }
+            });
+
+
+        }
+        $(document).ready(function () {
+            // Delete item
+            var item_to_delete;
+            var action_to_delete;
+            $('.display').DataTable();
+
+            $('.deleteEndowment').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+                action_to_delete = 1;
+            });
+
+            $('.deleteExam').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+                action_to_delete = 2;
+            });
+            $('.deletePerson').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+                action_to_delete = 3;
+            });
+            $('.deleteCredit').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+                action_to_delete = 4;
+            });
+            $('.deleteSon').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+                action_to_delete = 5;
+            });
+            $('.deleteImage').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+                action_to_delete = 6;
+            });
+            $('.deleteIncap').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+                action_to_delete = 7;
+            });
+
+            $("#btnYesDelete").click(function () {
+                if (action_to_delete == 1) {
+                    window.location.href = '/Employees/DeleteEndowment/' + item_to_delete;
+                } if (action_to_delete == 2) {
+                    window.location.href = '/Employees/DeleteExam/' + item_to_delete;
+                } if (action_to_delete == 3) {
+                    window.location.href = '/Employees/DeletePersonContac/' + item_to_delete;
+                } if (action_to_delete == 4) {
+                    window.location.href = '/Employees/DeleteCredit/' + item_to_delete;
+                } if (action_to_delete == 5) {
+                    window.location.href = '/Employees/DeleteSon/' + item_to_delete;
+                } if (action_to_delete == 6) {
+                    window.location.href = '/Employees/DeleteImage/' + item_to_delete;
+                } if (action_to_delete == 7) {
+                    window.location.href = '/Employees/EditIncapacity/' + item_to_delete;
+                }
+
+            });
+        });
+</script>
+}
