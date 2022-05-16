@@ -1,39 +1,60 @@
 ﻿@model Intranet.web.Models.EditEndowmentVieModel
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Dotacion";
 }
-<h2>Editar</h2>
-<h4>Endowment</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="EditEndowment">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="EmployeeId" />
+<section class="content-header">
+</section>
+<section class="content">
+    <div class="container-fluid">
 
-            <partial name="_Endowment" />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-dark">
+                    <div class="card-header">
+                        Editar Dotacion
+                    </div>
+                    <form asp-action="EditEndowment">
+                        <div class="card-body">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Id" />
+                            <input type="hidden" asp-for="EmployeeId" />
 
+                            <partial name="_Endowment" />
 
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-                <a asp-action="Details" asp-route-id="@Model.EmployeeId" class="btn btn-success">Back to Site</a>
-            </div>
-            <div class="panel-footer">
-                <div>
+                        </div>
+                        
 
-                    <input style="border: none;" type="hidden" asp-for="UserRegistra" />
+                       
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-9">
+                                    <input style="border: none;" type="hidden" asp-for="UserRegistra" />
 
-                    <input style="border: none;" type="hidden" asp-for="DateRegistro" />
-                    <label asp-for="UserModify"></label>
-                    <input style="border: none;" asp-for="UserModify" disabled />
-                    <label asp-for="DateModify"></label>
-                    <input style="border: none;" asp-for="DateModify" disabled />
+                                    <input style="border: none;" type="hidden" asp-for="DateRegistro" />
+                                    <label asp-for="UserModify"></label>
+                                    <input style="border: none;" asp-for="UserModify" disabled />
+                                    <label asp-for="DateModify"></label>
+                                    <input style="border: none;" asp-for="DateModify" disabled />
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-right">
+                                        <div class="form-group">
+                                            <input type="submit" value="Actualizar" class="btn btn-primary" />
+                                            <a asp-action="Details" asp-route-id="@Model.EmployeeId" class="btn btn-success">Volver atras</a>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </form>
                 </div>
+               
             </div>
-        </form>
+        </div>
     </div>
-</div>
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+</section>
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

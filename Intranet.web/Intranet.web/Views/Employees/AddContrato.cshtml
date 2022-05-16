@@ -1,0 +1,33 @@
+﻿@model Intranet.web.Models.ContractViewModel
+
+@{
+    ViewData["Title"] = "Adicionar Contrato";
+}
+
+
+<section class="content-header">
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <form asp-action="AddContrato">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-dark">
+                        <div class="card-header">
+                            <h2>Nuevo Contrato</h2>
+                        </div>
+                        <div class="card-body">
+                            <input type="hidden" asp-for="EmployeeIds" />
+                            <partial name="_Contratos" />
+                        </div>
+                        <div class="card-footer">
+                            <input type="submit" value="Guardar" class="btn btn-primary" />
+                            <a asp-action="Details" asp-route-id="@Model.EmployeeIds" class="btn btn-success">Volver Atras</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

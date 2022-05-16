@@ -4,14 +4,16 @@ using Intranet.web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Intranet.web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220512193451_contratos")]
+    partial class contratos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -498,9 +500,11 @@ namespace Intranet.web.Migrations
                     b.Property<string>("Clausulas")
                         .HasMaxLength(500);
 
-                    b.Property<DateTime>("DateEnd");
+                    b.Property<DateTime>("DateEnd")
+                        .HasMaxLength(100);
 
-                    b.Property<DateTime>("DateStart");
+                    b.Property<DateTime>("DateStart")
+                        .HasMaxLength(100);
 
                     b.Property<int?>("EmployeeId");
 
@@ -1102,15 +1106,11 @@ namespace Intranet.web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("EmployeeId");
-
                     b.Property<string>("Position")
                         .IsRequired()
                         .HasMaxLength(40);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId");
 
                     b.ToTable("PositionEmployees");
                 });
@@ -1609,13 +1609,6 @@ namespace Intranet.web.Migrations
                 {
                     b.HasOne("Intranet.web.Data.Entities.Employee", "Employee")
                         .WithMany("PersonContacts")
-                        .HasForeignKey("EmployeeId");
-                });
-
-            modelBuilder.Entity("Intranet.web.Data.Entities.PositionEmployee", b =>
-                {
-                    b.HasOne("Intranet.web.Data.Entities.Employee")
-                        .WithMany("PositionEmployees")
                         .HasForeignKey("EmployeeId");
                 });
 

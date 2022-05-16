@@ -162,6 +162,20 @@ namespace Intranet.web.Helpers
 
             };
         }//
+        public async Task<Contract> ToContractoAsync(ContractViewModel model, bool isNew)
+        {
+            return new Contract
+            {
+                Id = isNew ? 0 : model.Id,
+                Clausulas = model.Clausulas,
+                Note = model.Note,
+                DateStart = model.DateStart,
+                DateEnd = model.DateEnd,
+
+                Employee = await _dataContext.Employees.FindAsync(model.EmployeeIds)
+
+            };
+        }//
         public async Task<Sons> ToEditSonsAsync(EditSonViewModel model)
         {
             return new Sons
@@ -241,9 +255,6 @@ namespace Intranet.web.Helpers
 
             };
         }//
-
-     
-
 
         public EditPagoViewModel ToEditPagoViewModel(Pagos pagos)
         {
@@ -413,6 +424,8 @@ namespace Intranet.web.Helpers
                 UserRegistra=endowment.UserRegistra,
                 DateModify=endowment.DateModify,
                 UserModify=endowment.UserModify,
+                EndowmentTypeId=endowment.EndowmentType.Id,
+                DateVence=endowment.DateVence,
                 EndowmnetsTypes = _combosHelpers.GetComboEndowmentType()
             };
         }

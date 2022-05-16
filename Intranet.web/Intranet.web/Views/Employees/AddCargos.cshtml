@@ -2,38 +2,44 @@
 @{
     ViewData["Title"] = "Adicionar Cargos";
 }
+<section class="content-header">
+</section>
+<section class="content">
+    <div class="container-fluid">
 
-<hr />
-<form asp-action="AddCargos">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h2>Create</h2>
-                    <h4>Credito</h4>
-                </div>
-                <div class="panel-body">
-                    <input type="hidden" asp-for="EmployeeIds" />
-                    <div class="form-group">
-                        <label asp-for="PositionId" class="control-label"></label>
-                        <select asp-for="PositionId" asp-items="Model.PositionEmployeds" class="form-control">
-                        </select>
-                        <span asp-validation-for="PositionId" class="text-danger"></span>
+      
+            <form asp-action="AddCargos">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-dark">
+                            <div class="card-header">
+                                <h2>Adicionar Cargos</h2>
+                             
+                            </div>
+                            <div class="card-body">
+                                <input type="hidden" asp-for="EmployeeIds" />
+                                <div class="form-group">
+                                    <label asp-for="PositionId" class="control-label"></label>
+                                    <select asp-for="PositionId" asp-items="Model.PositionEmployeds" class="form-control">
+                                    </select>
+                                    <span asp-validation-for="PositionId" class="text-danger"></span>
+                                </div>
+
+
+                            </div>
+                            <div class="card-footer">
+                                <div class="form-group">
+                                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                                    <a asp-action="Details" asp-route-id="@Model.EmployeeIds" class="btn btn-success">Volver atras</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+
                     </div>
-
-
                 </div>
-                <div class="panel-footer">
-                    <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-primary" />
-                        <a asp-action="Details" asp-route-id="@Model.EmployeeIds" class="btn btn-success">Back to Employed</a>
-                    </div>
-                </div>
-            </div>
-
-
-
-        </div>
+            </form>
     </div>
-</form>
+</section>

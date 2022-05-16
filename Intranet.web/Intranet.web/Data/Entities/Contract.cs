@@ -12,14 +12,12 @@ namespace Intranet.web.Data.Entities
      
         [Display(Name = "Fecha Inicio")]
         [Required]
-        [MaxLength(100)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public DateTime DateStart { get; set; } 
         
         
         [Display(Name = "Fecha retiro")]
         [Required]
-        [MaxLength(100)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public DateTime DateEnd { get; set; }
 

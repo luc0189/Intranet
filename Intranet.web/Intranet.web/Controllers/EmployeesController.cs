@@ -297,14 +297,15 @@ namespace Intranet.web.Controllers
 
             var employe = await _dataContext.Employees
                 .Include(e => e.Sons)
+              
                 .Include(e => e.Area)
+             
                 .ThenInclude(s => s.SiteHeadquarters)
                 .Include(e => e.PersonContacts)
                 .Include(e => e.Credits)
-                //.Include(e => e.PositionEmployee)
-                .Include(e => e.Pension)
+                 .Include(e => e.Pension)
                 .Include(e => e.Eps)
-
+                
                 .Include(e => e.Exams)
                 .Include(e => e.CajaCompensacion)
                 .Include(e => e.Endowments)
@@ -339,10 +340,10 @@ namespace Intranet.web.Controllers
                 DateModify = employe.DateModify,
                 UserModify = employe.UserModify,
                 DateRegistro = employe.DateRegistro,
-
-                //PositionEmpId = employe.PositionEmployee.Id,
+                Sexo=employe.Sexo,
+                //PositionEmpId = employe.positionEmployees.Id,
                 PositionEmplooyed = _combosHelpers.GetComboPositionEmploye(),
-
+                
                 PensionId = employe.Pension.Id,
                 Pension = _combosHelpers.GetComboPension(),
 
@@ -480,7 +481,6 @@ namespace Intranet.web.Controllers
             }
             var model = new ExamViewModel
             {
-
                 EmployeeId = employe.Id,
                 ExamTypes = _combosHelpers.GetComboExamTypes()
             };
@@ -743,11 +743,6 @@ namespace Intranet.web.Controllers
             }
             return View(model);
         }
-
-
-
-
-
         public async Task<IActionResult> AddSons(int? id)
         {
             if (id == null)
@@ -839,7 +834,6 @@ namespace Intranet.web.Controllers
             }
             return View(model);
         }
-
 
         public async Task<IActionResult> AddCredit(int? id)
         {
@@ -1085,7 +1079,9 @@ namespace Intranet.web.Controllers
                 return NotFound();
             }
             var endowment = await _dataContext.Endowments
+                
                 .Include(s => s.Employee)
+                .Include(s => s.EndowmentType)
                 .FirstOrDefaultAsync(s => s.Id == id);
             if (endowment == null)
             {
@@ -1102,28 +1098,31 @@ namespace Intranet.web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var endowment = new Endowment
+                var endowment = new EditEndowmentVieModel
                 {
                     Count = model.Count,
                     DateDelivery = model.DateDelivery,
                     DateModify = DateTime.Now,
                     DateRegistro = model.DateRegistro,
                     Detail = model.Detail,
-                    Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
+                    EndowmentTypeId= model.EndowmentTypeId,
+                    EmployeeId = model.EmployeeId,
                     Id = model.Id,
                     Size = model.Size,
+                    DateVence=model.DateVence,
+                    
                     UserModify = User.Identity.Name,
                     UserRegistra = model.UserRegistra
                 };
 
-                _dataContext.Endowments.Update(endowment);
+                //var credit = await _converterHelper.ToAddEndowmentAsync(endowment);
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");
                 // return RedirectToAction($"Details/{model.SiteId}");
             }
             return View(model);
         }
-        public async Task<IActionResult> AddContrac(int? id)
+        public async Task<IActionResult> AddContrato(int? id)
         {
             if (id == null)
             {
@@ -1137,13 +1136,13 @@ namespace Intranet.web.Controllers
             var model = new ContractViewModel
             {
                 EmployeeIds = employe.Id,
-
+                DateEnd = DateTime.Today.AddYears(1),
             };
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddContrac(ContractViewModel model)
+        public async Task<IActionResult> AddContrato(ContractViewModel model)
         {
             
             if (ModelState.IsValid)
@@ -1161,10 +1160,10 @@ namespace Intranet.web.Controllers
                    
 
                 };
-                var endowments = await _converterHelper.ToAddEndowmentAsync(modelfull, true);
-                _dataContext.Endowments.Add(endowments);
+                var contrato = await _converterHelper.ToContractoAsync(modelfull, true);
+                _dataContext.Contracts.Add(contrato);
                 await _dataContext.SaveChangesAsync();
-                return RedirectToAction($"Details/{model.EmployeeId}");
+                return RedirectToAction($"Details/{model.EmployeeIds}");
             }
             return View(model);
         }
@@ -1325,7 +1324,44 @@ namespace Intranet.web.Controllers
             await _dataContext.SaveChangesAsync();
             return RedirectToAction($"{nameof(Details)}/{credit.Employee.Id}");
         }
+        public async Task<IActionResult> DeleteCargo(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var cargos = await _dataContext.CargosAsgs
+                .Include(pi => pi.Employee)
+                .FirstOrDefaultAsync(pi => pi.Id == id.Value);
+            if (cargos == null)
+            {
+                return NotFound();
+            }
+
+            _dataContext.CargosAsgs.Remove(cargos);
+            await _dataContext.SaveChangesAsync();
+            return RedirectToAction($"{nameof(Details)}/{cargos.Employee.Id}");
+        }
+        public async Task<IActionResult> DeleteContrato(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var contractos = await _dataContext.Contracts
+                .Include(pi => pi.Employee)
+                .FirstOrDefaultAsync(pi => pi.Id == id.Value);
+            if (contractos == null)
+            {
+                return NotFound();
+            }
+
+            _dataContext.Contracts.Remove(contractos);
+            await _dataContext.SaveChangesAsync();
+            return RedirectToAction($"{nameof(Details)}/{contractos.Employee.Id}");
+        }
         public async Task<IActionResult> DeleteSon(int? id)
         {
             if (id == null)

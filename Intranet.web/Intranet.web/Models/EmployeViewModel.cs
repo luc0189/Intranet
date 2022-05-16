@@ -148,6 +148,7 @@ namespace Intranet.web.Models
         public IEnumerable<SelectListItem> PositionEmplooyed { get; set; }
         public IEnumerable<SelectListItem> Incapacitys { get; set; }
       
+      
 
     }
 }

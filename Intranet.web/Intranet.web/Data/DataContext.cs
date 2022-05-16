@@ -55,6 +55,7 @@ namespace Intranet.web.Data
         public DbSet<TercBnet> TercBnets { get; set; }
         public DbSet<Campaña> Campañas { get; set; }
         public DbSet<Boletas> Boletas { get; set; }
+        public DbSet<Contract> Contracts { get; set; }
 
         public DbSet<Intranet.web.Data.Entities.Compras.ProductBonifi> ProductBonifi { get; set; }
         public DbSet<Intranet.web.Data.Entities.Compras.Negociation> Negociation { get; set; }

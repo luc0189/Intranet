@@ -13,14 +13,12 @@ namespace Intranet.web.Models
 
         [Display(Name = "Fecha inicio")]
         [Required]
-        [MaxLength(100)]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime DateStart { get; set; }
 
         [Display(Name = "Fecha Fin")]
         [Required]
-        [MaxLength(100)]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime DateEnd { get; set; }
 
         [Display(Name = "Clausulas")]
