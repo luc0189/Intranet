@@ -1,62 +1,48 @@
 ﻿@model Intranet.web.Data.Entities.Fidelizacion.Bono
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Bono";
 }
 
 <section class="content-header">
+  
+</section>
+<section class="content">
     <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1> Editar</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+        <div class="row">
+            <div class="col-lg-6">
+                <form asp-action="Edit" class="form-horizontal">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="card card-dark">
+                        <div class="card-header">
+                            Editar
+                            <div class="card-tools">
+                                <div class="checkbox">
+                                    <label>
+                                        <input asp-for="Redimido" /> @Html.DisplayNameFor(model => model.Redimido)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <partial name="_Bono" />
+                        <div class="card-footer">
+                            <input type="submit" value="Save" class="btn btn-success" />
+                            <a asp-action="Index" class="btn btn-default float-right">Back to List</a>
+                        </div>
+                    </div>
 
-                    <li class="breadcrumb-item active">Fidelizacion</li>
-                    <li class="breadcrumb-item active">Editar Bono</li>
-                    <li class="breadcrumb-item active"><label><input asp-for="Id" disabled /></label></li>
-                </ol>
+
+
+                    <div class="form-group">
+
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </section>
-<hr />
-<div class="row">
-    <div class="col-lg-6">
-        <form asp-action="Edit" class="form-horizontal">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="card card-dark">
-                <div class="card-header">
-                    Editar
-                    <div class="card-tools">
-                        <div class="checkbox">
-                            <label>
-                                <input asp-for="Redimido" /> @Html.DisplayNameFor(model => model.Redimido)
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                    <partial name="_Bono" />
-            <div class="card-footer">
-                    <input type="submit" value="Save" class="btn btn-success" />
-                    <a asp-action="Index" class="btn btn-default float-right">Back to List</a>
-                </div>
-            </div>
 
 
-
-            <div class="form-group">
-             
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-   
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

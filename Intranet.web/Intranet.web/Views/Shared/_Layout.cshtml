@@ -19,7 +19,7 @@
     <!-- Font Awesome Icons -->
     <link href="~/adminlte/plugins/font-awesome4/css/font-awesome.css" rel="stylesheet" />
 
-    <link href="~/adminlte/plugins/fontawesome-free/css/all.css" rel="stylesheet" />
+   
     <!-- Theme style -->
     <link rel="stylesheet" href="~/adminlte/dist/css/adminlte.min.css">
     @RenderSection("Styles", required: false)
@@ -39,8 +39,8 @@
         <partial name="_Sidebar" />
         <partial name="_Footer" />
     </div>
-   
-    
+
+
 
     @*<nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
@@ -195,11 +195,12 @@
     <script src="~/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="~/adminlte/dist/js/adminlte.min.js"></script>
-    @RenderSection("Scripts", required: false)
     <script src="~/adminlte/plugins/datatables/jquery.dataTables.js">
 
 
     </script>
+    @RenderSection("Scripts", required: false)
+
     <script type="text/javascript">
         $(document).ready(function () {
             $('.Mytable').DataTable({

@@ -5,95 +5,102 @@
 }
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 
-<br />
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <p>
-                    <a asp-action="Create" class="btn btn-primary">Crear Nueva Negociacion</a>
-                </p>
-            </div>
-            <div class="panel-body">
-                <div class="table-responsive ">
-                    <table class="table table-hover table-striped" id="MyTable">
-                        <thead>
-                            <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.DateIn)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Providercompras.NameProvider)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Clasification.Name)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Mes.Name)
-                                </th>
+<section class="content-header">
+
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-dark">
+                    <div class="card-header">
+                      
+                            <a asp-action="Create" class="btn btn-dark">Nueva Negociacion</a>
+                        
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive ">
+                            <table class="table table-hover table-striped" id="MyTable">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.DateIn)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Providercompras.NameProvider)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Clasification.Name)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Mes.Name)
+                                        </th>
 
 
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Verificar)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Pago)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.SalaVenta.Name)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Document)
-                                </th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DateIn)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Providercompras.NameProvider)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Clasification.Name)
-                                </td>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Verificar)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Pago)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.SalaVenta.Name)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Document)
+                                        </th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.DateIn)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Providercompras.NameProvider)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Clasification.Name)
+                                            </td>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Mes.Name)
-                                </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Mes.Name)
+                                            </td>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Verificar)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Pago)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.SalaVenta.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Document)
-                                </td>
-                                <td>
-                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
-                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info"><i class="glyphicon glyphicon-list"></i></a>
-                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
-                                </td>
-                            </tr>
-                            }
-                        </tbody>
-                    </table>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Verificar)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Pago)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.SalaVenta.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Document)
+                                            </td>
+                                            <td>
+                                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info"><i class="glyphicon glyphicon-list"></i></a>
+                                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
 
+                        </div>
+
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
-</div>
+</section>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -171,7 +171,10 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-one-Exam-tab" data-toggle="pill" href="#custom-tabs-one-Cont" role="tab" aria-controls="custom-tabs-one-Cont" aria-selected="false">Contratos <span class="badge"> @Html.DisplayFor(modelItem => Model.Contracts.Count)</span></a>
                                 </li>
-                                
+                                <li class="nav-item">
+                                    <a class="nav-link" id="custom-tabs-one-Histo-tab" data-toggle="pill" href="#custom-tabs-one-Histo" role="tab" aria-controls="custom-tabs-one-Histo" aria-selected="false">Historial <span class="badge"> @Html.DisplayFor(modelItem => Model.HistorialEmpleados.Count)</span></a>
+                                </li>
+
                             </ul>
                         </div>
                         <div class="card-body">
@@ -182,79 +185,79 @@
                                         <div class="card-body">
                                             @if (Model.Endowments.Count == 0)
                                             {
-                                                
-                                                                <a asp-action="AddEndowment" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Dotacion</a>
-                                                        
+
+                                                <a asp-action="AddEndowment" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Dotacion</a>
+
                                             }
                                             else
                                             {
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="table-responsive">
-                                                                    <table class="table table-striped display">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().EndowmentType.NameType)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().Detail)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().Count)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().Size)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().DateDeliveryLocal)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().DateVence)
-                                                                                </th>
-                                                                               
-                                                                                <th>
+                                                            <table class="table table-striped display">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().EndowmentType.NameType)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().Detail)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().Count)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().Size)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().DateDeliveryLocal)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Endowments.FirstOrDefault().DateVence)
+                                                                        </th>
 
-                                                                                    <a asp-action="AddEndowment" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Dotacion</a>
+                                                                        <th>
 
-                                                                                </th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            @foreach (var item in Model.Endowments)
-                                                                            {
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.EndowmentType.NameType)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.Detail)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.Count)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.Size)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.DateDeliveryLocal)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.DateVence)
-                                                                                    </td>
-                                                                                   
-                                                                                    <td>
-                                                                                        <a asp-action="EditEndowment" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                                            <a asp-action="AddEndowment" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Dotacion</a>
 
-                                                                                        <button data-id="@item.Id" class="btn btn-danger deleteEndowment" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            }
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var item in Model.Endowments)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.EndowmentType.NameType)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.Detail)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.Count)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.Size)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.DateDeliveryLocal)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.DateVence)
+                                                                            </td>
+
+                                                                            <td>
+                                                                                <a asp-action="EditEndowment" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                                                                <button data-id="@item.Id" class="btn btn-danger deleteEndowment" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
-                                                 </div>
+                                                </div>
                                             }
                                         </div>
                                     </div>
@@ -265,76 +268,76 @@
                                         <div class="card-body">
                                             @if (Model.Incapacities.Count == 0)
                                             {
-                                                
-                                                                <a asp-action="AddIncapacity" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Novedad</a>
-                                                    
+
+                                                <a asp-action="AddIncapacity" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Novedad</a>
+
                                             }
                                             else
                                             {
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                    
 
-                                                                <div class="table table-responsive-lg" >
-                                                                    <table class="table table-striped display">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().TypeNew.Nombre)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().Novedad)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().StartDate)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().CantDay)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().EndDate)
-                                                                                </th>
-                                                                               
 
-                                                                                <th>
+                                                        <div class="table table-responsive-lg">
+                                                            <table class="table table-striped display">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().TypeNew.Nombre)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().Novedad)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().StartDate)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().CantDay)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Incapacities.FirstOrDefault().EndDate)
+                                                                        </th>
 
-                                                                                    <a asp-action="AddIncapacity" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Novedad</a>
 
-                                                                                </th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            @foreach (var item in Model.Incapacities)
-                                                                            {
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.TypeNew.Nombre)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.Novedad)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.StartDate)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.CantDay)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.EndDate)
-                                                                                    </td>
-                                                                                  
-                                                                                    <td>
-                                                                                        <a asp-action="EditIncap" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                                        <th>
 
-                                                                                        <button data-id="@item.Id" class="btn btn-danger deleteIncap" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            }
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
+                                                                            <a asp-action="AddIncapacity" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Novedad</a>
 
-                                                        
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var item in Model.Incapacities)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.TypeNew.Nombre)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.Novedad)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.StartDate)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.CantDay)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.EndDate)
+                                                                            </td>
+
+                                                                            <td>
+                                                                                <a asp-action="EditIncap" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                                                                <button data-id="@item.Id" class="btn btn-danger deleteIncap" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+
                                                     </div>
                                                 </div>
                                             }
@@ -347,65 +350,65 @@
                                         <div class="card-body">
                                             @if (Model.Sons.Count == 0)
                                             {
-                                                
-                                                                <a asp-action="AddSons" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar hijos</a>
-                                                            
+
+                                                <a asp-action="AddSons" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar hijos</a>
+
                                             }
                                             else
                                             {
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                                <div class="table-responsive ">
-                                                                    <table class="table table-striped display">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Sons.FirstOrDefault().Name)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Sons.FirstOrDefault().Datebirth)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Sons.FirstOrDefault().Genero)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Sons.FirstOrDefault().UserRegistra)
-                                                                                </th>
-                                                                                <th>
-                                                                                    <a asp-action="AddSons" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Hijos</a>
+                                                        <div class="table-responsive ">
+                                                            <table class="table table-striped display">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Sons.FirstOrDefault().Name)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Sons.FirstOrDefault().Datebirth)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Sons.FirstOrDefault().Genero)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Sons.FirstOrDefault().UserRegistra)
+                                                                        </th>
+                                                                        <th>
+                                                                            <a asp-action="AddSons" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Hijos</a>
 
-                                                                                </th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            @foreach (var item in Model.Sons)
-                                                                            {
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.Name)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.Datebirth)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.Genero)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.UserRegistra)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <a asp-action="EditSon" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var item in Model.Sons)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.Name)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.Datebirth)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.Genero)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.UserRegistra)
+                                                                            </td>
+                                                                            <td>
+                                                                                <a asp-action="EditSon" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
 
-                                                                                        <button data-id="@item.Id" class="btn btn-danger deleteSon" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            }
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
+                                                                                <button data-id="@item.Id" class="btn btn-danger deleteSon" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
 
-                                                       
-                                                       
+
+
                                                     </div>
                                                 </div>
 
@@ -419,92 +422,92 @@
                                         <div class="card-body">
                                             @if (Model.Credits.Count == 0)
                                             {
-                                                                <a asp-action="AddCredit" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Creditos</a>
-                                                            
+                                                <a asp-action="AddCredit" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Creditos</a>
+
                                             }
                                             else
                                             {
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                       
-                                                               
-                                                            
-                                                                <div class="table-responsive ">
-                                                                    <table class="table table-striped display">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().CreditEntities.Name)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().NumberL)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().Quotmonthly)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().TotalPrice)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().DeadlinePay)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().StartDateLocal)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().EndDateLocal)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().IsActive)
-                                                                                </th>
-                                                                               
-                                                                                <th>
-                                                                                    <a asp-action="AddCredit" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Creditos</a>
 
-                                                                                </th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            @foreach (var item in Model.Credits)
-                                                                            {
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.CreditEntities.Name)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.NumberL)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.Quotmonthly)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.TotalPrice)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.DeadlinePay)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.StartDateLocal)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.EndDateLocal)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.IsActive)
-                                                                                    </td>
-                                                                                   
-                                                                                    <td>
-                                                                                        <a asp-action="EditCredit" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
 
-                                                                                        <button data-id="@item.Id" class="btn btn-danger deleteCredit" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            }
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
 
-                                                          
+                                                        <div class="table-responsive ">
+                                                            <table class="table table-striped display">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().CreditEntities.Name)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().NumberL)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().Quotmonthly)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().TotalPrice)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().DeadlinePay)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().StartDateLocal)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().EndDateLocal)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Credits.FirstOrDefault().IsActive)
+                                                                        </th>
+
+                                                                        <th>
+                                                                            <a asp-action="AddCredit" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Creditos</a>
+
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var item in Model.Credits)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.CreditEntities.Name)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.NumberL)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.Quotmonthly)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.TotalPrice)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.DeadlinePay)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.StartDateLocal)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.EndDateLocal)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.IsActive)
+                                                                            </td>
+
+                                                                            <td>
+                                                                                <a asp-action="EditCredit" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                                                                <button data-id="@item.Id" class="btn btn-danger deleteCredit" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+
                                                     </div>
                                                 </div>
                                             }
@@ -516,73 +519,73 @@
                                         <div class="card-body">
                                             @if (Model.PersonContacts.Count == 0)
                                             {
-                                              
-                                                                <a asp-action="AddPerson" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Contactos</a>
-                                                           
+
+                                                <a asp-action="AddPerson" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Contactos</a>
+
                                             }
                                             else
                                             {
 
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                       
-                                                                <div class="table-responsive">
-                                                                    <table class="table table-striped display">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.PersonContacts.FirstOrDefault().Name)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.PersonContacts.FirstOrDefault().Telephone)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.PersonContacts.FirstOrDefault().relationship)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.PersonContacts.FirstOrDefault().UserRegistra)
-                                                                                </th>
 
-                                                                                <th>
-                                                                                    <a asp-action="AddPerson" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Contactos</a>
-                                                                                </th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            @foreach (var item in Model.PersonContacts)
-                                                                            {
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.Name)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.Telephone)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.relationship)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.UserRegistra)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <a asp-action="EditPersonContact" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-striped display">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.PersonContacts.FirstOrDefault().Name)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.PersonContacts.FirstOrDefault().Telephone)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.PersonContacts.FirstOrDefault().relationship)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.PersonContacts.FirstOrDefault().UserRegistra)
+                                                                        </th>
 
-                                                                                        <button data-id="@item.Id" class="btn btn-danger deletePerson" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            }
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
+                                                                        <th>
+                                                                            <a asp-action="AddPerson" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Contactos</a>
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var item in Model.PersonContacts)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.Name)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.Telephone)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.relationship)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.UserRegistra)
+                                                                            </td>
+                                                                            <td>
+                                                                                <a asp-action="EditPersonContact" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
 
-                                                           
+                                                                                <button data-id="@item.Id" class="btn btn-danger deletePerson" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+
                                                     </div>
                                                 </div>
                                             }
                                         </div>
-                                     
-                                           
-                                       
+
+
+
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="custom-tabs-one-Exam" role="tabpanel" aria-labelledby="custom-tabs-one-Exam-tab">
@@ -591,68 +594,68 @@
                                         <div class="card-body">
                                             @if (Model.Exams.Count == 0)
                                             {
-                                                
-                                                       
-                                                                <a asp-action="AddExam" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Examenes</a>
-                                                            
+
+
+                                                <a asp-action="AddExam" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Examenes</a>
+
                                             }
                                             else
                                             {
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                       
-                                                               
-                                                                <div class="table-responsive">
-                                                                    <table class="table table-striped" id="MyTable">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Exams.FirstOrDefault().ExamsType.Name)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Exams.FirstOrDefault().StartDateLocal)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Exams.FirstOrDefault().EndDateLocal)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Exams.FirstOrDefault().UserRegistra)
-                                                                                </th>
 
-                                                                                <th>
-                                                                                    <a asp-action="AddExam" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Examenes</a>
 
-                                                                                </th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            @foreach (var item in Model.Exams)
-                                                                            {
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.ExamsType.Name)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.StartDateLocal)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.EndDateLocal)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.UserRegistra)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <a asp-action="EditExam" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-striped" id="MyTable">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Exams.FirstOrDefault().ExamsType.Name)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Exams.FirstOrDefault().StartDateLocal)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Exams.FirstOrDefault().EndDateLocal)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Exams.FirstOrDefault().UserRegistra)
+                                                                        </th>
 
-                                                                                        <button data-id="@item.Id" class="btn btn-danger deleteExam" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            }
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
+                                                                        <th>
+                                                                            <a asp-action="AddExam" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Examenes</a>
 
-                                                         
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var item in Model.Exams)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.ExamsType.Name)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.StartDateLocal)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.EndDateLocal)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.UserRegistra)
+                                                                            </td>
+                                                                            <td>
+                                                                                <a asp-action="EditExam" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                                                                <button data-id="@item.Id" class="btn btn-danger deleteExam" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+
                                                     </div>
                                                 </div>
                                             }
@@ -665,55 +668,55 @@
                                         <div class="card-body">
                                             @if (Model.CargosAsgs.Count == 0)
                                             {
-                                                
-                                                        
-                                                                <a asp-action="AddCargos" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Cargo</a>
-                                                        
+
+
+                                                <a asp-action="AddCargos" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Cargo</a>
+
                                             }
                                             else
                                             {
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                       
-                                                              
-                                                                <div class="table-responsive">
-                                                                    <table class="table table-striped display">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.CargosAsgs.FirstOrDefault().PositionEmployee.Position)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.CargosAsgs.FirstOrDefault().DateAsg)
-                                                                                </th>
 
-                                                                                <th>
-                                                                                    <a asp-action="AddCargos" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Cargo</a>
 
-                                                                                </th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            @foreach (var item in Model.CargosAsgs)
-                                                                            {
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.PositionEmployee.Position)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.DateAsg)
-                                                                                    </td>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-striped display">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.CargosAsgs.FirstOrDefault().PositionEmployee.Position)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.CargosAsgs.FirstOrDefault().DateAsg)
+                                                                        </th>
 
-                                                                                    <td>
-                                                                                       
+                                                                        <th>
+                                                                            <a asp-action="AddCargos" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Cargo</a>
 
-                                                                                        <button data-id="@item.Id" class="btn btn-danger DeleteCargo" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            }
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var item in Model.CargosAsgs)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.PositionEmployee.Position)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.DateAsg)
+                                                                            </td>
+
+                                                                            <td>
+
+
+                                                                                <button data-id="@item.Id" class="btn btn-danger DeleteCargo" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
 
                                                     </div>
                                                 </div>
@@ -727,62 +730,128 @@
                                         <div class="card-body">
                                             @if (Model.Contracts.Count == 0)
                                             {
-                                              
-                                                                <a asp-action="AddContrato" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Contratos</a>
-                                                            
+
+                                                <a asp-action="AddContrato" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Contratos</a>
+
                                             }
                                             else
                                             {
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                       
 
-                                                              
-                                                                <div class="table-responsive">
-                                                                    <table class="table table-striped display">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().Note)
-                                                                                </th>
-                                                                                <th>
-                                                                                    @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().DateStart)
-                                                                                </th>
 
-                                                                                <th>
-                                                                                    <a asp-action="AddContrato" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Contratos</a>
 
-                                                                                </th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            @foreach (var item in Model.Contracts)
-                                                                            {
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.Note)
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        @Html.DisplayFor(modelItem => item.DateStart)
-                                                                                    </td>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-striped display">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().Note)
+                                                                        </th>
+                                                                        <th>
+                                                                            @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().DateStart)
+                                                                        </th>
 
-                                                                                    <td>
-                                                                                        <a asp-action="EditContrato" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                                        <th>
+                                                                            <a asp-action="AddContrato" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Contratos</a>
 
-                                                                                        <button data-id="@item.Id" class="btn btn-danger DeleteContrato" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            }
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var item in Model.Contracts)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.Note)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => item.DateStart)
+                                                                            </td>
 
-                                                           
+                                                                            <td>
+                                                                                <a asp-action="EditContrato" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                                                                <button data-id="@item.Id" class="btn btn-danger DeleteContrato" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+
                                                     </div>
                                                 </div>
                                             }
                                         </div>
                                     </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="custom-tabs-one-Histo" role="tabpanel" aria-labelledby="custom-tabs-one-Histo-tab">
+                                    <div class="card card-default">
+                                        @if (User.Identity.IsAuthenticated && User.IsInRole("Manager") || User.IsInRole("Recursoshumanos"))
+                                        {
+                                            <div class="card-body">
+                                                @if (Model.HistorialEmpleados.Count == 0)
+                                                {
+
+                                                    <a asp-action="AddHistorial" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Novedad</a>
+
+                                                }
+                                                else
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+
+
+
+                                                            <div class="table-responsive">
+                                                                <table class="table table-striped display">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>
+                                                                                @Html.DisplayNameFor(model => model.HistorialEmpleados.FirstOrDefault().Notas)
+                                                                            </th>
+                                                                            <th>
+                                                                                @Html.DisplayNameFor(model => model.HistorialEmpleados.FirstOrDefault().Fecha)
+                                                                            </th>
+
+                                                                            <th>
+                                                                                <a asp-action="AddHistorial" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Nuevo</a>
+
+                                                                            </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach (var item in Model.HistorialEmpleados)
+                                                                        {
+                                                                            <tr>
+                                                                                <td>
+                                                                                    @Html.DisplayFor(modelItem => item.Notas)
+                                                                                </td>
+                                                                                <td>
+                                                                                    @Html.DisplayFor(modelItem => item.Fecha)
+                                                                                </td>
+
+                                                                                <td>
+                                                                                    <a asp-action="EditHistorial" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+
+                                                                                    <button data-id="@item.Id" class="btn btn-danger DeleteContrato" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                                </td>
+                                                                            </tr>
+                                                                        }
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
+                                        </div>
                                 </div>
                             </div>
                         </div>

@@ -1,0 +1,35 @@
+﻿@model Intranet.web.Models.AddHistorialEmpleadoViewModel
+
+@{
+    ViewData["Title"] = "Adicionar Historial";
+}
+
+<section class="content-header"></section>
+<section class="content">
+    <div class="container-fluid">
+        <form asp-action="AddHistorial">
+            <div class="row">
+
+
+                <div class="col-md-12">
+                    <div class="card card-dark">
+                        <div class="card-header">
+                            <h2>Adicionar Historial</h2>
+                        </div>
+                        <div class="card-body">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="EmployeeId" />
+
+                            <partial name="_Historial" />
+                        </div>
+                        <div class="card-footer">
+                            <input type="submit" value="Guardar" class="btn btn-primary" />
+                            <a asp-action="Details" asp-route-id="@Model.EmployeeId" class="btn btn-success">Volver Atras</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</section>

@@ -1,33 +1,38 @@
 ﻿@model Intranet.web.Data.Entities.PositionEmployee
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Cargo";
 }
 
+<section class="content-header">
 
-<hr />
+</section>
+<section class="content">
+    <div class="container-fluid">
+
+    </div>
+</section>
 <form asp-action="Edit">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="Id" />
     <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h2>Edit</h2>
+            <div class="card card-dark">
+                <div class="card-header">
+                    <h2>Editar Cargo</h2>
 
-                    <h4>PositionEmployee</h4>
                 </div>
-                <div class="panel-body">
+                <div class="card-body">
                     <div class="form-group">
                         <label asp-for="Position" class="control-label"></label>
                         <input asp-for="Position" class="form-control" />
                         <span asp-validation-for="Position" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="panel-footer">
+                <div class="card-footer">
                     <div class="form-group">
-                        <input type="submit" value="Save" class="btn btn-default" />
-                        <a asp-action="Index" class="btn btn-success">Back to List</a>
+                        <input type="submit" value="Guardar" class="btn btn-default" />
+                        <a asp-action="Index" class="btn btn-success">Volver Atras</a>
                     </div>
                 </div>
             </div>

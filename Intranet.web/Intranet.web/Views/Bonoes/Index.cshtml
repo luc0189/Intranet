@@ -1,110 +1,124 @@
 ﻿@model IEnumerable<Intranet.web.Data.Entities.Fidelizacion.Bono>
 
 @{
-    ViewData["Title"] = "Crear Bono";
+    ViewData["Title"] = "Listado Bonos";
 }
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 
 <hr />
 
+<section class="content-header">
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-dark">
+                    <div class="card-header">
+                        <a asp-action="Create" class="btn btn-dark">Crear Bono</a>
+                    </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="card card-default">
-            <div class="card-heading">
-                <h2>Bonos Supermio</h2>
-                <a asp-action="Create" class="btn btn-primary">Crear Bono</a>
-            </div>
+                    <div class="card-body">
+                        <div class="table-responsive ">
+                            <table class="table table-hover table-striped MyTable" id="MyTable">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Codigo)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Redimido)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Actividad)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Valor)
+                                        </th>
 
-            <div class="card-body">
-                <div class="table-responsive ">
-                    <table class="table table-hover table-striped display" id="MyTable">
-                        <thead>
-                            <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Codigo)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Redimido)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Actividad)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Valor)
-                                </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Fechacreado)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Usuariocrea)
+                                        </th>
+                                        <th>
+                                            veces Redimido
+                                        </th>
 
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Fechacreado)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Usuariocrea)
-                                </th>
-                                <th>
-                                    veces Redimido
-                                </th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Codigo)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Redimido)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Actividad)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Valor)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Fechacreado)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Usuariocrea)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Redimidos.Count)
+                                            </td>
+                                            <td>
+                                                @if (User.Identity.IsAuthenticated && User.IsInRole("Manager"))
+                                                {
+                                                    <a asp-action="Edit" class="btn btn-warning btn-sm" asp-route-id="@item.Id"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Codigo)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Redimido)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Actividad)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Valor)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Fechacreado)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Usuariocrea)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Redimidos.Count)
-                                    </td>
-                                    <td>
-                                        @if (User.Identity.IsAuthenticated && User.IsInRole("Manager"))
-                                        {
-                                            <a asp-action="Edit" class="btn btn-warning btn-sm" asp-route-id="@item.Id"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-
-                                        }
-
-
-                                        @if (item.Redimido == true)
-                                        {
-                                            <label class="label-warning">Bono Redimido</label>
-
-                                        }
-                                        else
-                                        {
-                                            <a asp-action="Details" class="btn btn-info btn-sm" asp-route-id="@item.Id"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a>
-
-                                        }
+                                                }
 
 
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                                                @if (item.Redimido == true)
+                                                {
+                                                    <label class="label-warning">Bono Redimido</label>
+
+                                                }
+                                                else
+                                                {
+                                                    <a asp-action="Details" class="btn btn-info btn-sm" asp-route-id="@item.Id"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a>
+
+                                                }
+
+
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <partial name="_Redimir" />
     </div>
-</div>
-<partial name="_Redimir" />
-
-
+</section>
 
 
 
@@ -114,13 +128,98 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.11.5/api/sum().js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             // Delete item
             var item_to_delete;
             var action_to_delete;
-            $('#MyTable').DataTable();
+            $(document).ready(function () {
+                GridGeneral();
+
+            });
+
+            var GridGeneral = function () {
+                $(".MyTable").prepend($("<thead></thead>").append($(".MyTable").find("tr:first"))).dataTable({
+                    "drawCallback": function () {
+                        var api = this.api();
+                        $(api.column(3).footer()).html(
+                            "Total: " + api.column(3, { page: 'current' }).data().sum()
+                        )
+                    },
+                    "language": lenguaje_espanol,
+                    "dom": "Bfrtip",
+                    "buttons": botoneraExport,
+
+                    responsive: true
+                });
+            }
+
+            var lenguaje_espanol = {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados ",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+
+            var botoneraExport =
+                [
+                    {
+                        extend: 'copy',
+                        className: 'copyButton',
+                        text: '<i class="fa fa-clone"></i> Copiar'
+                    },
+                    {
+                        extend: 'excel',
+                        text: '<i class="fa fa-file-excel-o"></i> Excel'
+                    },
+
+                    {
+                        extend: 'csv',
+                        text: '<i class="fa fa-file-excel-o"></i> CSV'
+                    },
+                    {
+                        extend: 'pdf',
+                        text: '<i class="fa fa-file-pdf-o"></i> PDF'
+                    },
+                    {
+                        extend: 'print',
+                        text: '<i class="fa fa-print"></i> Imprimir',
+                        customize: function (win) {
+                            $(win.document.body)
+                                .css('font-size', '10pt')
+                                .prepend(
+                                    '<img src="../dist/img/ws.png" style="position:absolute; top:0; left:1;" />'
+
+                                );
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+
+                ]
             $('.deleteItem').click((e) => {
                 item_to_delete = e.currentTarget.dataset.id;
                 action_to_delete = 1;

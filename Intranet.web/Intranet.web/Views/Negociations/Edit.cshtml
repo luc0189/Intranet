@@ -1,60 +1,70 @@
 ﻿@model Intranet.web.Models.EditnegociationViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Negociacion";
 }
 
+<section class="content-header">
 
-   
-    <form asp-action="Edit">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h2>Create</h2>
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <form asp-action="Edit">
+            <div class="row">
 
-                    <h4>Negociacion</h4>
-
-                </div>
-                <div class="panel-body">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="Id" />
-
-                    <input type="hidden" asp-for="UserModify" />
-                    <input type="hidden" asp-for="DateModifica" />
-                    <input type="hidden" asp-for="DateCreate" />
-                    <input type="hidden" asp-for="UsuCreate" />
+                <div class="col-md-12">
+                    <div class="card card-dark">
+                        <div class="card-header">
+                            <h2>Editar Negociacion</h2>
 
 
-                    <partial name="_Negociation" />
-                </div>
-                <div class="panel-footer">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <input type="submit" value="Save" class="btn btn-default" />
-                                <a asp-action="Index">Back to List</a>
-
-                            </div>
                         </div>
+                        <div class="card-body">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Id" />
 
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <input style="border: none;" asp-for="UsuCreate" disabled />
+                            <input type="hidden" asp-for="UserModify" />
+                            <input type="hidden" asp-for="DateModifica" />
+                            <input type="hidden" asp-for="DateCreate" />
+                            <input type="hidden" asp-for="UsuCreate" />
 
-                                <input style="border: none;" asp-for="DateCreate"  disabled/>
-                                <label asp-for="UserModify"></label>
-                                <input style="border: none;" asp-for="UserModify" disabled />
-                                <label asp-for="DateModifica"></label>
-                                <input style="border: none;" asp-for="DateModifica" disabled />
+
+                            <partial name="_Negociation" />
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="submit" value="Actualizar" class="btn btn-success" />
+                                        <a asp-action="Index" class="btn btn-default">Volver Atras</a>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <input style="border: none;" asp-for="UsuCreate" disabled />
+
+                                        <input style="border: none;" asp-for="DateCreate" disabled />
+                                        <label asp-for="UserModify"></label>
+                                        <input style="border: none;" asp-for="UserModify" disabled />
+                                        <label asp-for="DateModifica"></label>
+                                        <input style="border: none;" asp-for="DateModifica" disabled />
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                     </div>
-                  
                 </div>
+
+
             </div>
-        </div>
-                    
-    </form>
+        </form>
+    </div>
+</section>
+   
+ 
     
 
 

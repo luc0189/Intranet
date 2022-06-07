@@ -5,67 +5,74 @@
 }
 
 
-<hr />
-<form asp-action="Create">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h2>Create</h2>
+<section class="content-header">
 
-                    <h4>EndowmentType</h4>
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <h2>Create</h2>
 
-                </div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label asp-for="NameType" class="control-label"></label>
-                        <input asp-for="NameType" class="form-control" />
-                        <span asp-validation-for="NameType" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="EspirationDate" class="control-label"></label>
-                        <input asp-for="EspirationDate" class="form-control" />
-                        <span asp-validation-for="EspirationDate" class="text-danger"></span>
-                    </div>
+                            <h4>EndowmentType</h4>
 
-
-                </div>
-                <div class="panel-footer">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <input type="submit" value="Create" class="btn btn-default" />
-                                <a asp-action="Index" class="btn btn-success">Back to List</a>
-                            </div>
                         </div>
-                        <div class="col-md-8">
+                        <div class="card-body">
                             <div class="form-group">
-                                <label asp-for="UserModify" class="control-label"></label>
-                                <input asp-for="UserModify" disabled />
-                                <label asp-for="DateModify" class="control-label"></label>
-                                <input asp-for="DateModify" disabled />
+                                <label asp-for="NameType" class="control-label"></label>
+                                <input asp-for="NameType" class="form-control" />
+                                <span asp-validation-for="NameType" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="EspirationDate" class="control-label"></label>
+                                <input asp-for="EspirationDate" class="form-control" />
+                                <span asp-validation-for="EspirationDate" class="text-danger"></span>
                             </div>
 
 
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="submit" value="Create" class="btn btn-default" />
+                                        <a asp-action="Index" class="btn btn-success">Back to List</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label asp-for="UserModify" class="control-label"></label>
+                                        <input asp-for="UserModify" disabled />
+                                        <label asp-for="DateModify" class="control-label"></label>
+                                        <input asp-for="DateModify" disabled />
+                                    </div>
 
-                            <input asp-for="UserRegistra" type="hidden" />
 
-                            <input asp-for="DateRegistro" type="hidden" />
 
+                                    <input asp-for="UserRegistra" type="hidden" />
+
+                                    <input asp-for="DateRegistro" type="hidden" />
+
+
+                                </div>
+                            </div>
 
                         </div>
                     </div>
+
+
+
 
                 </div>
             </div>
-
-
-
-
-        </div>
+        </form>
     </div>
-</form>
+</section>
+
 @Html.Raw(TempData["msg"])
 
 @section Scripts {

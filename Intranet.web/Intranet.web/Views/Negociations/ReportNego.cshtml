@@ -27,7 +27,7 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-         
+
             <section class="col-lg-12 connectedSortable ui-sortable">
                 <div class="card card-default  style=" position: relative; left: 0px; top: 0px;"">
                     <div class="card-header ui-sortable-handle" style="cursor: move;">
@@ -42,7 +42,7 @@
                     <div class="card-body">
                         <div class="table-responsive">
 
-         
+
                             <table class="table table-hover table-striped MyTable" id="MyTable">
                                 <thead>
                                     <tr>
@@ -102,6 +102,17 @@
                                         </tr>
                                     }
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
                             </table>
 
                         </div>
@@ -119,6 +130,7 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.11.5/api/sum().js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -129,16 +141,16 @@
             //    botoneraExport: [
             //        'copy', 'csv', 'excel', 'print'
             //    ]
-                
+
             //});
-         
+
 
             $("#btnYesDelete").click(function () {
                 window.location.href = '/Employees/Delete/' + item_to_delete;
             });
-         
 
-           
+
+
         });
     </script>
 
@@ -146,14 +158,21 @@
 
         $(document).ready(function () {
             GridGeneral();
-           
+
         });
 
         var GridGeneral = function () {
             $(".MyTable").prepend($("<thead></thead>").append($(".MyTable").find("tr:first"))).dataTable({
+                "drawCallback": function () {
+                    var api = this.api();
+                    $(api.column(4).footer()).html(
+                        "Total: " + api.column(4, { page: 'current' }).data().sum()
+                    )
+                },
                 "language": lenguaje_espanol,
                 "dom": "Bfrtip",
                 "buttons": botoneraExport,
+
                 responsive: true
             });
         }

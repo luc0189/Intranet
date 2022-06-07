@@ -40,6 +40,7 @@ namespace Intranet.web.Helpers
 
         Task<CargosAsg> ToCargosAsync(CargosViewModels model, bool isNew);//
         Task<Sons> ToSonsAsync(SonsViewModel model, bool isNew);//
+        Task<HistorialEmpleado> ToHistorialAsync(AddHistorialEmpleadoViewModel model, bool isNew);//
         Task<Pagos> ToPagoAsync(PagoViewModel model, bool isNew);//
         EditPagoViewModel ToEditPagoViewModel(Pagos pagos);
 
@@ -51,8 +52,11 @@ namespace Intranet.web.Helpers
 
         Task<Verificado> ToVerificaAsync(VerificaViewModel model, bool isNew);//
         Task<Sons> ToEditSonsAsync(EditSonViewModel modelfull);//
+
         ReportExam ToReportExamViewModel(Exams model);
         EditSonViewModel ToEditSonViewModel(Sons son);//
-       
+        EditHistorialEmpleadoViewModel ToEditHistorialEmpleadoViewModel(HistorialEmpleado historial);//
+        Task<HistorialEmpleado> ToEditHistorialsAsync(EditHistorialEmpleadoViewModel modelfull);//
+
     }
 }

@@ -1,0 +1,50 @@
+﻿@model Intranet.web.Models.EditHistorialEmpleadoViewModel
+@{
+    ViewData["Title"] = "Editar Novedad";
+}
+<section class="content-header">
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <form asp-action="EditHistorial">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-dark">
+                        <div class="card-header">
+                            <h2>Editar Novedad</h2>
+                        </div>
+                        <div class="card-body">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Id" />
+                            <input type="hidden" asp-for="EmployeeId" />
+                            <partial name="_Historial" />
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <input type="submit" value="Actualizar" class="btn btn-primary" />
+                                        <a asp-action="Details" asp-route-id="@Model.EmployeeId" class="btn btn-success">Volver Atras</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <input style="border: none;" type="hidden" asp-for="UserRegistra" />
+
+                                    <input style="border: none;" type="hidden" asp-for="DateRegistro" />
+                                    <label asp-for="UserModify"></label>
+                                    <input style="border: none;" asp-for="UserModify" disabled />
+                                    <label asp-for="DateModify"></label>
+                                    <input style="border: none;" asp-for="DateModify" disabled />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+        
+    </div>
+</section>

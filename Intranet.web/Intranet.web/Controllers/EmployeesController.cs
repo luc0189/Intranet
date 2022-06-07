@@ -89,6 +89,7 @@ namespace Intranet.web.Controllers
             return View(_dataContext.Employees
                 .Include(e => e.Sons)
                 .Include(e => e.Area)
+                
                 .ThenInclude(s => s.SiteHeadquarters)
                 .Include(e => e.PersonContacts)
                 .Include(e => e.Credits)
@@ -98,6 +99,7 @@ namespace Intranet.web.Controllers
                 .Include(e => e.Endowments)
                 .Include(e => e.Contracts)
                 .Include(e => e.CargosAsgs)
+                
                 .ThenInclude(e=>e.PositionEmployee)
                 .Include(e => e.UserImages)
                 );
@@ -135,6 +137,7 @@ namespace Intranet.web.Controllers
             {
                 x = await (from r in _dataContext.Employees.Include(e => e.Sons)
                                   .Include(e => e.Area)
+                                  .Include(r=> r.HistorialEmpleados)
                                   .Include(e => e.Eps)
                                   .Include(e => e.Pension)
                                   .Include(e => e.CajaCompensacion)
@@ -834,6 +837,116 @@ namespace Intranet.web.Controllers
             }
             return View(model);
         }
+
+
+
+        public async Task<IActionResult> AddHistorial(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var employe = await _dataContext.Employees.FindAsync(id);
+            if (employe == null)
+            {
+                return NotFound();
+            }
+            var model = new AddHistorialEmpleadoViewModel
+            {
+                EmployeeId = employe.Id,
+                UserRegistra = User.Identity.Name
+
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddHistorial(AddHistorialEmpleadoViewModel model)
+        {
+            var modelfull = new AddHistorialEmpleadoViewModel
+            {
+                EmployeeId = model.EmployeeId,
+                Fecha = model.Fecha,
+                DateRegistro = DateTime.Now,
+                Notas = model.Notas,
+                UserRegistra = User.Identity.Name,
+
+
+            };
+
+            if (ModelState.IsValid)
+            {
+
+                var historial = await _converterHelper.ToHistorialAsync(modelfull, true);
+                _dataContext.HistorialEmpleados.Add(historial);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"Details/{model.EmployeeId}");
+            }
+            return View(model);
+        }
+        public async Task<IActionResult> EditHistorial(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var historial = await _dataContext.HistorialEmpleados
+                .Include(s => s.Employee)
+                .FirstOrDefaultAsync(s => s.Id == id);
+            if (historial == null)
+            {
+                return NotFound();
+            }
+
+
+            return View(_converterHelper.ToEditHistorialEmpleadoViewModel(historial));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditHistorial(EditHistorialEmpleadoViewModel model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var modelfull = new EditHistorialEmpleadoViewModel
+                {
+                    Id = model.Id,
+                    EmployeeId = model.Id,
+                    Fecha = model.Fecha,
+                    Notas=model.Notas,
+                    DateRegistro = model.DateRegistro,
+                    UserModify = User.Identity.Name,
+                    DateModify = DateTime.Now,
+                   
+                    UserRegistra = model.UserRegistra
+
+
+                };
+                var historial = await _converterHelper.ToEditHistorialsAsync(modelfull);
+                _dataContext.HistorialEmpleados.Update(historial);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");
+                // return RedirectToAction($"Details/{model.SiteId}");
+            }
+            return View(model);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public async Task<IActionResult> AddCredit(int? id)
         {

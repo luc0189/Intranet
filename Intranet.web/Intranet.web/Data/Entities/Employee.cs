@@ -139,6 +139,7 @@ namespace Intranet.web.Data.Entities
         public ICollection<Contract> Contracts { get; set; }
         public ICollection<Item> Items { get; set; }
         public ICollection<CargosAsg> CargosAsgs { get; set; }
+        public ICollection<HistorialEmpleado> HistorialEmpleados { get; set; }
         public ICollection<PositionEmployee> PositionEmployees { get; set; }
         
 

@@ -162,6 +162,22 @@ namespace Intranet.web.Helpers
 
             };
         }//
+        public async Task<HistorialEmpleado> ToHistorialAsync(AddHistorialEmpleadoViewModel model, bool isNew)
+        {
+            return new HistorialEmpleado
+            {
+                Id = isNew ? 0 : model.Id,
+                Fecha = model.Fecha,
+                Notas = model.Notas,
+               
+                UserRegistra = model.UserRegistra,
+
+                DateRegistro = model.DateRegistro,
+
+                Employee = await _dataContext.Employees.FindAsync(model.EmployeeId)
+
+            };
+        }//
         public async Task<Contract> ToContractoAsync(ContractViewModel model, bool isNew)
         {
             return new Contract
@@ -209,7 +225,39 @@ namespace Intranet.web.Helpers
 
             };
         }//
+        public EditHistorialEmpleadoViewModel ToEditHistorialEmpleadoViewModel(HistorialEmpleado historial)
+        {
+            return new EditHistorialEmpleadoViewModel
+            {
+                Id = historial.Id,
+                Notas = historial.Notas,
+                Fecha = historial.Fecha,
+            
+                EmployeeId = historial.Employee.Id,
+                DateRegistro = historial.DateRegistro,
+                UserRegistra = historial.UserRegistra,
+                DateModify = historial.DateModify,
+                UserModify = historial.UserModify,
 
+            };
+        }//
+        public async Task<HistorialEmpleado> ToEditHistorialsAsync(EditHistorialEmpleadoViewModel model)
+        {
+            return new HistorialEmpleado
+            {
+                Id = model.Id,
+            
+                Fecha = model.Fecha,
+                Notas = model.Notas,
+                UserRegistra = model.UserRegistra,
+                UserModify = model.UserModify,
+                DateModify = model.DateModify,
+                DateRegistro = model.DateRegistro,
+
+                Employee = await _dataContext.Employees.FindAsync(model.EmployeeId)
+
+            };
+        }//
         public async Task<Verificado> ToVerificaAsync(VerificaViewModel model, bool isNew)
         {
             return new Verificado
@@ -488,6 +536,8 @@ namespace Intranet.web.Helpers
 
             };
         }
+
+     
     }
 }
 

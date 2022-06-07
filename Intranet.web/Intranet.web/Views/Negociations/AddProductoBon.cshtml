@@ -3,30 +3,38 @@
 @{
     ViewData["Title"] = "Create";
 }
-    <hr />
-    <div class="panel panel-default">
+<section class="content-header">
 
-        <div class="panel-heading">
-            <h2>Crear</h2>
-            <h4>Producto</h4>
-        </div>
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-action="Out_focus">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label asp-for="Plu" class="control-label"></label>
+                            <input class="form-control" id="fname" />
+                            <span asp-validation-for="Plu" class="text-danger"></span>
+                        </div>
+                    </div>
 
-
-        <form asp-action="Out_focus" >
-            <div class="panel-body">
-                <div class="form-group">
-                    <label asp-for="Plu" class="control-label"></label>
-                    <input  class="form-control"  id="fname" />
-                    <span asp-validation-for="Plu" class="text-danger"></span>
-                </div>
+                    <input value="Buscar" class="btn btn-primary" onclick="myFunction()" />
+                </form>
             </div>
+        </div>
+    </div>
+</section>
+    <div class="card card-default">
 
-            <input value="Buscar" class="btn btn-primary" onclick="myFunction()" />
-        </form>
+ 
+
+
+       
     <form asp-action="AddProductoBon">
         <div class="row">
 
-            <div class="panel-body">
+            <div class="card-body">
 
                 <div asp-validation-summary="ModelOnly" id="Valida" class="text-danger"></div>
                 <input type="hidden" asp-for="NegociacionId" />
@@ -38,10 +46,10 @@
         </div>
 
 
-        <div class="panel-footer">
+        <div class="card-footer">
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-                <a asp-action="Details" asp-route-id="@Model.NegociacionId" class="btn btn-success">Back to Negociacion</a>
+                <input type="submit" value="Create" class="btn btn-success" />
+                <a asp-action="Details" asp-route-id="@Model.NegociacionId" class="btn btn-default">Back to Negociacion</a>
             </div>
         </div>
     </form>
@@ -64,7 +72,7 @@
 
             $.ajax({
                 type: "GET",
-                url: "http://192.168.1.219:8082/Negociations/Out_focus/",
+                url: "https://localhost:44370/Negociations/Out_focus/",
                 data: {plu:valor},
                 contentType: "application/json; charset=utf-8",
                 success: function (response) {
