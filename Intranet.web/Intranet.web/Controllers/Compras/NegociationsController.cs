@@ -37,15 +37,33 @@ namespace Intranet.web.Controllers.Compras
         // GET: Negociations
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Negociation
-                .Include(e=> e.Providercompras)
-                .Include(e=> e.Clasification)
-                .Include(e=> e.Mes)
-                .Include(e => e.Pagoss)
-                .Include(r=> r.Verificados)
-                .Include(e => e.ProductBonifis)
-                .Include(e=>e.SalaVenta)
-                .ToListAsync());
+         
+               var x = await (from r in _context.Negociation
+                                   .Include(e => e.Providercompras)
+                                   .Include(e => e.Clasification)
+                                   .Include(e => e.Mes)
+                                   .Include(e => e.Pagoss)
+                                   .Include(r => r.Verificados)
+                                   .Include(e => e.ProductBonifis)
+                                   .Include(e => e.SalaVenta)
+                           where r.Pago == false || r.Verificar== false
+                          select r).ToListAsync();
+                if (x == null)
+                {
+                    return NotFound();
+                }
+            
+           
+            return View(x);
+            //return View(await _context.Negociation
+            //    .Include(e=> e.Providercompras)
+            //    .Include(e=> e.Clasification)
+            //    .Include(e=> e.Mes)
+            //    .Include(e => e.Pagoss)
+            //    .Include(r=> r.Verificados)
+            //    .Include(e => e.ProductBonifis)
+            //    .Include(e=>e.SalaVenta)
+            //    .ToListAsync());
         }
         public async Task<IActionResult> ReportNego()
         {

@@ -86,10 +86,11 @@ namespace Intranet.web.Controllers
 
         public IActionResult Index()
         {
+
             return View(_dataContext.Employees
                 .Include(e => e.Sons)
                 .Include(e => e.Area)
-                
+
                 .ThenInclude(s => s.SiteHeadquarters)
                 .Include(e => e.PersonContacts)
                 .Include(e => e.Credits)
@@ -99,8 +100,8 @@ namespace Intranet.web.Controllers
                 .Include(e => e.Endowments)
                 .Include(e => e.Contracts)
                 .Include(e => e.CargosAsgs)
-                
-                .ThenInclude(e=>e.PositionEmployee)
+
+                .ThenInclude(e => e.PositionEmployee)
                 .Include(e => e.UserImages)
                 );
         }

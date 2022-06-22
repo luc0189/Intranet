@@ -11,49 +11,63 @@
         <div class="row">
             <div class="col-md-12">
                 <form asp-action="Out_focus">
-                    <div class="card-body">
-                        <div class="form-group">
+                    <div class="card card-dark">
+                        <div class="card-header">
+                            Adicionar Producto
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
                             <label asp-for="Plu" class="control-label"></label>
                             <input class="form-control" id="fname" />
                             <span asp-validation-for="Plu" class="text-danger"></span>
                         </div>
+                        </div>
+                        <div class="card-footer">
+                             <input value="Buscar" class="btn btn-primary" onclick="myFunction()" />
+                        </div>
+                        
                     </div>
 
-                    <input value="Buscar" class="btn btn-primary" onclick="myFunction()" />
+                   
                 </form>
             </div>
         </div>
-    </div>
-</section>
-    <div class="card card-default">
+        <div class="Row">
+              <div class="card card-dark">
 
- 
+ <div class="card-header">
+
+ </div>
 
 
        
     <form asp-action="AddProductoBon">
-        <div class="row">
+       
 
             <div class="card-body">
-
+                 <div class="row">
                 <div asp-validation-summary="ModelOnly" id="Valida" class="text-danger"></div>
                 <input type="hidden" asp-for="NegociacionId" />
              
                 <partial name="_ProductBon" />
-
+                </div>
             </div>
 
-        </div>
+      
 
 
         <div class="card-footer">
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-success" />
-                <a asp-action="Details" asp-route-id="@Model.NegociacionId" class="btn btn-default">Back to Negociacion</a>
+                <input type="submit" value="Adicionar" class="btn btn-success" />
+                <a asp-action="Details" asp-route-id="@Model.NegociacionId" class="btn btn-default">Volver a la Negociacion</a>
             </div>
         </div>
     </form>
     </div>
+        </div>
+    </div>
+</section>
+  
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -72,7 +86,7 @@
 
             $.ajax({
                 type: "GET",
-                url: "https://localhost:44370/Negociations/Out_focus/",
+                url: "http://192.168.1.219:8082/Negociations/Out_focus/",
                 data: {plu:valor},
                 contentType: "application/json; charset=utf-8",
                 success: function (response) {
@@ -103,8 +117,8 @@
 
             $.ajax({
                 type: "GET",
-                url: "http://localhost:8082/Negociations/Out_focus/",
-               /* url: "http://localhost:8082/Negociations/Out_focus/",*/
+                url: "http://192.168.1.219:8082/Negociations/Out_focus/",
+               /* url: "http://192.168.1.219:8082/Negociations/Out_focus/",*/
                 data: { plu: valor },
                 contentType: "application/json; charset=utf-8",
                 success: function (response) {
