@@ -4,14 +4,16 @@ using Intranet.web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Intranet.web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220622235033_longvalorpago")]
+    partial class longvalorpago
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -288,7 +290,7 @@ namespace Intranet.web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("BaseLiquidacion");
+                    b.Property<int>("BaseLiquidacion");
 
                     b.Property<int?>("ClasificationId");
 
@@ -336,7 +338,7 @@ namespace Intranet.web.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.Property<long>("ValorNegociacion");
+                    b.Property<int>("ValorNegociacion");
 
                     b.Property<bool>("Verificar");
 

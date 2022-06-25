@@ -29,7 +29,8 @@ namespace Intranet.web.Models.Compras
 
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
         [Display(Name = "Valor Pagado")]
-        public int ValorPagado { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
+        public long ValorPagado { get; set; }
 
         [Display(Name = "Fecha Pago")]
         [DataType(DataType.Date)]

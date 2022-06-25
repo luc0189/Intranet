@@ -23,10 +23,12 @@ namespace Intranet.web.Models
         public string Detalle { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido.")]
-        public int ValorNegociacion { get; set; }
+    
+        public long ValorNegociacion { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido.")]
-        public int BaseLiquidacion { get; set; }
+        
+        public long BaseLiquidacion { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         [MaxLength(300)]

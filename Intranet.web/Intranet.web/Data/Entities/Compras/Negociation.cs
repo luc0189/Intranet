@@ -21,10 +21,12 @@ namespace Intranet.web.Data.Entities.Compras
         public string Detalle { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido.")]
-        public int ValorNegociacion { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
+        public long ValorNegociacion { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido.")]
-        public int BaseLiquidacion { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
+        public long BaseLiquidacion { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         [MaxLength(600)]

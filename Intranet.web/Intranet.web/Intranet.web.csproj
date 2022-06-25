@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>6869ff45-f098-43cd-ad26-72ac5e37aa76</UserSecretsId>
     <StartupObject>Intranet.web.Program</StartupObject>
+    <NeutralLanguage>es-CO</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
