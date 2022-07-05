@@ -22,10 +22,12 @@ namespace Intranet.web.Data.Entities.Compras
 
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
+        [RegularExpression(@"^\d+\.\d{0,2}$")]
         public long ValorNegociacion { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
+        [RegularExpression(@"^\d+\.\d{0,2}$")]
         public long BaseLiquidacion { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido.")]

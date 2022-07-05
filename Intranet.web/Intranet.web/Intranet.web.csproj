@@ -29,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\Activos\" />
     <Folder Include="wwwroot\images\Employe\" />
     <Folder Include="wwwroot\files\" />
     <Folder Include="wwwroot\adminlte\" />
