@@ -1,0 +1,125 @@
+﻿@model Intranet.web.Data.Entities.Activos.Item
+
+@{
+    ViewData["Title"] = "Detalles de Activo";
+}
+
+<div class="content-header">
+
+</div>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-dark">
+                    <div class="card-header">
+                        Detalles
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+<dl class="dl-horizontal">
+            <dt>
+            @Html.DisplayNameFor(model => model.Serial)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Serial)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Datepurchase)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Datepurchase)
+        </dd>
+         @Html.DisplayNameFor(model => model.UnitValue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UnitValue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Coment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Coment)
+        </dd>
+    </dl>
+                            </div>
+                             <div class="col-md-6">
+                                 <dl class="dl-horizontal">
+                                     <dt>
+           
+        <dt>
+            @Html.DisplayNameFor(model => model.Dateitemcreate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Dateitemcreate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateMod)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateMod)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeGarant)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TimeGarant)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Activo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Activo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Usucreate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Usucreate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Usermod)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Usermod)
+        </dd>
+                                     </dl>
+                            </div>
+                        </div>
+                        <div class="row">
+                             @Html.DisplayNameFor(model => model.Fabric.Name):
+                             @Html.DisplayFor(model => model.Fabric.Name)|
+                             @Html.DisplayNameFor(model => model.Model.Name):
+                             @Html.DisplayFor(model => model.Model.Name)|
+                             @Html.DisplayNameFor(model => model.Category.Name):
+                             @Html.DisplayFor(model => model.Category.Name)|
+                             @Html.DisplayNameFor(model => model.Provider.Name):
+                             @Html.DisplayFor(model => model.Provider.Name)|
+
+                        </div>
+                        
+                        <div>
+   
+   
+</div>
+                    </div>
+                    <div class="card-footer">
+                         <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a asp-action="Index">Volver Atras</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+

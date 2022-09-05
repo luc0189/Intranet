@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Intranet.web.Data.Entities.Activos.Item>
+
+@{
+    ViewData["Title"] = "Activos Fijos";
+}
+ 
+<section class="content-header">
+     
+</section> 
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+           <div class="card card-dark">
+               <div class="card-header">
+                   <a asp-action="Create" class="btn btn-dark">Crear Nuevo Activo</a>
+               </div>
+               <div class="card-body">
+                        <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Serial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Datepurchase)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitValue)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Dateitemcreate)
+            </th>
+          
+          
+           
+            <th>
+                @Html.DisplayNameFor(model => model.Usucreate)
+            </th>
+          
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Serial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Datepurchase)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitValue)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Dateitemcreate)
+            </td>
+         
+            <td>
+                @Html.DisplayFor(modelItem => item.Usucreate)
+            </td>
+           
+            <td>
+                <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id"><i class="fa fa fa-edit sm"></i></a> |
+                <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id"><i class="fa fa fa-bars sm"></i></a> |
+                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id"><i class="fa fa fa-trash sm"></i></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+               </div>
+           </div>
+                </div>
+                </div>
+                </div>
+                </section>
+<p>
+   
+</p>
+

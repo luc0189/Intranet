@@ -5,7 +5,6 @@
 }
 
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 
 <div class="content-header">
     <div class="container-fluid">
@@ -43,7 +42,7 @@
                         <div class="table-responsive">
 
 
-                            <table class="table table-hover table-striped MyTable" id="MyTable">
+                            <table class="table table-hover table-striped MyTable" >
                                 <thead>
                                     <tr>
                                         <th>
@@ -65,7 +64,9 @@
                                         <th>
                                             @Html.DisplayNameFor(model => model.Pago)
                                         </th>
-
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Document)
+                                        </th>
 
                                         <th>Acciones</th>
                                     </tr>
@@ -93,7 +94,9 @@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Pago)
                                             </td>
-
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Document)
+                                            </td>
                                             <td>
                                                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i></a>
                                                 <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info"><i class="glyphicon glyphicon-list"></i></a>
@@ -129,7 +132,7 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    
     <script src="//cdn.datatables.net/plug-ins/1.11.5/api/sum().js"></script>
 
     <script type="text/javascript">
@@ -154,7 +157,7 @@
         });
     </script>
 
-    <script type="text/javascript">
+  @*  <script type="text/javascript">
 
         $(document).ready(function () {
             GridGeneral();
@@ -240,5 +243,5 @@
                 }
 
             ]
-    </script>
+    </script>*@
 }

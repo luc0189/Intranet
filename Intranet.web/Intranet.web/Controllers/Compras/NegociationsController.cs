@@ -46,8 +46,8 @@ namespace Intranet.web.Controllers.Compras
                                    .Include(r => r.Verificados)
                                    .Include(e => e.ProductBonifis)
                                    .Include(e => e.SalaVenta)
-                           where r.Pago == false || r.Verificar== false
-                          select r).ToListAsync();
+                              where r.Pago == false || r.Verificar == false
+                              select r).ToListAsync();
                 if (x == null)
                 {
                     return NotFound();
@@ -67,15 +67,23 @@ namespace Intranet.web.Controllers.Compras
         }
         public async Task<IActionResult> ReportNego()
         {
-            return View(await _context.Negociation
-                .Include(a=> a.Providercompras)
-                .Include(a => a.Clasification)
-                .Include(a => a.Mes)
-                .Include(a => a.Pagoss)
-                .Include(a => a.Verificados)
-                .Include(a => a.ProductBonifis)
-                .Include(a => a.SalaVenta)
-                .ToListAsync());
+            var x = await (from r in _context.Negociation
+                                   .Include(e => e.Providercompras)
+                                   .Include(e => e.Clasification)
+                                   .Include(e => e.Mes)
+                                   .Include(e => e.Pagoss)
+                                   .Include(r => r.Verificados)
+                                   .Include(e => e.ProductBonifis)
+                                   .Include(e => e.SalaVenta)
+                           //where r.Pago == false || r.Verificar == false
+                           select r).ToListAsync();
+            if (x == null)
+            {
+                return NotFound();
+            }
+
+
+            return View(x);
         }
         // GET: Negociations/Details/5
         public async Task<IActionResult> Details(int? id)

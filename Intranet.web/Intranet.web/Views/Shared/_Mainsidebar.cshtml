@@ -35,6 +35,46 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
     with font-awesome or any other icon font library -->
+                 @if (User.Identity.IsAuthenticated && User.IsInRole("StoreLeader") || User.IsInRole("Manager") || User.IsInRole("Recursoshumanos"))
+                {
+            <li class="nav-item menu">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fa fa-handshake-o"></i>
+                    <p>
+                        Activos Fijos
+                        <i class="right fa fa-angle-left"></i>
+                    </p>
+                </a>
+
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a asp-controller="Items" asp-action="Index" class="nav-link" asp-area="">
+                            <i class="fa fa-circle nav-icon"> </i>
+
+                            <p>Activos</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-area="" asp-controller="TercBnets" asp-action="Index" class="nav-link">
+                            <i class="fa fa-circle nav-icon"></i>
+                            <p>Parametros de activos</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-area="" asp-controller="GenerarBoleta" asp-action="Index" class="nav-link">
+                            <i class="fa fa-circle nav-icon"></i>
+                            <p>Importar activos</p>
+                        </a>
+                    </li>
+
+                   
+                </ul>
+
+            </li>
+}
+
+
+
                 @if (User.Identity.IsAuthenticated && User.IsInRole("StoreLeader") || User.IsInRole("Manager") || User.IsInRole("Recursoshumanos"))
                 {
             <li class="nav-item menu">

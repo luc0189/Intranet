@@ -1,0 +1,75 @@
+﻿@model Intranet.web.Models.Activos.EditActivoViewModel
+
+@{
+    ViewData["Title"] = "Editar Activo";
+}
+<div class="content-header">
+
+</div>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-action="Edit">
+                <div class="card card-dark">
+                    <div class="card-header">
+                        <div class="card-tools">
+                            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Activo" /> @Html.DisplayNameFor(model => model.Activo)
+                    </label>
+                </div>
+            </div>
+                        </div>
+                        Editar Activo
+                    </div>
+                    <div class="card-body">
+                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                         <input type="hidden" asp-for="Id" />
+                        <div class="row">
+                            <partial name="_Activo" />
+                            <div class="col-md-12">
+                                   <div class="form-group">
+                <label asp-for="DateMod" class="control-label"></label>
+                <input asp-for="DateMod" class="form-control" />
+                <span asp-validation-for="DateMod" class="text-danger"></span>
+            </div>
+           
+            
+         
+            <div class="form-group">
+                <label asp-for="Usermod" class="control-label"></label>
+                <input asp-for="Usermod" class="form-control" />
+                <span asp-validation-for="Usermod" class="text-danger"></span>
+            </div>
+         
+                            </div> 
+                           
+                        </div>
+                         
+           
+       
+              
+         
+       
+                    </div>
+                    <div class="card-footer">
+                          <input type="submit" value="Actualizar" class="btn btn-warning" />
+                  <a asp-action="Index" class="btn btn-default">Volver Atras</a>
+                    </div>
+   
+</div>
+     </form>
+             </div>
+        </div>
+</div>
+</div>
+
+<div>
+  
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

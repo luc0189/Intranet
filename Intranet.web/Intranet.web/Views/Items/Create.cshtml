@@ -1,0 +1,47 @@
+﻿@model Intranet.web.Models.Activos.ActivoViewModel
+
+@{
+    ViewData["Title"] = "Crear Nuevo Activo";
+}
+<flash dismissable="true"/>
+<div class="content-header">
+
+</div>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-action="Create">
+                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="card card-dark">
+                    <div class="card-header">
+                        Nuevo Activo
+</div>
+<div class="card-body">
+    <div class="row">
+         <partial name="_Activo" />
+      
+
+    </div>
+        
+           
+    </div>
+   <div class="card-footer">
+           <input type="submit" value="Create" class="btn btn-default" />
+            <a asp-action="Index">Back to List</a>
+       </div>
+</div>
+ </form>
+</div>
+</div>
+</div>
+</div>
+
+
+<div>
+   
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

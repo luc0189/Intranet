@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Index";
 }
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+
 
 <section class="content-header">
 
@@ -20,7 +20,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive ">
-                            <table class="table table-hover table-striped" id="MyTable">
+                            <table class="table table-hover table-striped MyTable" >
                                 <thead>
                                     <tr>
                                         <th>
@@ -110,7 +110,7 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+   
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -120,10 +120,11 @@
             $('.deleteItem').click((e) => {
                 item_to_delete = e.currentTarget.dataset.id;
             });
-
+           
             $("#btnYesDelete").click(function () {
                 window.location.href = '/Employees/Delete/' + item_to_delete;
             });
         });
+         
     </script>
 }
