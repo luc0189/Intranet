@@ -2,7 +2,7 @@
 <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
     <div class="p-3">
-        <h5>Info</h5>
+        <h5>User</h5>
         @if (User.Identity.IsAuthenticated)
         {
             <li><a asp-area="" asp-controller="Account" asp-action="ChangeUser">@User.Identity.Name</a></li>

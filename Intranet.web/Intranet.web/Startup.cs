@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Vereyon.Web;
 
 namespace Intranet.web
 {
@@ -71,7 +72,7 @@ namespace Intranet.web
 
                     };
                 });
-
+            services.AddFlashMessage();
             services.AddTransient<SeedDb>();
             services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<ICombosHelpers, CombosHelpers>();

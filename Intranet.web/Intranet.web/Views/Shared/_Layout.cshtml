@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿@*<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -6,44 +6,76 @@
     <title>@ViewData["Title"] - Intranet.web</title>
    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
- 
-    <link href="~/adminlte/plugins/font-awesome4/css/font-awesome.css" rel="stylesheet" />
-    <link href="~/css/site.css" rel="stylesheet" />
+  
+     <link rel="stylesheet" href="~/lib/admin-lte/css/adminlte.min.css" />
+     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/lib/datatables/css/jquery.dataTables.min.css" />
+    
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
 
    
+    <link href="~/select2/css/select2.min.css" rel="stylesheet" />
+    
+    <link href="~/lib/jasny-bootstrap/css/jasny-bootstrap.min.css" rel="stylesheet" />
+   
+  
  
-    <link rel="stylesheet" href="~/adminlte/dist/css/adminlte.min.css">
+
+
     @RenderSection("Styles", required: false)
 </head>
-<body class="hold-transition sidebar-mini sidebar-collapse">
+<body class="sidebar-mini layout-fixed layout-navbar-fixed dark-mode">
+  <div class="wrapper" >
+     <partial name="_MainHeader" />
+     <partial name="_Mainsidebar" />
+
+     <partial name="_CookieConsentPartial" />
+     <div class="content-wrapper px-4 py-2">
+ 
+              
+             @RenderBody()
+            
+       
+         </div>
+    <partial name="_Footer" />
      
-    <div class="wrapper">
-        <partial name="_CookieConsentPartial" />
-        <partial name="_Navbar" />
-        <partial name="_Mainsidebar" />
-        <div class="content-wrapper">
             <partial name="_BusyIndicatorPartial" />
-            @RenderBody()
-        </div>
-        <partial name="_Sidebar" />
-        <partial name="_Footer" />
+         
+
     </div>
 
 
 
-  
-         <script src="~/adminlte/plugins/jquery/jquery.min.js"></script>
  
-    <script src="~/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-  
-    <script src="~/adminlte/dist/js/adminlte.min.js"></script>
-    <script src="~/adminlte/plugins/datatables/jquery.dataTables.js"></script>
-   <script src="~/js/showmodal.js"></script>
+     <script src="~/lib/admin-lte/js/adminlte.min.js"></script>
+     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+ <script src="~/lib/jqueryui/jquery-ui.min.js"></script>
+    <script src="~/lib/font-awesome/js/all.min.js"></script>
+   
+ 
+
+    
+    <script src="~/select2/js/select2.min.js"></script>
+      
+
+ 
    <script src="~/js/site.min.js"></script>
+   <script src="~/js/showmodal.js"></script>
+  
+
      <script>
         function displayBusyIndicator() {
             $('.loading').show();
         }
+         $(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
     </script>
 
     <script>
@@ -55,93 +87,137 @@
    @await RenderSectionAsync("Scripts", required: false)
    
 
-     <script type="text/javascript">
-
-        $(document).ready(function () {
-            GridGeneral();
-
-        });
-        
-        var GridGeneral = function () {
-            $(".MyTable").prepend($("<thead></thead>").append($(".MyTable").find("tr:first"))).dataTable({
-                "drawCallback": function () {
-                    var api = this.api();
-                    $(api.column(4).footer()).html(
-                        "Total: " + api.column(4, { page: 'current' }).data().sum()
-                    )
-                },
-                "language": lenguaje_espanol,
-                "dom": "Bfrtip",
-                "buttons": botoneraExport,
-
-                responsive: true,
-            });
-        }
-
-        var lenguaje_espanol = {
-            "sProcessing": "Procesando...",
-            "sLengthMenu": "Mostrar _MENU_ registros",
-            "sZeroRecords": "No se encontraron resultados ",
-            "sEmptyTable": "Ningún dato disponible en esta tabla",
-            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-            "sInfoPostFix": "",
-            "sSearch": "Buscar:",
-            "sUrl": "",
-            "sInfoThousands": ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-                "sFirst": "Primero",
-                "sLast": "Último",
-                "sNext": "Siguiente",
-                "sPrevious": "Anterior"
-            },
-            "oAria": {
-                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            }
-        }
-
-        var botoneraExport =
-            [
-                {
-                    extend: "copy",
-                    className: "copyButton",
-                    text: '<i class="fa fa-clone"></i> Copiar'
-                },
-                {
-                    extend: 'excel',
-                    text: '<i class="fa fa-file-excel-o"></i> Excel'
-                },
-
-                {
-                    extend: 'csv',
-                    text: '<i class="fa fa-file-excel-o"></i> CSV'
-                },
-                {
-                    extend: 'pdf',
-                    text: '<i class="fa fa-file-pdf-o"></i> PDF'
-                },
-                {
-                    extend: 'print',
-                    text: '<i class="fa fa-print"></i> Imprimir',
-                    customize: function (win) {
-                        $(win.document.body)
-                            .css('font-size', '10pt')
-                            .prepend(
-                                '<img src="../dist/img/ws.png" style="position:absolute; top:0; left:1;" />'
-
-                            );
-
-                        $(win.document.body).find('table')
-                            .addClass('compact')
-                            .css('font-size', 'inherit');
-                    }
-                }
-
-            ]
-    </script>
+  
 
 </body>
 </html>
+*@
+<html lang="es" style="height: auto;"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<title>Main Header Component | AdminLTE v3.2 Documentation</title>
+<meta name="generator" content="Jekyll v4.2.1">
+<meta property="og:title" content="Main Header Component">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="AdminLTE v3.2 Documentation">
+<meta property="og:description" content="AdminLTE v3.2 Documentation">
+
+
+@*<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"
+/>*@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
+<link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.min.css">
+<link rel="stylesheet" href="~/lib/admin-lte/css/adminlte.min.css">
+<link rel="stylesheet" href="~/lib/datatables/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="~/select2/css/select2.min.css">
+<link rel="stylesheet" href="~/lib/overlayscrollbars/css/OverlayScrollbars.min.css">
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<link href="~/lib/jasny-bootstrap/css/jasny-bootstrap.min.css" rel="stylesheet" />
+@RenderSection("Styles", required: false)
+</head>
+<body class="sidebar-mini layout-fixed layout-navbar-fixed dark-mode" style="height: auto;">
+<div class="wrapper">
+    <partial name="_CookieConsentPartial" />
+    <partial name="_MainHeader" />
+    <partial name="_MainSidebar" />
+
+
+
+
+<div class="content-wrapper px-4 py-2" style="min-height: 946px;">
+
+<div class="content px-2">
+    
+@RenderBody()
+
+<partial name="_BusyIndicatorPartial" />
+
+</div>
+</div>
+<partial name="_Footer" />
+
+<div id="sidebar-overlay"></div></div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jqueryui/jquery-ui.min.js"></script>
+<script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/lib/admin-lte/js/adminlte.min.js"></script>
+<script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/lib/font-awesome/js/fontawesome.min.js"></script>
+@*<script src="~/lib/overlayscrollbars/js/OverlayScrollbars.min.js"></script>*@
+
+ <script src="~/lib/font-awesome/js/all.min.js"></script>
+ <script src="~/select2/js/select2.min.js"></script>
+  <script src="~/js/showmodal.js"></script>
+<script>
+  var toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+  var currentTheme = localStorage.getItem('theme');
+  var mainHeader = document.querySelector('.main-header');
+
+  if (currentTheme) {
+    if (currentTheme === 'dark') {
+      if (!document.body.classList.contains('dark-mode')) {
+        document.body.classList.add("dark-mode");
+      }
+      if (mainHeader.classList.contains('navbar-light')) {
+        mainHeader.classList.add('navbar-dark');
+        mainHeader.classList.remove('navbar-light');
+      }
+      toggleSwitch.checked = true;
+    }
+  }
+
+  function switchTheme(e) {
+    if (e.target.checked) {
+      if (!document.body.classList.contains('dark-mode')) {
+        document.body.classList.add("dark-mode");
+      }
+      if (mainHeader.classList.contains('navbar-light')) {
+        mainHeader.classList.add('navbar-dark');
+        mainHeader.classList.remove('navbar-light');
+      }
+      localStorage.setItem('theme', 'dark');
+    } else {
+      if (document.body.classList.contains('dark-mode')) {
+        document.body.classList.remove("dark-mode");
+      }
+      if (mainHeader.classList.contains('navbar-dark')) {
+        mainHeader.classList.add('navbar-light');
+        mainHeader.classList.remove('navbar-dark');
+      }
+      localStorage.setItem('theme', 'light');
+    }
+  }
+
+  toggleSwitch.addEventListener('change', switchTheme, false);
+</script>
+  
+  
+
+     <script>
+        function displayBusyIndicator() {
+            $('.loading').show();
+        }
+         $(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
+    </script>
+
+    <script>
+        $(window).on('beforeunload', function () {
+            displayBusyIndicator();
+        });
+    </script>
+
+   @await RenderSectionAsync("Scripts", required: false)
+   
+
+  
+
+</body></html>

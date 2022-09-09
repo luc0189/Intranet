@@ -10,6 +10,8 @@ using Intranet.web.Data.Entities.Activos;
 using Intranet.Web.Helpers;
 using Intranet.web.Helpers;
 using Intranet.web.Models.Activos;
+using static Intranet.web.Helpers.ModalHelper;
+using Vereyon.Web;
 
 namespace Intranet.web.Controllers.Activos
 {
@@ -21,14 +23,15 @@ namespace Intranet.web.Controllers.Activos
         private readonly IConverterHelper _converterHelper;
         private readonly IImageHelper _imageHelper;
         private readonly IMailHelper _mailHelper;
-       
+        private readonly IFlashMessage _flashMessage;
 
         public ItemsController(DataContext context,
             IUserHelper userHelper,
             ICombosHelpers combosHelpers,
             IConverterHelper converterHelper,
             IImageHelper imageHelper,
-            IMailHelper mailHelper)
+            IMailHelper mailHelper,
+            IFlashMessage flashMessage)
         {
             _dataContext = context;
             _userHelper = userHelper;
@@ -36,6 +39,7 @@ namespace Intranet.web.Controllers.Activos
             _converterHelper = converterHelper;
             _imageHelper = imageHelper;
             _mailHelper = mailHelper;
+            _flashMessage = flashMessage;
         }
 
         // GET: Items
@@ -141,7 +145,7 @@ namespace Intranet.web.Controllers.Activos
 
 
             }
-            ModelState.AddModelError(string.Empty, "The user Exist");
+            _flashMessage.Danger("El activo Existe.");
             model.Providers = _combosHelpers.GetComboProveedor();
             model.Fabrics = _combosHelpers.GetComboFabricante();
             model.Models = _combosHelpers.GetComboModel();
@@ -273,5 +277,230 @@ namespace Intranet.web.Controllers.Activos
         {
             return _dataContext.Items.Any(e => e.Id == id);
         }
+
+        [NoDirectAccess]
+        public async Task<IActionResult> AddOrEditFabric(int id)
+        {
+
+            if (id == 0)
+            {
+                Fabric fabric =new Fabric { Usucreo = User.Identity.Name };
+                if (fabric == null)
+                {
+                    return NotFound();
+                }
+
+                return View(fabric);
+            
+            }
+            else
+            {
+                Fabric fabric = await _dataContext.Fabrics.FindAsync(id);
+                if (fabric == null)
+                {
+                    return NotFound();
+                }
+
+                return View(fabric);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddOrEditFabric(int id, Fabric fabric)
+        {
+           
+            
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (id == 0) //Insert
+                    {
+                        _dataContext.Add(fabric);
+                        await _dataContext.SaveChangesAsync();
+                        _flashMessage.Info("Registro creado.");
+                    }
+                    else //Update
+                    {
+                        _dataContext.Update(fabric);
+                        await _dataContext.SaveChangesAsync();
+                        ModelState.AddModelError(string.Empty, "Registro Actualizado");
+                    }
+                }
+                catch (DbUpdateException dbUpdateException)
+                {
+                    if (dbUpdateException.InnerException.Message.Contains("duplicate"))
+                    {
+                        _flashMessage.Danger("Ya existe una categoría con el mismo nombre.");
+                    }
+                    else
+                    {
+                        _flashMessage.Danger(dbUpdateException.InnerException.Message);
+                    }
+                    return View(fabric);
+                }
+                catch (Exception exception)
+                {
+                    _flashMessage.Danger(exception.Message);
+                    return View(fabric);
+                }
+               
+                return Json(new { isValid = true, html = ModalHelper.RenderRazorViewToString(this, "Create", _dataContext.Fabrics.ToList()) });
+
+            }
+
+            return Json(new { isValid = false, html = ModalHelper.RenderRazorViewToString(this, "AddOrEditFabric", fabric) });
+        }
+
+        [NoDirectAccess]
+        public async Task<IActionResult> AddEditModel(int id)
+        {
+
+            if (id == 0)
+            {
+                Model modelo = new Model { Usucreo = User.Identity.Name };
+                if (modelo == null)
+                {
+                    return NotFound();
+                }
+
+                return View(modelo);
+
+            }
+            else
+            {
+                Model modelo = await _dataContext.Models.FindAsync(id);
+                if (modelo == null)
+                {
+                    return NotFound();
+                }
+
+                return View(modelo);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddEditModel(int id, Model modelo)
+        {
+
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (id == 0) //Insert
+                    {
+                        _dataContext.Add(modelo);
+                        await _dataContext.SaveChangesAsync();
+                        _flashMessage.Info("Registro creado.");
+                    }
+                    else //Update
+                    {
+                        _dataContext.Update(modelo);
+                        await _dataContext.SaveChangesAsync();
+                        _flashMessage.Info("Registro actualizado.");
+                    }
+                }
+                catch (DbUpdateException dbUpdateException)
+                {
+                    if (dbUpdateException.InnerException.Message.Contains("duplicate"))
+                    {
+                        _flashMessage.Danger("Ya existe una categoría con el mismo nombre.");
+                    }
+                    else
+                    {
+                        _flashMessage.Danger(dbUpdateException.InnerException.Message);
+                    }
+                    return View(modelo);
+                }
+                catch (Exception exception)
+                {
+                    _flashMessage.Danger(exception.Message);
+                    return View(modelo);
+                }
+
+                return Json(new { isValid = true, html = ModalHelper.RenderRazorViewToString(this, "Create", _dataContext.Models.ToList()) });
+
+            }
+
+            return Json(new { isValid = false, html = ModalHelper.RenderRazorViewToString(this, "AddEditModel", modelo) });
+        }
+        [NoDirectAccess]
+        public async Task<IActionResult> AddEditCat(int id)
+        {
+
+            if (id == 0)
+            {
+                Category cat = new Category { Usucreo = User.Identity.Name };
+                if (cat == null)
+                {
+                    return NotFound();
+                }
+
+                return View(cat);
+
+            }
+            else
+            {
+                Category cat = await _dataContext.Categories.FindAsync(id);
+                if (cat == null)
+                {
+                    return NotFound();
+                }
+
+                return View(cat);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddEditCat(int id, Category cat)
+        {
+
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (id == 0) //Insert
+                    {
+                        _dataContext.Add(cat);
+                        await _dataContext.SaveChangesAsync();
+                        _flashMessage.Info("Registro creado.");
+                    }
+                    else //Update
+                    {
+                        _dataContext.Update(cat);
+                        await _dataContext.SaveChangesAsync();
+                        _flashMessage.Info("Registro actualizado.");
+                    }
+                }
+                catch (DbUpdateException dbUpdateException)
+                {
+                    if (dbUpdateException.InnerException.Message.Contains("duplicate"))
+                    {
+                        _flashMessage.Danger("Ya existe una categoría con el mismo nombre.");
+                    }
+                    else
+                    {
+                        _flashMessage.Danger(dbUpdateException.InnerException.Message);
+                    }
+                    return View(cat);
+                }
+                catch (Exception exception)
+                {
+                    _flashMessage.Danger(exception.Message);
+                    return View(cat);
+                }
+
+                return Json(new { isValid = true, html = ModalHelper.RenderRazorViewToString(this, "Create", _dataContext.Categories.ToList()) });
+
+            }
+
+            return Json(new { isValid = false, html = ModalHelper.RenderRazorViewToString(this, "AddEditCat", cat) });
+        }
+
     }
 }

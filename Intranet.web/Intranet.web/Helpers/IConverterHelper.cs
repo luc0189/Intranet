@@ -4,6 +4,7 @@ using Intranet.web.Data.Entities.Fidelizacion;
 using Intranet.web.Models;
 using Intranet.web.Models.Compras;
 using Intranet.web.Models.Fidelizacion;
+using Intranet.web.Models.Report;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Threading.Tasks;
 

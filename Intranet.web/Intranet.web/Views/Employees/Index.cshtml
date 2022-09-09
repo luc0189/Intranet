@@ -6,7 +6,7 @@
     
     
     <br />
-
+    <flash dismissable="true" />
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <section class="content-header">
     <div class="container-fluid">
@@ -109,8 +109,8 @@
                                             <td>
                                                 <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
                                                 <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id"><i class="glyphicon glyphicon-list"></i></a>
-                                                <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-
+                                                @*<button data-id="@item.Id" class="btn btn-sm btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>*@
+                                                <button data-id="@item.Id" class="btn btn-sm btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog"><i class="fa fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     }

@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Intranet.web.Controllers
+namespace Intranet.web.Controllers.Reportes.Compras
 {
     public class FruverBajasController : Controller
     {
@@ -45,7 +45,7 @@ namespace Intranet.web.Controllers
 
         public IActionResult Out_focus(string plu)
         {
-           BajasFruverViewModel  listadobajas = new BajasFruverViewModel();
+            BajasFruverViewModel listadobajas = new BajasFruverViewModel();
 
             using (SqlConnection connection = new SqlConnection("Server=192.168.1.113,7433;Database=supermio;Persist Security Info=True;User Id=l.sanchez;Password=Team0103"))
             {
@@ -55,14 +55,14 @@ namespace Intranet.web.Controllers
                 command.CommandType = System.Data.CommandType.Text;
 
                 connection.Open();
-              
+
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            listadobajas.Codigo = Convert.ToInt32( reader[0].ToString());
+                            listadobajas.Codigo = Convert.ToInt32(reader[0].ToString());
                             listadobajas.Nombre = reader[1].ToString();
                         }
                     }

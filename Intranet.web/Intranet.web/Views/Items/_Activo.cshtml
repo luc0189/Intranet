@@ -1,5 +1,5 @@
 ﻿@model Intranet.web.Models.Activos.ActivoViewModel
-
+<flash dismissable="true" />
 
   <div class="col-md-6">
              <div class="form-group">
@@ -44,10 +44,14 @@
              <div class="form-group">
                 <label asp-for="ModelId" class="control-label"></label>
                  <div class="input-group input-group">
-                <select asp-for="ModelId" asp-items="Model.Models" class="form-control">
+                <select asp-for="ModelId" asp-items="Model.Models" class="js-example-basic-single form-control">
                 </select>
                  <span class="input-group-append">
-                <button type="button" class="btn btn-info btn-flat">Go!</button>
+
+                <button type="button" onclick="showInPopup('@Url.Action("AddEditModel", "Items", new { id = 0 },
+                       Context.Request.Scheme)' , 'Nuevo Modelo')"
+                       class="btn btn-sm btn-primary text-white">
+                       <i class="fas fa-plus-circle"></i></button>
                 </span>
                 </div>
                 <span asp-validation-for="ModelId" class="text-danger"></span>
@@ -55,11 +59,20 @@
               <div class="form-group">
                 <label asp-for="FabricId" class="control-label"></label>
                  <div class="input-group input-group">
-                <select asp-for="FabricId" asp-items="Model.Fabrics" class="form-control">
+                <select asp-for="FabricId" asp-items="Model.Fabrics" class="js-example-basic-single form-control">
                 </select>
                    <span class="input-group-append">
-                <button type="button" class="btn btn-info btn-flat">Go!</button>
-                </span>
+                       @*<a onclick="showInPopup('@Url.Action("AddOrEditFabric", "Items", new { id = 0 },
+                       Context.Request.Scheme)' , 'Nueva Categoría')"
+                       class="btn btn-sm btn-primary text-white">
+                       <i class="fa fa-plus-circle"></i> Go!</a>*@
+                <button type="button" onclick="showInPopup('@Url.Action("AddOrEditFabric", "Items", new { id = 0 },
+                       Context.Request.Scheme)' , 'Nuevo Fabricante')"
+                       class="btn btn-sm btn-primary text-white">
+                       <i class="fas fa-plus-circle"></i></button>
+                      
+                     </span>
+                      
                 </div>
                 <span asp-validation-for="FabricId" class="text-danger"></span>
             </div>
@@ -67,10 +80,13 @@
               <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
                  <div class="input-group input-group">
-                <select asp-for="CategoryId" asp-items="Model.Categories" class="form-control">
+                <select asp-for="CategoryId" asp-items="Model.Categories" class="js-example-basic-single form-control">
                 </select>
                    <span class="input-group-append">
-                <button type="button" class="btn btn-info btn-flat">Go!</button>
+               <button type="button" onclick="showInPopup('@Url.Action("AddEditCat", "Items", new { id = 0 },
+                       Context.Request.Scheme)' , 'Nueva Categoria')"
+                       class="btn btn-sm btn-primary text-white">
+                       <i class="fas fa-plus-circle"></i></button>
                 </span>
                 </div>
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
@@ -78,7 +94,7 @@
              <div class="form-group">
                 <label asp-for="ProviderId" class="control-label"></label>
                   <div class="input-group input-group">
-                <select asp-for="ProviderId" asp-items="Model.Providers" class="form-control">
+                <select asp-for="ProviderId" asp-items="Model.Providers" class="js-example-basic-single form-control">
                 </select>
                   <span class="input-group-append">
                 <button type="button" class="btn btn-info btn-flat">Go!</button>
@@ -88,3 +104,4 @@
             </div>
         
         </div>
+

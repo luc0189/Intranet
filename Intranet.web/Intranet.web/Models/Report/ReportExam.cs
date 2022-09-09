@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Xunit;
 
-namespace Intranet.web.Models
+namespace Intranet.web.Models.Report
 {
     public class ReportExam
     {
@@ -51,14 +51,14 @@ namespace Intranet.web.Models
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         [Display(Name = "Cargo")]
         public int PositionEmpId { get; set; }
-        
+
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         [Display(Name = "ExamTypeId")]
         public int ExamtypeId { get; set; }
 
         public IEnumerable<SelectListItem> ExamTypes { get; set; }
-       
+
         public IEnumerable<SelectListItem> PositionEmplooyed { get; set; }
-      
+
     }
 }

@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Vereyon.Web;
 namespace Intranet.web.Controllers
 {
 
@@ -22,13 +22,15 @@ namespace Intranet.web.Controllers
         private readonly IConverterHelper _converterHelper;
         private readonly IImageHelper _imageHelper;
         private readonly IMailHelper _mailHelper;
+        private readonly IFlashMessage _flashMessage;
 
         public EmployeesController(DataContext context,
             IUserHelper userHelper,
             ICombosHelpers combosHelpers,
             IConverterHelper converterHelper,
             IImageHelper imageHelper,
-            IMailHelper mailHelper)
+            IMailHelper mailHelper,
+            IFlashMessage flashMessage)
         {
             _dataContext = context;
             _userHelper = userHelper;
@@ -36,6 +38,7 @@ namespace Intranet.web.Controllers
             _converterHelper = converterHelper;
             _imageHelper = imageHelper;
             _mailHelper = mailHelper;
+            _flashMessage = flashMessage;
         }
         public async Task<IActionResult> AddImage(int? id)
         {
@@ -455,7 +458,8 @@ namespace Intranet.web.Controllers
                 employee.Credits.Count != 0 ||
                 employee.Incapacities.Count != 0)
             {
-                ModelState.AddModelError(string.Empty, "Valide los detalles antes de Borrar");
+                _flashMessage.Danger("Valide los detalles antes de Borrar");
+               
                 return RedirectToAction(nameof(Index));
             }
 

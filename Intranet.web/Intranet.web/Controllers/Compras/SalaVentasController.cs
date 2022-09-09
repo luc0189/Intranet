@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Intranet.web.Data;
 using Intranet.web.Data.Entities.Compras;
 
-namespace Intranet.web.Controllers
+namespace Intranet.web.Controllers.Compras
 {
     public class SalaVentasController : Controller
     {
