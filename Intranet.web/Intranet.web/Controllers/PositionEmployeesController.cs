@@ -10,22 +10,22 @@ using Intranet.web.Data.Entities;
 
 namespace Intranet.web.Controllers
 {
-    public class PositionEmployeesController : Controller
+    public class PositionEmpController : Controller
     {
         private readonly DataContext _context;
 
-        public PositionEmployeesController(DataContext context)
+        public PositionEmpController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: PositionEmployees
+        // GET: PositionEmp
         public async Task<IActionResult> Index()
         {
-            return View(await _context.PositionEmployees.ToListAsync());
+            return View(await _context.PositionEmp.ToListAsync());
         }
 
-        // GET: PositionEmployees/Details/5
+        // GET: PositionEmp/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,7 +33,7 @@ namespace Intranet.web.Controllers
                 return NotFound();
             }
 
-            var positionEmployee = await _context.PositionEmployees
+            var positionEmployee = await _context.PositionEmp
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (positionEmployee == null)
             {
@@ -43,18 +43,18 @@ namespace Intranet.web.Controllers
             return View(positionEmployee);
         }
 
-        // GET: PositionEmployees/Create
+        // GET: PositionEmp/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: PositionEmployees/Create
+        // POST: PositionEmp/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Position")] PositionEmployee positionEmployee)
+        public async Task<IActionResult> Create([Bind("Id,Position")] PositionEmp positionEmployee)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace Intranet.web.Controllers
             return View(positionEmployee);
         }
 
-        // GET: PositionEmployees/Edit/5
+        // GET: PositionEmp/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,7 +73,7 @@ namespace Intranet.web.Controllers
                 return NotFound();
             }
 
-            var positionEmployee = await _context.PositionEmployees.FindAsync(id);
+            var positionEmployee = await _context.PositionEmp.FindAsync(id);
             if (positionEmployee == null)
             {
                 return NotFound();
@@ -81,12 +81,12 @@ namespace Intranet.web.Controllers
             return View(positionEmployee);
         }
 
-        // POST: PositionEmployees/Edit/5
+        // POST: PositionEmp/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Position")] PositionEmployee positionEmployee)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Position")] PositionEmp positionEmployee)
         {
             if (id != positionEmployee.Id)
             {
@@ -116,7 +116,7 @@ namespace Intranet.web.Controllers
             return View(positionEmployee);
         }
 
-        // GET: PositionEmployees/Delete/5
+        // GET: PositionEmp/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,7 +124,7 @@ namespace Intranet.web.Controllers
                 return NotFound();
             }
 
-            var positionEmployee = await _context.PositionEmployees
+            var positionEmployee = await _context.PositionEmp
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (positionEmployee == null)
             {
@@ -134,20 +134,20 @@ namespace Intranet.web.Controllers
             return View(positionEmployee);
         }
 
-        // POST: PositionEmployees/Delete/5
+        // POST: PositionEmp/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var positionEmployee = await _context.PositionEmployees.FindAsync(id);
-            _context.PositionEmployees.Remove(positionEmployee);
+            var positionEmployee = await _context.PositionEmp.FindAsync(id);
+            _context.PositionEmp.Remove(positionEmployee);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool PositionEmployeeExists(int id)
         {
-            return _context.PositionEmployees.Any(e => e.Id == id);
+            return _context.PositionEmp.Any(e => e.Id == id);
         }
     }
 }

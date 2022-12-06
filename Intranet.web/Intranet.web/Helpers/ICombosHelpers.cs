@@ -26,6 +26,7 @@ namespace Intranet.web.Helpers
 
         //compras
         IEnumerable<SelectListItem> GetComboClasification();
+        
         IEnumerable<SelectListItem> GetComboRols();
         IEnumerable<SelectListItem> GetComboProviderCompras();
         IEnumerable<SelectListItem> GetComboMes();

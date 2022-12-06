@@ -92,19 +92,14 @@ namespace Intranet.web.Controllers
 
             return View(_dataContext.Employees
                 .Include(e => e.Sons)
-                .Include(e => e.Area)
-
-                .ThenInclude(s => s.SiteHeadquarters)
-                .Include(e => e.PersonContacts)
+                
                 .Include(e => e.Credits)
                 .Include(e => e.Exams)
-                .Include(e => e.CajaCompensacion)
+              
                 .Include(e => e.Incapacities)
                 .Include(e => e.Endowments)
-                .Include(e => e.Contracts)
-                .Include(e => e.CargosAsgs)
+                
 
-                .ThenInclude(e => e.PositionEmployee)
                 .Include(e => e.UserImages)
                 );
         }
@@ -150,11 +145,10 @@ namespace Intranet.web.Controllers
                                   .Include(e => e.Incapacities)
                                   .ThenInclude(e => e.TypeNew)
                                   .Include(e => e.Contracts)
-                                  .Include(e => e.CargosAsgs)
-                                  .ThenInclude(e=>e.PositionEmployee)
-                                  .Include(e => e.Credits)
+                             
+                                  .Include(c => c.Credits)
                                   .ThenInclude(c => c.CreditEntities)
-                                  .Include(e => e.Exams)
+                                  .Include(t => t.Exams)
                                   .ThenInclude(t => t.ExamsType)
                                   .Include(e => e.Endowments)
                                   .ThenInclude(c => c.EndowmentType)
@@ -183,14 +177,14 @@ namespace Intranet.web.Controllers
                 Eps = _combosHelpers.GetComboEps(),
                 Pension = _combosHelpers.GetComboPension(),
                 CajaCompensacion = _combosHelpers.GetComboCajaCompensacion(),
-                PositionEmplooyed = _combosHelpers.GetComboPositionEmploye(),
+                //PositionEmplooyed = _combosHelpers.GetComboPositionEmploye(),
                 //Roles = _combosHelpers.GetComboRoles()
             };
             model.Areas = _combosHelpers.GetComboAreas();
             model.Eps = _combosHelpers.GetComboEps();
             model.Pension = _combosHelpers.GetComboPension();
             model.CajaCompensacion = _combosHelpers.GetComboCajaCompensacion();
-            model.PositionEmplooyed = _combosHelpers.GetComboPositionEmploye();
+           // model.PositionEmplooyed = _combosHelpers.GetComboPositionEmploye();
             //model.Roles = _combosHelpers.GetComboRoles();
             return View(model);
         }
@@ -233,14 +227,14 @@ namespace Intranet.web.Controllers
                     PersonContacts = new List<PersonContact>(),
                     Incapacities = new List<Incapacity>(),
                     UserImages = new List<UserImages>(),
+                    //CargosAsgs= new List<CargosAsg>(),
                     Sexo = model.Sexo,
                     Sueldo = model.Sueldo,
                     Area = await _dataContext.Areas.FindAsync(model.AreaId),
                     Eps = await _dataContext.Eps.FindAsync(model.EpsId),
                     Pension = await _dataContext.Pensions.FindAsync(model.PensionId),
-                    CajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(model.CajaCompenId),
-                    //PositionEmployee = await _dataContext.PositionEmployees.FindAsync(model.PositionEmpId)
-
+                    CajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(model.CajaCompenId)
+                    
 
                 };
                 _dataContext.Employees.Add(employe);
@@ -256,7 +250,7 @@ namespace Intranet.web.Controllers
             model.Eps = _combosHelpers.GetComboEps();
             model.Pension = _combosHelpers.GetComboPension();
             model.CajaCompensacion = _combosHelpers.GetComboCajaCompensacion();
-            model.PositionEmplooyed = _combosHelpers.GetComboPositionEmploye();
+           // model.PositionEmplooyed = _combosHelpers.GetComboPositionEmploye();
             //model.Roles = _combosHelpers.GetComboRoles();
             return View(model);
         }
@@ -303,20 +297,13 @@ namespace Intranet.web.Controllers
             }
 
             var employe = await _dataContext.Employees
-                .Include(e => e.Sons)
-              
-                .Include(e => e.Area)
-             
-                .ThenInclude(s => s.SiteHeadquarters)
-                .Include(e => e.PersonContacts)
-                .Include(e => e.Credits)
-                 .Include(e => e.Pension)
-                .Include(e => e.Eps)
-                
-                .Include(e => e.Exams)
-                .Include(e => e.CajaCompensacion)
-                .Include(e => e.Endowments)
-                .FirstOrDefaultAsync(o => o.Id == id.Value);
+                                  .Include(e => e.Area)
+                                  .ThenInclude(s => s.SiteHeadquarters)
+                                  .Include(e => e.Eps)
+                                  .Include(e => e.Pension)
+                                  .Include(e => e.CajaCompensacion)
+                                  
+                .FirstOrDefaultAsync(e => e.Id == id.Value);
             if (employe == null)
             {
                 return NotFound();
@@ -336,6 +323,7 @@ namespace Intranet.web.Controllers
                 JobTitle = employe.JobTitle,
                 License = employe.License,
                 Movil = employe.Movil,
+                Sueldo=employe.Sueldo,
                 NivelEducation = employe.NivelEducation,
                 Rh = employe.Rh,
                 SiteBirth = employe.SiteBirth,
@@ -348,8 +336,9 @@ namespace Intranet.web.Controllers
                 UserModify = employe.UserModify,
                 DateRegistro = employe.DateRegistro,
                 Sexo=employe.Sexo,
-                //PositionEmpId = employe.positionEmployees.Id,
-                PositionEmplooyed = _combosHelpers.GetComboPositionEmploye(),
+                CtaNomina = employe.CtaNomina,
+                //PositionEmpId = employe.PositionEmployee.Id,
+                //PositionEmployeesss = _combosHelpers.GetComboPositionEmploye(),
                 
                 PensionId = employe.Pension.Id,
                 Pension = _combosHelpers.GetComboPension(),
@@ -375,15 +364,13 @@ namespace Intranet.web.Controllers
             if (ModelState.IsValid)
             {
                 var employe = await _dataContext.Employees
-                    .Include(e => e.Incapacities)
+                    
                     .Include(e => e.Sons)
                     .Include(e => e.Area)
                     .ThenInclude(s => s.SiteHeadquarters)
-                    .Include(e => e.PersonContacts)
-                    .Include(e => e.Credits)
-                    .Include(e => e.Exams)
                     .Include(e => e.CajaCompensacion)
                     .Include(e => e.Endowments)
+                  
                     .FirstOrDefaultAsync(o => o.Id == vista.Id);
                 if (employe != null)
                 {
@@ -404,6 +391,7 @@ namespace Intranet.web.Controllers
                     employe.DateIngreso = vista.DateIngreso;
                     employe.UserRegistra = vista.UserCrea;
                     employe.DateRegistro = vista.DateRegistro;
+                    employe.DateCumple= vista.DateCumple;
                     employe.Email = vista.Email;
                     employe.DateModify = DateTime.Today;
                     employe.UserModify = User.Identity.Name;
@@ -425,7 +413,7 @@ namespace Intranet.web.Controllers
             vista.Eps = _combosHelpers.GetComboEps();
             vista.Pension = _combosHelpers.GetComboPension();
             vista.CajaCompensacion = _combosHelpers.GetComboCajaCompensacion();
-            vista.PositionEmplooyed = _combosHelpers.GetComboPositionEmploye();
+          // vista.PositionEmployeesss = _combosHelpers.GetComboPositionEmploye();
             //vista.Roles = _combosHelpers.GetComboRoles();
 
             return View(vista);

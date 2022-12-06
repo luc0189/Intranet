@@ -28,7 +28,7 @@ namespace Intranet.web.Data
         public DbSet<Manager> Managers { get; set; }
         public DbSet<Pension> Pensions { get; set; }
         public DbSet<PersonContact> PersonContacts { get; set; }
-        public DbSet<PositionEmployee> PositionEmployees { get; set; }
+        public DbSet<PositionEmp> PositionEmp { get; set; }
         public DbSet<purchasing> Purchasings { get; set; }
         public DbSet<Recursoshumanos> Recursoshumanos { get; set; }
         public DbSet<SiteHeadquarters> SiteHeadquarters { get; set; }
@@ -61,7 +61,15 @@ namespace Intranet.web.Data
 
         public DbSet<Intranet.web.Data.Entities.Compras.ProductBonifi> ProductBonifi { get; set; }
         public DbSet<Intranet.web.Data.Entities.Compras.Negociation> Negociation { get; set; }
-
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<Category>().HasIndex(c => c.Name).IsUnique();
+            builder.Entity<Fabric>().HasIndex(c => c.Name).IsUnique();
+            builder.Entity<SalaVenta>().HasIndex(c => c.Name).IsUnique();
+            builder.Entity<Model>().HasIndex(c => c.Name).IsUnique();
+            builder.Entity<SiteHeadquarters>().HasIndex(c => c.Nombre).IsUnique();
+        }
 
     }
 }

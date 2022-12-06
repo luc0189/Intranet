@@ -4,14 +4,16 @@ using Intranet.web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Intranet.web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20221130192327_positioncorrection")]
+    partial class positioncorrection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,9 +48,6 @@ namespace Intranet.web.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
                     b.ToTable("Categories");
                 });
 
@@ -74,9 +73,6 @@ namespace Intranet.web.Migrations
                         .HasMaxLength(500);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
 
                     b.ToTable("Fabrics");
                 });
@@ -162,10 +158,6 @@ namespace Intranet.web.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
-
                     b.ToTable("Models");
                 });
 
@@ -245,9 +237,13 @@ namespace Intranet.web.Migrations
 
                     b.Property<int?>("EmployeeId");
 
+                    b.Property<int?>("PositionEmployeeId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EmployeeId");
+
+                    b.HasIndex("PositionEmployeeId");
 
                     b.ToTable("CargosAsgs");
                 });
@@ -469,9 +465,6 @@ namespace Intranet.web.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
                     b.ToTable("SalaVentas");
                 });
 
@@ -644,6 +637,8 @@ namespace Intranet.web.Migrations
 
                     b.Property<int?>("PensionId");
 
+                    b.Property<int?>("PositionEmployeeId");
+
                     b.Property<string>("Rh")
                         .IsRequired()
                         .HasMaxLength(50);
@@ -678,6 +673,8 @@ namespace Intranet.web.Migrations
                     b.HasIndex("EpsId");
 
                     b.HasIndex("PensionId");
+
+                    b.HasIndex("PositionEmployeeId");
 
                     b.ToTable("Employees");
                 });
@@ -1137,19 +1134,23 @@ namespace Intranet.web.Migrations
                     b.ToTable("PersonContacts");
                 });
 
-            modelBuilder.Entity("Intranet.web.Data.Entities.PositionEmp", b =>
+            modelBuilder.Entity("Intranet.web.Data.Entities.PositionEmployee", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("EmployeeId");
+
                     b.Property<string>("Position")
                         .IsRequired()
-                        .HasMaxLength(50);
+                        .HasMaxLength(40);
 
                     b.HasKey("Id");
 
-                    b.ToTable("PositionEmp");
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("PositionEmployees");
                 });
 
             modelBuilder.Entity("Intranet.web.Data.Entities.purchasing", b =>
@@ -1193,9 +1194,6 @@ namespace Intranet.web.Migrations
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Nombre")
-                        .IsUnique();
 
                     b.ToTable("SiteHeadquarters");
                 });
@@ -1497,6 +1495,10 @@ namespace Intranet.web.Migrations
                     b.HasOne("Intranet.web.Data.Entities.Employee", "Employee")
                         .WithMany("CargosAsgs")
                         .HasForeignKey("EmployeeId");
+
+                    b.HasOne("Intranet.web.Data.Entities.PositionEmployee", "PositionEmployee")
+                        .WithMany("CargosAsgs")
+                        .HasForeignKey("PositionEmployeeId");
                 });
 
             modelBuilder.Entity("Intranet.web.Data.Entities.Compras.Negociation", b =>
@@ -1581,6 +1583,10 @@ namespace Intranet.web.Migrations
                     b.HasOne("Intranet.web.Data.Entities.Pension", "Pension")
                         .WithMany("Employees")
                         .HasForeignKey("PensionId");
+
+                    b.HasOne("Intranet.web.Data.Entities.PositionEmployee", "PositionEmployee")
+                        .WithMany()
+                        .HasForeignKey("PositionEmployeeId");
                 });
 
             modelBuilder.Entity("Intranet.web.Data.Entities.Endowment", b =>
@@ -1652,6 +1658,13 @@ namespace Intranet.web.Migrations
                 {
                     b.HasOne("Intranet.web.Data.Entities.Employee", "Employee")
                         .WithMany("PersonContacts")
+                        .HasForeignKey("EmployeeId");
+                });
+
+            modelBuilder.Entity("Intranet.web.Data.Entities.PositionEmployee", b =>
+                {
+                    b.HasOne("Intranet.web.Data.Entities.Employee")
+                        .WithMany("PositionEmployees")
                         .HasForeignKey("EmployeeId");
                 });
 

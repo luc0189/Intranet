@@ -19,7 +19,7 @@ namespace Intranet.web.Helpers
         }
         public IEnumerable<SelectListItem> GetComboCargos()
         {
-            var list = _dataContext.PositionEmployees.Select(et => new SelectListItem
+            var list = _dataContext.PositionEmp.Select(et => new SelectListItem
             {
                 Text = et.Position,
                 Value = $"{et.Id}"
@@ -178,7 +178,7 @@ namespace Intranet.web.Helpers
 
         public IEnumerable<SelectListItem> GetComboPositionEmploye()
         {
-            var list = _dataContext.PositionEmployees.Select(a => new SelectListItem
+            var list = _dataContext.PositionEmp.Select(a => new SelectListItem
             {
                 Text = a.Position,
                 Value = $"{a.Id}"

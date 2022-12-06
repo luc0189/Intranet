@@ -6,15 +6,14 @@ using System.Threading.Tasks;
 
 namespace Intranet.web.Data.Entities
 {
-    public class PositionEmployee
+    public class PositionEmp
     {
         public int Id { get; set; }
 
         [Required (ErrorMessage ="El campo {0} es Obligatorio")]
         [Display (Name ="Cargos de Empleados")]
-        [MaxLength (40)]
+        [MaxLength (50)]
         public String Position { get; set; }
-        
-        public ICollection<CargosAsg> CargosAsgs { get; set; }
+
     }
 }

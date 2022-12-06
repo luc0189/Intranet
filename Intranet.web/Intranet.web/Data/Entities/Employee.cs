@@ -127,7 +127,8 @@ namespace Intranet.web.Data.Entities
         public Eps Eps { get; set; }
         
         public Pension Pension { get; set; }
-       
+      
+
         public CajaCompensacion CajaCompensacion { get; set; }
         public ICollection<UserImages> UserImages { get; set; }
         public ICollection<Credit> Credits { get; set; }
@@ -140,7 +141,7 @@ namespace Intranet.web.Data.Entities
         public ICollection<Item> Items { get; set; }
         public ICollection<CargosAsg> CargosAsgs { get; set; }
         public ICollection<HistorialEmpleado> HistorialEmpleados { get; set; }
-        public ICollection<PositionEmployee> PositionEmployees { get; set; }
+     
         
 
     }

@@ -119,12 +119,10 @@ namespace Intranet.web.Models
 
         [Required(ErrorMessage = "The Field {0} is mandatory.")]
         [Display(Name = "Area")]
-
         public int AreaId { get; set; }
 
         [Required(ErrorMessage = "The Field {0} is mandatory.")]
         [Display(Name = "Eps")]
-
         public int EpsId { get; set; }
 
         [Required(ErrorMessage = "The field {0} is mandatory.")]
@@ -135,18 +133,17 @@ namespace Intranet.web.Models
         [Display(Name = "Caja Compensacion")]
         public int CajaCompenId { get; set; }
 
-        [Required(ErrorMessage = "The field {0} is mandatory.")]
-        [Display(Name = "Cargo")]
-        public int PositionEmpId { get; set; }
-
-
+       
+        
+       
 
         public IEnumerable<SelectListItem> Areas { get; set; }
         public IEnumerable<SelectListItem> Eps { get; set; }
         public IEnumerable<SelectListItem> Pension { get; set; }
         public IEnumerable<SelectListItem> CajaCompensacion { get; set; }
-        public IEnumerable<SelectListItem> PositionEmplooyed { get; set; }
-        public IEnumerable<SelectListItem> Incapacitys { get; set; }
+        //public IEnumerable<SelectListItem> CargosAsgs { get; set; }
+       // public IEnumerable<SelectListItem> Incapacitys { get; set; }
+
       
       
 

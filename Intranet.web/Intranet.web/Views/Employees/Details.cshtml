@@ -89,14 +89,15 @@
                                             <li><span class="fa-li"><i class="fa fa-address-card"></i></span> Direccion:  @Html.DisplayFor(model => model.Address)</li>
                                             <li><span class="fa-li"><i class="fa fa-mail-forward"></i></span> Email:   @Html.DisplayFor(model => model.Email)</li>
                                             <li><span class="fa-li"><i class="fa fa-industry"></i></span>  @Html.DisplayNameFor(model => model.Area.Nombre)  @Html.DisplayFor(model => model.Area.Nombre)</li>
-                                            <li><span class="fa-li"><i class="fa fa-product-hunt"></i></span> Cargo:    @Html.DisplayFor(model => model.JobTitle)</li>
+                                           
+                                            <li><span class="fa-li"><i class="fa fa-spinner fa-spin"></i></span> Cargo:    @Html.DisplayFor(model => model.JobTitle)</li>
                                             <li><span class="fa-li"><i class="fa fa-building"></i></span> Nivel Educativo:  @Html.DisplayFor(model => model.NivelEducation)</li>
                                             
                                         </ul>
                                     </div>
                                     <div class="col-5">
                                         <ul class="ml-4 mb-0 fa-ul text-muted">
-                                            <li><span class="fa-li"><i class="fa fa-building-o"></i></span> Eps:  @Html.DisplayFor(model => model.Eps.Nombre)</li>
+                                            <li><span class="fa-li"><i class="fa fa-building"></i></span> Eps:  @Html.DisplayFor(model => model.Eps.Nombre)</li>
                                             <li><span class="fa-li"><i class=" fa fa-mail-forward"></i></span> Empleado Activo :     @Html.DisplayFor(model => model.Activo)</li>
                                             <li><span class="fa-li"><i class=" fa fa-mail-forward"></i></span> Arl :   @Html.DisplayFor(model => model.Arl)</li>
                                             <li><span class="fa-li"><i class=" fa fa-mail-forward"></i></span> Carnet :    @Html.DisplayFor(model => model.License)</li>
@@ -110,15 +111,26 @@
                                     <div class="col-9">
                                         <div class="text-left">
                                             <div class="row">
-                                                <ul class="small">
+                                                <div class="col-md-6">
+                                                     <ul>
                                                     <li ><label asp-for="UserRegistra"></label> <input style="border: none;" asp-for="UserRegistra" disabled /></li>
                                                     <li><label asp-for="DateRegistro"></label> <input style="border: none;" asp-for="DateRegistro" disabled /></li>
-                                                </ul>
-                                              
-                                                    <ul class="small">
-                                                        <li ><label asp-for="UserModify"></label>   <input class="small" style="border: none;" asp-for="UserModify" disabled /></li>
-                                                        <li ><label asp-for="DateModify"></label> <input class="small" style="border: none;" asp-for="DateModify" disabled /></li>
                                                     </ul>
+                                                </div>   
+                                              
+                                               
+                                                <div class="col-md-6">
+                                                      <ul class="ml-4 mb-0 ">
+                                                    
+                                                    
+                                                      <li ><label asp-for="UserModify"></label>   <input class="small" style="border: none;" asp-for="UserModify" disabled /></li>
+                                                        <li ><label asp-for="DateModify"></label> <input class="small" style="border: none;" asp-for="DateModify" disabled /></li>
+                                                </ul>
+                                                </div>
+
+                                              
+                                              
+                                                  
 
 
                                             </div>
@@ -128,7 +140,9 @@
                                     </div>
                                     <div class="col-3">
                                         <div class="text-right">
-                                            <a asp-action="Edit" class="btn btn-warning" asp-route-id="@Model.Id"><i class="fa fa-pencil"></i> </a>
+                                            
+                                            
+                                            <a asp-action="Edit" class="btn btn-warning" aria-hidden="true" asp-route-id="@Model.Id"><i class="fa fa-pencil"></i>Editar </a>
 
                                             <a asp-action="Index" class="btn btn-success">Volver atras</a>
                                         </div>
@@ -143,7 +157,7 @@
                             </div>
                         </div>
                     </div>
-                  
+              
                     <div class="card card-dark  card-tabs">
                         <div class="card-header p-0 pt-1">
                             <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
@@ -247,9 +261,9 @@
                                                                             </td>
 
                                                                             <td>
-                                                                                <a asp-action="EditEndowment" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                                                <a asp-action="EditEndowment" class="btn btn-warning" asp-route-id="@item.Id"><i class="fa fa-pencil"></i></a>
 
-                                                                                <button data-id="@item.Id" class="btn btn-danger deleteEndowment" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                                <button data-id="@item.Id" class="btn btn-danger deleteEndowment" data-toggle="modal" data-target="#deleteDialog"><i class="fa fa-trash"></i></button>
                                                                             </td>
                                                                         </tr>
                                                                     }
@@ -327,9 +341,9 @@
                                                                             </td>
 
                                                                             <td>
-                                                                                <a asp-action="EditIncap" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                                                <a asp-action="EditIncap" class="btn btn-warning" asp-route-id="@item.Id"><i class="fa fa-pencil"></i></a>
 
-                                                                                <button data-id="@item.Id" class="btn btn-danger deleteIncap" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                                <button data-id="@item.Id" class="btn btn-danger deleteIncap" data-toggle="modal" data-target="#deleteDialog"><i class="fa fa-trash"></i></button>
                                                                             </td>
                                                                         </tr>
                                                                     }
@@ -397,9 +411,9 @@
                                                                                 @Html.DisplayFor(modelItem => item.UserRegistra)
                                                                             </td>
                                                                             <td>
-                                                                                <a asp-action="EditSon" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                                                <a asp-action="EditSon" class="btn btn-warning" asp-route-id="@item.Id"><i class="fa fa-pencil"></i></a>
 
-                                                                                <button data-id="@item.Id" class="btn btn-danger deleteSon" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                                <button data-id="@item.Id" class="btn btn-danger deleteSon" data-toggle="modal" data-target="#deleteDialog"><i class="fa fa-trash"></i></button>
                                                                             </td>
                                                                         </tr>
                                                                     }
@@ -497,9 +511,9 @@
                                                                             </td>
 
                                                                             <td>
-                                                                                <a asp-action="EditCredit" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                                                <a asp-action="EditCredit" class="btn btn-warning" asp-route-id="@item.Id"><i class="fa fa-pencil"></i></a>
 
-                                                                                <button data-id="@item.Id" class="btn btn-danger deleteCredit" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                                <button data-id="@item.Id" class="btn btn-danger deleteCredit" data-toggle="modal" data-target="#deleteDialog"><i class="fa fa-trash"></i></button>
                                                                             </td>
                                                                         </tr>
                                                                     }
@@ -568,9 +582,9 @@
                                                                                 @Html.DisplayFor(modelItem => item.UserRegistra)
                                                                             </td>
                                                                             <td>
-                                                                                <a asp-action="EditPersonContact" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                                                <a asp-action="EditPersonContact" class="btn btn-warning" asp-route-id="@item.Id"><i class="fa fa-pencil"></i></a>
 
-                                                                                <button data-id="@item.Id" class="btn btn-danger deletePerson" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                                <button data-id="@item.Id" class="btn btn-danger deletePerson" data-toggle="modal" data-target="#deleteDialog"><i class="fa fa-trash"></i></button>
                                                                             </td>
                                                                         </tr>
                                                                     }
@@ -645,9 +659,9 @@
                                                                                 @Html.DisplayFor(modelItem => item.UserRegistra)
                                                                             </td>
                                                                             <td>
-                                                                                <a asp-action="EditExam" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                                                <a asp-action="EditExam" class="btn btn-warning" asp-route-id="@item.Id"><i class="fa fa-pencil"></i></a>
 
-                                                                                <button data-id="@item.Id" class="btn btn-danger deleteExam" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                                <button data-id="@item.Id" class="btn btn-danger deleteExam" data-toggle="modal" data-target="#deleteDialog"><i class="fa fa-trash"></i></button>
                                                                             </td>
                                                                         </tr>
                                                                     }
@@ -666,7 +680,7 @@
                                     <div class="card">
 
                                         <div class="card-body">
-                                            @if (Model.CargosAsgs.Count == 0)
+                                         @*   @if (Model.CargosAsgs.Count == 0)
                                             {
 
 
@@ -710,7 +724,7 @@
                                                                             <td>
 
 
-                                                                                <button data-id="@item.Id" class="btn btn-danger DeleteCargo" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                                <button data-id="@item.Id" class="btn btn-danger DeleteCargo" data-toggle="modal" data-target="#deleteDialog"><i class="fa fa-trash"></i></button>
                                                                             </td>
                                                                         </tr>
                                                                     }
@@ -720,7 +734,7 @@
 
                                                     </div>
                                                 </div>
-                                            }
+                                            }*@
                                         </div>
                                     </div>
                                 </div>
@@ -770,9 +784,9 @@
                                                                             </td>
 
                                                                             <td>
-                                                                                <a asp-action="EditContrato" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                                                <a asp-action="EditContrato" class="btn btn-warning" asp-route-id="@item.Id"><i class="fa fa-pencil"></i></a>
 
-                                                                                <button data-id="@item.Id" class="btn btn-danger DeleteContrato" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                                <button data-id="@item.Id" class="btn btn-danger DeleteContrato" data-toggle="modal" data-target="#deleteDialog"><i class="fa fa-trash"></i></button>
                                                                             </td>
                                                                         </tr>
                                                                     }
@@ -835,9 +849,9 @@
                                                                                 </td>
 
                                                                                 <td>
-                                                                                    <a asp-action="EditHistorial" class="btn btn-warning" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                                                    <a asp-action="EditHistorial" class="btn btn-warning" asp-route-id="@item.Id"><i class="fa fa-pencil"></i></a>
 
-                                                                                    <button data-id="@item.Id" class="btn btn-danger DeleteContrato" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                                                    <button data-id="@item.Id" class="btn btn-danger DeleteContrato" data-toggle="modal"  data-target="#deleteDialog"><i class="fa fa-trash"></i></button>
                                                                                 </td>
                                                                             </tr>
                                                                         }
@@ -862,7 +876,7 @@
 
             </div>
 
-           
+       
       
     </div>
 </section>
@@ -872,62 +886,17 @@
 <partial name="_DeleteDialogModal" />
 
 @section Scripts {
+   
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    
+   <script src="~/js/showmodal.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             // Delete item
        
-            var hoy = new Date(new Date().setHours(0, 0, 0, 0));
-
-            var table = $('#MyTable').DataTable(
-               
-                {
-                "createdRow": function (row, data, index) {
-                    var datotabla = new Date(data[2]);
-                    var resta = datotabla - hoy;
-                    console.log(resta);
-                    console.log(hoy);
-                    console.log(datotabla);
-                    if (resta <= 1) {
-
-                        $('td', row).eq(2).css({
-                            'background-color': '#d9534f',
-                            'color': 'white',
-                        });
-                    } if (resta <= 5356800000 & resta >= 1) {
-
-                        $('td', row).eq(2).css({
-                            'background-color': '#F5BA44',
-                            'color': 'white',
-                        });
-                    }
-                }
-                }
-                 ,{
-                    "language": {
-                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-                    },
-                    "aLengthMenu": [
-                        [25, 50, 100, 200, -1],
-                        [25, 50, 100, 200, "Todos"]
-                    ]
-                },
-
-            );
 
             var item_to_delete;
             var action_to_delete;
-            $('.display').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-                },
-                "aLengthMenu": [
-                    [25, 50, 100, 200, -1],
-                    [25, 50, 100, 200, "Todos"]
-                ]
-            }
-);
+           
 
             $('.deleteEndowment').click((e) => {
                 item_to_delete = e.currentTarget.dataset.id;
@@ -966,7 +935,54 @@
                 item_to_delete = e.currentTarget.dataset.id;
                 action_to_delete = 9;
             });
+            
+            var hoy = new Date(new Date().setHours(0, 0, 0, 0));
 
+            var table = $('#MyTable').DataTable(
+               
+                {
+                "createdRow": function (row, data, index) {
+                    var datotabla = new Date(data[2]);
+                    var resta = datotabla - hoy;
+                    console.log(resta);
+                    console.log(hoy);
+                    console.log(datotabla);
+                    if (resta <= 1) {
+
+                        $('td', row).eq(2).css({
+                            'background-color': '#d9534f',
+                            'color': 'white',
+                        });
+                    } if (resta <= 5356800000 & resta >= 1) {
+
+                        $('td', row).eq(2).css({
+                            'background-color': '#F5BA44',
+                            'color': 'white',
+                        });
+                    }
+                }
+                }
+                 ,{
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                    },
+                    "aLengthMenu": [
+                        [25, 50, 100, 200, -1],
+                        [25, 50, 100, 200, "Todos"]
+                    ]
+                },
+
+            );
+             $('.display').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                },
+                "aLengthMenu": [
+                    [25, 50, 100, 200, -1],
+                    [25, 50, 100, 200, "Todos"]
+                ]
+            }
+);
             $("#btnYesDelete").click(function () {
                 if (action_to_delete == 1) {
                     window.location.href = '/Employees/DeleteEndowment/' + item_to_delete;
@@ -990,7 +1006,16 @@
 
             });
         });
+        $('#custom-tabs-one-tab a').on('click', function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+ 
     </script>
+    <script>
+
+    </script>
+
 }
 
 

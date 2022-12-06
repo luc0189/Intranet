@@ -16,6 +16,8 @@ namespace Intranet.web.Data.Entities.Activos
         [Display(Name = "Email")]
         public string Email { get; set; }
         public string Direccion { get; set; }
+
+        [Display(Name = "Numero Telefonico")]
         public string Phone { get; set; }
         public ICollection<Item> Items { get; set; }
     }

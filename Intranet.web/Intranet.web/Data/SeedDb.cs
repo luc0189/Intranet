@@ -26,7 +26,7 @@ namespace Intranet.web.Data
         {
             await _context.Database.EnsureCreatedAsync();
             await CheckRoles();
-            await ChekPositionAsyn();
+            //await ChekPositionAsyn();
             await ChekSiteAsyn();
             await ChekAreaAsyn();
             await ChekExamTypeAsyn();
@@ -84,120 +84,147 @@ namespace Intranet.web.Data
                 await _context.SaveChangesAsync();
             }
         }
-        
-   
 
-        private async Task ChekPositionAsyn()
-        {
-            if (!_context.PositionEmployees.Any())
-            {
-                _context.PositionEmployees.Add(new PositionEmployee { 
-                    
-                    Position = "ADMINISTRADOR"
-                });
-                _context.PositionEmployees.Add(new PositionEmployee { 
-                  
-                    Position = "APRENDIZ SENA"
-                });
-                _context.PositionEmployees.Add(new PositionEmployee { 
-                    
-                    Position = "PROCESOS INFORMATICOS Y DE SISTEMAS" });
-                _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "AUXILAR DE SEGURIDAD"
-                });
-                 _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "AUXILIAR  DE RECURSOS HUMANOS"
-                });
-                 _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "AUXILIAR ADMINISTRATIVO"
-                });
-                 _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "AUXILIAR DE BODEGA Y SURTIDO"
-                });
-                 _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "AUXILIAR DE CARNES"
-                });
-                 _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "AUXILIAR DE COMPRAS"
-                });
-                 _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "AUXILIAR DE CONTABILIDAD"
-                });
-                 _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "AUXILIAR DE FRUVER"
-                });
-                 _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "AUXILIAR DE MANTENIMIENTO"
-                });
-                 _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "AUXILIAR DE PUBLICIDAD Y PRECIOS"
-                });
-                 _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "AUXILIAR DE REGISTRO"
-                });
-                 _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "AUXILIAR DE SERVICIOS GENERALES"
-                });
-                 _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "AUXILIAR DE SISTEMAS"
-                });
-                _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "CONTADOR"
-                });
-                _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "COORDINADOR DE INVENTARIOS"
-                });
-                _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "DIRECTORA COMERCIAL"
-                });
-                _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "INGENIERA DE ALIMENTOS"
-                });
-                _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "JEFE DE RECURSOS HUMANOS"
-                });
-                _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "LIDER BODEGA"
-                });
-                _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "LIDER DE CARNICOS"
-                });
-                _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "LIDER DE FRUVER"
-                });
-                _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "LIDER DE SALA DE VENTA"
-                });
-                _context.PositionEmployees.Add(new PositionEmployee { 
-                   
-                    Position = "LIDER DE CARNICOS"
-                });
-               
-                await _context.SaveChangesAsync();
-            }
-        }
+
+
+        //private async Task ChekPositionAsyn()
+        //{
+        //    if (!_context.PositionEmp.Any())
+        //    {
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "ADMINISTRADOR"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "APRENDIZ SENA"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "PROCESOS INFORMATICOS Y DE SISTEMAS"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "AUXILAR DE SEGURIDAD"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "AUXILIAR  DE RECURSOS HUMANOS"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "AUXILIAR ADMINISTRATIVO"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "AUXILIAR DE BODEGA Y SURTIDO"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "AUXILIAR DE CARNES"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "AUXILIAR DE COMPRAS"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "AUXILIAR DE CONTABILIDAD"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "AUXILIAR DE FRUVER"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "AUXILIAR DE MANTENIMIENTO"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "AUXILIAR DE PUBLICIDAD Y PRECIOS"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "AUXILIAR DE REGISTRO"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "AUXILIAR DE SERVICIOS GENERALES"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "AUXILIAR DE SISTEMAS"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "CONTADOR"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "COORDINADOR DE INVENTARIOS"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "DIRECTORA COMERCIAL"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "INGENIERA DE ALIMENTOS"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "JEFE DE RECURSOS HUMANOS"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "LIDER BODEGA"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "LIDER DE CARNICOS"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "LIDER DE FRUVER"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "LIDER DE SALA DE VENTA"
+        //        });
+        //        _context.PositionEmp.Add(new PositionEmp
+        //        {
+
+        //            Position = "LIDER DE CARNICOS"
+        //        });
+
+        //        await _context.SaveChangesAsync();
+        //    }
+        //}
         private async Task ChekSiteAsyn()
         {
             if (!_context.SiteHeadquarters.Any())

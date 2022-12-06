@@ -18,7 +18,7 @@
    
     <link href="~/select2/css/select2.min.css" rel="stylesheet" />
     
-    <link href="~/lib/jasny-bootstrap/css/jasny-bootstrap.min.css" rel="stylesheet" />
+    
    
   
  
@@ -92,6 +92,7 @@
 </body>
 </html>
 *@
+<!DOCTYPE html>
 <html lang="es" style="height: auto;"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -110,19 +111,33 @@
   href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"
 />*@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
-<link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.min.css">
+
 <link rel="stylesheet" href="~/lib/admin-lte/css/adminlte.min.css">
-<link rel="stylesheet" href="~/lib/datatables/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css">
+
+
 <link rel="stylesheet" href="~/select2/css/select2.min.css">
 <link rel="stylesheet" href="~/lib/overlayscrollbars/css/OverlayScrollbars.min.css">
-<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-<link href="~/lib/jasny-bootstrap/css/jasny-bootstrap.min.css" rel="stylesheet" />
+
+<link href="~/lib/jasny-bootstrap/css/jasny-bootstrap.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/lib/datatables/css/jquery.dataTables.min.css" />
+  @*  <link rel="stylesheet" href="~/lib/jqueryui/jquery-ui.min.css" />*@
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+
+
+
+
+
+
+
 @RenderSection("Styles", required: false)
 </head>
-<body class="sidebar-mini layout-fixed layout-navbar-fixed dark-mode" style="height: auto;">
+<body class="class="sidebar-mini layout-fixed layout-navbar-fixed"" style="height: auto;">
 <div class="wrapper">
-    <partial name="_CookieConsentPartial" />
+   @* <partial name="_CookieConsentPartial" />*@
     <partial name="_MainHeader" />
     <partial name="_MainSidebar" />
 
@@ -142,14 +157,35 @@
 <partial name="_Footer" />
 
 <div id="sidebar-overlay"></div></div>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/jqueryui/jquery-ui.min.js"></script>
-<script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+
+ <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/jqueryui/jquery-ui.min.js"></script>
+    <script src="~/lib/font-awesome/js/all.min.js"></script>
+    <script>
+        function displayBusyIndicator() {
+            $('.loading').show();
+        }
+    </script>
+
+    <script>
+        $(window).on('beforeunload', function () {
+            displayBusyIndicator();
+        });
+    </script>
+
+
+
+
+
+@*<script src="~/lib/bootstrap/js/bootstrap.min.js"></script>*@
 <script src="~/lib/admin-lte/js/adminlte.min.js"></script>
-<script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-<script src="~/lib/font-awesome/js/fontawesome.min.js"></script>
+
+
+
 @*<script src="~/lib/overlayscrollbars/js/OverlayScrollbars.min.js"></script>*@
 
  <script src="~/lib/font-awesome/js/all.min.js"></script>

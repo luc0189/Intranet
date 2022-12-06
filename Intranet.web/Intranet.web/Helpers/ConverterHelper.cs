@@ -296,8 +296,6 @@ namespace Intranet.web.Helpers
             return new CargosAsg
             {
                 Id = isNew ? 0 : model.Id,
-                PositionEmployee = await _dataContext.PositionEmployees.FindAsync(model.PositionEmployeds),
-
                 DateAsg = model.DateRegistro,
                
                 Employee = await _dataContext.Employees.FindAsync(model.EmployeeIds)

@@ -155,7 +155,6 @@ namespace Intranet.web.Controllers.Activos
             return View(model);
         }
 
-        // GET: Items/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -163,15 +162,14 @@ namespace Intranet.web.Controllers.Activos
                 return NotFound();
             }
 
-            var item = await _dataContext.Items
+            var activo = await _dataContext.Items
                 .Include(e => e.Fabric)
                 .Include(e => e.Category)
-                 .Include(e => e.Model)
+                .Include(e => e.Model)
                 .Include(e => e.Provider)
-                
-              
+
                 .FirstOrDefaultAsync(o => o.Id == id.Value);
-            if (item == null)
+            if (activo == null)
             {
                 return NotFound();
             }
@@ -179,69 +177,79 @@ namespace Intranet.web.Controllers.Activos
             var view = new EditActivoViewModel
             {
 
-              
-                Id = item.Id,
-                Nombre = item.Nombre,
-                Activo = item.Activo,
-                Serial = item.Serial,
-                Datepurchase = item.Datepurchase,
-                Coment = item.Coment,
-                TimeGarant = item.TimeGarant,
-                UnitValue = item.UnitValue,
-                Usucreate = item.Usucreate,
-                Dateitemcreate = item.Dateitemcreate,
-               
-                FabricId = item.Fabric.Id,
-                Fabrics = _combosHelpers.GetComboFabricante(),
+                Serial = activo.Serial,
+                Nombre = activo.Nombre,
+                TimeGarant = activo.TimeGarant,
+                Datepurchase = activo.Datepurchase,
+                Coment = activo.Coment,
+                Activo = activo.Activo,
+                Usucreate = activo.Usucreate,
+                Dateitemcreate = activo.Dateitemcreate,
+                Usermod = activo.Usermod,
+                DateMod = activo.DateMod,
 
-                ModelId = item.Model.Id,
-                Models = _combosHelpers.GetComboModel(),
-
-                CategoryId = item.Category.Id,
                 Categories = _combosHelpers.GetComboCategory(),
+                CategoryId  = activo.Category.Id,
+                Models = _combosHelpers.GetComboModel(),
+                ModelId = activo.Model.Id,
+                Fabrics = _combosHelpers.GetComboFabricante(),
+                FabricId = activo.Fabric.Id,
 
-                ProviderId = item.Provider.Id,
+                ProviderId = activo.Provider.Id,
                 Providers = _combosHelpers.GetComboProveedor(),
 
-               
-            };
 
+                //PositionEmpId = employe.PositionEmployee.Id,
+
+            };
             return View(view);
         }
-
         // POST: Items/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Serial,Nombre,Datepurchase,UnitValue,Coment,Dateitemcreate,DateMod,TimeGarant,Activo,Usucreate,Usermod")] Item item)
+        public async Task<IActionResult> Edit(EditActivoViewModel vista)
         {
-            if (id != item.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
+                var activo = await _dataContext.Items
+                    .Include(e => e.Category)
+                    .Include(e => e.Model)
+                    .Include(e => e.Provider)
+                    .Include(e => e.Fabric)
+                    .FirstOrDefaultAsync(o => o.Id == vista.Id);
+                if (activo != null)
                 {
-                    _dataContext.Update(item);
+                    activo.Serial = vista.Serial;
+                    activo.Nombre = vista.Nombre;
+                    activo.Datepurchase = vista.Datepurchase;
+                    activo.Coment = vista.Coment;
+                    activo.Activo = vista.Activo;
+                    activo.Dateitemcreate = vista.Dateitemcreate;
+                    activo.TimeGarant = vista.TimeGarant;
+                    activo.Usermod = User.Identity.Name;
+                    activo.DateMod = DateTime.Today;
+                    activo.Fabric = await _dataContext.Fabrics.FindAsync(vista.FabricId);
+                    activo.Model = await _dataContext.Models.FindAsync(vista.ModelId);
+                    activo.Category = await _dataContext.Categories.FindAsync(vista.CategoryId);
+                    activo.Provider = await _dataContext.Providers.FindAsync(vista.ProviderId);
+
+                    //employe.PositionEmployee = await _dataContext.PositionEmployees.FindAsync(vista.PositionEmpId);
+
+                    _dataContext.Items.Update(activo);
                     await _dataContext.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ItemExists(item.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+
+
             }
-            return View(item);
+            vista.Categories = _combosHelpers.GetComboCategory();
+            vista.Models = _combosHelpers.GetComboModel();
+            vista.Fabrics = _combosHelpers.GetComboFabricante();
+            vista.Providers = _combosHelpers.GetComboProveedor();
+
+            return View(vista);
         }
 
         // GET: Items/Delete/5
@@ -500,6 +508,81 @@ namespace Intranet.web.Controllers.Activos
             }
 
             return Json(new { isValid = false, html = ModalHelper.RenderRazorViewToString(this, "AddEditCat", cat) });
+        }
+
+        [NoDirectAccess]
+        public async Task<IActionResult> AddEditProv(int id)
+        {
+
+            if (id == 0)
+            {
+                Provider provider = new Provider { Usucreo = User.Identity.Name };
+                if (provider == null)
+                {
+                    return NotFound();
+                }
+
+                return View(provider);
+
+            }
+            else
+            {
+                Provider provider = await _dataContext.Providers.FindAsync(id);
+                if (provider == null)
+                {
+                    return NotFound();
+                }
+
+                return View(provider);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddEditProv(int id, Provider provider)
+        {
+
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (id == 0) //Insert
+                    {
+                        _dataContext.Add(provider);
+                        await _dataContext.SaveChangesAsync();
+                        _flashMessage.Info("Registro creado.");
+                    }
+                    else //Update
+                    {
+                        _dataContext.Update(provider);
+                        await _dataContext.SaveChangesAsync();
+                        _flashMessage.Info("Registro actualizado.");
+                    }
+                }
+                catch (DbUpdateException dbUpdateException)
+                {
+                    if (dbUpdateException.InnerException.Message.Contains("duplicate"))
+                    {
+                        _flashMessage.Danger("Ya existe una categoría con el mismo nombre.");
+                    }
+                    else
+                    {
+                        _flashMessage.Danger(dbUpdateException.InnerException.Message);
+                    }
+                    return View(provider);
+                }
+                catch (Exception exception)
+                {
+                    _flashMessage.Danger(exception.Message);
+                    return View(provider);
+                }
+
+                return Json(new { isValid = true, html = ModalHelper.RenderRazorViewToString(this, "Create", _dataContext.Providers.ToList()) });
+
+            }
+
+            return Json(new { isValid = false, html = ModalHelper.RenderRazorViewToString(this, "AddEditCat", provider) });
         }
 
     }

@@ -97,7 +97,10 @@
                 <select asp-for="ProviderId" asp-items="Model.Providers" class="js-example-basic-single form-control">
                 </select>
                   <span class="input-group-append">
-                <button type="button" class="btn btn-info btn-flat">Go!</button>
+               <button type="button" onclick="showInPopup('@Url.Action("AddEditProv", "Items", new { id = 0 },
+                       Context.Request.Scheme)' , 'Nueva Proveedor')"
+                       class="btn btn-sm btn-primary text-white">
+                       <i class="fas fa-plus-circle"></i></button>
                 </span>
                 </div>
                 <span asp-validation-for="ProviderId" class="text-danger"></span>

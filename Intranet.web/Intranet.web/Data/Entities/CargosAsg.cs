@@ -15,7 +15,7 @@ namespace Intranet.web.Data.Entities
         public string DateAsg { get; set; }
 
         public Employee Employee { get; set; }
-        public PositionEmployee PositionEmployee { get; set; }
+       
 
     }
 }

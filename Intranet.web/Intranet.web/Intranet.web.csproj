@@ -7,6 +7,11 @@
     <NeutralLanguage>es-CO</NeutralLanguage>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Migrations\20221203150718_gt.cs" />
+    <Compile Remove="Migrations\20221203150718_gt.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="ESC-POS-USB-NET" Version="1.1.3" />
