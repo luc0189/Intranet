@@ -1,12 +1,11 @@
-﻿using Intranet.web.Data.Entities;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Intranet.web.Models
 {
     public class SonsViewModel
     {
-       
+
         public int EmployeeId { get; set; }
 
         public int Id { get; set; }

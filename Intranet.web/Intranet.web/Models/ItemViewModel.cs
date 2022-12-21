@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Models
 {
@@ -35,15 +33,15 @@ namespace Intranet.web.Models
         [MaxLength(300, ErrorMessage = "Maximo {0} Caracteres.")]
         public string Coment { get; set; }
 
-        
+
         public DateTime Dateitemcreate { get; set; }
 
-       
-      
+
+
 
         [Display(Name = "Garantia en Meses")]
         [Required(ErrorMessage = " El Campo {0} es Oblogatorio.")]
-       
+
         public int TimeGarant { get; set; }
 
         [Display(Name = "Activo")]
@@ -51,7 +49,7 @@ namespace Intranet.web.Models
 
 
         public string Usucreate { get; set; }
-      
+
 
 
         [Required(ErrorMessage = "The Field {0} is mandatory.")]
@@ -70,13 +68,13 @@ namespace Intranet.web.Models
         [Display(Name = "Proveedor")]
         public int ProviderId { get; set; }
 
-      
+
 
 
         public IEnumerable<SelectListItem> Fabricante { get; set; }
         public IEnumerable<SelectListItem> Modelo { get; set; }
         public IEnumerable<SelectListItem> Categoria { get; set; }
         public IEnumerable<SelectListItem> Proveedor { get; set; }
-       
+
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Models.Compras
 {
@@ -37,7 +34,7 @@ namespace Intranet.web.Models.Compras
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public string DatePago { get; set; }
 
-        
+
         public DateTime Dateregistro { get; set; }
 
         [Display(Name = "Usuario Registra")]

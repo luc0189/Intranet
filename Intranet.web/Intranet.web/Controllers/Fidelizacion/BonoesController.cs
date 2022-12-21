@@ -228,14 +228,14 @@ namespace Intranet.web.Controllers.Fidelizacion
                     Tercero = model.Tercero,
                     FechaRegistro = DateTime.Now.ToString(),
                     UserRegistra = User.Identity.Name,
-                    BonoId=model.BonoId
+                    BonoId = model.BonoId
 
 
                 };
 
-               
 
-                var redimidosHelper = await _converterHelper.ToredimidosAsync (modelfull, true);
+
+                var redimidosHelper = await _converterHelper.ToredimidosAsync(modelfull, true);
                 _context.Redimidos.Add(redimidosHelper);
                 _context.Bonos.Update(bono);
                 await _context.SaveChangesAsync();

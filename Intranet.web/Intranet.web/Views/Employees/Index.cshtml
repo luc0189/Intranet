@@ -1,5 +1,5 @@
-﻿@model IEnumerable<Intranet.web.Data.Entities.Employee>
-
+﻿
+@model IEnumerable<Intranet.web.Data.Entities.Employee>
 @{
     ViewData["Title"] = "Listado de Empleados";
 }
@@ -101,7 +101,9 @@
                                                 @Html.DisplayFor(modelItem => item.Sons.Count)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.Credits.Count)
+                                                 <img src="@item.UserImages" style="width:100px;" />
+                                                  
+                                                             
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Activo)

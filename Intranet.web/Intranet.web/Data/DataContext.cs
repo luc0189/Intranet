@@ -18,7 +18,7 @@ namespace Intranet.web.Data
         public DbSet<CajaCompensacion> CajaCompensacions { get; set; }
         public DbSet<Credit> Credits { get; set; }
         public DbSet<CreditEntities> CreditEntities { get; set; }
-  
+
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Endowment> Endowments { get; set; }
         public DbSet<EndowmentType> EndowmentsTypes { get; set; }
@@ -57,7 +57,9 @@ namespace Intranet.web.Data
         public DbSet<Boletas> Boletas { get; set; }
         public DbSet<Contract> Contracts { get; set; }
         public DbSet<HistorialEmpleado> HistorialEmpleados { get; set; }
-    
+
+        public DbSet<EmployedImage> EmployedImages { get; set; }
+
 
         public DbSet<Intranet.web.Data.Entities.Compras.ProductBonifi> ProductBonifi { get; set; }
         public DbSet<Intranet.web.Data.Entities.Compras.Negociation> Negociation { get; set; }
@@ -69,6 +71,7 @@ namespace Intranet.web.Data
             builder.Entity<SalaVenta>().HasIndex(c => c.Name).IsUnique();
             builder.Entity<Model>().HasIndex(c => c.Name).IsUnique();
             builder.Entity<SiteHeadquarters>().HasIndex(c => c.Nombre).IsUnique();
+            builder.Entity<Employee>().HasIndex(c => c.Document).IsUnique();
         }
 
     }

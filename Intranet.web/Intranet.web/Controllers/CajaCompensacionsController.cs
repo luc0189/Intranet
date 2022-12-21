@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Intranet.web.Data;
+using Intranet.web.Data.Entities;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Intranet.web.Data;
-using Intranet.web.Data.Entities;
 
 namespace Intranet.web.Controllers
 {
@@ -116,7 +113,7 @@ namespace Intranet.web.Controllers
             return View(cajaCompensacion);
         }
 
-        
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,7 +132,7 @@ namespace Intranet.web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-       
+
 
         private bool CajaCompensacionExists(int id)
         {

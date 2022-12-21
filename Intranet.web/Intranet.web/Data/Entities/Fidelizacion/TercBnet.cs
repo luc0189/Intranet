@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Data.Entities.Fidelizacion
 {
@@ -26,27 +23,27 @@ namespace Intranet.web.Data.Entities.Fidelizacion
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
         [Display(Name = "Primer Apellido")]
         [MaxLength(150)]
-        public string  Apellido1 { get; set; }
+        public string Apellido1 { get; set; }
 
-   
+
         [Display(Name = "Segundo Apellido")]
         [MaxLength(150)]
-        public string  Apellido2 { get; set; }
+        public string Apellido2 { get; set; }
 
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
         [Display(Name = "Telefono")]
         [MaxLength(150)]
-        public string  Telefono { get; set; }
-        
+        public string Telefono { get; set; }
+
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
         [Display(Name = "Correo")]
         [MaxLength(150)]
-        public string  Correo { get; set; } 
-        
+        public string Correo { get; set; }
+
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
         [Display(Name = "Usuario")]
         [MaxLength(150)]
-        public string  Usercreo { get; set; }
+        public string Usercreo { get; set; }
 
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
         [Display(Name = "Fecha Creacion")]

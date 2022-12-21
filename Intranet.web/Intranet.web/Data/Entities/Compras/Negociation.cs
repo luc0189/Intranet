@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Data.Entities.Compras
 {
@@ -15,9 +13,9 @@ namespace Intranet.web.Data.Entities.Compras
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public string DateIn { get; set; }
 
-        [Required (ErrorMessage ="El campo {0} es requerido.")]
+        [Required(ErrorMessage = "El campo {0} es requerido.")]
         [MaxLength(600)]
-        [Display(Name ="Detalle Negociacion")]
+        [Display(Name = "Detalle Negociacion")]
         public string Detalle { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido.")]
@@ -63,13 +61,13 @@ namespace Intranet.web.Data.Entities.Compras
         [MaxLength(30)]
         public string UserPaga { get; set; }
 
-     
+
 
 
         [Display(Name = "Verificado ")]
         public bool Verificar { get; set; }
 
-       
+
         [Display(Name = "Pago")]
         public bool Pago { get; set; }
 

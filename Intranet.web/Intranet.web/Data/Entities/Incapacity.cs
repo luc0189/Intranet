@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Data.Entities
 {
@@ -15,8 +12,8 @@ namespace Intranet.web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public DateTime StartDate { get; set; }
 
-        [Display(Name ="Dias Novedad")]
-        [Required(ErrorMessage ="El campo {0} es Requerido")]
+        [Display(Name = "Dias Novedad")]
+        [Required(ErrorMessage = "El campo {0} es Requerido")]
         public int CantDay { get; set; }
 
         [Display(Name = "Fecha Fin")]

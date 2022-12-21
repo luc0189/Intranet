@@ -1,5 +1,3 @@
-using System;
-
 namespace Intranet.web.Models
 {
     public class ErrorViewModel

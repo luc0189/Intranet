@@ -3,14 +3,13 @@ using Intranet.web.Data;
 using Intranet.web.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Intranet.web.Controllers.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ManagerController :ControllerBase
+    public class ManagerController : ControllerBase
     {
         private readonly DataContext _dataContext;
 
@@ -29,7 +28,7 @@ namespace Intranet.web.Controllers.API
             }
             var manager = await _dataContext.Managers
                 .Include(e => e.User)
-                
+
                 .FirstOrDefaultAsync(e => e.User.Email.ToLower() == request.Email.ToLower());
             if (manager == null)
             {
@@ -45,7 +44,7 @@ namespace Intranet.web.Controllers.API
                 Activo = manager.User.Activo,
                 Email = manager.User.Email,
                 Movil = manager.User.Movil,
-                
+
 
             };
             return Ok(response);

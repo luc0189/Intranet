@@ -69,7 +69,7 @@ namespace Intranet.web.Models
 
         [Display(Name = "Movil")]
         [MaxLength(10)]
-        [DisplayFormat(DataFormatString = "{0:(###) ###-####}",ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:(###) ###-####}", ApplyFormatInEditMode = true)]
         public string Movil { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
@@ -97,7 +97,7 @@ namespace Intranet.web.Models
 
         //aqui los campos que para tigger
         [Display(Name = "Sueldo")]
-        
+
         public int Sueldo { get; set; }
 
 
@@ -133,19 +133,20 @@ namespace Intranet.web.Models
         [Display(Name = "Caja Compensacion")]
         public int CajaCompenId { get; set; }
 
-       
-        
-       
+
+
+
 
         public IEnumerable<SelectListItem> Areas { get; set; }
         public IEnumerable<SelectListItem> Eps { get; set; }
         public IEnumerable<SelectListItem> Pension { get; set; }
         public IEnumerable<SelectListItem> CajaCompensacion { get; set; }
-        //public IEnumerable<SelectListItem> CargosAsgs { get; set; }
-       // public IEnumerable<SelectListItem> Incapacitys { get; set; }
 
-      
-      
+        //public IEnumerable<SelectListItem> CargosAsgs { get; set; }
+        // public IEnumerable<SelectListItem> Incapacitys { get; set; }
+
+
+
 
     }
 }

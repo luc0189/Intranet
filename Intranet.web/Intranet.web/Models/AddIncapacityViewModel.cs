@@ -42,6 +42,6 @@ namespace Intranet.web.Models
         [MaxLength(30)]
         public string UserRegistra { get; set; }
 
-       
+
     }
 }

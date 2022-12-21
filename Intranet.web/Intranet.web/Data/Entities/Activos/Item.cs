@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Data.Entities.Activos
 {
@@ -21,17 +18,17 @@ namespace Intranet.web.Data.Entities.Activos
         public string Nombre { get; set; }
 
         [Display(Name = "Fecha de Compra")]
-        [Required (ErrorMessage =" El Campo {0} es Oblogatorio.")]
+        [Required(ErrorMessage = " El Campo {0} es Oblogatorio.")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public string Datepurchase { get; set; }
 
         [Display(Name = "Valor Unitario")]
         [Required(ErrorMessage = " El Campo {0} es Oblogatorio.")]
-        public double  UnitValue { get; set; }
+        public double UnitValue { get; set; }
 
         [Display(Name = "Comentarios")]
         [Required(ErrorMessage = " El Campo {0} es Oblogatorio.")]
-        [MaxLength(300,ErrorMessage ="Maximo {0} Caracteres.")]
+        [MaxLength(300, ErrorMessage = "Maximo {0} Caracteres.")]
         public string Coment { get; set; }
 
         [Display(Name = "Fecha Creacion")]
@@ -39,12 +36,12 @@ namespace Intranet.web.Data.Entities.Activos
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public DateTime Dateitemcreate { get; set; }
 
-       
+
         public DateTime DateMod { get; set; }
 
         [Display(Name = "Garantia en Meses")]
         [Required(ErrorMessage = " El Campo {0} es Oblogatorio.")]
-       
+
         public int TimeGarant { get; set; }
 
         [Display(Name = "Activo")]
@@ -52,7 +49,7 @@ namespace Intranet.web.Data.Entities.Activos
 
         public string Usucreate { get; set; }
         public string Usermod { get; set; }
-       
+
         public Provider Provider { get; set; }
         public Model Model { get; set; }
         public Category Category { get; set; }

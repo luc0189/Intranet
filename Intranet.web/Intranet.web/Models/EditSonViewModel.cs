@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Models
 {
-    public class EditSonViewModel: SonsViewModel
+    public class EditSonViewModel : SonsViewModel
     {
 
         [MaxLength(30)]

@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Intranet.web.Data;
+﻿using Intranet.web.Data;
 using Intranet.web.Data.Entities.Activos;
-using Intranet.Web.Helpers;
 using Intranet.web.Helpers;
 using Intranet.web.Models.Activos;
-using static Intranet.web.Helpers.ModalHelper;
+using Intranet.Web.Helpers;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Vereyon.Web;
+using static Intranet.web.Helpers.ModalHelper;
 
 namespace Intranet.web.Controllers.Activos
 {
@@ -56,7 +54,7 @@ namespace Intranet.web.Controllers.Activos
                 return NotFound();
             }
 
-            
+
             Item x = null;
             try
             {
@@ -89,14 +87,14 @@ namespace Intranet.web.Controllers.Activos
                 Fabrics = _combosHelpers.GetComboFabricante(),
                 Models = _combosHelpers.GetComboModel(),
                 Categories = _combosHelpers.GetComboCategory(),
-               
+
                 //Roles = _combosHelpers.GetComboRoles()
             };
             model.Providers = _combosHelpers.GetComboProveedor();
             model.Fabrics = _combosHelpers.GetComboFabricante();
             model.Models = _combosHelpers.GetComboModel();
             model.Categories = _combosHelpers.GetComboCategory();
-           
+
             //model.Roles = _combosHelpers.GetComboRoles();
             return View(model);
         }
@@ -117,7 +115,7 @@ namespace Intranet.web.Controllers.Activos
                     Nombre = model.Nombre,
                     Datepurchase = model.Datepurchase,
                     UnitValue = model.UnitValue,
-                   
+
                     Coment = model.Coment,
                     Dateitemcreate = DateTime.Today,
                     TimeGarant = model.TimeGarant,
@@ -150,7 +148,7 @@ namespace Intranet.web.Controllers.Activos
             model.Fabrics = _combosHelpers.GetComboFabricante();
             model.Models = _combosHelpers.GetComboModel();
             model.Categories = _combosHelpers.GetComboCategory();
-           
+
             //model.Roles = _combosHelpers.GetComboRoles();
             return View(model);
         }
@@ -189,7 +187,7 @@ namespace Intranet.web.Controllers.Activos
                 DateMod = activo.DateMod,
 
                 Categories = _combosHelpers.GetComboCategory(),
-                CategoryId  = activo.Category.Id,
+                CategoryId = activo.Category.Id,
                 Models = _combosHelpers.GetComboModel(),
                 ModelId = activo.Model.Id,
                 Fabrics = _combosHelpers.GetComboFabricante(),
@@ -292,14 +290,14 @@ namespace Intranet.web.Controllers.Activos
 
             if (id == 0)
             {
-                Fabric fabric =new Fabric { Usucreo = User.Identity.Name };
+                Fabric fabric = new Fabric { Usucreo = User.Identity.Name };
                 if (fabric == null)
                 {
                     return NotFound();
                 }
 
                 return View(fabric);
-            
+
             }
             else
             {
@@ -317,8 +315,8 @@ namespace Intranet.web.Controllers.Activos
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddOrEditFabric(int id, Fabric fabric)
         {
-           
-            
+
+
             if (ModelState.IsValid)
             {
                 try
@@ -353,7 +351,7 @@ namespace Intranet.web.Controllers.Activos
                     _flashMessage.Danger(exception.Message);
                     return View(fabric);
                 }
-               
+
                 return Json(new { isValid = true, html = ModalHelper.RenderRazorViewToString(this, "Create", _dataContext.Fabrics.ToList()) });
 
             }

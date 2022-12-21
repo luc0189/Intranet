@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Intranet.web.Models
 {
@@ -34,7 +31,7 @@ namespace Intranet.web.Models
         [Display(Name = "Activo")]
         public bool Activo { get; set; }
 
-       
+
 
     }
 }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Intranet.web.Models
 {
-    public class AddPersonContactViewModel 
+    public class AddPersonContactViewModel
     {
         public int EmployeeId { get; set; }
         public int Id { get; set; }
@@ -29,6 +29,6 @@ namespace Intranet.web.Models
         [MaxLength(30)]
         public string UserRegistra { get; set; }
 
-      
+
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Intranet.web.Models.Compras
 {
@@ -25,7 +21,7 @@ namespace Intranet.web.Models.Compras
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public string UserRegistro { get; set; }
 
-    
+
     }
 }
 

@@ -39,16 +39,16 @@ namespace Intranet.web.Models.Activos
         public DateTime Dateitemcreate { get; set; }
 
 
-       
+
 
         [Display(Name = "Garantia en Meses")]
         [Required(ErrorMessage = " El Campo {0} es Oblogatorio.")]
 
         public int TimeGarant { get; set; }
 
-      
+
         public string Usucreate { get; set; }
-         
+
 
         [Required(ErrorMessage = "El Campo {0} es obligatorio.")]
         [Display(Name = "Proveedor")]
@@ -74,6 +74,6 @@ namespace Intranet.web.Models.Activos
         public IEnumerable<SelectListItem> Models { get; set; }
         public IEnumerable<SelectListItem> Categories { get; set; }
         public IEnumerable<SelectListItem> Fabrics { get; set; }
-       
+
     }
 }

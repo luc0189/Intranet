@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Data.Entities
 {
@@ -11,8 +8,8 @@ namespace Intranet.web.Data.Entities
     {
         public int Id { get; set; }
 
-        [Required (ErrorMessage ="el campo {0} es Obligatorio")]
-        [Display (Name= "Nombre del contacto")]
+        [Required(ErrorMessage = "el campo {0} es Obligatorio")]
+        [Display(Name = "Nombre del contacto")]
         [MaxLength(50)]
         public String Name { get; set; }
 

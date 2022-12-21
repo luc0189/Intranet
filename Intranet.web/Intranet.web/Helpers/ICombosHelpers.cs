@@ -11,7 +11,7 @@ namespace Intranet.web.Helpers
         IEnumerable<SelectListItem> GetComboSedes();
         IEnumerable<SelectListItem> GetComboAreas();
         IEnumerable<SelectListItem> GetComboEndowmentType();
-   
+
         IEnumerable<SelectListItem> GetComboAreaEntities();
         IEnumerable<SelectListItem> GetComboEps();
 
@@ -26,7 +26,7 @@ namespace Intranet.web.Helpers
 
         //compras
         IEnumerable<SelectListItem> GetComboClasification();
-        
+
         IEnumerable<SelectListItem> GetComboRols();
         IEnumerable<SelectListItem> GetComboProviderCompras();
         IEnumerable<SelectListItem> GetComboMes();

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Models
 {
@@ -21,12 +18,12 @@ namespace Intranet.web.Models
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
         [Display(Name = "Fecha")]
         public string Fecha { get; set; }
-    
+
         public DateTime DateRegistro { get; set; }
 
         [MaxLength(30)]
         public string UserRegistra { get; set; }
 
-       
+
     }
 }

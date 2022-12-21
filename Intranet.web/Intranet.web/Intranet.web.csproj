@@ -8,8 +8,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20221121190730_positionemployed.cs" />
+    <Compile Remove="Migrations\20221121190730_positionemployed.Designer.cs" />
+    <Compile Remove="Migrations\20221130170202_solucionPositionEmployed.cs" />
+    <Compile Remove="Migrations\20221130170202_solucionPositionEmployed.Designer.cs" />
+    <Compile Remove="Migrations\20221130192327_positioncorrection.cs" />
+    <Compile Remove="Migrations\20221130192327_positioncorrection.Designer.cs" />
+    <Compile Remove="Migrations\20221202161254_employeId.cs" />
+    <Compile Remove="Migrations\20221202161254_employeId.Designer.cs" />
     <Compile Remove="Migrations\20221203150718_gt.cs" />
     <Compile Remove="Migrations\20221203150718_gt.Designer.cs" />
+    <Compile Remove="Migrations\20221206041957_fullcreo.cs" />
+    <Compile Remove="Migrations\20221206041957_fullcreo.Designer.cs" />
+    <Compile Remove="Migrations\20221220230951_full_solucionado.cs" />
+    <Compile Remove="Migrations\20221220230951_full_solucionado.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\images\no-image-icon.png" />
   </ItemGroup>
 
 

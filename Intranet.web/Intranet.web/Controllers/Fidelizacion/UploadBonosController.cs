@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using ExcelDataReader;
+﻿using ExcelDataReader;
 using Intranet.web.Data;
 using Intranet.web.Data.Entities.Fidelizacion;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Intranet.web.Controllers.Fidelizacion
 {
     public class UploadBonosController : Controller
 
-   
+
     {
         private readonly DataContext _dataContext;
         public UploadBonosController(DataContext dataContext)
@@ -79,11 +78,11 @@ namespace Intranet.web.Controllers.Fidelizacion
                         while (reader.Read())
                         {
 
-                           
+
                             string codigo = reader.GetValue(0).ToString();
                             string actividad = reader.GetValue(1).ToString();
                             int valor = Convert.ToInt32(reader.GetValue(2).ToString());
-                            
+
                             var exits = await _dataContext.Bonos.FirstOrDefaultAsync(s => s.Codigo == codigo);
 
                             if (exits == null)
@@ -96,7 +95,7 @@ namespace Intranet.web.Controllers.Fidelizacion
                                     Valor = valor,
                                     Fechacreado = DateTime.Now.ToString(),
                                     Usuariocrea = User.Identity.Name,
-                                    
+
 
                                     //Site =  _dataContext.Sites.FirstAsync(s => s.Id ==  (Convert.ToInt32(reader.GetValue(2).ToString())))
                                 })

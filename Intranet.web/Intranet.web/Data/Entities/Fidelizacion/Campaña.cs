@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Data.Entities.Fidelizacion
 {
@@ -13,7 +10,7 @@ namespace Intranet.web.Data.Entities.Fidelizacion
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
         [Display(Name = "Nombre Campaña")]
         [MaxLength(150)]
-        public string  NameCampaña { get; set; }
+        public string NameCampaña { get; set; }
 
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
         [Display(Name = "Consecutivo campaña")]
@@ -30,7 +27,7 @@ namespace Intranet.web.Data.Entities.Fidelizacion
         [MaxLength(60)]
         public string DateOut { get; set; }
 
-        public  int Valor { get; set; }
+        public int Valor { get; set; }
 
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
         [Display(Name = "Condiciones y Restricciones")]

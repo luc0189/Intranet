@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Intranet.web.Data;
+﻿using Intranet.web.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,9 +14,9 @@ namespace Intranet.web.Controllers.Fidelizacion
 
         public IActionResult Index()
         {
-               return View(_context.Campañas
-               .Include(e => e.Boletas)
-               );
+            return View(_context.Campañas
+            .Include(e => e.Boletas)
+            );
 
             //return View(await _context.Boletas.ToListAsync());
         }

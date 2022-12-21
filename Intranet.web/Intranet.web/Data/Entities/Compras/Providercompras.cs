@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Data.Entities.Compras
 {
@@ -14,7 +11,7 @@ namespace Intranet.web.Data.Entities.Compras
         [Display(Name = "Nombre del Proveedor")]
         [MaxLength(100)]
         public string NameProvider { get; set; }
-       
+
 
         [Display(Name = "Usuario")]
         [MaxLength(100)]

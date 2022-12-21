@@ -1,12 +1,11 @@
-﻿using Intranet.web.Data.Entities;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Intranet.web.Models
 {
-    public class CreditViewModel 
+    public class CreditViewModel
     {
         public int EmployeeIds { get; set; }
         public int Id { get; set; }
@@ -58,7 +57,7 @@ namespace Intranet.web.Models
         [MaxLength(30)]
         public string UserRegistra { get; set; }
 
-        
+
 
         [Required(ErrorMessage = "The Field {0} is mandatory.")]
         [Display(Name = "Entity Credit")]

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using ExcelDataReader;
+﻿using ExcelDataReader;
 using Intranet.web.Data;
 using Intranet.web.Data.Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Intranet.web.Controllers
 {
@@ -20,7 +19,7 @@ namespace Intranet.web.Controllers
         {
             _dataContext = dataContext;
         }
-       
+
 
         [HttpGet]
         public IActionResult Index(List<Employee> employees = null)
@@ -72,11 +71,11 @@ namespace Intranet.web.Controllers
                 {
                     using (var reader = ExcelReaderFactory.CreateReader(stream))
                     {
-                        
+
                         _dataContext.ChangeTracker.AutoDetectChangesEnabled = false;
                         while (reader.Read())
                         {
-                           
+
                             int documento = Convert.ToInt32(reader.GetValue(0).ToString());
                             string siteExpedition = reader.GetValue(1).ToString();
                             string firstName = reader.GetValue(2).ToString();
@@ -89,16 +88,16 @@ namespace Intranet.web.Controllers
                             string rh = reader.GetValue(9).ToString();
                             string movil = reader.GetValue(10).ToString();
                             bool arl = true;
-                            bool activo =true;
+                            bool activo = true;
                             string dateCumple = reader.GetValue(11).ToString();
                             string dateIngreso = reader.GetValue(12).ToString();
                             string areaId = reader.GetValue(13).ToString();
                             string epsId = reader.GetValue(14).ToString();
                             string pensionId = reader.GetValue(15).ToString();
                             string cajaCompenId = reader.GetValue(16).ToString();
-                           
+
                             string sexo = reader.GetValue(17).ToString();
-                            bool carnet = Convert.ToBoolean( reader.GetValue(18).ToString());
+                            bool carnet = Convert.ToBoolean(reader.GetValue(18).ToString());
                             int sueldo = Convert.ToInt32(reader.GetValue(19).ToString());
                             var exits = await _dataContext.Employees.FirstOrDefaultAsync(s => s.Document == documento);
 
@@ -127,11 +126,11 @@ namespace Intranet.web.Controllers
                                     Eps = await _dataContext.Eps.FirstAsync(o => o.Nombre == epsId),
                                     Pension = await _dataContext.Pensions.FirstAsync(o => o.Nombre == pensionId),
                                     CajaCompensacion = await _dataContext.CajaCompensacions.FirstAsync(o => o.Nombre == cajaCompenId),
-                                   
+
                                     Sexo = sexo,
-                                    License=carnet,
-                                    Sueldo=sueldo,
-                                   
+                                    License = carnet,
+                                    Sueldo = sueldo,
+
 
                                     //Site =  _dataContext.Sites.FirstAsync(s => s.Id ==  (Convert.ToInt32(reader.GetValue(2).ToString())))
                                 })
@@ -162,7 +161,7 @@ namespace Intranet.web.Controllers
                         //_dataContext.ChangeTracker.AutoDetectChangesEnabled = true;
                         //_dataContext.ChangeTracker.DetectChanges();
 
-                       // await _dataContext.SaveChangesAsync();
+                        // await _dataContext.SaveChangesAsync();
                         ViewBag.Success = $"Se Encontraron {reader.RowCount} Registros de los cuales {contadorSave} son Nuevos y {contadorUpdate} se actualizaron.";
                     }
                 }

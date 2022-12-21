@@ -57,7 +57,7 @@ namespace Intranet.web
             {
                 cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
-           
+
             services.AddAuthentication()
                 .AddCookie()
 

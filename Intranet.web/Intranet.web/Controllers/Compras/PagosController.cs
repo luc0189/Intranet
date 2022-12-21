@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Intranet.web.Data;
+using Intranet.web.Data.Entities.Compras;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Intranet.web.Data;
-using Intranet.web.Data.Entities.Compras;
 
 namespace Intranet.web.Controllers.Compras
 {
@@ -27,7 +25,7 @@ namespace Intranet.web.Controllers.Compras
                 .Include(e => e.Mes)
                 .Include(r => r.Verificados)
                 .Include(e => e.ProductBonifis)
-                .Include(p=> p.Pagoss)
+                .Include(p => p.Pagoss)
                 .ToListAsync());
         }
 

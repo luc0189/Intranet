@@ -4,7 +4,6 @@ using Intranet.web.Data.Entities.Compras;
 using Intranet.Web.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -37,16 +36,16 @@ namespace Intranet.web.Data
             await ChekCategoryAsyn();
             await ChekFabricAsyn();
             await ChekModelAsyn();
-            await ChekProviderAsyn(); 
+            await ChekProviderAsyn();
             await ChekMesAsyn();
-          
-            var manager = await CheckUserAsync(1117498993, "Luis Carlos", "Sanchez Cabrera","luc0189@gmail.com",
-                                                "Calle Luna Calle Sol","3107957939", "Manager",true);
-                  
+
+            var manager = await CheckUserAsync(1117498993, "Luis Carlos", "Sanchez Cabrera", "luc0189@gmail.com",
+                                                "Calle Luna Calle Sol", "3107957939", "Manager", true);
+
             await CheckManagerAsync(manager);
-          
-         
-           
+
+
+
         }
 
         private async Task ChekEndowmentTypeAsyn()
@@ -58,10 +57,10 @@ namespace Intranet.web.Data
                 {
 
                     NameType = "Pantalones",
-                    DateRegistro=DateTime.Now,
-                    UserRegistra="System",
-                    EspirationDate= 6
-                    
+                    DateRegistro = DateTime.Now,
+                    UserRegistra = "System",
+                    EspirationDate = 6
+
 
                 });
 
@@ -69,7 +68,7 @@ namespace Intranet.web.Data
             }
         }
 
-        private async Task  ChekExamTypeAsyn()
+        private async Task ChekExamTypeAsyn()
         {
             if (!_context.ExamsTypes.Any())
             {
@@ -78,7 +77,7 @@ namespace Intranet.web.Data
                 {
 
                     Name = "Manipulacion De Alimentos",
-                    
+
                 });
 
                 await _context.SaveChangesAsync();
@@ -231,45 +230,45 @@ namespace Intranet.web.Data
             {
                 _context.SiteHeadquarters.Add(new SiteHeadquarters
                 {
-                    
+
                     Nombre = "ADMINISTRACION"
                 });
                 _context.SiteHeadquarters.Add(new SiteHeadquarters
                 {
-                    
+
                     Nombre = "SUPERMIO LA 16"
                 });
                 _context.SiteHeadquarters.Add(new SiteHeadquarters
                 {
-                    
+
                     Nombre = "SUPERMIO LA 13"
                 });
                 _context.SiteHeadquarters.Add(new SiteHeadquarters
                 {
-                    
+
                     Nombre = "SUPERMIO VERSALLES"
                 });
                 _context.SiteHeadquarters.Add(new SiteHeadquarters
                 {
-                    
+
                     Nombre = "SUPERMIO CIUDADELA"
                 });
-               _context.SiteHeadquarters.Add(new SiteHeadquarters
-                {
-                    
-                    Nombre = "BODEGA"
-               });
                 _context.SiteHeadquarters.Add(new SiteHeadquarters
                 {
-                    
+
+                    Nombre = "BODEGA"
+                });
+                _context.SiteHeadquarters.Add(new SiteHeadquarters
+                {
+
                     Nombre = "MANTENIMIENTO"
                 });
                 _context.SiteHeadquarters.Add(new SiteHeadquarters
                 {
-                    
+
                     Nombre = "SERVICIOS"
                 });
-               
+
 
                 await _context.SaveChangesAsync();
             }
@@ -278,208 +277,208 @@ namespace Intranet.web.Data
         {
             if (!_context.Areas.Any())
             {
-                
+
                 _context.Areas.Add(new Area
                 {
-                   
+
                     Nombre = "SISTEMAS",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "ADMINISTRACION")
-                }); 
-                  _context.Areas.Add(new Area
-                {
-                   
-                    Nombre = "OFICINA",
-                    SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "ADMINISTRACION")
-                }); 
-                  _context.Areas.Add(new Area
-                {
-                   
-                    Nombre = "ADMINISTRACION",
-                    SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO LA 16")
-                }); 
-                  _context.Areas.Add(new Area
-                {
-                   
-                    Nombre = "TESORERIA LA 16",
-                    SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO LA 16")
-                }); 
-                  _context.Areas.Add(new Area
-                {
-                   
-                    Nombre = "SURTIDO LA 16",
-                    SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO LA 16")
-                }); 
-                  _context.Areas.Add(new Area
-                {
-                   
-                    Nombre = "FRUVER LA 16",
-                    SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO LA 16")
-                }); 
-                  _context.Areas.Add(new Area
-                {
-                   
-                    Nombre = "VIGILANCIA LA 16",
-                    SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO LA 16")
-                }); 
-                  _context.Areas.Add(new Area
-                {
-                   
-                    Nombre = "CARNICOS LA 16",
-                    SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO LA 16")
-                }); 
-                  _context.Areas.Add(new Area
-                {
-                   
-                    Nombre = "PUBLICIDAD LA 16",
-                    SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO LA 16")
-                }); 
-                  _context.Areas.Add(new Area
-                {
-                   
-                    Nombre = "REGISTRO LA 13",
-                    SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO LA 13")
-                });  
+                });
                 _context.Areas.Add(new Area
                 {
-                   
+
+                    Nombre = "OFICINA",
+                    SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "ADMINISTRACION")
+                });
+                _context.Areas.Add(new Area
+                {
+
+                    Nombre = "ADMINISTRACION",
+                    SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO LA 16")
+                });
+                _context.Areas.Add(new Area
+                {
+
+                    Nombre = "TESORERIA LA 16",
+                    SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO LA 16")
+                });
+                _context.Areas.Add(new Area
+                {
+
+                    Nombre = "SURTIDO LA 16",
+                    SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO LA 16")
+                });
+                _context.Areas.Add(new Area
+                {
+
+                    Nombre = "FRUVER LA 16",
+                    SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO LA 16")
+                });
+                _context.Areas.Add(new Area
+                {
+
+                    Nombre = "VIGILANCIA LA 16",
+                    SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO LA 16")
+                });
+                _context.Areas.Add(new Area
+                {
+
+                    Nombre = "CARNICOS LA 16",
+                    SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO LA 16")
+                });
+                _context.Areas.Add(new Area
+                {
+
+                    Nombre = "PUBLICIDAD LA 16",
+                    SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO LA 16")
+                });
+                _context.Areas.Add(new Area
+                {
+
+                    Nombre = "REGISTRO LA 13",
+                    SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO LA 13")
+                });
+                _context.Areas.Add(new Area
+                {
+
                     Nombre = "ADMINISTRACION VERSALLES",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO VERSALLES")
                 });
                 _context.Areas.Add(new Area
                 {
-                   
+
                     Nombre = "SURTIDO VERSALLES",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO VERSALLES")
                 });
                 _context.Areas.Add(new Area
                 {
-                   
+
                     Nombre = "TESORERIA VERSALLES",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO VERSALLES")
-                }); 
+                });
                 _context.Areas.Add(new Area
                 {
-                   
+
                     Nombre = "FRUVER VERSALLES",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO VERSALLES")
                 });
                 _context.Areas.Add(new Area
                 {
-                   
+
                     Nombre = "VIGILANCIA VERSALLES",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO VERSALLES")
-                }); 
-                  _context.Areas.Add(new Area
+                });
+                _context.Areas.Add(new Area
                 {
-                   
+
                     Nombre = "CARNICOS VERSALLES",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO VERSALLES")
-                }); 
-                   _context.Areas.Add(new Area
+                });
+                _context.Areas.Add(new Area
                 {
-                   
+
                     Nombre = "REGISTRO VERSALLES",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO VERSALLES")
-                }); 
-                   _context.Areas.Add(new Area
+                });
+                _context.Areas.Add(new Area
                 {
-                   
+
                     Nombre = "BODEGA VERSALLES",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO VERSALLES")
-                }); 
-                   _context.Areas.Add(new Area
+                });
+                _context.Areas.Add(new Area
                 {
-                   
+
                     Nombre = "ADMINISTRACION CIUDADELA",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO CIUDADELA")
-                }); 
-                 _context.Areas.Add(new Area
+                });
+                _context.Areas.Add(new Area
                 {
-                   
+
                     Nombre = "SURTIDO CIUDADELA",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO CIUDADELA")
-                }); 
-                 _context.Areas.Add(new Area
+                });
+                _context.Areas.Add(new Area
                 {
-                   
+
                     Nombre = "CARNICOS CIUDADELA",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO CIUDADELA")
-                }); 
-                 _context.Areas.Add(new Area
+                });
+                _context.Areas.Add(new Area
                 {
-                   
+
                     Nombre = "REGISTRO CIUDADELA",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO CIUDADELA")
-                }); 
-                 _context.Areas.Add(new Area
+                });
+                _context.Areas.Add(new Area
                 {
-                   
+
                     Nombre = "FRUVER CIUDADELA",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO CIUDADELA")
-                }); 
-                 _context.Areas.Add(new Area
+                });
+                _context.Areas.Add(new Area
                 {
-                   
+
                     Nombre = "VIGILANCIA CIUDADELA",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO CIUDADELA")
-                }); 
-                
-                 _context.Areas.Add(new Area
+                });
+
+                _context.Areas.Add(new Area
                 {
-                   
+
                     Nombre = "BODEGA CIUDADELA",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO CIUDADELA")
-                }); 
-                
-                 _context.Areas.Add(new Area
+                });
+
+                _context.Areas.Add(new Area
                 {
-                   
+
                     Nombre = "OFICINA",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SERVICIOS")
-                }); 
-                 _context.Areas.Add(new Area
+                });
+                _context.Areas.Add(new Area
                 {
-                   
+
                     Nombre = "SISTEMAS",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SERVICIOS")
-                }); 
-                 _context.Areas.Add(new Area
+                });
+                _context.Areas.Add(new Area
                 {
-                   
+
                     Nombre = "MAESTRO",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "MANTENIMIENTO")
-                }); 
-                  _context.Areas.Add(new Area
+                });
+                _context.Areas.Add(new Area
                 {
-                   
+
                     Nombre = "CENDIS",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "BODEGA")
-                }); 
-                  _context.Areas.Add(new Area
+                });
+                _context.Areas.Add(new Area
                 {
-                   
+
                     Nombre = "BODEGA 18",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "BODEGA")
-                }); 
-                  _context.Areas.Add(new Area
+                });
+                _context.Areas.Add(new Area
                 {
-                   
+
                     Nombre = "REGISTRO LA 16",
                     SiteHeadquarters = await _context.SiteHeadquarters.FirstAsync(o => o.Nombre == "SUPERMIO LA 16")
-                }); 
+                });
 
 
                 await _context.SaveChangesAsync();
             }
         }
-    
+
         private async Task ChekEpsAsyn()
         {
             if (!_context.Eps.Any())
             {
                 _context.Eps.Add(new Eps
                 {
-                   
+
                     Nombre = "COOMEVA"
                 });
                 _context.Eps.Add(new Eps
@@ -517,7 +516,7 @@ namespace Intranet.web.Data
             {
                 _context.Pensions.Add(new Pension
                 {
-                   
+
                     Nombre = "PORVENIR"
                 }); _context.Pensions.Add(new Pension
                 {
@@ -546,12 +545,12 @@ namespace Intranet.web.Data
             {
                 _context.CajaCompensacions.Add(new CajaCompensacion
                 {
-                   
+
                     Nombre = "COMFACA"
                 });
-                 _context.CajaCompensacions.Add(new CajaCompensacion
+                _context.CajaCompensacions.Add(new CajaCompensacion
                 {
-                   
+
                     Nombre = "NO APLICA"
                 });
 
@@ -568,35 +567,46 @@ namespace Intranet.web.Data
                     Name = "Enero"
                 });
                 _context.Mes.Add(new Mes
-                { Name = "Febrero"
+                {
+                    Name = "Febrero"
                 });
                 _context.Mes.Add(new Mes
-                { Name = "Marzo"
+                {
+                    Name = "Marzo"
                 });
                 _context.Mes.Add(new Mes
-                {Name = "Abril"
+                {
+                    Name = "Abril"
                 });
                 _context.Mes.Add(new Mes
-                { Name = "Mayo"
+                {
+                    Name = "Mayo"
                 });
                 _context.Mes.Add(new Mes
-                { Name = "Junio"
+                {
+                    Name = "Junio"
                 });
                 _context.Mes.Add(new Mes
-                {Name = "Julio"
+                {
+                    Name = "Julio"
                 });
                 _context.Mes.Add(new Mes
-                { Name = "Agosto"
+                {
+                    Name = "Agosto"
                 });
                 _context.Mes.Add(new Mes
-                {Name = "Septiembre"
+                {
+                    Name = "Septiembre"
                 });
                 _context.Mes.Add(new Mes
-                { Name = "Octubre"
+                {
+                    Name = "Octubre"
                 }); _context.Mes.Add(new Mes
-                { Name = "Noviembre"
+                {
+                    Name = "Noviembre"
                 }); _context.Mes.Add(new Mes
-                { Name = "Diciembre"
+                {
+                    Name = "Diciembre"
                 });
 
 
@@ -613,10 +623,10 @@ namespace Intranet.web.Data
 
                     Name = "EQ DE COMPUTACION Y COMUNICACION",
                     Datecreate = DateTime.Now,
-                    LifeUse=60,
-                    Usucreo="system",
-                    Otros=false
-                }) ;
+                    LifeUse = 60,
+                    Usucreo = "system",
+                    Otros = false
+                });
 
 
                 await _context.SaveChangesAsync();
@@ -630,8 +640,8 @@ namespace Intranet.web.Data
                 {
 
                     Name = "APPLE",
-                    Datecreate=DateTime.Now,
-                    Usucreo="system"
+                    Datecreate = DateTime.Now,
+                    Usucreo = "system"
 
                 });
 
@@ -648,13 +658,13 @@ namespace Intranet.web.Data
 
                     Name = "XR",
                     Datecreate = DateTime.Now,
-                    Usucreo="system"
-                }) ;
+                    Usucreo = "system"
+                });
 
 
                 await _context.SaveChangesAsync();
             }
-        } 
+        }
         private async Task ChekProviderAsyn()
         {
             if (!_context.Providers.Any())
@@ -669,8 +679,8 @@ namespace Intranet.web.Data
                     Phone = "311214",
                     Usucreo = "SYSTEM",
                     Datecreate = DateTime.Today
-                    
-                }) ;
+
+                });
 
 
                 await _context.SaveChangesAsync();
@@ -680,9 +690,11 @@ namespace Intranet.web.Data
         {
             if (!_context.Managers.Any())
             {
-                _context.Managers.Add(new Manager {
-                   
-                    User = user});
+                _context.Managers.Add(new Manager
+                {
+
+                    User = user
+                });
                 await _context.SaveChangesAsync();
             }
         }
@@ -696,7 +708,7 @@ namespace Intranet.web.Data
             string movil,
             string role,
              bool activo
-            
+
             )
         {
             var user = await _userHelper.GetUserByEmailAsync(email);
@@ -709,13 +721,13 @@ namespace Intranet.web.Data
                     Email = email,
                     UserName = email,
                     PhoneNumber = movil,
-                    Movil= movil,
+                    Movil = movil,
                     Address = address,
                     Document = document,
-                    DateRegistro=DateTime.Today,
-                    Activo=activo,
-                    
-                    
+                    DateRegistro = DateTime.Today,
+                    Activo = activo,
+
+
                 };
 
                 await _userHelper.AddUserAsync(user, "123456");
@@ -735,16 +747,16 @@ namespace Intranet.web.Data
             await _userHelper.CheckRoleAsync("purchasing");
             await _userHelper.CheckRoleAsync("StoreLeader");
             await _userHelper.CheckRoleAsync("UserApp");
-         
+
         }
 
-      
-       
 
-       
 
-      
 
-       
+
+
+
+
+
     }
 }

@@ -3,19 +3,17 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Models
 {
-    public class AddEndowmentViewModel 
+    public class AddEndowmentViewModel
     {
         public int EmployeeId { get; set; }
         public int Id { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Nota")]
-        [MaxLength(100, ErrorMessage ="Solo 100 Caracter")]
+        [MaxLength(100, ErrorMessage = "Solo 100 Caracter")]
         public string Detail { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
@@ -34,7 +32,7 @@ namespace Intranet.web.Models
         public DateTime DateDelivery { get; set; }
 
         [Display(Name = "DateVence")]
-        
+
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime DateVence { get; set; }
 

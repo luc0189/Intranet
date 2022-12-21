@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.Threading.Tasks;
-using Intranet.web.Data.Entities;
+﻿using Intranet.web.Data.Entities;
 using Intranet.web.Models;
-using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Identity;
 using System;
+using System.Threading.Tasks;
 
 namespace Intranet.Web.Helpers
 {
@@ -25,21 +24,21 @@ namespace Intranet.Web.Helpers
 
         public async Task<User> AddUser(AddUserModel view, string role)
         {
-            var user =new User
+            var user = new User
             {
                 Address = view.Address,
                 Document = view.Document,
                 FirstName = view.FirstName,
                 LastName = view.LastName,
-                Movil=view.Movil,
-                Activo=view.Activo,
-               DateRegistro= DateTime.Now,
-                Email=view.Username,
-                UserName=view.Username
-                
+                Movil = view.Movil,
+                Activo = view.Activo,
+                DateRegistro = DateTime.Now,
+                Email = view.Username,
+                UserName = view.Username
+
             };
             var result = await AddUserAsync(user, view.Password);
-            if (result!= IdentityResult.Success)
+            if (result != IdentityResult.Success)
             {
                 return null;
 

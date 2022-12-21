@@ -3,7 +3,6 @@ using Intranet.web.Data.Entities.Activos;
 using Intranet.web.Helpers;
 using Intranet.web.Models;
 using Intranet.Web.Helpers;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -69,21 +68,21 @@ namespace Intranet.web.Controllers
         {
             var model = new ItemViewModel
             {
-               
-             
+
+
 
                 Modelo = _combosHelpers.GetComboModel(),
                 Fabricante = _combosHelpers.GetComboFabricante(),
                 Categoria = _combosHelpers.GetComboCategory(),
                 Proveedor = _combosHelpers.GetComboProveedor(),
-               
+
                 //Roles = _combosHelpers.GetComboRoles()
             };
             model.Modelo = _combosHelpers.GetComboModel();
             model.Fabricante = _combosHelpers.GetComboFabricante();
             model.Categoria = _combosHelpers.GetComboCategory();
             model.Proveedor = _combosHelpers.GetComboProveedor();
-           
+
             //model.Roles = _combosHelpers.GetComboRoles();
             return View(model);
         }
@@ -101,21 +100,21 @@ namespace Intranet.web.Controllers
                 var item = new Item
                 {
 
-                    Serial=model.Seriale,
-                    Nombre=model.Nombre,
-                    Datepurchase=model.Datepurchase,
-                    UnitValue=model.UnitValue,
-                    Coment=model.Coment,
+                    Serial = model.Seriale,
+                    Nombre = model.Nombre,
+                    Datepurchase = model.Datepurchase,
+                    UnitValue = model.UnitValue,
+                    Coment = model.Coment,
                     Usucreate = User.Identity.Name,
-                    TimeGarant =model.TimeGarant,
-                    Activo=model.Activo,
-                    
+                    TimeGarant = model.TimeGarant,
+                    Activo = model.Activo,
+
                     Dateitemcreate = DateTime.Now,
                     Model = await _context.Models.FindAsync(model.ModeloId),
                     Fabric = await _context.Fabrics.FindAsync(model.FabricId),
                     Category = await _context.Categories.FindAsync(model.CategoryId),
                     Provider = await _context.Providers.FindAsync(model.ProviderId),
-                 
+
 
 
                 };
@@ -132,7 +131,7 @@ namespace Intranet.web.Controllers
             model.Fabricante = _combosHelpers.GetComboFabricante();
             model.Categoria = _combosHelpers.GetComboCategory();
             model.Proveedor = _combosHelpers.GetComboProveedor();
-        
+
             //model.Roles = _combosHelpers.GetComboRoles();
             return View(model);
         }
@@ -165,8 +164,8 @@ namespace Intranet.web.Controllers
                 Usucreate = item.Usucreate,
                 TimeGarant = item.TimeGarant,
                 Activo = item.Activo,
-                UserModify=item.Usermod,
-                DateModify=item.DateMod,
+                UserModify = item.Usermod,
+                DateModify = item.DateMod,
                 Dateitemcreate = item.Dateitemcreate,
                 ModeloId = item.Model.Id,
                 FabricId = item.Fabric.Id,
@@ -174,7 +173,7 @@ namespace Intranet.web.Controllers
                 ProviderId = item.Provider.Id,
 
 
-                
+
                 Modelo = _combosHelpers.GetComboModel(),
 
                 Fabricante = _combosHelpers.GetComboFabricante(),
@@ -187,12 +186,12 @@ namespace Intranet.web.Controllers
             return View(view);
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditItemViewModel vista)
         {
-            
+
             if (ModelState.IsValid)
             {
                 var item = await _context.Items
@@ -214,18 +213,18 @@ namespace Intranet.web.Controllers
                     item.DateMod = DateTime.Now;
                     item.Dateitemcreate = vista.Dateitemcreate;
                     item.Activo = vista.Activo;
-                   
+
                     item.Model = await _context.Models.FindAsync(vista.ModeloId);
                     item.Fabric = await _context.Fabrics.FindAsync(vista.FabricId);
                     item.Category = await _context.Categories.FindAsync(vista.CategoryId);
                     item.Provider = await _context.Providers.FindAsync(vista.ProviderId);
-                   
+
 
                     _context.Items.Update(item);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
-              
+
             }
             return View(vista);
         }
@@ -241,17 +240,17 @@ namespace Intranet.web.Controllers
                 .Include(e => e.Category)
                 .Include(e => e.Fabric)
                 .Include(e => e.Provider)
-                
+
                 .FirstOrDefaultAsync(o => o.Id == id);
             if (item == null)
             {
                 return NotFound();
             }
-           
-               
-            
 
-             _context.Items.Remove(item);
+
+
+
+            _context.Items.Remove(item);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));

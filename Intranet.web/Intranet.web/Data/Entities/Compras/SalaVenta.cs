@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Data.Entities.Compras
 {
@@ -12,7 +9,7 @@ namespace Intranet.web.Data.Entities.Compras
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
         [Display(Name = "Sala de Ventas")]
         [MaxLength(500)]
-        public string  Name { get; set; }
+        public string Name { get; set; }
         public ICollection<Negociation> Negociations { get; set; }
     }
 }

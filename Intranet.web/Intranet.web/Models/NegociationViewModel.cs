@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Models
 {
@@ -23,11 +21,11 @@ namespace Intranet.web.Models
         public string Detalle { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido.")]
-    
+
         public long ValorNegociacion { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido.")]
-        
+
         public long BaseLiquidacion { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido.")]
@@ -35,7 +33,7 @@ namespace Intranet.web.Models
         [Display(Name = "N Documento")]
         public string Document { get; set; }
 
-        
+
         [MaxLength(100)]
         [Display(Name = "Usuario")]
         public string UsuCreate { get; set; }
@@ -46,7 +44,7 @@ namespace Intranet.web.Models
 
 
 
-        
+
         //[DisplayFormat(DataFormatString = "{0:(###) ###-####}", ApplyFormatInEditMode = true)]
         //public string Movil { get; set; }
 
@@ -84,7 +82,7 @@ namespace Intranet.web.Models
         public int SalaVentaId { get; set; }
         public IEnumerable<SelectListItem> Clasification { get; set; }
         public IEnumerable<SelectListItem> Providercompras { get; set; }
-       
+
         public IEnumerable<SelectListItem> Mes { get; set; }
         public IEnumerable<SelectListItem> SalaVentas { get; set; }
 

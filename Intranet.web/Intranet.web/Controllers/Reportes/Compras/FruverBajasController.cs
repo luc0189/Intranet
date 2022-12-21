@@ -1,10 +1,7 @@
 ﻿using Intranet.web.Models.Report.Compras;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Controllers.Reportes.Compras
 {

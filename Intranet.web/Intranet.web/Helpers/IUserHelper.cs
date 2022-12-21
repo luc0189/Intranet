@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using Intranet.web.Data.Entities;
+﻿using Intranet.web.Data.Entities;
 using Intranet.web.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 
 

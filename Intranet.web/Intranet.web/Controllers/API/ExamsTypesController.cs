@@ -1,12 +1,9 @@
-﻿using System;
+﻿using Intranet.web.Data;
+using Intranet.web.Data.Entities;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Intranet.web.Data;
-using Intranet.web.Data.Entities;
 
 namespace Intranet.web.Controllers.API
 {
@@ -25,7 +22,7 @@ namespace Intranet.web.Controllers.API
         [HttpGet]
         public IEnumerable<ExamsType> GetExamsTypes()
         {
-            return _context.ExamsTypes.OrderBy(pt=> pt.Name);
+            return _context.ExamsTypes.OrderBy(pt => pt.Name);
         }
 
         // GET: api/ExamsTypes/5
@@ -47,6 +44,6 @@ namespace Intranet.web.Controllers.API
             return Ok(examsType);
         }
 
-       
+
     }
 }

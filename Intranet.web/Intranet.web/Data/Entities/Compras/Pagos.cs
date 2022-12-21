@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Data.Entities.Compras
 {
@@ -33,7 +30,7 @@ namespace Intranet.web.Data.Entities.Compras
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public string DatePago { get; set; }
 
-        
+
         public DateTime Dateregistro { get; set; }
 
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]

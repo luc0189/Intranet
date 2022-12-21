@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Data.Entities
 {
@@ -14,6 +12,6 @@ namespace Intranet.web.Data.Entities
         [Display(Name = "Nombre de Entidad")]
         [MaxLength(50)]
         public String Nombre { get; set; }
-        public ICollection <Employee> Employees { get; set; }
+        public ICollection<Employee> Employees { get; set; }
     }
 }

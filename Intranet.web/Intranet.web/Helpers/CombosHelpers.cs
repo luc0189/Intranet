@@ -1,10 +1,8 @@
 ﻿using Intranet.web.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Helpers
 {
@@ -47,8 +45,8 @@ namespace Intranet.web.Helpers
             });
             return list;
         }
-    
-             public IEnumerable<SelectListItem> GetComboTypeNew()
+
+        public IEnumerable<SelectListItem> GetComboTypeNew()
         {
             var list = _dataContext.TypeNews.Select(et => new SelectListItem
             {
@@ -236,7 +234,7 @@ namespace Intranet.web.Helpers
                 Value = "0"
             });
             return list;
-        } 
+        }
         public IEnumerable<SelectListItem> GetComboCategory()
         {
             var list = _dataContext.Categories.Select(a => new SelectListItem
@@ -282,7 +280,7 @@ namespace Intranet.web.Helpers
                 Value = "0"
             });
             return list;
-        } 
+        }
         public IEnumerable<SelectListItem> GetComboProviderCompras()
         {
             var list = _dataContext.Providercompras.Select(a => new SelectListItem

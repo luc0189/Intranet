@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Intranet.web.Models
 {
-    public class ExamViewModel 
+    public class ExamViewModel
     {
         public int EmployeeId { get; set; }
 

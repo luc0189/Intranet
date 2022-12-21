@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Intranet.web.Data.Entities
 {
@@ -15,7 +11,7 @@ namespace Intranet.web.Data.Entities
         public string DateAsg { get; set; }
 
         public Employee Employee { get; set; }
-       
+
 
     }
 }

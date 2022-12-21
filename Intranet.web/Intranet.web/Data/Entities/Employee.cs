@@ -1,10 +1,8 @@
 ﻿using Intranet.web.Data.Entities.Activos;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Data.Entities
 {
@@ -14,7 +12,7 @@ namespace Intranet.web.Data.Entities
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Document")]
-        
+
         public int Document { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
@@ -97,9 +95,9 @@ namespace Intranet.web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public string DateIngreso { get; set; }
 
-            
+
         [Display(Name = "Sueldo")]
-       
+
         public int Sueldo { get; set; }
 
         [Display(Name = "CTA Nomina")]
@@ -110,9 +108,9 @@ namespace Intranet.web.Data.Entities
         [MaxLength(80)]
         public string NumeroCtaAhorros { get; set; }
 
-        
+
         public DateTime DateRegistro { get; set; }
-        
+
         [MaxLength(60)]
         [Required]
         public string UserRegistra { get; set; }
@@ -125,13 +123,26 @@ namespace Intranet.web.Data.Entities
         public string FullName => $"{FirstName} {LastName}";
         public Area Area { get; set; }
         public Eps Eps { get; set; }
-        
-        public Pension Pension { get; set; }
-      
 
+        public Pension Pension { get; set; }
         public CajaCompensacion CajaCompensacion { get; set; }
-        public ICollection<UserImages> UserImages { get; set; }
+
+
+
+        public ICollection<EmployedImage> EmployedImages { get; set; }
+
+        [Display(Name = "Fotos")]
+        public int ImagesNumber => EmployedImages == null ? 0 : EmployedImages.Count;
+
+        //TODO: Pending to change to the correct path
+        [Display(Name = "Foto")]
+        public string ImageFullPath => EmployedImages == null || EmployedImages.Count == 0
+            ? $"https://localhost:44370/images/no-image-icon.png"
+            : EmployedImages.FirstOrDefault().ImageFullPath;
+
+
         public ICollection<Credit> Credits { get; set; }
+        public ICollection<UserImages> UserImages { get; set; }
         public ICollection<Sons> Sons { get; set; }
         public ICollection<Endowment> Endowments { get; set; }
         public ICollection<Exams> Exams { get; set; }
@@ -141,8 +152,8 @@ namespace Intranet.web.Data.Entities
         public ICollection<Item> Items { get; set; }
         public ICollection<CargosAsg> CargosAsgs { get; set; }
         public ICollection<HistorialEmpleado> HistorialEmpleados { get; set; }
-     
-        
+
+
 
     }
 }

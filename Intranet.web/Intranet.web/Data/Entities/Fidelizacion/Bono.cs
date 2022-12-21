@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Data.Entities.Fidelizacion
 {
@@ -13,13 +10,13 @@ namespace Intranet.web.Data.Entities.Fidelizacion
         [Required(ErrorMessage = "el campo {0} es Obligatorio")]
         [Display(Name = "codigo")]
         [MaxLength(150)]
-        public string Codigo{ get; set; }
-               
+        public string Codigo { get; set; }
+
         public bool Redimido { get; set; }
 
         [Display(Name = "Actividad")]
         [MaxLength(200)]
-       public string Actividad { get; set; }
+        public string Actividad { get; set; }
 
         public int Valor { get; set; }
 

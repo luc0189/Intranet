@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Intranet.web.Data;
+﻿using Intranet.web.Data;
 using Intranet.web.Data.Entities;
-using Intranet.Web.Helpers;
 using Intranet.web.Helpers;
 using Intranet.web.Models;
-using System.Security.Policy;
+using Intranet.Web.Helpers;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Intranet.web.Controllers
 {
@@ -30,7 +27,7 @@ namespace Intranet.web.Controllers
             _converterHelper = converterHelper;
         }
 
-      
+
         public IActionResult Index()
         {
             return View(_datacontext.SiteHeadquarters
@@ -45,7 +42,7 @@ namespace Intranet.web.Controllers
             }
 
             var siteHeadquarters = await _datacontext.SiteHeadquarters
-                .Include(a=> a.Areas)
+                .Include(a => a.Areas)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (siteHeadquarters == null)
             {
@@ -61,7 +58,7 @@ namespace Intranet.web.Controllers
             return View();
         }
 
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nombre")] SiteHeadquarters siteHeadquarters)
@@ -126,7 +123,7 @@ namespace Intranet.web.Controllers
             return View(siteHeadquarters);
         }
 
-     
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -141,7 +138,7 @@ namespace Intranet.web.Controllers
             {
                 return NotFound();
             }
-            if (siteHeadquarters.Areas.Count != 0  )
+            if (siteHeadquarters.Areas.Count != 0)
             {
                 ModelState.AddModelError(string.Empty, "Valide los detalles antes de Borrar");
                 return RedirectToAction(nameof(Index));
@@ -152,7 +149,7 @@ namespace Intranet.web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-       
+
 
         private bool SiteHeadquartersExists(int id)
         {
@@ -203,10 +200,10 @@ namespace Intranet.web.Controllers
             {
                 return NotFound();
             }
-           
+
             return View(_converterHelper.ToAreaViewModel(site));
         }
-       
+
         [HttpPost]
         public async Task<IActionResult> EditArea(AddAreaViewModel model)
         {
@@ -216,7 +213,7 @@ namespace Intranet.web.Controllers
                 _datacontext.Areas.Update(area);
                 await _datacontext.SaveChangesAsync();
                 return RedirectToAction($"{nameof(Details)}/{model.SiteId}");
-               // return RedirectToAction($"Details/{model.SiteId}");
+                // return RedirectToAction($"Details/{model.SiteId}");
             }
             return View(model);
         }

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Intranet.web.Data.Entities
 {
@@ -10,14 +7,14 @@ namespace Intranet.web.Data.Entities
     {
         public int Id { get; set; }
 
-        [Required (ErrorMessage ="El campo {0} es Obligatiorio.")]
-        [Display (Name ="Nota")]
-        [MaxLength(100,ErrorMessage ="Maximo 100 Caracteres")]
+        [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
+        [Display(Name = "Nota")]
+        [MaxLength(100, ErrorMessage = "Maximo 100 Caracteres")]
         public string Detail { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
         [Display(Name = "Cantidad")]
-      
+
         public int Count { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]

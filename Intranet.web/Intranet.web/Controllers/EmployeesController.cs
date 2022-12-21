@@ -3,7 +3,6 @@ using Intranet.web.Data.Entities;
 using Intranet.web.Helpers;
 using Intranet.web.Models;
 using Intranet.Web.Helpers;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -92,15 +91,15 @@ namespace Intranet.web.Controllers
 
             return View(_dataContext.Employees
                 .Include(e => e.Sons)
-                
+
                 .Include(e => e.Credits)
                 .Include(e => e.Exams)
-              
+
                 .Include(e => e.Incapacities)
                 .Include(e => e.Endowments)
-                
 
-                .Include(e => e.UserImages)
+
+                .Include(e => e.EmployedImages)
                 );
         }
 
@@ -136,16 +135,18 @@ namespace Intranet.web.Controllers
             {
                 x = await (from r in _dataContext.Employees.Include(e => e.Sons)
                                   .Include(e => e.Area)
-                                  .Include(r=> r.HistorialEmpleados)
+                                  .Include(r => r.HistorialEmpleados)
                                   .Include(e => e.Eps)
                                   .Include(e => e.Pension)
                                   .Include(e => e.CajaCompensacion)
                                   .Include(e => e.PersonContacts)
                                   .Include(i => i.UserImages)
+                                  .Include(i => i.EmployedImages)
+
                                   .Include(e => e.Incapacities)
                                   .ThenInclude(e => e.TypeNew)
                                   .Include(e => e.Contracts)
-                             
+
                                   .Include(c => c.Credits)
                                   .ThenInclude(c => c.CreditEntities)
                                   .Include(t => t.Exams)
@@ -184,7 +185,7 @@ namespace Intranet.web.Controllers
             model.Eps = _combosHelpers.GetComboEps();
             model.Pension = _combosHelpers.GetComboPension();
             model.CajaCompensacion = _combosHelpers.GetComboCajaCompensacion();
-           // model.PositionEmplooyed = _combosHelpers.GetComboPositionEmploye();
+            // model.PositionEmplooyed = _combosHelpers.GetComboPositionEmploye();
             //model.Roles = _combosHelpers.GetComboRoles();
             return View(model);
         }
@@ -234,7 +235,7 @@ namespace Intranet.web.Controllers
                     Eps = await _dataContext.Eps.FindAsync(model.EpsId),
                     Pension = await _dataContext.Pensions.FindAsync(model.PensionId),
                     CajaCompensacion = await _dataContext.CajaCompensacions.FindAsync(model.CajaCompenId)
-                    
+
 
                 };
                 _dataContext.Employees.Add(employe);
@@ -250,7 +251,7 @@ namespace Intranet.web.Controllers
             model.Eps = _combosHelpers.GetComboEps();
             model.Pension = _combosHelpers.GetComboPension();
             model.CajaCompensacion = _combosHelpers.GetComboCajaCompensacion();
-           // model.PositionEmplooyed = _combosHelpers.GetComboPositionEmploye();
+            // model.PositionEmplooyed = _combosHelpers.GetComboPositionEmploye();
             //model.Roles = _combosHelpers.GetComboRoles();
             return View(model);
         }
@@ -302,7 +303,7 @@ namespace Intranet.web.Controllers
                                   .Include(e => e.Eps)
                                   .Include(e => e.Pension)
                                   .Include(e => e.CajaCompensacion)
-                                  
+
                 .FirstOrDefaultAsync(e => e.Id == id.Value);
             if (employe == null)
             {
@@ -323,7 +324,7 @@ namespace Intranet.web.Controllers
                 JobTitle = employe.JobTitle,
                 License = employe.License,
                 Movil = employe.Movil,
-                Sueldo=employe.Sueldo,
+                Sueldo = employe.Sueldo,
                 NivelEducation = employe.NivelEducation,
                 Rh = employe.Rh,
                 SiteBirth = employe.SiteBirth,
@@ -335,11 +336,11 @@ namespace Intranet.web.Controllers
                 DateModify = employe.DateModify,
                 UserModify = employe.UserModify,
                 DateRegistro = employe.DateRegistro,
-                Sexo=employe.Sexo,
+                Sexo = employe.Sexo,
                 CtaNomina = employe.CtaNomina,
                 //PositionEmpId = employe.PositionEmployee.Id,
                 //PositionEmployeesss = _combosHelpers.GetComboPositionEmploye(),
-                
+
                 PensionId = employe.Pension.Id,
                 Pension = _combosHelpers.GetComboPension(),
 
@@ -364,13 +365,13 @@ namespace Intranet.web.Controllers
             if (ModelState.IsValid)
             {
                 var employe = await _dataContext.Employees
-                    
+
                     .Include(e => e.Sons)
                     .Include(e => e.Area)
                     .ThenInclude(s => s.SiteHeadquarters)
                     .Include(e => e.CajaCompensacion)
                     .Include(e => e.Endowments)
-                  
+
                     .FirstOrDefaultAsync(o => o.Id == vista.Id);
                 if (employe != null)
                 {
@@ -391,7 +392,7 @@ namespace Intranet.web.Controllers
                     employe.DateIngreso = vista.DateIngreso;
                     employe.UserRegistra = vista.UserCrea;
                     employe.DateRegistro = vista.DateRegistro;
-                    employe.DateCumple= vista.DateCumple;
+                    employe.DateCumple = vista.DateCumple;
                     employe.Email = vista.Email;
                     employe.DateModify = DateTime.Today;
                     employe.UserModify = User.Identity.Name;
@@ -413,7 +414,7 @@ namespace Intranet.web.Controllers
             vista.Eps = _combosHelpers.GetComboEps();
             vista.Pension = _combosHelpers.GetComboPension();
             vista.CajaCompensacion = _combosHelpers.GetComboCajaCompensacion();
-          // vista.PositionEmployeesss = _combosHelpers.GetComboPositionEmploye();
+            // vista.PositionEmployeesss = _combosHelpers.GetComboPositionEmploye();
             //vista.Roles = _combosHelpers.GetComboRoles();
 
             return View(vista);
@@ -447,7 +448,7 @@ namespace Intranet.web.Controllers
                 employee.Incapacities.Count != 0)
             {
                 _flashMessage.Danger("Valide los detalles antes de Borrar");
-               
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -659,10 +660,10 @@ namespace Intranet.web.Controllers
             {
                 return NotFound();
             }
-           
+
             var model = new CargosViewModels
             {
-                EmployeeIds = employe.Id ,
+                EmployeeIds = employe.Id,
                 UserRegistra = User.Identity.Name,
                 PositionEmployeds = _combosHelpers.GetComboCargos(),
             };
@@ -675,9 +676,9 @@ namespace Intranet.web.Controllers
             var modelfull = new CargosViewModels
             {
                 EmployeeIds = model.EmployeeIds,
-            
+
                 DateRegistro = DateTime.Now.ToString(),
-                PositionId=model.PositionId,
+                PositionId = model.PositionId,
                 UserRegistra = User.Identity.Name,
 
 
@@ -906,11 +907,11 @@ namespace Intranet.web.Controllers
                     Id = model.Id,
                     EmployeeId = model.Id,
                     Fecha = model.Fecha,
-                    Notas=model.Notas,
+                    Notas = model.Notas,
                     DateRegistro = model.DateRegistro,
                     UserModify = User.Identity.Name,
                     DateModify = DateTime.Now,
-                   
+
                     UserRegistra = model.UserRegistra
 
 
@@ -1185,7 +1186,7 @@ namespace Intranet.web.Controllers
                 return NotFound();
             }
             var endowment = await _dataContext.Endowments
-                
+
                 .Include(s => s.Employee)
                 .Include(s => s.EndowmentType)
                 .FirstOrDefaultAsync(s => s.Id == id);
@@ -1211,12 +1212,12 @@ namespace Intranet.web.Controllers
                     DateModify = DateTime.Now,
                     DateRegistro = model.DateRegistro,
                     Detail = model.Detail,
-                    EndowmentTypeId= model.EndowmentTypeId,
+                    EndowmentTypeId = model.EndowmentTypeId,
                     EmployeeId = model.EmployeeId,
                     Id = model.Id,
                     Size = model.Size,
-                    DateVence=model.DateVence,
-                    
+                    DateVence = model.DateVence,
+
                     UserModify = User.Identity.Name,
                     UserRegistra = model.UserRegistra
                 };
@@ -1250,7 +1251,7 @@ namespace Intranet.web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddContrato(ContractViewModel model)
         {
-            
+
             if (ModelState.IsValid)
             {
                 var modelfull = new ContractViewModel
@@ -1260,10 +1261,10 @@ namespace Intranet.web.Controllers
                     Id = model.Id,
                     Note = model.Note,
                     EmployeeIds = model.EmployeeIds,
-                  
-                    
+
+
                     DateEnd = model.DateEnd.AddYears(1),
-                   
+
 
                 };
                 var contrato = await _converterHelper.ToContractoAsync(modelfull, true);

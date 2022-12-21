@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Intranet.web.Data;
+using Intranet.web.Data.Entities.Activos;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Intranet.web.Data;
-using Intranet.web.Data.Entities.Activos;
 
 namespace Intranet.web.Controllers
 {

@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Intranet.web.Data;
+using Intranet.web.Data.Entities;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Intranet.web.Data;
-using Intranet.web.Data.Entities;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Intranet.web.Controllers
 {
-   
+
     public class EpsController : Controller
     {
         private readonly DataContext _context;
@@ -118,7 +114,7 @@ namespace Intranet.web.Controllers
             return View(eps);
         }
 
-       
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -136,10 +132,10 @@ namespace Intranet.web.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
 
-            
+
         }
 
-      
+
 
         private bool EpsExists(int id)
         {

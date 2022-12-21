@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -156,25 +155,25 @@ namespace Intranet.web.Controllers
 
         public IActionResult Register()
         {
-           
+
             return View();
         }
 
         [HttpPost]
-        
+
         public async Task<IActionResult> Register(AddUserModel view)
         {
             if (ModelState.IsValid)
             {
-                    
+
                 var user = await _userHelper.AddUser(view, "UserApp");
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "This email is already used.");
-                    
+
                     return View(view);
                 }
-                                
+
                 var myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
                 var tokenLink = Url.Action("ConfirmEmail", "Account", new
                 {
@@ -184,7 +183,7 @@ namespace Intranet.web.Controllers
 
                 _mailHelper.SendMail(view.Username, "Intranet Lcs - Email confirmation",
                  $"<table border='0' cellpadding='0' cellspacing='0' width='100%'>" +
-                
+
                  $"<tr>" +
                  $"<td style='padding: 40px 0 30px 0; align=center; bgcolor=#70bbd9'>" +
 
@@ -258,13 +257,13 @@ namespace Intranet.web.Controllers
         public async Task<IActionResult> ChangeUser()
         {
             var user = await _userHelper.GetUserByEmailAsync(User.Identity.Name);
-            
+
             if (user == null)
             {
-               var man = await _dataContext.Managers
-              .Include(e => e.User)
-             
-              .FirstOrDefaultAsync(e => e.User.UserName == user.Email);
+                var man = await _dataContext.Managers
+               .Include(e => e.User)
+
+               .FirstOrDefaultAsync(e => e.User.UserName == user.Email);
                 var viewm = new EditUserViewModel
                 {
                     Id = man.Id,
@@ -273,24 +272,24 @@ namespace Intranet.web.Controllers
                     LastName = man.User.LastName,
                     Address = man.User.Address,
                     Movil = man.User.Movil,
-                    
+
                     Activo = man.User.Activo,
-                    
+
                 };
 
             }
 
             var view = new EditUserViewModel
             {
-               
+
                 Document = user.Document,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Address = user.Address,
                 Movil = user.Movil,
-                
+
                 Activo = user.Activo
-               
+
             };
 
             return View(view);
@@ -310,7 +309,7 @@ namespace Intranet.web.Controllers
                 user.LastName = view.LastName;
                 user.Address = view.Address;
                 user.Movil = view.Movil;
-               
+
                 user.Activo = view.Activo;
 
                 await _userHelper.UpdateUserAsync(user);

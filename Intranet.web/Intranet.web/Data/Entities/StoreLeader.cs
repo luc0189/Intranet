@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace Intranet.web.Data.Entities
+﻿namespace Intranet.web.Data.Entities
 {
     public class StoreLeader
     {
         public int Id { get; set; }
         public User User { get; set; }
-       
+
     }
 }

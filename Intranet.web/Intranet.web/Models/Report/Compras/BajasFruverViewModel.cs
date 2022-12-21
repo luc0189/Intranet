@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Intranet.web.Models.Report.Compras
+﻿namespace Intranet.web.Models.Report.Compras
 {
     public class BajasFruverViewModel
     {

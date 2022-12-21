@@ -6,8 +6,6 @@ using Intranet.web.Models;
 using Intranet.web.Models.Compras;
 using Intranet.web.Models.Fidelizacion;
 using Intranet.web.Models.Report;
-using Microsoft.CodeAnalysis.Options;
-using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Threading.Tasks;
 
@@ -35,10 +33,10 @@ namespace Intranet.web.Helpers
                 Employee = await _dataContext.Employees.FindAsync(model.EmployeeIds),
                 DateRegistro = DateTime.Now,
                 UserRegistra = model.UserRegistra,
-                Novedad=model.Novedad,
-                CantDay=model.CantDay,
+                Novedad = model.Novedad,
+                CantDay = model.CantDay,
                 TypeNew = await _dataContext.TypeNews.FindAsync(model.TypeId)
-         
+
 
 
             };
@@ -49,12 +47,12 @@ namespace Intranet.web.Helpers
             return new Redimidos
             {
                 Id = isNew ? 0 : model.Id,
-              
+
                 Bono = await _dataContext.Bonos.FindAsync(model.BonoId),
                 FechaRegistro = DateTime.Now.ToString(),
                 UserRegistra = model.UserRegistra,
                 Tercero = model.Tercero,
-              
+
 
             };
         }
@@ -67,8 +65,8 @@ namespace Intranet.web.Helpers
                 StartDate = model.StartDate,
                 EndDate = model.StartDate.AddYears(1).AddDays(1),
                 Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
-                DateRegistro=DateTime.Now,
-                UserRegistra=model.UserRegistra,
+                DateRegistro = DateTime.Now,
+                UserRegistra = model.UserRegistra,
                 ExamsType = await _dataContext.ExamsTypes.FindAsync(model.ExamTypeId)
 
 
@@ -108,7 +106,7 @@ namespace Intranet.web.Helpers
 
         //    return new ReportExam
         //    {
-           
+
         //    Id = exams.Id,
         //         Document= exams.Employee.Document,
         //         ExamtypeId=exams.ExamsType.Id,
@@ -117,12 +115,12 @@ namespace Intranet.web.Helpers
         //         State= states,
         //         EndDate=exams.EndDate,
         //         PositionEmpId= exams.ExamsType.Id,
-                
+
         //         DateModify=exams.DateModify,
         //         StartDate=exams.StartDate,
         //         UserModify=exams.UserModify
 
-               
+
 
         //    };
         //}
@@ -131,18 +129,18 @@ namespace Intranet.web.Helpers
             return new EditIncapacityViewModel
             {
                 Id = incap.Id,
-                EmployeeIds=incap.Employee.Id,
+                EmployeeIds = incap.Employee.Id,
                 StartDate = incap.StartDate,
                 Employee = incap.Employee,
-                CantDay=incap.CantDay,
-                DateModify=incap.DateModify,
-                DateRegistro=incap.DateRegistro,
-                EndDate=incap.StartDate,
-                Novedad=incap.Novedad,
-                UserModify=incap.UserModify,
-                
-                UserRegistra=incap.UserRegistra,
-                TypeId=incap.TypeNew.Id,
+                CantDay = incap.CantDay,
+                DateModify = incap.DateModify,
+                DateRegistro = incap.DateRegistro,
+                EndDate = incap.StartDate,
+                Novedad = incap.Novedad,
+                UserModify = incap.UserModify,
+
+                UserRegistra = incap.UserRegistra,
+                TypeId = incap.TypeNew.Id,
                 TypeNews = _combosHelpers.GetComboTypeNew()
 
             };
@@ -170,7 +168,7 @@ namespace Intranet.web.Helpers
                 Id = isNew ? 0 : model.Id,
                 Fecha = model.Fecha,
                 Notas = model.Notas,
-               
+
                 UserRegistra = model.UserRegistra,
 
                 DateRegistro = model.DateRegistro,
@@ -233,7 +231,7 @@ namespace Intranet.web.Helpers
                 Id = historial.Id,
                 Notas = historial.Notas,
                 Fecha = historial.Fecha,
-            
+
                 EmployeeId = historial.Employee.Id,
                 DateRegistro = historial.DateRegistro,
                 UserRegistra = historial.UserRegistra,
@@ -247,7 +245,7 @@ namespace Intranet.web.Helpers
             return new HistorialEmpleado
             {
                 Id = model.Id,
-            
+
                 Fecha = model.Fecha,
                 Notas = model.Notas,
                 UserRegistra = model.UserRegistra,
@@ -265,11 +263,11 @@ namespace Intranet.web.Helpers
             {
                 Id = isNew ? 0 : model.Id,
                 Novedad = model.Novedad,
-                
-                Dateregistro=model.Dateregistro,
-                UserRegistro=model.UserRegistro,
 
-                Negociation= await _dataContext.Negociation.FindAsync(model.NegociacionId)
+                Dateregistro = model.Dateregistro,
+                UserRegistro = model.UserRegistro,
+
+                Negociation = await _dataContext.Negociation.FindAsync(model.NegociacionId)
 
             };
         }//
@@ -297,7 +295,7 @@ namespace Intranet.web.Helpers
             {
                 Id = isNew ? 0 : model.Id,
                 DateAsg = model.DateRegistro,
-               
+
                 Employee = await _dataContext.Employees.FindAsync(model.EmployeeIds)
 
             };
@@ -313,12 +311,12 @@ namespace Intranet.web.Helpers
                 DateModify = DateTime.Now,
                 UserModify = pagos.UserModify,
                 Dateregistro = pagos.Dateregistro,
-                DocCobro=pagos.DocCobro,
-                DocLegalizacion=pagos.DocLegalizacion,
-                Novedad=pagos.Novedad,
-                Userregistro=pagos.Userregistro,
-                ValorPagado=pagos.ValorPagado,
-                NegociacionId=pagos.Negociation.Id,
+                DocCobro = pagos.DocCobro,
+                DocLegalizacion = pagos.DocLegalizacion,
+                Novedad = pagos.Novedad,
+                Userregistro = pagos.Userregistro,
+                ValorPagado = pagos.ValorPagado,
+                NegociacionId = pagos.Negociation.Id,
                 //ExamTypes = _combosHelpers.GetComboExamTypes()
 
             };
@@ -333,7 +331,7 @@ namespace Intranet.web.Helpers
                 Articulo = model.Articulo,
                 Cant = model.Cant,
                 ValorUnit = model.ValorUnit,
-                
+
                 Dateregistro = model.Dateregistro,
                 Userregistro = model.Userregistro,
 
@@ -370,13 +368,13 @@ namespace Intranet.web.Helpers
             return new Credit
             {
                 Id = model.Id,
-               DeadlinePay=model.DeadlinePay,
-               EndDate=model.EndDate,
-               IsActive=model.IsActive,
-               NumberL=model.NumberL,
-               Quotmonthly=model.Quotmonthly,
-               StartDate=model.StartDate,
-               TotalPrice=model.TotalPrice,
+                DeadlinePay = model.DeadlinePay,
+                EndDate = model.EndDate,
+                IsActive = model.IsActive,
+                NumberL = model.NumberL,
+                Quotmonthly = model.Quotmonthly,
+                StartDate = model.StartDate,
+                TotalPrice = model.TotalPrice,
                 UserRegistra = model.UserRegistra,
                 UserModify = model.UserModify,
                 DateModify = model.DateModify,
@@ -431,12 +429,12 @@ namespace Intranet.web.Helpers
                 relationship = person.relationship,
                 Telephone = person.Telephone,
                 EmployeeId = person.Employee.Id,
-                UserRegistra=person.UserRegistra,
-                DateRegistro=person.DateRegistro,
-                DateModify=person.DateModify,
-                UserModify=person.UserModify
-                
-                
+                UserRegistra = person.UserRegistra,
+                DateRegistro = person.DateRegistro,
+                DateModify = person.DateModify,
+                UserModify = person.UserModify
+
+
             };
         }
 
@@ -450,10 +448,10 @@ namespace Intranet.web.Helpers
                 DateDelivery = model.DateDelivery,
                 Size = model.Size,
                 Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
-                EndowmentType=await _dataContext.EndowmentsTypes.FindAsync(model.EndowmentTypeId),
-                DateVence=model.DateVence,
-                DateRegistro=DateTime.Now,
-                UserRegistra=model.UserRegistra
+                EndowmentType = await _dataContext.EndowmentsTypes.FindAsync(model.EndowmentTypeId),
+                DateVence = model.DateVence,
+                DateRegistro = DateTime.Now,
+                UserRegistra = model.UserRegistra
             };
         }
         public EditEndowmentVieModel ToEndowmentViewModel(Endowment endowment)
@@ -467,12 +465,12 @@ namespace Intranet.web.Helpers
                 Size = endowment.Size,
                 EmployeeId = endowment.Employee.Id,
                 Employee = endowment.Employee,
-                DateRegistro=endowment.DateRegistro,
-                UserRegistra=endowment.UserRegistra,
-                DateModify=endowment.DateModify,
-                UserModify=endowment.UserModify,
-                EndowmentTypeId=endowment.EndowmentType.Id,
-                DateVence=endowment.DateVence,
+                DateRegistro = endowment.DateRegistro,
+                UserRegistra = endowment.UserRegistra,
+                DateModify = endowment.DateModify,
+                UserModify = endowment.UserModify,
+                EndowmentTypeId = endowment.EndowmentType.Id,
+                DateVence = endowment.DateVence,
                 EndowmnetsTypes = _combosHelpers.GetComboEndowmentType()
             };
         }
@@ -506,7 +504,7 @@ namespace Intranet.web.Helpers
             {
                 states = "Vencido";
             }
-            if (valor <= 30 & valor>=1)
+            if (valor <= 30 & valor >= 1)
             {
                 states = "A vencer";
             }
@@ -536,7 +534,7 @@ namespace Intranet.web.Helpers
             };
         }
 
-     
+
     }
 }
 

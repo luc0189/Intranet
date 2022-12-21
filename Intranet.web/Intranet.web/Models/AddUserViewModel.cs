@@ -1,13 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Intranet.web.Models
 {
-    public class AddUserViewModel :EditUserViewModel
+    public class AddUserViewModel : EditUserViewModel
 
 
     {//TODO: AQUI REALIZE  UN CAMBIO QUE EL PROFE DESACIO EN EL VIDEO 59 16 MINUTO 5:30 RELACIONADO CON LA HERENCIA 
@@ -30,7 +25,7 @@ namespace Intranet.web.Models
         [Compare("Password")]
         public string PasswordConfirm { get; set; }
 
-       
+
 
 
     }

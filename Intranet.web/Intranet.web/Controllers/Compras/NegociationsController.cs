@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Intranet.web.Data;
+using Intranet.web.Data.Entities.Compras;
+using Intranet.web.Helpers;
+using Intranet.web.Models;
+using Intranet.web.Models.Compras;
+using Intranet.Web.Helpers;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Intranet.web.Data;
-using Intranet.web.Data.Entities.Compras;
-using Intranet.web.Models;
-using Intranet.Web.Helpers;
-using Intranet.web.Helpers;
-using Intranet.web.Models.Compras;
-using System.Data.SqlClient;
 
 
 namespace Intranet.web.Controllers.Compras
@@ -37,23 +35,23 @@ namespace Intranet.web.Controllers.Compras
         // GET: Negociations
         public async Task<IActionResult> Index()
         {
-         
-               var x = await (from r in _context.Negociation
-                                   .Include(e => e.Providercompras)
-                                   .Include(e => e.Clasification)
-                                   .Include(e => e.Mes)
-                                   .Include(e => e.Pagoss)
-                                   .Include(r => r.Verificados)
-                                   .Include(e => e.ProductBonifis)
-                                   .Include(e => e.SalaVenta)
-                              where r.Pago == false || r.Verificar == false
-                              select r).ToListAsync();
-                if (x == null)
-                {
-                    return NotFound();
-                }
-            
-           
+
+            var x = await (from r in _context.Negociation
+                                .Include(e => e.Providercompras)
+                                .Include(e => e.Clasification)
+                                .Include(e => e.Mes)
+                                .Include(e => e.Pagoss)
+                                .Include(r => r.Verificados)
+                                .Include(e => e.ProductBonifis)
+                                .Include(e => e.SalaVenta)
+                           where r.Pago == false || r.Verificar == false
+                           select r).ToListAsync();
+            if (x == null)
+            {
+                return NotFound();
+            }
+
+
             return View(x);
             //return View(await _context.Negociation
             //    .Include(e=> e.Providercompras)
@@ -75,7 +73,7 @@ namespace Intranet.web.Controllers.Compras
                                    .Include(r => r.Verificados)
                                    .Include(e => e.ProductBonifis)
                                    .Include(e => e.SalaVenta)
-                           //where r.Pago == false || r.Verificar == false
+                               //where r.Pago == false || r.Verificar == false
                            select r).ToListAsync();
             if (x == null)
             {
@@ -94,12 +92,12 @@ namespace Intranet.web.Controllers.Compras
             }
 
             var negociation = await _context.Negociation
-                .Include(e=> e.Providercompras)
-                .Include(e=> e.Pagoss)
+                .Include(e => e.Providercompras)
+                .Include(e => e.Pagoss)
                 .Include(e => e.Clasification)
-                .Include(e=> e.Verificados)
-                .Include(e=>e.ProductBonifis)
-                .Include(e=>e.SalaVenta)
+                .Include(e => e.Verificados)
+                .Include(e => e.ProductBonifis)
+                .Include(e => e.SalaVenta)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (negociation == null)
             {
@@ -120,7 +118,7 @@ namespace Intranet.web.Controllers.Compras
                 Providercompras = _combosHelpers.GetComboProviderCompras(),
                 Mes = _combosHelpers.GetComboMes(),
                 SalaVentas = _combosHelpers.GetComboSalaVentas(),
-               
+
                 //Roles = _combosHelpers.GetComboRoles()
             };
             model.Clasification = _combosHelpers.GetComboClasification();
@@ -148,11 +146,11 @@ namespace Intranet.web.Controllers.Compras
                     BaseLiquidacion = model.BaseLiquidacion,
                     Datecreate = DateTime.Today,
                     UsuCreate = User.Identity.Name,
-                   
+
                     Providercompras = await _context.Providercompras.FindAsync(model.ProvidercomprasId),
                     Clasification = await _context.Clasifications.FindAsync(model.ClasificationId),
                     Mes = await _context.Mes.FindAsync(model.MesId),
-                    SalaVenta=await _context.SalaVentas.FindAsync(model.SalaVentaId)
+                    SalaVenta = await _context.SalaVentas.FindAsync(model.SalaVentaId)
                     //PositionEmployee = await _dataContext.PositionEmployees.FindAsync(model.PositionEmpId)
 
 
@@ -173,13 +171,13 @@ namespace Intranet.web.Controllers.Compras
                     return View(model);
                 }
 
-                                
-              
+
+
                 return View(model);
 
 
             }
-            
+
             model.Providercompras = _combosHelpers.GetComboProviderCompras();
             model.Clasification = _combosHelpers.GetComboClasification();
             model.Mes = _combosHelpers.GetComboMes();
@@ -217,8 +215,8 @@ namespace Intranet.web.Controllers.Compras
                 .Include(e => e.Providercompras)
                 .Include(e => e.Clasification)
                 .Include(e => e.Mes)
-                .Include(e=> e.SalaVenta)
-               
+                .Include(e => e.SalaVenta)
+
                 .FirstOrDefaultAsync(o => o.Id == id.Value);
             if (negociation == null)
             {
@@ -235,20 +233,20 @@ namespace Intranet.web.Controllers.Compras
                 BaseLiquidacion = negociation.BaseLiquidacion,
                 DateCreate = negociation.Datecreate,
                 UsuCreate = negociation.UsuCreate,
-                UserModify=negociation.UserModify,
-                DateModifica=negociation.DateModifica,
-                
+                UserModify = negociation.UserModify,
+                DateModifica = negociation.DateModifica,
+
                 Clasification = _combosHelpers.GetComboClasification(),
                 ClasificationId = negociation.Clasification.Id,
-                SalaVentas =_combosHelpers.GetComboSalaVentas(),
-                SalaVentaId=negociation.SalaVenta.Id,
+                SalaVentas = _combosHelpers.GetComboSalaVentas(),
+                SalaVentaId = negociation.SalaVenta.Id,
                 Providercompras = _combosHelpers.GetComboProviderCompras(),
                 ProvidercomprasId = negociation.Providercompras.Id,
 
                 MesId = negociation.Mes.Id,
                 Mes = _combosHelpers.GetComboMes(),
 
-               
+
                 //PositionEmpId = employe.PositionEmployee.Id,
 
             };
@@ -268,7 +266,7 @@ namespace Intranet.web.Controllers.Compras
                     .Include(e => e.Clasification)
                     .Include(e => e.Providercompras)
                     .Include(e => e.Mes)
-                    .Include(e=> e.SalaVenta)
+                    .Include(e => e.SalaVenta)
                     .FirstOrDefaultAsync(o => o.Id == vista.Id);
                 if (negociation != null)
                 {
@@ -299,7 +297,7 @@ namespace Intranet.web.Controllers.Compras
             vista.Providercompras = _combosHelpers.GetComboProviderCompras();
             vista.Mes = _combosHelpers.GetComboMes();
             vista.SalaVentas = _combosHelpers.GetComboSalaVentas();
-          
+
             return View(vista);
         }
 
@@ -349,12 +347,12 @@ namespace Intranet.web.Controllers.Compras
                 NegociacionId = model.NegociacionId,
                 Novedad = model.Novedad,
                 DocCobro = model.DocCobro,
-                
+
                 DocLegalizacion = model.DocLegalizacion,
                 ValorPagado = model.ValorPagado,
                 DatePago = model.DatePago,
-                Dateregistro= DateTime.Today,
-                Userregistro= User.Identity.Name,
+                Dateregistro = DateTime.Today,
+                Userregistro = User.Identity.Name,
 
 
             };
@@ -375,7 +373,7 @@ namespace Intranet.web.Controllers.Compras
                     negociacion.Pago = true;
                     negociacion.UserPaga = User.Identity.Name;
                     negociacion.DatePaga = DateTime.Now.ToString();
-                    
+
                 };
                 _context.Negociation.Update(negociacion);
                 await _context.SaveChangesAsync();
@@ -384,13 +382,13 @@ namespace Intranet.web.Controllers.Compras
             return View(model);
         }
 
-    
+
         //public async Task<IActionResult> AddProductoBon(string Buscar)
         //{
         //    var modelfull = new SearchNegociationViewModel
         //    {
         //        ProviderId = model.ProviderId,
-               
+
         //    };
 
         //    if (ModelState.IsValid)
@@ -442,13 +440,13 @@ namespace Intranet.web.Controllers.Compras
                 {
                     Negociation = await _context.Negociation.FindAsync(model.NegociacionId),
                     ValorPagado = model.ValorPagado,
-                   
-                    Userregistro=model.Userregistro,
-                    DatePago=model.DatePago,
-                    Novedad=model.Novedad,
-                    Dateregistro=model.Dateregistro,
-                    DocCobro=model.DocCobro,
-                    DocLegalizacion=model.DocLegalizacion,
+
+                    Userregistro = model.Userregistro,
+                    DatePago = model.DatePago,
+                    Novedad = model.Novedad,
+                    Dateregistro = model.Dateregistro,
+                    DocCobro = model.DocCobro,
+                    DocLegalizacion = model.DocLegalizacion,
                     Id = model.Id,
                     DateModify = DateTime.Now,
                     UserModify = User.Identity.Name
@@ -460,7 +458,7 @@ namespace Intranet.web.Controllers.Compras
                 return RedirectToAction($"{nameof(Details)}/{model.NegociacionId}");
                 // return RedirectToAction($"Details/{model.SiteId}");
             }
-     
+
             return View(model);
         }
 
@@ -480,7 +478,7 @@ namespace Intranet.web.Controllers.Compras
             {
                 NegociacionId = negociation.Id,
                 Userregistro = User.Identity.Name.ToString(),
-                Dateregistro= DateTime.Now,
+                Dateregistro = DateTime.Now,
             };
             return View(model);
         }
@@ -496,7 +494,7 @@ namespace Intranet.web.Controllers.Compras
 
                 Cant = model.Cant,
                 ValorUnit = model.ValorUnit,
-              
+
                 Dateregistro = DateTime.Today,
                 Userregistro = User.Identity.Name.ToString(),
 
@@ -516,7 +514,7 @@ namespace Intranet.web.Controllers.Compras
             return View(model);
         }
 
-     
+
 
         public async Task<IActionResult> AddCheckVerificar(int? id)
         {
@@ -532,7 +530,7 @@ namespace Intranet.web.Controllers.Compras
             var model = new VerificaViewModel
             {
                 NegociacionId = negociation.Id,
-               
+
             };
             return View(model);
 
@@ -545,7 +543,7 @@ namespace Intranet.web.Controllers.Compras
             //var negociacion = await _context.Negociation.FirstAsync(s => s.Id == id);
             //if (negociacion != null)
             //{
-               
+
             //    negociacion.Detalle = negociacion.Detalle;
             //    negociacion.Document = negociacion.Document;
             //    negociacion.UsuCreate = negociacion.UsuCreate;
@@ -566,7 +564,7 @@ namespace Intranet.web.Controllers.Compras
             {
                 NegociacionId = model.NegociacionId,
                 Novedad = model.Novedad,
-               
+
                 Dateregistro = DateTime.Today.ToString(),
                 UserRegistro = User.Identity.Name,
 
@@ -681,7 +679,7 @@ namespace Intranet.web.Controllers.Compras
             return View();
         }
     }
-   
+
 
     public class ProductSearchResult
     {
