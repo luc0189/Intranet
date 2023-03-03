@@ -52,7 +52,8 @@
                                     
 
                                 }
-
+                                
+                               
                             </div>
                            
                             <ul class="list-group list-group-unbordered mb-3">
@@ -85,6 +86,11 @@
                                     <div class="col-7">
                                         
                                         <ul class="ml-4 mb-0 fa-ul text-muted">
+
+
+
+
+                                          
                                             <li ><span class="fa-li"><i class="fa fa-drivers-license"></i></span> Documento:  @Html.DisplayFor(model => model.Document)</li>
                                             <li><span class="fa-li"><i class="fa fa-address-card"></i></span> Direccion:  @Html.DisplayFor(model => model.Address)</li>
                                             <li><span class="fa-li"><i class="fa fa-mail-forward"></i></span> Email:   @Html.DisplayFor(model => model.Email)</li>
@@ -127,11 +133,6 @@
                                                         <li ><label asp-for="DateModify"></label> <input class="small" style="border: none;" asp-for="DateModify" disabled /></li>
                                                 </ul>
                                                 </div>
-
-                                              
-                                              
-                                                  
-
 
                                             </div>
                                             
@@ -187,6 +188,9 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-one-Histo-tab" data-toggle="pill" href="#custom-tabs-one-Histo" role="tab" aria-controls="custom-tabs-one-Histo" aria-selected="false">Historial <span class="badge"> @Html.DisplayFor(modelItem => Model.HistorialEmpleados.Count)</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="custom-tabs-one-Fotos-tab" data-toggle="pill" href="#custom-tabs-one-Fotos" role="tab" aria-controls="custom-tabs-one-Fotos" aria-selected="false">Fotos <span class="badge"> @Html.DisplayFor(modelItem => Model.EmployedImages.Count)</span></a>
                                 </li>
 
                             </ul>
@@ -847,6 +851,68 @@
                                                                                 <td>
                                                                                     @Html.DisplayFor(modelItem => item.Fecha)
                                                                                 </td>
+
+                                                                                <td>
+                                                                                    <a asp-action="EditHistorial" class="btn btn-warning" asp-route-id="@item.Id"><i class="fa fa-pencil"></i></a>
+
+                                                                                    <button data-id="@item.Id" class="btn btn-danger DeleteContrato" data-toggle="modal"  data-target="#deleteDialog"><i class="fa fa-trash"></i></button>
+                                                                                </td>
+                                                                            </tr>
+                                                                        }
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
+                                        </div>
+                                </div>
+
+                                 <div class="tab-pane fade" id="custom-tabs-one-Fotos" role="tabpanel" aria-labelledby="custom-tabs-one-Fotos-tab">
+                                    <div class="card card-default">
+                                        @if (User.Identity.IsAuthenticated && User.IsInRole("Manager") || User.IsInRole("Recursoshumanos"))
+                                        {
+                                            <div class="card-body">
+                                                @if (Model.EmployedImages.Count == 0)
+                                                {
+
+                                                    <a asp-action="AddEmployedImage" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Fotos</a>
+
+                                                }
+                                                else
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+
+
+
+                                                            <div class="table-responsive">
+                                                                <table class="table table-striped display">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>
+                                                                                @Html.DisplayNameFor(model => model.EmployedImages.FirstOrDefault().ImageUrl)
+                                                                            </th>
+                                                                          
+                                                                            <th>
+                                                                                <a asp-action="AddEmployedImage" class="btn btn-primary" asp-route-id="@Model.Id">Adicionar Nuevo</a>
+
+                                                                            </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach (var item in Model.EmployedImages)
+                                                                        {
+                                                                            <tr>
+                                                                                <td>
+                                                                                     <img class="profile-user-img img-fluid" src="@Url.Content(item.ImageUrl)" alt="Image" style="width:100px;" />
+                                                                               
+                                                                                </td>
+                                                                               
 
                                                                                 <td>
                                                                                     <a asp-action="EditHistorial" class="btn btn-warning" asp-route-id="@item.Id"><i class="fa fa-pencil"></i></a>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -132,7 +133,6 @@ namespace Intranet.web.Models
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         [Display(Name = "Caja Compensacion")]
         public int CajaCompenId { get; set; }
-
 
 
 

@@ -86,19 +86,65 @@ namespace Intranet.web.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> AddEmployedImage(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var employee = await _dataContext.Employees.FindAsync(id.Value);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            var model = new AddEmployedImageViewModel
+            {
+                Id = employee.Id
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddEmployedImage(AddEmployedImageViewModel model)
+        {
+            var url = model.ImageFile;    
+            if (ModelState.IsValid)
+            {
+                var path = string.Empty;
+
+                if (model.ImageFile != null)
+                {
+                    path = await _imageHelper.UploadImageAsync(model.ImageFile);
+                }
+
+                var userImage = new EmployedImage
+                {
+                    ImageUrl = path,
+                    Employee = await _dataContext.Employees.FindAsync(model.Id)
+                };
+
+                _dataContext.EmployedImages.Add(userImage);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(Details)}/{model.Id}");
+            }
+
+            return View(model);
+        }
+
+
         public IActionResult Index()
         {
 
             return View(_dataContext.Employees
-                .Include(e => e.Sons)
+               
 
-                .Include(e => e.Credits)
-                .Include(e => e.Exams)
-
-                .Include(e => e.Incapacities)
+                .Include(e => e.Area)
+                .ThenInclude(a =>a.SiteHeadquarters)
                 .Include(e => e.Endowments)
-
-
+               
                 .Include(e => e.EmployedImages)
                 );
         }
@@ -170,6 +216,7 @@ namespace Intranet.web.Controllers
 
         public IActionResult Create()
         {
+            
             var model = new EmployeViewModel
             {
                 DateRegistro = DateTime.Today,
@@ -199,7 +246,7 @@ namespace Intranet.web.Controllers
 
             if (ModelState.IsValid)
             {
-
+            
                 var employe = new Employee
                 {
                     Document = model.Document,
@@ -221,6 +268,7 @@ namespace Intranet.web.Controllers
                     Arl = model.Arl,
                     UserRegistra = User.Identity.Name,
                     DateCumple = model.DateCumple,
+                    
                     Credits = new List<Credit>(),
                     Sons = new List<Sons>(),
                     Endowments = new List<Endowment>(),
@@ -833,7 +881,6 @@ namespace Intranet.web.Controllers
         }
 
 
-
         public async Task<IActionResult> AddHistorial(int? id)
         {
             if (id == null)
@@ -924,22 +971,6 @@ namespace Intranet.web.Controllers
             }
             return View(model);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         public async Task<IActionResult> AddCredit(int? id)
@@ -1319,8 +1350,6 @@ namespace Intranet.web.Controllers
             }
             return View(model);
         }
-
-
 
         public async Task<IActionResult> DeleteIncap(int? id)
         {

@@ -13,11 +13,15 @@ namespace Intranet.web.Data.Entities
         [Display(Name = "Foto")]
         public Guid ImageId { get; set; }
 
+        [Display(Name = "Image")]
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        public string ImageUrl { get; set; }
+
         //TODO: Pending to change to the correct path
         [Display(Name = "Foto")]
-        public string ImageFullPath => ImageId == Guid.Empty
-            ? $"https://localhost:44370/images/no-image-icon.png"
-            : $"https://shopping4.blob.core.windows.net/products/{ImageId}";
+        public string ImageFullPath => ImageUrl == ImageUrl
+            ? $"http://192.168.1.219:8081/images/no-image-icon.png"
+            : $"{ImageUrl}";
 
     }
 }

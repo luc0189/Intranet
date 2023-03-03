@@ -137,8 +137,8 @@ namespace Intranet.web.Data.Entities
         //TODO: Pending to change to the correct path
         [Display(Name = "Foto")]
         public string ImageFullPath => EmployedImages == null || EmployedImages.Count == 0
-            ? $"https://localhost:44370/images/no-image-icon.png"
-            : EmployedImages.FirstOrDefault().ImageFullPath;
+            ? $"http://192.168.1.219:8081/images/no-image-icon.png"
+            : EmployedImages.FirstOrDefault().ImageUrl;
 
 
         public ICollection<Credit> Credits { get; set; }
