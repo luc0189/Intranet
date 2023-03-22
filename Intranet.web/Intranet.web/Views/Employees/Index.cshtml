@@ -116,6 +116,7 @@
             GridGeneral();
             $('.deleteItem').click((e) => {
                 item_to_delete = e.currentTarget.dataset.id;
+                      $('#deleteDialog').modal('show'); 
             });
 
             $("#btnYesDelete").click(function () {

@@ -347,7 +347,7 @@ namespace Intranet.web.Controllers
 
             var employe = await _dataContext.Employees
                                   .Include(e => e.Area)
-                                  .ThenInclude(s => s.SiteHeadquarters)
+                                  
                                   .Include(e => e.Eps)
                                   .Include(e => e.Pension)
                                   .Include(e => e.CajaCompensacion)
@@ -442,6 +442,7 @@ namespace Intranet.web.Controllers
                     employe.DateRegistro = vista.DateRegistro;
                     employe.DateCumple = vista.DateCumple;
                     employe.Email = vista.Email;
+                    employe.Sueldo= vista.Sueldo;
                     employe.DateModify = DateTime.Today;
                     employe.UserModify = User.Identity.Name;
                     employe.Area = await _dataContext.Areas.FindAsync(vista.AreaId);
@@ -1305,47 +1306,46 @@ namespace Intranet.web.Controllers
             }
             return View(model);
         }
-        public async Task<IActionResult> EditContract(int? id)
+        public async Task<IActionResult> EditContrato(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var endowment = await _dataContext.Endowments
+            var contract = await _dataContext.Contracts
                 .Include(s => s.Employee)
                 .FirstOrDefaultAsync(s => s.Id == id);
-            if (endowment == null)
+            if (contract == null)
             {
                 return NotFound();
             }
 
 
 
-            return View(_converterHelper.ToEndowmentViewModel(endowment));
+            return View(_converterHelper.ToContractViewModel(contract));
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditContract(EditEndowmentVieModel model)
+        public async Task<IActionResult> EditContrato(EditContractViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var endowment = new Endowment
+                var contract = new Contract
                 {
-                    Count = model.Count,
-                    DateDelivery = model.DateDelivery,
+                    Note = model.Note,
+                    DateStart = model.DateStart,
                     DateModify = DateTime.Now,
-                    DateRegistro = model.DateRegistro,
-                    Detail = model.Detail,
-                    Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
+                    DateEnd = model.DateEnd,
+                    Clausulas = model.Clausulas,
+                    Employee = await _dataContext.Employees.FindAsync(model.EmployeeIds),
                     Id = model.Id,
-                    Size = model.Size,
                     UserModify = User.Identity.Name,
-                    UserRegistra = model.UserRegistra
+               
                 };
 
-                _dataContext.Endowments.Update(endowment);
+                _dataContext.Contracts.Update(contract);
                 await _dataContext.SaveChangesAsync();
-                return RedirectToAction($"{nameof(Details)}/{model.EmployeeId}");
+                return RedirectToAction($"{nameof(Details)}/{model.EmployeeIds}");
                 // return RedirectToAction($"Details/{model.SiteId}");
             }
             return View(model);

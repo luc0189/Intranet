@@ -33,6 +33,7 @@ namespace Intranet.web.Helpers
         //EditEndowmentVieModel ToEditEndowmentViewModel(Endowment credit);
         Task<Contract> ToContractoAsync(ContractViewModel model, bool isNew);
         EditEndowmentVieModel ToEndowmentViewModel(Endowment endowment);
+        EditContractViewModel ToContractViewModel(Contract endowment);
 
         Task<Area> ToAreaAsync(AddAreaViewModel model, bool isNew);
         AddAreaViewModel ToAreaViewModel(Area area);

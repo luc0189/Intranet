@@ -82,7 +82,7 @@ namespace Intranet.web.Models
         public bool Activo { get; set; }
 
         [Display(Name = "Fecha Cumpleaños")]
-        [DataType(DataType.Date)]
+       
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public string DateCumple { get; set; }
 

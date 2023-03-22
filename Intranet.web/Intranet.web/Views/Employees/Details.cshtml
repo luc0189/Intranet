@@ -766,6 +766,9 @@
                                                                         <th>
                                                                             @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().Note)
                                                                         </th>
+                                                                         <th>
+                                                                            @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().Clausulas)
+                                                                        </th>
                                                                         <th>
                                                                             @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().DateStart)
                                                                         </th>
@@ -782,6 +785,9 @@
                                                                         <tr>
                                                                             <td>
                                                                                 @Html.DisplayFor(modelItem => item.Note)
+                                                                            </td>
+                                                                             <td>
+                                                                                @Html.DisplayFor(modelItem => item.Clausulas)
                                                                             </td>
                                                                             <td>
                                                                                 @Html.DisplayFor(modelItem => item.DateStart)
@@ -942,7 +948,8 @@
 
             </div>
 
-       
+     
+
       
     </div>
 </section>
@@ -963,43 +970,55 @@
             var item_to_delete;
             var action_to_delete;
            
+          
 
             $('.deleteEndowment').click((e) => {
+                console.log("Entró");
                 item_to_delete = e.currentTarget.dataset.id;
                 action_to_delete = 1;
+                $('#deleteDialog').modal('show'); 
+               
             });
 
             $('.deleteExam').click((e) => {
                 item_to_delete = e.currentTarget.dataset.id;
                 action_to_delete = 2;
+                 $('#deleteDialog').modal('show'); 
             });
             $('.deletePerson').click((e) => {
                 item_to_delete = e.currentTarget.dataset.id;
                 action_to_delete = 3;
+                 $('#deleteDialog').modal('show'); 
             });
             $('.deleteCredit').click((e) => {
                 item_to_delete = e.currentTarget.dataset.id;
                 action_to_delete = 4;
+                 $('#deleteDialog').modal('show'); 
             });
             $('.deleteSon').click((e) => {
                 item_to_delete = e.currentTarget.dataset.id;
                 action_to_delete = 5;
+                 $('#deleteDialog').modal('show'); 
             });
             $('.deleteImage').click((e) => {
                 item_to_delete = e.currentTarget.dataset.id;
                 action_to_delete = 6;
+                 $('#deleteDialog').modal('show'); 
             });
             $('.deleteIncap').click((e) => {
                 item_to_delete = e.currentTarget.dataset.id;
                 action_to_delete = 7;
+                 $('#deleteDialog').modal('show'); 
             });
             $('.DeleteCargo').click((e) => {
                 item_to_delete = e.currentTarget.dataset.id;
                 action_to_delete = 8;
+                 $('#deleteDialog').modal('show'); 
             });
             $('.DeleteContrato').click((e) => {
                 item_to_delete = e.currentTarget.dataset.id;
                 action_to_delete = 9;
+                 $('#deleteDialog').modal('show'); 
             });
             
             var hoy = new Date(new Date().setHours(0, 0, 0, 0));
@@ -1063,7 +1082,7 @@
                 } if (action_to_delete == 6) {
                     window.location.href = '/Employees/DeleteImage/' + item_to_delete;
                 } if (action_to_delete == 7) {
-                    window.location.href = '/Employees/EditIncapacity/' + item_to_delete;
+                    window.location.href = '/Employees/deleteIncap/' + item_to_delete;
                 }if (action_to_delete == 8) {
                     window.location.href = '/Employees/DeleteCargo/' + item_to_delete;
                 }if (action_to_delete == 9) {

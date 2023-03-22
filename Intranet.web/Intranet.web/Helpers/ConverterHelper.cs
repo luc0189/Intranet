@@ -474,7 +474,22 @@ namespace Intranet.web.Helpers
                 EndowmnetsTypes = _combosHelpers.GetComboEndowmentType()
             };
         }
-
+        public EditContractViewModel ToContractViewModel(Contract contract)
+        {
+            return new EditContractViewModel
+            {
+                Id = contract.Id,
+                Clausulas = contract.Clausulas,
+                DateEnd = contract.DateEnd,
+                DateStart = contract.DateStart,
+                Note = contract.Note,
+                EmployeeIds = contract.Employee.Id,
+               
+                DateModify = contract.DateModify,
+                UserModify = contract.UserModify,
+              
+            };
+        }
         public async Task<Area> ToAreaAsync(AddAreaViewModel model, bool isNew)
         {
             return new Area
@@ -534,7 +549,7 @@ namespace Intranet.web.Helpers
             };
         }
 
-
+      
     }
 }
 

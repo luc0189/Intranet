@@ -25,6 +25,10 @@ namespace Intranet.web.Data.Entities
         [Display(Name = "Notas")]
         [MaxLength(500)]
         public string Note { get; set; }
+        [MaxLength(30)]
+        public string UserModify { get; set; }
+
+        public DateTime DateModify { get; set; }
         public Employee Employee { get; set; }
     }
 }

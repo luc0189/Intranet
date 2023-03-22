@@ -1,0 +1,49 @@
+﻿@model Intranet.web.Models.EditContractViewModel
+
+@{
+    ViewData["Title"] = "Editar Contrato";
+}
+
+
+<section class="content-header">
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <form asp-action="EditContrato">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-dark">
+                        <div class="card-header">
+                            <h2>Editar Contrato</h2>
+                        </div>
+                        <div class="card-body">
+                            <input type="hidden" asp-for="EmployeeIds" />
+                            <partial name="_Contratos" />
+                        </div>
+                                <div class="card-footer">
+                            <div class="row">
+                                <div class="col-9">
+                                  
+                                    <label asp-for="UserModify"></label>
+                                    <input style="border: none;" asp-for="UserModify" disabled />
+                                    <label asp-for="DateModify"></label>
+                                    <input style="border: none;" asp-for="DateModify" disabled />
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-right">
+                                        <div class="form-group">
+                                            <input type="submit" value="Actualizar" class="btn btn-primary" />
+                                            <a asp-action="Details" asp-route-id="@Model.EmployeeIds" class="btn btn-success">Volver atras</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
