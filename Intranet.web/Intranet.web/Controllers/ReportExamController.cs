@@ -36,7 +36,7 @@ namespace Intranet.web.Controllers
                 .Include(s => s.Employee);
 
 
-            return View(exams);
+            return View(model);
 
         }
 

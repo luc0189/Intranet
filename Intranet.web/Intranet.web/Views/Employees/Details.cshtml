@@ -180,9 +180,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-one-Exam-tab" data-toggle="pill" href="#custom-tabs-one-Exam" role="tab" aria-controls="custom-tabs-one-Exam" aria-selected="false">Examenes <span class="badge"> @Html.DisplayFor(modelItem => Model.Exams.Count)</span></a>
                                 </li>
-                                <li class="nav-item">
+                               @* <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-one-Carg-tab" data-toggle="pill" href="#custom-tabs-one-Carg" role="tab" aria-controls="custom-tabs-one-Carg" aria-selected="false">Cargos <span class="badge"> @Html.DisplayFor(modelItem => Model.CargosAsgs.Count)</span></a>
-                                </li>
+                                </li>*@
                                 <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-one-Exam-tab" data-toggle="pill" href="#custom-tabs-one-Cont" role="tab" aria-controls="custom-tabs-one-Cont" aria-selected="false">Contratos <span class="badge"> @Html.DisplayFor(modelItem => Model.Contracts.Count)</span></a>
                                 </li>
@@ -294,7 +294,8 @@
                                             {
                                                 <div class="row">
                                                     <div class="col-md-12">
-
+                                                         <button  class="btn btn-danger nuevaNovedad" data-toggle="modal" data-target="#novedaDialog"><i class="fa fa-trash"></i></button>
+                                                                           
 
                                                         <div class="table table-responsive-lg">
                                                             <table class="table table-striped display">
@@ -763,11 +764,12 @@
                                                             <table class="table table-striped display">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th>
-                                                                            @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().Note)
+                                                                       
+                                                                         <th>
+                                                                           Contrato
                                                                         </th>
                                                                          <th>
-                                                                            @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().Clausulas)
+                                                                            Cargos
                                                                         </th>
                                                                         <th>
                                                                             @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().DateStart)
@@ -783,11 +785,12 @@
                                                                     @foreach (var item in Model.Contracts)
                                                                     {
                                                                         <tr>
-                                                                            <td>
-                                                                                @Html.DisplayFor(modelItem => item.Note)
-                                                                            </td>
+                                                                         
                                                                              <td>
                                                                                 @Html.DisplayFor(modelItem => item.Clausulas)
+                                                                            </td>
+                                                                               <td>
+                                                                                @Html.DisplayFor(modelItem => item.Note)
                                                                             </td>
                                                                             <td>
                                                                                 @Html.DisplayFor(modelItem => item.DateStart)
@@ -957,6 +960,7 @@
 
 
 <partial name="_DeleteDialogModal" />
+<partial name="_TypeExamen" />
 
 @section Scripts {
    
@@ -978,6 +982,10 @@
                 action_to_delete = 1;
                 $('#deleteDialog').modal('show'); 
                
+            });
+              $('.nuevaNovedad').click((e) => {
+                      console.log("Entró");         
+                 $('#novedaDialog').modal('show'); 
             });
 
             $('.deleteExam').click((e) => {

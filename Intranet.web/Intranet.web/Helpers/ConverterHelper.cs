@@ -67,8 +67,9 @@ namespace Intranet.web.Helpers
                 Employee = await _dataContext.Employees.FindAsync(model.EmployeeId),
                 DateRegistro = DateTime.Now,
                 UserRegistra = model.UserRegistra,
-                ExamsType = await _dataContext.ExamsTypes.FindAsync(model.ExamTypeId)
-
+                ExamsType = await _dataContext.ExamsTypes.FindAsync(model.ExamTypeId),
+                Activo=model.Activo,
+                
 
 
             };
@@ -79,7 +80,7 @@ namespace Intranet.web.Helpers
             {
                 Id = exams.Id,
                 StartDate = exams.StartDate.ToUniversalTime(),
-
+                Activo = exams.Activo,
                 Employee = exams.Employee,
                 EmployeeId = exams.Employee.Id,
                 ExamTypeId = exams.ExamsType.Id,

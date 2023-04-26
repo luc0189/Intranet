@@ -36,6 +36,11 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        <form asp-controller="Employees" asp-action="Index">
+                            <p>Buscar: <input type="text" name="buscar" class="form-text" />
+                                <input type="submit" value="Buscar" class="btn btn-dark"/>
+                            </p>
+                        </form>
                         <div class="table-responsive">
                             <table class="table table-hover table-striped MyTable" >
                                 <thead>

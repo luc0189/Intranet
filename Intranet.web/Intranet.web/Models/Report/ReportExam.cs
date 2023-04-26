@@ -40,6 +40,7 @@ namespace Intranet.web.Models.Report
 
         [MaxLength(30)]
         public string UserModify { get; set; }
+
         [MaxLength(30)]
         public string State { get; set; }
 

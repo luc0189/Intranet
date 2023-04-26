@@ -135,18 +135,17 @@ namespace Intranet.web.Controllers
         }
 
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string buscar)
         {
+            var empleados= from empleado in _dataContext.Employees select empleado;
 
-            return View(_dataContext.Employees
-               
+            if (!String.IsNullOrEmpty(buscar))
+            {
+                empleados = empleados.Where(s => s.FullName!.Contains(buscar));
+            }
 
-                .Include(e => e.Area)
-                .ThenInclude(a =>a.SiteHeadquarters)
-                .Include(e => e.Endowments)
+            return View(await empleados.ToListAsync());
                
-                .Include(e => e.EmployedImages)
-                );
         }
 
 
@@ -548,6 +547,8 @@ namespace Intranet.web.Controllers
                     StartDate = model.StartDate,
                     UserRegistra = User.Identity.Name,
                     ExamTypeId = model.ExamTypeId,
+                    Activo = model.Activo,
+
 
                 };
                 var examen = await _converterHelper.ToExamAsync(modelfull, true);
@@ -590,8 +591,9 @@ namespace Intranet.web.Controllers
                     StartDate = model.StartDate,
                     DateRegistro = model.DateRegistro,
                     UserRegistra = User.Identity.Name,
-                    UserModify = User.Identity.Name
-
+                    UserModify = User.Identity.Name,
+                    Activo=model.Activo,
+                    
                 };
 
                 _dataContext.Exams.Update(modelfull);
@@ -998,6 +1000,7 @@ namespace Intranet.web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddCredit(CreditViewModel model)
         {
+            int meses = Convert.ToInt32(model.DeadlinePay);
             if (ModelState.IsValid)
             {
                 var modelfull = new CreditViewModel
@@ -1006,7 +1009,7 @@ namespace Intranet.web.Controllers
                     UserRegistra = User.Identity.Name,
                     DateRegistro = DateTime.Now,
                     DeadlinePay = model.DeadlinePay,
-                    EndDate = model.EndDate,
+                    EndDate = model.EndDate.AddMonths(meses),
                     EntityId = model.EntityId,
                     IsActive = model.IsActive,
                     NumberL = model.NumberL,
@@ -1053,12 +1056,13 @@ namespace Intranet.web.Controllers
                     EmployeeIds = model.EmployeeIds,
                     DeadlinePay = model.DeadlinePay,
                     DateRegistro = model.DateRegistro,
-                    EndDate = model.EndDate,
+                    EndDate = model.EndDate.AddMonths(Convert.ToInt32(model.DeadlinePay)),
                     EntityId = model.EntityId,
                     IsActive = model.IsActive,
                     NumberL = model.NumberL,
                     Quotmonthly = model.Quotmonthly,
                     StartDate = model.StartDate,
+
                     TotalPrice = model.TotalPrice,
                     UserModify = User.Identity.Name,
                     DateModify = DateTime.Now,

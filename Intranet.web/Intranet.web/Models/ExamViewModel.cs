@@ -45,5 +45,9 @@ namespace Intranet.web.Models
         [MaxLength(30)]
         public string UserRegistra { get; set; }
 
+        [Required(ErrorMessage = "El campo {0} es Obligatiorio.")]
+        [Display(Name = "Activo")]
+        public bool Activo { get; set; }
+
     }
 }
