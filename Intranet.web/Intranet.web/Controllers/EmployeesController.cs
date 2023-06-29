@@ -170,23 +170,23 @@ namespace Intranet.web.Controllers
             }  
            
 
-            var employees =  _dataContext.Employees.Include(e => e.Area).ThenInclude(e => e.SiteHeadquarters);
+            var employees =  _dataContext.Employees.Include(e => e.EmployedImages).Include(e => e.Area).ThenInclude(e => e.SiteHeadquarters);
                 //employees.Include(e => e.Area)
                 //         .ThenInclude(e => e.SiteHeadquarters);
 
             if (paramchname.Equals("true")&& paramcharea.Equals(" "))
             {
-                var employees1 = _dataContext.Employees.Include(e => e.Area).ThenInclude(e => e.SiteHeadquarters).Where(s => s.FullName.Contains(paramNombre));
+                var employees1 = _dataContext.Employees.Include(e => e.EmployedImages).Include(e => e.Area).ThenInclude(e => e.SiteHeadquarters).Where(s => s.FullName.Contains(paramNombre));
                 return View(await employees1.ToListAsync());
             }
             if (paramchname.Equals("true") && paramcharea.Equals("true"))
             {
-                var employees1 = _dataContext.Employees.Include(e => e.Area).ThenInclude(e => e.SiteHeadquarters).Where(s => s.FullName.Contains(paramNombre) && s.Area.Nombre.Contains(paramAreae));
+                var employees1 = _dataContext.Employees.Include(e => e.EmployedImages).Include(e => e.Area).ThenInclude(e => e.SiteHeadquarters).Where(s => s.FullName.Contains(paramNombre) && s.Area.Nombre.Contains(paramAreae));
                 return View(await employees1.ToListAsync());
             }
             if (paramchname.Equals(" ") && paramcharea.Equals("true"))
             {
-                var employees1 = _dataContext.Employees.Include(e => e.Area).ThenInclude(e => e.SiteHeadquarters).Where(s => s.Area.Nombre.Contains(paramAreae));
+                var employees1 = _dataContext.Employees.Include(e => e.EmployedImages).Include(e => e.Area).ThenInclude(e => e.SiteHeadquarters).Where(s => s.Area.Nombre.Contains(paramAreae));
                 return View(await employees1.ToListAsync());
             }
 
