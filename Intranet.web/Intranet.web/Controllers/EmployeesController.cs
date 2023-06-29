@@ -152,20 +152,42 @@ namespace Intranet.web.Controllers
         //    }
         //}
 
-        public async Task<IActionResult> Index(string nombre,string area,bool chName,bool chArea)
+        public async Task<IActionResult> Index(string nombre,string area,string chName,string chArea)
         {
-       
+          
 
             string paramNombre = nombre?.ToUpper();
             string paramAreae = area?.ToUpper();
+            string paramchname = chName;
+            string paramcharea = chArea;
+            if (string.IsNullOrEmpty(chName))
+            {
+                paramchname = " ";
+            }  
+            if (string.IsNullOrEmpty(chArea))
+            {
+                paramcharea = " ";
+            }  
+           
 
-            var employees = String.IsNullOrEmpty(paramNombre) ? _dataContext.Employees.Include(e => e.Area).ThenInclude(e => e.SiteHeadquarters) : _dataContext.Employees.Include(e=> e.Area).ThenInclude(e=>e.SiteHeadquarters).Where(s => s.FullName.Contains(paramNombre));
+            var employees =  _dataContext.Employees.Include(e => e.Area).ThenInclude(e => e.SiteHeadquarters);
                 //employees.Include(e => e.Area)
                 //         .ThenInclude(e => e.SiteHeadquarters);
 
-            if (!String.IsNullOrEmpty(paramAreae))
+            if (paramchname.Equals("true")&& paramcharea.Equals(" "))
             {
-                employees.Where(s => s.Area.Nombre.Contains(paramAreae));
+                var employees1 = _dataContext.Employees.Include(e => e.Area).ThenInclude(e => e.SiteHeadquarters).Where(s => s.FullName.Contains(paramNombre));
+                return View(await employees1.ToListAsync());
+            }
+            if (paramchname.Equals("true") && paramcharea.Equals("true"))
+            {
+                var employees1 = _dataContext.Employees.Include(e => e.Area).ThenInclude(e => e.SiteHeadquarters).Where(s => s.FullName.Contains(paramNombre) && s.Area.Nombre.Contains(paramAreae));
+                return View(await employees1.ToListAsync());
+            }
+            if (paramchname.Equals(" ") && paramcharea.Equals("true"))
+            {
+                var employees1 = _dataContext.Employees.Include(e => e.Area).ThenInclude(e => e.SiteHeadquarters).Where(s => s.Area.Nombre.Contains(paramAreae));
+                return View(await employees1.ToListAsync());
             }
 
             var resultado = await employees.ToListAsync();
