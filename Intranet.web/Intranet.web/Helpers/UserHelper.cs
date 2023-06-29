@@ -2,6 +2,8 @@
 using Intranet.web.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 
 namespace Intranet.Web.Helpers
@@ -142,6 +144,43 @@ namespace Intranet.Web.Helpers
         public async Task<User> GetUserByIdAsync(string userId)
         {
             return await _userManager.FindByIdAsync(userId);
+        }
+        public async Task<GenericResponse> GetEmployedByName(string clientId)
+        {
+              string conectionStringProduction = @"data source=192.168.1.219;Database=intranets;Persist Security Info=True;User Id=sa;Password=cafe123.";
+            try
+            {
+                DataTable dt = new DataTable();
+                SqlDataAdapter da;
+                
+        // SqlConnection con = new SqlConnection(isDevelopment ? conectionStringDevelopment : conectionStringProduction);
+        SqlConnection con = new SqlConnection(conectionStringProduction);
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd = new SqlCommand("sp_ObtenerEmpleadoporNombre", con);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@nombre", clientId);
+                da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+
+               
+
+                con.Close();
+
+                return new GenericResponse
+                {
+                    IsError = false,
+                    Result = dt
+                };
+            }
+            catch (Exception ex)
+            {
+                return new GenericResponse
+                {
+                    IsError = true,
+                    Message = ex.Message
+                };
+            }
         }
 
     }

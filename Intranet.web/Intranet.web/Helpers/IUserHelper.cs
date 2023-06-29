@@ -34,5 +34,7 @@ namespace Intranet.Web.Helpers
 
         Task<User> GetUserByIdAsync(string userId);
 
+        Task<GenericResponse> GetEmployedByName(string clientId);
+
     }
 }

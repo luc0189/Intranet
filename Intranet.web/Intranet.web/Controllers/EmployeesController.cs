@@ -22,6 +22,8 @@ namespace Intranet.web.Controllers
         private readonly IImageHelper _imageHelper;
         private readonly IMailHelper _mailHelper;
         private readonly IFlashMessage _flashMessage;
+     
+        private string _parametro="";
 
         public EmployeesController(DataContext context,
             IUserHelper userHelper,
@@ -29,7 +31,9 @@ namespace Intranet.web.Controllers
             IConverterHelper converterHelper,
             IImageHelper imageHelper,
             IMailHelper mailHelper,
-            IFlashMessage flashMessage)
+            IFlashMessage flashMessage
+           
+            )
         {
             _dataContext = context;
             _userHelper = userHelper;
@@ -38,6 +42,7 @@ namespace Intranet.web.Controllers
             _imageHelper = imageHelper;
             _mailHelper = mailHelper;
             _flashMessage = flashMessage;
+            
         }
         public async Task<IActionResult> AddImage(int? id)
         {
@@ -117,7 +122,7 @@ namespace Intranet.web.Controllers
 
                 if (model.ImageFile != null)
                 {
-                    path = await _imageHelper.UploadImageAsync(model.ImageFile);
+                    path = await _imageHelper.UploadFotoAsync(model.ImageFile);
                 }
 
                 var userImage = new EmployedImage
@@ -134,18 +139,48 @@ namespace Intranet.web.Controllers
             return View(model);
         }
 
+        //public async Task<ActionResult<VistaEmpleadosViewModel>> GetClientById(string id)
+        //{
+        //    try
+        //    {
+        //        GenericResponse res = await _userHelper.GetEmployedByName(id);
+        //        return Ok((VistaEmpleadosViewModel)res.Result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest();
+        //    }
+        //}
 
-        public async Task<IActionResult> Index(string buscar)
+        public async Task<IActionResult> Index(string nombre,string area,bool chName,bool chArea)
         {
-            var empleados= from empleado in _dataContext.Employees select empleado;
+       
 
-            if (!String.IsNullOrEmpty(buscar))
+            string paramNombre = nombre?.ToUpper();
+            string paramAreae = area?.ToUpper();
+
+            var employees = String.IsNullOrEmpty(paramNombre) ? _dataContext.Employees.Include(e => e.Area).ThenInclude(e => e.SiteHeadquarters) : _dataContext.Employees.Include(e=> e.Area).ThenInclude(e=>e.SiteHeadquarters).Where(s => s.FullName.Contains(paramNombre));
+                //employees.Include(e => e.Area)
+                //         .ThenInclude(e => e.SiteHeadquarters);
+
+            if (!String.IsNullOrEmpty(paramAreae))
             {
-                empleados = empleados.Where(s => s.FullName!.Contains(buscar));
+                employees.Where(s => s.Area.Nombre.Contains(paramAreae));
             }
 
-            return View(await empleados.ToListAsync());
-               
+            var resultado = await employees.ToListAsync();
+
+            //if (!String.IsNullOrEmpty(paramNombre))
+            //{
+            //    resultado.Where(s => s.FullName.Contains(paramNombre));
+            //}
+
+            
+
+            
+
+            return View(resultado);
+
         }
 
 
@@ -1537,6 +1572,25 @@ namespace Intranet.web.Controllers
             }
 
             _dataContext.UserImages.Remove(image);
+            await _dataContext.SaveChangesAsync();
+            return RedirectToAction($"{nameof(Details)}/{image.Employee.Id}");
+        }  
+        public async Task<IActionResult> DeleteFoto(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var image = await _dataContext.EmployedImages
+                .Include(pi => pi.Employee)
+                .FirstOrDefaultAsync(pi => pi.Id == id.Value);
+            if (image == null)
+            {
+                return NotFound();
+            }
+
+            _dataContext.EmployedImages.Remove(image);
             await _dataContext.SaveChangesAsync();
             return RedirectToAction($"{nameof(Details)}/{image.Employee.Id}");
         }

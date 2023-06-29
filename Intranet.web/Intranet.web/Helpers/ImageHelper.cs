@@ -23,5 +23,21 @@ namespace Intranet.web.Helpers
 
             return $"~/images/Employe/{file}";
         }
+        public async Task<string> UploadFotoAsync(IFormFile imageFile)
+        {
+            var guid = Guid.NewGuid().ToString();
+            var file = $"{guid}.jpg";
+            var path = Path.Combine(
+                Directory.GetCurrentDirectory(),
+                "wwwroot\\images\\Employe\\Foto",
+                file);
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await imageFile.CopyToAsync(stream);
+            }
+
+            return $"~/images/Employe/Foto/{file}";
+        }
     }
 }

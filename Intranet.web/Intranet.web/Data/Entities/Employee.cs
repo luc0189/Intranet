@@ -153,7 +153,9 @@ namespace Intranet.web.Data.Entities
         public ICollection<CargosAsg> CargosAsgs { get; set; }
         public ICollection<HistorialEmpleado> HistorialEmpleados { get; set; }
 
-
-
+        public static implicit operator List<object>(Employee v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

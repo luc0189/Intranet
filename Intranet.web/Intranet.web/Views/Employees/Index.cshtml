@@ -1,5 +1,5 @@
 ﻿
-@model IEnumerable<Intranet.web.Data.Entities.Employee>
+@model List<Intranet.web.Data.Entities.Employee>
 @{
     ViewData["Title"] = "Listado de Empleados";
 }
@@ -31,16 +31,50 @@
             <div class="col-md-12">
                 <div class="card card-dark">
                     <div class="card-header">
-                        <div class="card-tools">
-                            <a asp-action="Create" class="btn btn-dark"><i class="fa fa-plus"></i> Nuevo </a>
-                        </div>
+                           <form asp-controller="Employees" class="form-inline" asp-action="Index" method="get">
+                             <div class="form-row align-items-center">
+                                            <div class="form-group ">
+                                                <div class="input-group">
+                                                    
+                                                      <div class="input-group-prepend">
+                                                        <div class="input-group-text"> 
+                                                            <label for="exampleRadios1">Nombre :</label>
+                                                         <input class="form-check-input" type="checkbox"  onChange="comprobar(this);" name="nameOption" id="exampleRadios1" value="option1" >
+                                                         </div>
+                                                  
+                                                </div>
+                                                 <input type="text" name="nombre" id="name" class="form-control"   placeholder="Jane Doe" />
+                                                </div>
+                                           
+                                             
+                                              
+                                            </div>
+                                            <div class="form-group ">
+                                          
+                                              <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                  <div class="input-group-text"> 
+                                                       <label for="exampleRadios1">Area :</label>
+                                                      <input class="form-check-input" type="checkbox" onchange="comprobarArea(this);" name="exampleRadios2" id="exampleRadios2" value="option2" >
+                                                      </div>
+                                                </div>
+                                                 <input type="text" name="area" id="area" class="form-control" placeholder="Area"/>
+                                              </div>
+                                            </div>
+                                         
+                                            <div class="col-auto my-1">
+                                              <button type="submit" value="Buscar"  class="btn btn-primary">Buscar</button>
+                                               <a asp-action="Create" class="btn btn-dark"><i class="fa fa-plus"></i> Nuevo </a>
+                                            </div>
+                                          </div>
+                                                
+                                            </form>
+                      
                     </div>
                     <div class="card-body">
-                        <form asp-controller="Employees" asp-action="Index">
-                            <p>Buscar: <input type="text" name="buscar" class="form-text" />
-                                <input type="submit" value="Buscar" class="btn btn-dark"/>
-                            </p>
-                        </form>
+                                
+                   
+                            
                         <div class="table-responsive">
                             <table class="table table-hover table-striped MyTable" >
                                 <thead>
@@ -50,14 +84,16 @@
                                         </th>
                                        
                                         <th>
-                                            @Html.DisplayNameFor(model => model.FullName)
+                                           
+                                             
                                         </th>
 
                                       <th>
-                                            @Html.DisplayNameFor(model => model.Area.SiteHeadquarters)
+                                           area
+                                            
                                         </th>
                                           <th>
-                                            @Html.DisplayNameFor(model => model.Area.Nombre)
+                                         Sede
                                         </th>
                                       
                                         <th>
@@ -78,10 +114,10 @@
                                                 @Html.DisplayFor(modelItem => item.FullName)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.Area.SiteHeadquarters.Nombre)
+                                                @Html.DisplayFor(modelItem => item.Area.Nombre)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.Area.Nombre)
+                                                @Html.DisplayFor(modelItem => item.Area.SiteHeadquarters.Nombre)
                                             </td>
                                           
                                             <td>
@@ -114,6 +150,29 @@
     
 
     <script type="text/javascript">
+comprobar(document.getElementById('exampleRadios1'));
+comprobarArea(document.getElementById('exampleRadios2'));
+
+        function comprobar(obj)
+            {   
+                if (obj.checked){
+      
+            document.getElementById('name').style.display = "";
+               } else{
+      
+            document.getElementById('name').style.display = "none";
+               }     
+            }
+            function comprobarArea(obj)
+            {   
+                if (obj.checked){
+      
+            document.getElementById('area').style.display = "";
+               } else{
+      
+            document.getElementById('area').style.display = "none";
+               }     
+            }
         $(document).ready(function () {
             // Delete item
             var item_to_delete;
